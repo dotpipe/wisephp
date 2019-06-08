@@ -9,4 +9,4 @@ community_bridge: # Replace with a single Community Bridge project-name e.g., cl
 liberapay: # Replace with a single Liberapay username
 issuehunt: # Replace with a single IssueHunt username
 otechie: # Replace with a single Otechie username
-custom: https://www.paypal.com/signin?forceLogin=false&returnUri=https%3A%2F%2Fwww.paypal.com%2Fdonate&state=%252F%253Ftoken%253DeeIg1hjsSCfVEkCQR0GsOdfmNSDWZY-fqU3Xg2rz6hVZFWXzJjbVovBTejldakEdXROCBm%2526fromUL%253Dtrue&intent=donate&ctxId=2808496ca46a4f73afee0a2dec933080 # Replace with a single custom sponsorship URL
+custom: https://www.paypal.com/signin?forceLogin=true&returnUri=https%3A%2F%2Fwww.paypal.com%2Fdonate&state=%252F%253Ftoken%253DeeIg1hjsSCfVEkCQR0GsOdfmNSDWZY-fqU3Xg2rz6hVZFWXzJjbVovBTejldakEdXROCBm%2526fromUL%253Dtrue&intent=donate&ctxId=2808496ca46a4f73afee0a2dec933080 # Replace with a single custom sponsorship URL
