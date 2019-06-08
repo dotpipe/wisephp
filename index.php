@@ -134,7 +134,7 @@ echo "<script src=\"src/routes/pipes.js\"></script>";
 echo "<title>Swatch Test Page</title></head><body>";
 echo "<style>@import url(\"swatch.css\");</style>";
 echo "<span id=\"hed\" style=\"background-color:black;width:100%\"><br>";
-echo "Adoms::Hydrogen v1.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
+echo "Adoms::Hydrogen v9.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
 echo "<a id=\"wiki-link\" method=\"GET\" out-pipe='red' thru-pipe=\"b9c17e299e04de2640507e8f9ce1b14a\">Wiki</a> + ";
 echo "<a id=\"donate\" redirect=\"follow\" method=\"POST\" to-pipe=\"https://www.paypal.com/cgi-bin/webscr\"> Donate + </a>"; //?cmd=_s-xclick&hosted_button_id=TMZJ4ZGG84ACL\">Donate</a> + ";
 echo "<input type=\"hidden\" pipe=\"donate\" class=\"data-pipe\" name=\"cmd\" value=\"_s-xclick\" />";
