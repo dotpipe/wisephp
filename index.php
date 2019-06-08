@@ -130,12 +130,12 @@ $r->mCSS->add("#sbox",$tred);
 echo "<html><head>";
 
 $r->write();
-echo "<script src=\"src/routes/pipes.js\"></script>";
+echo "<script src=\"Adoms/src/routes/pipes.js\"></script>";
 echo "<title>Swatch Test Page</title></head><body>";
 echo "<style>@import url(\"swatch.css\");</style>";
 echo "<span id=\"hed\" style=\"background-color:black;width:100%\"><br>";
 echo "Adoms::Hydrogen v9.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
-echo "<a id=\"wiki-link\" method=\"GET\" out-pipe='red' thru-pipe=\"b9c17e299e04de2640507e8f9ce1b14a\">Wiki</a> + ";
+echo "<a id=\"wiki-link\" method=\"GET\" out-pipe='red' thru-pipe=\"tests\\" . md5('inland14') . "\">Wiki</a> + ";
 echo "<a id=\"donate\" redirect=\"follow\" method=\"POST\" to-pipe=\"https://www.paypal.com/cgi-bin/webscr\"> Donate + </a>"; //?cmd=_s-xclick&hosted_button_id=TMZJ4ZGG84ACL\">Donate</a> + ";
 echo "<input type=\"hidden\" pipe=\"donate\" class=\"data-pipe\" name=\"cmd\" value=\"_s-xclick\" />";
 echo "<input type=\"hidden\" pipe=\"donate\" class=\"data-pipe\" name=\"hosted_button_id\" value=\"TMZJ4ZGG84ACL\" />";
@@ -180,13 +180,14 @@ while (!$m->isEmpty()) {
 }
 $t->buf = json_encode($nm);
 $t->writeBuf();
-$rrr->changeDir("tests\\");
-$rrr->addStrm($v2, filesize("tests\\$v2"));
+$rrr->changeDir("tests");
+$rrr->addStrm("$v2", filesize("tests/$v2"));
 $rrr->Iter();
 $rrr->buffSize = 0;
 $rrr->readBuf();
 $tt = new api();
 $tvv = json_decode($rrr->buffData);
+echo "*" . json_encode($rrr->buffData);
 $xx = $tt->json2map($tvv);
 echo json_encode($xx);
 echo "</p>";
