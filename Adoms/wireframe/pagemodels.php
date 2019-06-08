@@ -1,17 +1,17 @@
 <?php
 
 
+namespace Adoms\wireframe;
 spl_autoload_register(function ($className)
 {
-	$path1 = '/src/lib/';
-	$path2 = './';
+	$path1 = '/Adoms/wireframe/';
+	$path2 = '';
 
 	if (file_exists($path1.$className.'.php'))
 		include $path1.$className.'.php';
 	else
 		include $path2.$className.'.php';
 });
-
 
 	class PageModels {
 	

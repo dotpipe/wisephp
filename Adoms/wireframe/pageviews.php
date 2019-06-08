@@ -1,9 +1,10 @@
 <?php
 
+namespace Adoms\wireframe;
 spl_autoload_register(function ($className)
 {
-	$path1 = '/src/lib/';
-	$path2 = './';
+	$path1 = '/Adoms/wireframe/';
+	$path2 = '';
 
 	if (file_exists($path1.$className.'.php'))
 		include $path1.$className.'.php';
@@ -150,13 +151,12 @@ spl_autoload_register(function ($className)
 			$buff = "<?php";
 			$fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/index.php", "w");
 			foreach ($this->injections as $k) {
-				$vk = $k[0];
-				$vv = $k[1];
+				$vk = $k;
 				if ($vk == "shared") {
-					$buff .= "\r\n\tinclude(\"../shared/$vv\");";
+					$buff .= "\r\n\tinclude(\"../shared/$vk\");";
 				}
 				else {
-					$buff .= "\r\n\tinclude(\"../index/$vk/$vv\");";
+					$buff .= "\r\n\tinclude(\"../index/$vk\");";
 				}
 			}
 			$buff .= "?>\r\n";
@@ -174,13 +174,13 @@ spl_autoload_register(function ($className)
 			$buff = "<?php";
 			$fp = fopen("$this->token/index.php", "w");
 			foreach ($this->injections as $k) {
-				$vk = $k[0];
-				$vv = $k[1];
+				$vk = $k;
+				$vv = ''; //$k;
 				if ($vk == "shared") {
-					$buff .= "\r\n\tinclude(\"view/shared/$vv\");";
+					$buff .= "\r\n\tinclude(\"view/shared/$vk\");";
 				}
 				else {
-					$buff .= "\r\n\tinclude(\"view/index/$vk/$vv\");";
+					$buff .= "\r\n\tinclude(\"view/index/$vk\");";
 				}
 			}
 			$buff .= "?>\r\n";
@@ -226,15 +226,14 @@ spl_autoload_register(function ($className)
 			$dis = $this->loadThisJSON();
 			$buff = "<?php\r\n";
 			foreach ($this->injections as $k) {
-				$vk = $k[0];
-				$vv = $k[1];
+				$vk = $k;
 				if ($vk == "shared") {
-					$buff .= "include(\"../shared/$vv\");\r\n";
+					$buff .= "include(\"../shared/$vk\");\r\n";
 				}
 				else if ($vk == "partials")
-					$buff .= "include(\"../$view_name/$vk/$vv\");\r\n";
+					$buff .= "include(\"../$view_name/$vk\");\r\n";
 				else
-					$buff .= "include(\"../view/".$_COOKIE['PHPSESSID']."/$vk/$vv\");\r\n";
+					$buff .= "include(\"../view/".$_COOKIE['PHPSESSID']."/$vk\");\r\n";
 			}
 			$buff .= "?>\r\n";
 			fwrite($fp, $buff);
@@ -264,17 +263,15 @@ spl_autoload_register(function ($className)
 				$fp = fopen("$this->token/$this->md/index.php", "w");
 			$buff = "<?php\r\n";
 			foreach ($this->injections as $k) {
-				$vk = $k[0];
-				$vv = $k[1];
+				$vk = $k;
 				if ($vk == "shared") {
-					$buff .= "include(\"../shared/$vv\");\r\n";
+					$buff .= "include(\"../shared/$vk\");\r\n";
 				}
 				else if ($vk == "partials")
-					$buff .= "include(\"../$view_name/$vk/$vv\");\r\n";
+					$buff .= "include(\"../$view_name/$vk\");\r\n";
 				else
-					$buff .= "include(\"../$view_name/$vk/$vv\");\r\n";
+					$buff .= "include(\"../$view_name/$vk\");\r\n";
 			}
-			$buff .= "?>\r\n";
 			fwrite($fp, $buff);
 			fclose($fp);
 			return 1;

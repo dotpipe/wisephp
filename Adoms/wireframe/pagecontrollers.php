@@ -1,9 +1,9 @@
 <?php
-
+namespace Adoms\wireframe;
 spl_autoload_register(function ($className)
 {
-	$path1 = '/src/lib/';
-	$path2 = './';
+	$path1 = 'Adoms/wireframe/';
+	$path2 = '';
 
 	if (file_exists($path1.$className.'.php'))
 		include $path1.$className.'.php';
@@ -118,21 +118,21 @@ spl_autoload_register(function ($className)
 		*
 		*/
 		private function add_view(string $view_name) {
-			if (is_dir("/$this->path/$view_name/")) {
-				if (!file_exists("/$this->path/$view_name/index.php")) {
-					$fp = fopen("/$this->path/$view_name/index.php", "w");
+			if (is_dir("$this->path/$view_name/")) {
+				if (!file_exists("$this->path/$view_name/index.php")) {
+					$fp = fopen("$this->path/$view_name/index.php", "w");
 					fclose($fp);
 				}
 				
 			}
 			else {
-				mkdir("/$this->path/$view_name");
-				if (!is_dir("/$this->path/$view_name")) {
+				mkdir("$this->path/$view_name");
+				if (!is_dir("$this->path/$view_name")) {
 					echo "Permissions Error: Unable to create Directory";
 					return 0;
 				}
 				
-				touch("/$this->path/$view_name/index.php");
+				touch("$this->path/$view_name/index.php");
 				touch("$this->token/config.json");
 			}
 			$this->mvc[$view_name] = new PageModels($view_name);

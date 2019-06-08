@@ -1,10 +1,15 @@
 <?php
-    spl_autoload_register(function ($className)
-    {
-	    $path = './src/tables/';
-	    if (file_exists($path.$className.'.php'))
-		    include $path.$className.'.php';
-    });
+namespace Adoms\wireframe;
+spl_autoload_register(function ($className)
+{
+	$path1 = 'Adoms/wireframe/';
+	$path2 = '';
+
+	if (file_exists($path1.$className.'.php'))
+		include $path1.$className.'.php';
+	else
+		include $path2.$className.'.php';
+});
     $y = array("Address" => "BenSt", "Duration" => "fixed");
     $z = array("Address" => "25th", "Duration" => "limited");
     $x = new PageControllers("adp");
