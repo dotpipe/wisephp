@@ -1,0 +1,14 @@
+{
+    "name": "thexiv/adoms",
+    "description": "A complete MVC and OOP Package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "swatchphp",
+            "email": "tcp@null.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
