@@ -39,7 +39,7 @@ spl_autoload_register(function ($className)
 			$this->dat = new Map();
 			$this->datCntr = 0;
 			reset($this->kv);
-			$this->dir = "./";
+			$this->dir = "";
 		}
 
 		/*
@@ -128,8 +128,8 @@ spl_autoload_register(function ($className)
 			else $rw = 'w';
 			if ($bool == 1)
 				$rw .= '+';
-			$ed = fopen($this->dir . $r, $rw);
-			$this->add($r,$ed);
+			$ed = fopen("$this->dir/$r", $rw);
+			$this->add("$this->dir/$r",$ed);
 			$this->sync();
 			return 1;
 		}
@@ -412,7 +412,7 @@ spl_autoload_register(function ($className)
 			if (!file_exists(key($this->kv)))
 				return 0;
 			if ($this->buffSize == 0) {
-				$path =  $this->dir . $this->strmkey;
+				$path =  $this->strmkey;
 				$this->buffData = file_get_contents($path);
 				return 1;
 			}
@@ -463,8 +463,8 @@ spl_autoload_register(function ($className)
 		*
 		*/
 		// Change local directory
-		public function changeDir(string $dir): string {
-			$this->dir = $dir . '/';
+		public function changeDir(string $directory): string {
+			$this->dir = $directory;
 			return $this->dir;
 		}
 	}
