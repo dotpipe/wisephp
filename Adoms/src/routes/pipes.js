@@ -11,7 +11,7 @@
 	var return_method = "";
 	var elem = document.getElementById(ev.target.id);
 
-
+	
 	if (elem === null || elem === undefined) {
 		if (ev.target.onclick !== null && ev.target.onclick !== undefined)
 			(ev.target.onclick)();
@@ -76,9 +76,15 @@
 	const signal = abort_ctrl.signal;
 	var target__ = null;
 
+	var pipe_back = "";
 // This is where the output will go. Indicates id attribute to aim at
 	if (elem.hasAttribute("out-pipe"))
 		target__ = document.getElementById(elem.getAttribute("out-pipe"));
+// This is where the output will go. Indicates id attribute to aim at
+	if (elem.hasAttribute("json-pipe")) {
+		target__ = document.getElementById(elem.getAttribute("json-pipe"));
+		pipe_back = "json";
+	}
 	fetch(opts_req, {signal});
 	
 	setTimeout(() => abort_ctrl.abort(), 3 * 1000);
@@ -87,14 +93,15 @@
 			.then(function(response){
 			return response.text().then(function(text) {
 // Make sure that the target out-pipe exists still
-				if (target__ != null)
+				if (target__ != null && pipe_back != "json")
 					target__.innerHTML = text;
+				else if (target__ != null && pipe_back == "json") {
+					let v = JSON.parse(text);
+					return v;
+				}
 				return text;
 			});
 		});
-		let dataBack = await text.text();
-		return dataBack;
-	
 	}
 
 //  Insert a callback function by useing call-pipe
