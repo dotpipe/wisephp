@@ -7,8 +7,6 @@
 	var content_thru = "";
 	var redirect_thru = "";
 	var refer_thru = "";
-	var pipe_to = "";
-	var return_method = "";
 	var elem = document.getElementById(ev.target.id);
 
 	
@@ -32,6 +30,7 @@
 	//if this is designated as belonging to another pipe, it won't be passed in the url
 		if (!elem_values[i].hasAttribute("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
 			elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
+	// Multi-select box
 		if (elem_values[i].hasAttribute("multiple")) {
 			for (var o of elem_values.options) {
 				if (o.selected) {
@@ -46,9 +45,9 @@
 		elem_qstring = elem_qstring.substring(0, elem_qstring.length - 1);
 
 // if thru-pipe isn't used, then use to-pipe
-	if (!elem.hasAttribute("thru-pipe")) {
-		if (elem.hasAttribute("to-pipe") && elem.getAttribute("to-pipe") !== "")
-			window.location.href = elem.getAttribute("to-pipe") + "?" + elem_qstring;
+	if (!elem.hasAttribute("ajax")) {
+		if (elem.hasAttribute("goto") && elem.getAttribute("goto") !== "")
+			window.location.href = elem.getAttribute("goto") + "?" + elem_qstring;
 		return;
 	}
 
@@ -62,7 +61,7 @@
 	(!elem.hasAttribute("redirect")) ? redirect_thru = "manual" : redirect_thru = elem.getAttribute("redirect");
 	(!elem.hasAttribute("referrer")) ? refer_thru = "client" : refer_thru = elem.getAttribute("referrer");
 
-	var opts_req = new Request(elem.getAttribute("thru-pipe") + "?" + elem_qstring);
+	var opts_req = new Request(elem.getAttribute("ajax") + "?" + elem_qstring);
 	opts = new Map();
 	opts.set("method", method_thru); // *GET, POST, PUT, DELETE, etc.
 	opts.set("mode", mode_thru); // no-cors, cors, *same-origin
@@ -78,11 +77,11 @@
 
 	var pipe_back = "";
 // This is where the output will go. Indicates id attribute to aim at
-	if (elem.hasAttribute("out-pipe"))
-		target__ = document.getElementById(elem.getAttribute("out-pipe"));
+	if (elem.hasAttribute("insert-in"))
+		target__ = document.getElementById(elem.getAttribute("insert-in"));
 // This is where the output will go. Indicates id attribute to aim at
-	if (elem.hasAttribute("json-pipe")) {
-		target__ = document.getElementById(elem.getAttribute("json-pipe"));
+	if (elem.hasAttribute("json")) {
+		target__ = document.getElementById(elem.getAttribute("json"));
 		pipe_back = "json";
 	}
 	fetch(opts_req, {signal});
@@ -107,8 +106,8 @@
 //  Insert a callback function by useing call-pipe
 	const getActivity = async (opts_rq, opts) => {
 		let g = await __grab(opts_rq, opts);
-		if (elem.hasAttribute("call-pipe")) {
-			var t = elem.getAttribute("call-pipe");
+		if (elem.hasAttribute("callback")) {
+			var t = elem.getAttribute("callback");
 			return (t)(g);
 		}
 		return;
@@ -117,7 +116,7 @@
 
 // to-pipe means, go here with current browser window
 // Only uses if thru-pipe exists. Unlike above.
-	if (elem.hasAttribute("thru-pipe") && elem.hasAttribute("to-pipe"))
-		window.location.href = elem.getAttribute("to-pipe");
+	if (elem.hasAttribute("ajax") && elem.hasAttribute("goto"))
+		window.location.href = elem.getAttribute("goto");
 }, false);
 });

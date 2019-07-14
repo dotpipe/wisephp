@@ -62,7 +62,7 @@ spl_autoload_register(function ($className)
 				echo "Unable to create files needed";
 			}
 			if (!file_exists("$this->token/view/shared/index.php")) {
-				echo "Unable to create files needed1";
+				echo "Unable to create files needed";
 			}
 			$this->path = "$this->token/view";
 			$this->view = $view;
