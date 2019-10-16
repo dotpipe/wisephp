@@ -1,16 +1,20 @@
-<?php 
+<?php
 namespace Adoms\src\lib;
 session_start();
 
-spl_autoload_register(function ($className)
-{
-	$path1 = 'Adoms/src/lib/';
-	$path2 = '';
-
-	if (file_exists($path1.$className.'.php'))
-		include $path1.$className.'.php';
-	else
-		include $path2.$className.'.php';
+spl_autoload_register(function ($className) {
+    if ($className === "Classes") {
+        return;
+    }
+    foreach ([
+        'Adoms/src/lib/',
+        ''
+    ] as $Path) {
+        if (!file_exists($Path . $className . '.php')) {
+            continue;
+        }
+        include $Path . $className . '.php';
+    }
 });
 
 //Background
@@ -162,8 +166,8 @@ echo "first Map() I make in here. It has 5 key/value pairs.";
 
 $m = new Map();
 for ($i = 0 ; $i < 5 ; $i++) {
-	$n = "m$i";
-	$m->add($n, ":)");
+    $n = "m$i";
+    $m->add($n, ":)");
 }
 $v2 = md5("inland14");
 $t->touch("tests/$v2");
@@ -173,10 +177,10 @@ $t->setIndex(0);
 $t->Iter();
 $nm = [];
 while (!$m->isEmpty()) {
-	$n = "m$x";
-	$nm = array_merge($nm, array($n => $m->get($n)));
-	$m->remove($n);
-	$x++;
+    $n = "m$x";
+    $nm = array_merge($nm, array($n => $m->get($n)));
+    $m->remove($n);
+    $x++;
 }
 $t->buf = json_encode($nm);
 $t->writeBuf();
@@ -199,7 +203,7 @@ $r = 0;
 $q = new Set();
 
 do {
-	$s->push($ccc);
+    $s->push($ccc);
 } while ($r++ < 4);
 
 $i = 0;
@@ -211,10 +215,10 @@ $r = 0;
 $s->setIndex(0);
 $s->sync();
 do {
-	$q->add(++$yo);
-	$ccc->add($r++);
-	$s->vect = $ccc;
-	echo json_encode($ccc);
+    $q->add(++$yo);
+    $ccc->add($r++);
+    $s->vect = $ccc;
+    echo json_encode($ccc);
 } while ($s->Iter());
 //Don"t forget to sync your Maps and Vectors!!
 $s->vect = $q;
@@ -224,20 +228,20 @@ echo "<br>Line 224 <b>I incremented each of these once (But I'm using a Reverse 
 $i = $s->size()-1;
 
 do {
-	echo $s->vect->dat[$i]++ . "<br>";
-	$i--;
+    echo $s->vect->dat[$i]++ . "<br>";
+    $i--;
 } while ($s->revIter());
 if (strlen(json_encode($s)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b class=\"box\">Line 213 <b>This is a Vector(\"Set\")<br></b>" . json_encode($s) . " (I added another 4 here)<br>";
 $s->vect->add(4);
 echo json_encode($s);
 if (strlen(json_encode($s->vect)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b class=\"box\">This is the pointed to Vector held in ->vect<br></b>" . json_encode($s->vect) . "<br>";
 $vs = new mSet("Set");
 $vs->addSet($ccc);
@@ -249,9 +253,9 @@ $vs->addSet($ccc);
 $sss = $vs->exists(4);
 
 if (strlen(json_encode($sss)) + strlen(json_encode($vs)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b class=\"box\">I found the number 4 at index " . json_encode($sss[0]) . "!</b><br>";
 echo json_encode($sss);
 echo "<br><b>What? Oh my god.. MultiSets!</b><br>";
@@ -270,9 +274,9 @@ $dom1->save("mtx.xml");
 $eeyore = $xml->xmlIn("mtx.xml");
 
 if (strlen(json_encode($eeyore)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b id=\"test\" class=\"box\">" . "Here's a Matrix returned from an XML File" . "</b><br>";
 echo json_encode($eeyore);
 $dom = new \DOMDocument();
@@ -287,15 +291,15 @@ $ms->add("yay1", "me!");
 $ms->setIndex(0);
 // This is a writeable iterator!!
 do {
-	
-	echo "<b>This is ->map at Index:</b>" . json_encode($ms->map) . "<br>";
-	$ms->replace("yay", "Value");
-	$ms->add("yay","no");
+
+    echo "<b>This is ->map at Index:</b>" . json_encode($ms->map) . "<br>";
+    $ms->replace("yay", "Value");
+    $ms->add("yay","no");
 } while ($ms->Iter());
 if (strlen(json_encode($ms)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b>This is \$ms output to a JSON:</b>";
 echo "<br><br>" . json_encode($ms) . "<br>";
 // Above I changed the KV pairs to "New/Value"
@@ -305,8 +309,8 @@ echo "<br><br>" . json_encode($ms) . "<br>";
 
 echo "</p><p class=\"cols\">";
 do {
-	$ms->map = array("yay1", ":P");
-	echo json_encode($ms->map) . "<br>";
+    $ms->map = array("yay1", ":P");
+    echo json_encode($ms->map) . "<br>";
 } while ($ms->revIter());
 
 $mm = new mMap();
@@ -332,15 +336,15 @@ $domvar = $xml->xmlOut($mm,$domvar);
 $domvar->save("testing.xml");
 $something = $xml->xmlIn("testing.xml");
 if (strlen(json_encode($something)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b>Here's a mMap returned from a XML File!</b>";
 echo json_encode($something);
 $mm->setIndex(0);
 echo "<b>This shows we have 3 maps in \$mm</b><br>";
 do {
-	echo "L";
+    echo "L";
 } while ($mm->Iter());
 
 $mm->setIndex($mm->size()-1);
@@ -349,9 +353,9 @@ $mm->mmap = $mt;
 $temp = $mm->getMap("/S/");
 $e = $mm->mmap->findKey("/ya/");
 if (strlen(json_encode($temp)) + strlen(json_encode($mm)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b>Guess what *I* Found \$mm->mmap->findKey(\"/ya/\"); !</b><br>" . json_encode($e) . "<br><br>";
 echo "<b>Did you notice that? Maps don't overwrite with changes to ->map if it ignores the rule of multiple keys :)</b><br>";
 echo json_encode($mm);
@@ -365,9 +369,9 @@ $s = "'<a href=\"#\">testing</a>','asdj',['adk',['adfd']],'cnaa',['sdasa']";
 $treevar = new trees();
 $g = $treevar->mockTree($s,1);
 if (strlen(json_encode($g)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo "<b>Use the trees() class to make link trees</b><br>";
 echo "<b>This is a proper tree. Single quotes for values, deepen as you wish</b><br>";
 echo '$s = "&lt;a href=\'#\'&gt;testing&lt;/a&gt;\',\'asdj\',[\'adk\',[\'adfd\']],\'cnaa\',[\'sdasa\']"';
@@ -377,9 +381,9 @@ $sd = "[\"oids\":[\".class,#cssId\":\"a\/?@ soda\",\"ask\":\"9_3.12\",\"ajds\":[
 $y = new api();
 $m = $y->display($sd);
 if (strlen(json_encode($sd)) < 250)
-	echo "</p><p class=\"cols\">";
+    echo "</p><p class=\"cols\">";
 else
-	echo "</p><p id=\"sbox\">";
+    echo "</p><p id=\"sbox\">";
 echo '<b>This is what the Vector<"Any"> looks like from $sd</b><br><br>';
 echo "$sd";
 
@@ -390,9 +394,9 @@ echo "$sd";
 // For API Handling
 // JSON from wherever
 if (strlen($n) < 250)
-	echo "</p><div class=\"cols\">";
+    echo "</p><div class=\"cols\">";
 else
-	echo "</p><div id=\"sbox\">";
+    echo "</p><div id=\"sbox\">";
 echo "<b>Oh, like you didn't want CSS included ;)</b>";
 $ts = "@import url(\"dss.css\"); #id .classname p b { property:value; property-1: value; } .classname p b { property:value; property-1: value; }";
 
@@ -429,4 +433,3 @@ echo " then a table can be constructed. Use \$matrix->table(\"[#|.]Idclass=\"); 
 echo $eeyore->table(".idClass", array(".idClass"));
 echo "</b></div>";
 echo "</body></html>";
-?>
