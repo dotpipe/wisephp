@@ -14,7 +14,8 @@ spl_autoload_register(function ($className) {
 });
 
 // Pointer in this is $this->mx
-class Matrix implements Classes {
+class Matrix implements Classes
+{
     public $parentType;
     public $childType;
     // Pointer to current Index
@@ -24,7 +25,8 @@ class Matrix implements Classes {
     public $dat = array();
     public $pv;
 
-    public function __construct($type, $child = "String") {
+    public function __construct($type, $child = "String")
+    {
         $this->rootType = 'Container';
         $this->parentType = 'Matrix';
 
@@ -32,75 +34,60 @@ class Matrix implements Classes {
             $this->dat[] = new Dequeue();
             $this->childType = 'Dequeue';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Queue') {
+        } elseif ($type == 'Queue') {
             $this->dat[] = new Queue();
             $this->childType = 'Queue';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Set') {
+        } elseif ($type == 'Set') {
             $this->dat[] = new Set();
             $this->childType = 'Set';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'SortedSet') {
+        } elseif ($type == 'SortedSet') {
             $this->dat[] = new SortedSet();
             $this->childType = 'SortedSet';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'NavigableSet') {
+        } elseif ($type == 'NavigableSet') {
             $this->dat[] = new NavigableSet();
             $this->childType = 'NavigableSet';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Map') {
+        } elseif ($type == 'Map') {
             $this->dat[] = new Map();
             $this->childType = 'Map';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'SortedMap') {
+        } elseif ($type == 'SortedMap') {
             $this->dat[] = new SortedMap();
             $this->childType = 'SortedMap';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'NavigableMap') {
+        } elseif ($type == 'NavigableMap') {
             $this->dat[] = new Navigablemap();
             $this->childType = 'NavigableMap';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'mMap') {
+        } elseif ($type == 'mMap') {
             $this->dat[] = new mMap();
             $this->childType = 'mMap';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Stack') {
+        } elseif ($type == 'Stack') {
             $this->dat[] = new Stack();
             $this->childType = 'Stack';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Thread') {
+        } elseif ($type == 'Thread') {
             $this->dat[] = new Thread();
             $this->childType = 'Thread';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Any') {
+        } elseif ($type == 'Any') {
             $this->childType = 'Any';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Array') {
+        } elseif ($type == 'Array') {
             $this->childType = 'Array';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'String') {
+        } elseif ($type == 'String') {
             $this->childType = 'String';
             $this->parentType = 'Matrix';
-        }
-        else if ($type == 'Vector') {
+        } elseif ($type == 'Vector') {
             $this->dat[] = new Vector($child);
             $this->childType = $child;
             $this->parentType = 'Vector';
-        }
-        else {
+        } else {
             throw new Type_Error('Invalid Type');
             return 0;
         }
@@ -115,7 +102,8 @@ class Matrix implements Classes {
     * @parameters string
     *
     */
-    public function save(string $json_name): bool {
+    public function save(string $json_name): bool
+    {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -128,11 +116,13 @@ class Matrix implements Classes {
     * @parameters string
     *
     */
-    public function loadJSON(string $json_name): bool {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
+    public function loadJSON(string $json_name): bool
+    {
+        if (file_exists("$json_name") && filesize("$json_name") > 0) {
             $fp = fopen("$json_name", "r");
-        else
+        } else { 
             return 0;
+        }
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
@@ -153,86 +143,107 @@ class Matrix implements Classes {
         $cid = "";
         $h = 0;
         $g = 0;
-        if (strlen($thId) > 0)
+        if (strlen($thId) > 0) {
             $g += 2;
-        if ($classId == "")
+        }
+        if ($classId == "") {
             $h = 0;
-        else if (strlen($classId) > 0 && ($classId[0] == "\"" || $classId[0] == "\'"))
+        } elseif (strlen($classId) > 0 && ($classId[0] == "\"" || $classId[0] == "\'")) {
             $h = 2;
-        else if (strlen($classId) > 0 && ($classId[0] == "." || $classId[0] == "#"))
+        } elseif (strlen($classId) > 0 && ($classId[0] == "." || $classId[0] == "#")) {
             $h = 1;
-        else if (strlen($classId) > 0)
+        } elseif (strlen($classId) > 0) {
             return $html = "Class or Id Unidentified";
-        if ($h > 0)
-            for ($i = $h; $i < strlen($classId)-($h-1); $i++)
+        }
+        if ($h > 0) {
+            for ($i = $h; $i < strlen($classId) - ($h - 1); $i++) {
                 $cid .= $classId[$i];
+            }
+        }
         $html = "";
-        if ($classId == "")
+        if ($classId == "") {
             $html = '<table>';
-        else if ($classId[0] == "#" || $classId[1] == "#")
+        } elseif ($classId[0] == "#" || $classId[1] == "#") {
             $html = '<table id=' . $cid .'>'; //$classId.substr(2,strlen($classId)-) . '\">';
-        else if ($classId[0] == "." || $classId[0] == ".")
+        } elseif ($classId[0] == "." || $classId[0] == ".") {
             $html = '<table class=' . $cid .'>'; //$classId.substr(2,strlen($classId)-2) . '\">';
+        }
         $table = $this->dat;
         foreach ($table as $xm) {
-            if ($xm == null)
+            if ($xm == null) {
                 return 'NULL ENTRIES IN MATRIX';
-            if ($xm->parentType == "Matrix" || $xm->childType == 'Map' || $xm->childType == 'mMap'
-                 || $xm->childType == 'SortedMap' || $xm->childType == 'NavigableMap')
+            }
+            if (
+                $xm->parentType == "Matrix" ||
+                $xm->childType == 'Map' ||
+                $xm->childType == 'mMap' ||
+                $xm->childType == 'SortedMap' ||
+                $xm->childType == 'NavigableMap'
+            ) {
                 return 'MATRIX & MAP TYPES ARE ILLEGAL IN SYNTAX';
+            }
         }
         $table = $this->mx;
-        if (is_object($table))
+        if (is_object($table)) {
             $table = $table->dat;
+        }
         $html .= '<tr>';
         $w = 0;
-        if (is_object($table) || is_array($table))
+        if (is_object($table) || is_array($table)) {
             $w = sizeof($table);
+        }
         for ($i = 0; $i < $w; $i++) {
             $y = '';
             $k = 0;
             $y = $table[$i];
-            if (is_object($y))
+            if (is_object($y)) {
                 $y = $y->dat[$i];
+            }
             if (is_object($y)) {
                 foreach ($y->dat as $mm) {
                     $m .= $mm;
-                    if ($k + 1 < $y->size()) $m .= ', ';
+                    if ($k + 1 < $y->size()) {
+                        $m .= ', ';
+                    }
                     $k++;
                 }
-            }
-            else if (is_array($y)) {
+            } elseif (is_array($y)) {
                 foreach ($y as $mm) {
                     $m .= $mm;
-                    if ($k + 1 < sizeof($y)) $m .= ', ';
+                    if ($k + 1 < sizeof($y)) {
+                        $m .= ', ';
+                    }
                     $k++;
                 }
+            } else {
+                $m = $y;
             }
-            else    $m = $y;
-            if ($g == 2 || $g == 3)
+            if ($g == 2 || $g == 3) {
                 $html .= "<th id=" . $thId . ">" . $m . "</th>";
-            else
+            } else {
                 $html .= "<th>" . $m . "</th>";
+            }
         }
         $html .= '</tr>';
         $mcnt = array();
         $tab = array();
-        for ($i = 1; $i < sizeof($this->dat); $i++)
+        for ($i = 1; $i < sizeof($this->dat); $i++) {
             $tab[] = $this->dat[$i];
+        }
         $e = 0;
         for ($i = 0; $i < sizeof($tab); $i++) {
-            if ($g == 1 || $g == 3)
+            if ($g == 1 || $g == 3) {
                 $html .= '<tr style=' . $tdId[$i%sizeof($tdId)] . '>';
-            else
+            } else {
                 $html .= '<tr>';
+            }
             $ta = $tab[$i];
-            if (is_object($ta))
+            if (is_object($ta)) {
                 $ta = $ta->dat;
-            else if (!is_array($ta) && $i + 1 == sizeof($tab)) {
+            } elseif (!is_array($ta) && $i + 1 == sizeof($tab)) {
                 $html .= '<td style="' . $tdId[$i%sizeof($tdId)] . '">' . $ta . '</td></tr>';
                 break;
-            }
-            else if (!is_array($ta)) {
+            } elseif (!is_array($ta)) {
                 $html .= '<td style="' . $tdId[$i%sizeof($tdId)] . '">' . $ta . '</td></tr>';
             }
             if (is_array($ta)) {
@@ -242,24 +253,27 @@ class Matrix implements Classes {
                         $m = '';
                         foreach($y as $mm) {
                             $m .= $mm;
-                            if ($k + 1 < sizeof($y)) $m .= ', ';
+                            if ($k + 1 < sizeof($y)) {
+                                $m .= ', ';
+                            }
                             $k++;
                         }
                         $html .= '<td>' . $m . '</td>';
-                    }
-                    else if (is_object($y)) {
+                    } elseif (is_object($y)) {
                         $m = '';
                         foreach($y->dat as $mm) {
                             $m .= $mm;
-                            if ($k + 1 < $y->size()) $m .= ', ';
+                            if ($k + 1 < $y->size()) {
+                                $m .= ', ';
+                            }
                             $k++;
                         }
-                    }
-                    else {
-                        if (sizeof($tdId) > 0)
+                    } else {
+                        if (sizeof($tdId) > 0) {
                             $html .= '<td style="' . $tdId[$i%sizeof($tdId)] . '">' . $y . '</td>';
-                        else
+                        } else {
                             $html .= '<td>' . $y . '</td>';
+                        }
                     }
                 }
                 $html .= '</tr>';
@@ -277,7 +291,8 @@ class Matrix implements Classes {
     *
     */
     // Remove $r from Matrix
-    public function rem(int $r): bool {
+    public function rem(int $r): bool
+    {
         if ($this->size() == 1) {
             $this->dat = null;
             $this->setIndex($this->getIndex());
@@ -290,8 +305,9 @@ class Matrix implements Classes {
         $temporneous = array();
 
         for ($i = 0; $i < $this->size(); $i++) {
-            if ($i != $r)
+            if ($i != $r) {
                 $temporneous[] = $this->dat[$i];
+            }
         }
         $this->setIndex($this->getIndex());
         return $this->dat = $temporneous;
@@ -304,13 +320,17 @@ class Matrix implements Classes {
     *
     */
     // Returns true if Matrix has next Element
-    public function hasNext(): bool {
+    public function hasNext(): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
-        if ($this->getIndex()+1 < $this->size())
+        if ($this->getIndex()+1 < $this->size()) {
             return 1;
+        }
         return 0;
     }
 
@@ -321,19 +341,20 @@ class Matrix implements Classes {
     *
     */
     // Iterate once forward through Vector
-    public function next(): bool {
+    public function next(): bool
+    {
         if ($this->hasNext() == 1) {
             $this->cntIncr();
             $this->join();
             return 1;
-        }
-        else if ($this->size() == 1) {
+        } elseif ($this->size() == 1) {
             $this->setIndex(0);
             $this->join();
             return 0;
-        }
-        else if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+        } elseif ($this->size() == 0) {
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             $this->setIndex(0);
             $this->mx = null;
             return 0;
@@ -347,17 +368,19 @@ class Matrix implements Classes {
     *
     */
     // Iterate Forward through Vector
-    public function Iter(): bool {
+    public function Iter(): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
         if ($this->hasNext() == 1) {
             $this->next();
             $this->join();
             return 1;
-        }
-        else {
+        } else {
             $this->join();
             return 0;
         }
@@ -371,17 +394,19 @@ class Matrix implements Classes {
     *
     */
     // Cycle Forward through Vector
-    public function Cycle(): bool {
+    public function Cycle(): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
         if ($this->hasNext() == 1) {
             $this->next();
             $this->join();
             return 1;
-        }
-        else {
+        } else {
             $this->setIndex(0);
             $this->join(0);
             return 0;
@@ -396,17 +421,19 @@ class Matrix implements Classes {
     *
     */
     // Iterate Forward through Vector
-    public function revIter(): bool {
+    public function revIter(): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
         if ($this->hasPrev() == 1) {
             $this->prev();
             $this->join();
             return 1;
-        }
-        else {
+        } else {
             $this->join();
             return 0;
         }
@@ -419,17 +446,19 @@ class Matrix implements Classes {
     * @parameters none
     *
     */
-    public function revCycle(): bool {
+    public function revCycle(): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
         if ($this->hasPrev() == 1) {
             $this->prev();
             $this->join();
             return 1;
-        }
-        else {
+        } else {
             $this->setIndex($this->size()-1);
             $this->join();
             return 0;
@@ -444,14 +473,15 @@ class Matrix implements Classes {
     *
     */
     // Return true if Previous Vector exists
-    public function hasPrev(): bool {
+    public function hasPrev(): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
-        if ($this->getIndex() - 1 > 0)
-            return 1;
-        return 0;
+        return ($this->getIndex() - 1 > 0) ? 1 : 0;
     }
 
     /*
@@ -462,19 +492,20 @@ class Matrix implements Classes {
     */
     // Iterate to Previous Vector if $bool = 1;
     // Setup $cntDecr (index) for Prev. Vector if $bool = 0;
-    public function prev(): bool {
+    public function prev(): bool
+    {
         if ($this->hasPrev() == 1) {
             $this->cntDecr();
             $this->join();
             return 1;
-        }
-        else if ($this->size() == 1) {
+        } elseif ($this->size() == 1) {
             $this->setIndex(0);
             $this->join();
             return 0;
-        }
-        else if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+        } elseif ($this->size() == 0) {
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             $this->setIndex(0);
             $this->mx = null;
             return 0;
@@ -488,7 +519,8 @@ class Matrix implements Classes {
     *
     */
     // Retrieve current Index of Vector Pointer
-    public function current(): int {
+    public function current(): int
+    {
         return $this->getIndex();
     }
 
@@ -499,7 +531,8 @@ class Matrix implements Classes {
     *
     */
     // Increment datCntr (index)
-    private function cntIncr(): int {
+    private function cntIncr(): int
+    {
         $this->sync();
         next($this->dat);
         return ++$this->datCnt;
@@ -512,7 +545,8 @@ class Matrix implements Classes {
     *
     */
     // Decrement datCntr (index)
-    private function cntDecr(): int {
+    private function cntDecr(): int
+    {
         $this->sync();
         prev($this->dat);
         return --$this->datCnt;
@@ -525,7 +559,8 @@ class Matrix implements Classes {
     *
     */
     // Get Index
-    public function getIndex(): int {
+    public function getIndex(): int
+    {
         return $this->datCnt;
     }
 
@@ -536,9 +571,12 @@ class Matrix implements Classes {
     *
     */
     // Sets and Joins Map Index
-    public function setIndex(int $indx): bool {
+    public function setIndex(int $indx): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix');
+            }
             return 0;
         }
         if ($this->sIndex($indx)) {
@@ -554,7 +592,8 @@ class Matrix implements Classes {
     * @parameters none
     *
     */
-    public function destroy(): bool {
+    public function destroy(): bool
+    {
         $this->vectorTemp = null;
         $this->parentType = null;
         $this->childType = null;
@@ -568,7 +607,8 @@ class Matrix implements Classes {
     * @parameters none
     *
     */
-    public function clear(): bool {
+    public function clear(): bool
+    {
         $this->dat = array();
         return 1;
     }
@@ -580,7 +620,8 @@ class Matrix implements Classes {
     *
     */
     // Report Size of Container
-    public function size(): int {
+    public function size(): int
+    {
         if (sizeof($this->dat) >= 0)
             return sizeof($this->dat);
         else return 0;
@@ -593,18 +634,25 @@ class Matrix implements Classes {
     *
     */
     // Add Vector with $r and Join if $bool == 1
-    public function push($r): bool {
-        if ($this->childType == 'String' && !is_object($r))
+    public function push($r): bool
+    {
+        if ($this->childType == 'String' && !is_object($r)) {
             $this->dat[] = $r;
-        else if ($this->childType == 'Any' || $this->childType == $r->childType
-            || ($this->childType == 'Array' && is_array($r)))
+        } elseif (
+            $this->childType == 'Any' ||
+            $this->childType == $r->childType || (
+                $this->childType == 'Array' &&
+                is_array($r)
+            )
+        ) {
             $this->dat[] = $r;
-        else {
+        } else {
             throw new Type_Error('Invalid Type');
             return 0;
         }
-        if ($this->size() == 1)
+        if ($this->size() == 1) {
             $this->Iter();
+        }
         return 1;
     }
 
@@ -615,16 +663,20 @@ class Matrix implements Classes {
     *
     */
     // Remove $r from Vector
-    public function pop(): int {
-        if ($this->size() == 1)
+    public function pop(): int
+    {
+        if ($this->size() == 1) {
             $this->dat = null;
+        }
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Matrix Array');
+            }
             return 0;
         }
         $temporneous = array();
 
-        for ($i = 0; $i < $this->size()-1; $i++) {
+        for ($i = 0; $i < $this->size() - 1; $i++) {
             $temporneous[] = $this->dat[$i];
         }
         $this->setIndex($this->getIndex());
@@ -638,7 +690,8 @@ class Matrix implements Classes {
     *
     */
     // Set new Index
-    private function sIndex(int $indx): int {
+    private function sIndex(int $indx): int
+    {
         if ($this->size() == 0 || $this->size() <= $indx) {
             $this->datCnt = -1;
             $this->mx = null;
@@ -660,9 +713,12 @@ class Matrix implements Classes {
     *
     */
     // Return Vector at $indx
-    public function at(int $indx) {
+    public function at(int $indx)
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Vector Array');
+            }
             return 0;
         }
         $temp = array();
@@ -679,7 +735,8 @@ class Matrix implements Classes {
     * @parameters none
     *
     */
-    public function sync(): bool {
+    public function sync(): bool
+    {
         if ($this->pv >= 0 && $this->pv < $this->size()) {
             if ($this->mx != null && $this->datCnt != $this->pv)
                 $this->dat[$this->pv] = $this->mx;
@@ -689,8 +746,7 @@ class Matrix implements Classes {
             $this->pv = 0;
             $this->mx = array();
             return 1;
-        }
-        else if ($this->datCnt < $this->size() && $this->datCnt > 0) {
+        } elseif ($this->datCnt < $this->size() && $this->datCnt > 0) {
             $this->sIndex($this->datCnt);
             $this->mx = $this->dat[$this->datCnt];
             $this->pv = $this->datCnt;
@@ -706,16 +762,18 @@ class Matrix implements Classes {
     *
     */
     // Point Vector to getIndex()
-    public function join(): bool {
+    public function join(): bool
+    {
         if ($this->size() == 0) {
             $this->mx = null;
             if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
             return 0;
         }
-        if ($this->size() == 1)
+        if ($this->size() == 1) {
             $this->setIndex(0);
-        else if ($this->getIndex() == 0 || $this->getIndex() >= $this->size())
+        } elseif ($this->getIndex() == 0 || $this->getIndex() >= $this->size()) {
             $this->sIndex($this->size()-1);
+        }
 
         $this->sync();
         return 1;
@@ -728,12 +786,15 @@ class Matrix implements Classes {
     *
     */
     // $indx = row
-    public function add($r, int $indx = -1, int $col = -1): bool {
+    public function add($r, int $indx = -1, int $col = -1): bool
+    {
         $this->sync();
-        if ($indx == -1 || $indx > $this->size()-1)
+        if ($indx == -1 || $indx > $this->size()-1) {
             $indx = $this->size()-1;
-        if ($col == -1 || $col > sizeof($this->dat))
+        }
+        if ($col == -1 || $col > sizeof($this->dat)) {
             $col = sizeof($this->dat)-1;
+        }
         $setTemp = '';
         if ($this->size() == 0) {
             $this->dat[] = $r;
@@ -746,27 +807,32 @@ class Matrix implements Classes {
         if (!is_object($r) && !is_array($r) || $r->childType == $this->typeOf) {
             $t = array();
 
-            for ($x = 0 ; $x < $indx ; $x++) {
+            for ($x = 0; $x < $indx; $x++) {
                 $t[] = $this->dat[$x];
-                for ($y = 0 ; $y < $col ; $y++)
+                for ($y = 0; $y < $col; $y++) {
                     $t[$x][] = $this->dat[$x][$y];
+                }
             }
-            for ($x = 0 ; $x < $col ; $x++)
+            for ($x = 0; $x < $col; $x++) {
                 $t[$indx][$x] = $this->dat[$indx][$x];
+            }
             $t = $this->mx;
             $t[$indx][$col] = $r;
 
-            for ($x = $col+1 ; $x < sizeof($this->dat[$indx]) ; $x++)
+            for ($x = $col + 1; $x < sizeof($this->dat[$indx]); $x++) {
                 $t[$indx][$x] = $this->dat[$indx][$x];
-            for ($x = $indx + 1 ; $x < $this->size() ; $x++) {
+            }
+            for ($x = $indx + 1; $x < $this->size(); $x++) {
                 $t[] = $this->dat[$x];
-                for ($y = 0 ; $y < sizeof($this->dat[$x]) ; $y++)
+                for ($y = 0; $y < sizeof($this->dat[$x]); $y++) {
                     $t[$x][] = $this->dat[$x][$y];
+                }
             }
 
             $this->dat = $t;
+        } else {
+            return 0;
         }
-        else return 0;
 
         return 1;
     }
@@ -777,11 +843,14 @@ class Matrix implements Classes {
     * @parameters int
     *
     */
-    public function grow(int $r): bool {
-        if ($r < 1)
+    public function grow(int $r): bool
+    {
+        if ($r < 1) {
             return 0;
-        for ($x = 0 ; $x < $r ; $x++)
+        }
+        for ($x = 0 ; $x < $r ; $x++) {
             $this->dat[] = newObj($this->childType, 'String');
+        }
         return 1;
     }
 
@@ -791,12 +860,15 @@ class Matrix implements Classes {
     * @parameters int
     *
     */
-    public function shrink(int $r): bool {
-        if ($r < 1 || $r > $this->size())
+    public function shrink(int $r): bool
+    {
+        if ($r < 1 || $r > $this->size()) {
             return 0;
+        }
         $t = array();
-        for ($x = 0 ; $x < $r ; $x++)
+        for ($x = 0 ; $x < $r ; $x++) {
             $this->pop();
+        }
         return 1;
     }
 

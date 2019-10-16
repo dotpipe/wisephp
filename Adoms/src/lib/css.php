@@ -16,7 +16,8 @@ spl_autoload_register(function ($className) {
     }
 });
 
-class css {
+class css
+{
     public $filename;
     public $ext_int;
     public $id;
@@ -34,17 +35,20 @@ class css {
     public $imps;
     public $indent;
 
-    public function __construct($fname = "") {
+    public function __construct($fname = "")
+    {
         $this->filename = $fname;
         $this->ext_int = 0;
-        if ($this->filename == "")
+        if ($this->filename == "") {
             $this->ext_int = 1;
+        }
         $this->mCSS = new mMap();
         $this->imps = new Set();
         $this->fwriter = new writeStream();
         $this->freader = new readStream();
-        if ($this->filename != "")
+        if ($this->filename != "") {
             $this->fwriter->addStrm($this->filename,$this->ext_int);
+        }
         $this->indent = "<img src=\".\\src\\icons\\design.gif\">";
     }
 
@@ -55,9 +59,11 @@ class css {
     *
     */
     // Report how many CSS Elements in Container
-    public function size(): int {
-        if (count($this->mCSS->kv) > 0)
+    public function size(): int
+    {
+        if (count($this->mCSS->kv) > 0) {
             return count($this->mCSS->kv);
+        }
         return 0;
     }
 
@@ -67,7 +73,8 @@ class css {
     * @parameters string
     *
     */
-    public function setIndent(string $ind): bool {
+    public function setIndent(string $ind): bool
+    {
         $this->indent = $ind;
         return 1;
     }
@@ -78,7 +85,8 @@ class css {
     * @parameters none
     *
     */
-    public function clear(): bool {
+    public function clear(): bool
+    {
         $this->mCSS = new mMap();
         $this->imps = new Set();
         $this->fwriter = new writeStream();
@@ -92,7 +100,8 @@ class css {
     * @parameters string, mixed
     *
     */
-    public function add(string $selector, $map): bool {
+    public function add(string $selector, $map): bool
+    {
         $this->mCSS->newMap($selector, $map);
         return 1;
     }
@@ -103,7 +112,8 @@ class css {
     * @parameters none
     *
     */
-    public function write(): bool {
+    public function write(): bool
+    {
         if ($this->size() == 0)
             return 0;
         if ($this->fwriter->size() == 0)
@@ -169,7 +179,8 @@ class css {
     * @parameters string, bool
     *
     */
-    public function cssMap(string $s, bool $bool): mMap {
+    public function cssMap(string $s, bool $bool): mMap
+    {
 
         preg_match_all("/[\{\}]|[0-9\.]+[;$]|[\"'#@\(\)>\-A-z0-9\s\.]+[\{:;$]{1}/", $s, $tok);
 
@@ -227,7 +238,8 @@ class css {
     * @parameters mMap
     *
     */
-    public function convert(mMap $va): string {
+    public function convert(mMap $va): string
+    {
         $outstring = "";
         $lvl = 0;
         if ("mMap" != $va->typeOf)

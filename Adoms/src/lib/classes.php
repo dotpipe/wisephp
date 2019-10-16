@@ -16,7 +16,8 @@ spl_autoload_register(function ($className) {
     }
 });
 
-interface Classes {
+interface Classes
+{
 
     public function size();
     public function save(string $json_name);

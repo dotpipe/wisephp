@@ -433,4 +433,3 @@ echo " then a table can be constructed. Use \$matrix->table(\"[#|.]Idclass=\"); 
 echo $eeyore->table(".idClass", array(".idClass"));
 echo "</b></div>";
 echo "</body></html>";
-?>

@@ -3,7 +3,8 @@ namespace Adoms\src\lib;
 
 include 'classes.php';
 
-class Map implements Classes {
+class Map implements Classes
+{
 
     public $mapTempK;
     public $mapTempV;
@@ -20,7 +21,8 @@ class Map implements Classes {
     public $childType;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'Container';
         $this->parentType = 'Map';
         $this->childType = 'Map';
@@ -38,7 +40,8 @@ class Map implements Classes {
     * @parameters string
     *
     */
-    public function save(string $file_name): bool {
+    public function save(string $file_name): bool
+    {
         $fp = fopen("$file_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -51,7 +54,8 @@ class Map implements Classes {
     * @parameters string
     *
     */
-    public function loadJSON(string $file_name): bool {
+    public function loadJSON(string $file_name): bool
+    {
         if (file_exists("$file_name") && filesize("$file_name") > 0)
             $fp = fopen("$file_name", "r");
         else
@@ -71,7 +75,8 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function destroy() {
+    public function destroy()
+    {
         $this->cache = null;
         $this->kv = null;
         $this->map = null;
@@ -83,12 +88,15 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function size(): int {
-        if (!is_array($this->kv))
+    public function size(): int
+    {
+        if (!is_array($this->kv)) {
             $this->kv = [];
-        if (count($this->kv) > 0)
+        }
+        if (count($this->kv) > 0) {
             return count($this->kv);
-        else return 0;
+        }
+        return 0;
     }
 
     /*
@@ -97,7 +105,8 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function clear(): bool {
+    public function clear(): bool
+    {
         $this->map = array();
         $this->kv = array();
         return 1;
@@ -109,18 +118,19 @@ class Map implements Classes {
     * @parameters int
     *
     */
-    public function at(int $indx) {
+    public function at(int $indx)
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return 0;
         }
         $temp = array();
-        if ($indx >= $this->size() || $indx < 0)
+        if ($indx >= $this->size() || $indx < 0) {
             return 0;
-        else {
-            $temp = array_slice($this->kv, $indx, 1);
-            //$temp = $temp[0];
         }
+        $temp = array_slice($this->kv, $indx, 1);
         return $temp;
     }
 
@@ -130,7 +140,8 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function Sorter(): bool {
+    public function Sorter(): bool
+    {
         if ($this->size() > 0) {
             $vals =& $this->kv;
             sort($vals);
@@ -145,7 +156,8 @@ class Map implements Classes {
     * @parameters string
     *
     */
-    public function keyIsIn(string $k) {
+    public function keyIsIn(string $k)
+    {
         return array_keys($k,$this->kv);
     }
 
@@ -155,10 +167,13 @@ class Map implements Classes {
     * @parameters string
     *
     */
-    public function valIsIn(string $v) {
+    public function valIsIn(string $v)
+    {
         $y = null;
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return 0;
         }
         array_flip($this->kv);
@@ -174,9 +189,11 @@ class Map implements Classes {
     * @parameters Map
     *
     */
-    public function equals(Map $r): bool {
-        if ($r->kv == $this->kv)
+    public function equals(Map $r): bool
+    {
+        if ($r->kv == $this->kv) {
             return 1;
+        }
         return 0;
     }
 
@@ -186,19 +203,23 @@ class Map implements Classes {
     * @parameters string
     *
     */
-    public function get(string $k) {
+    public function get(string $k)
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return 0;
         }
         $t = $this->kv;
         reset($t);
-        for ($j = 0 ; $j < count($t) ; $j++) {
+        for ($j = 0; $j < count($t); $j++) {
             if (key($t) != $k) {
                 next($t);
             }
-            else
+            else {
                 break;
+            }
         }
         return current($t);
     }
@@ -209,11 +230,9 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function isEmpty(): bool {
-        if (count($this->kv) == 0)
-            return 1;
-        else
-            return 0;
+    public function isEmpty(): bool
+    {
+        return (count($this->kv) === 0) ? 1 : 0;
     }
 
     /*
@@ -223,16 +242,19 @@ class Map implements Classes {
     *
     */
     // Merge maps (returns number inserted)
-    public function mergeAll(array $r): bool {
-        if ($this->typeOf != $r->typeOf){
+    public function mergeAll(array $r): bool
+    {
+        if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
             return 0;
         }
         $this->kv = array_merge($this->kv, $r);
-        if (($this->typeOf == 'SortedMap' || $this->typeOf == 'NavigableMap') && $this->parentType == 'Map')
+        if (($this->typeOf == 'SortedMap' || $this->typeOf == 'NavigableMap') && $this->parentType == 'Map') {
             $this->Sorter();
-        if ($this->size() == 1)
+        }
+        if ($this->size() == 1) {
             $this->Iter();
+        }
         return 1;
     }
 
@@ -243,7 +265,8 @@ class Map implements Classes {
     *
     */
     // Retrieve current Index of Vector Pointer
-    public function current(): int {
+    public function current(): int
+    {
         return $this->getIndex();
     }
 
@@ -254,11 +277,13 @@ class Map implements Classes {
     *
     */
     // Iterate to Previous key
-    public function prev() {
-        if ($this->datCntr > 0 && $this->datCntr < count($this->kv))
+    public function prev()
+    {
+        if ($this->datCntr > 0 && $this->datCntr < count($this->kv)) {
             $this->datCntr--;
-        else
+        } else {
             return 0;
+        }
         return prev($this->kv);
     }
 
@@ -269,11 +294,13 @@ class Map implements Classes {
     *
     */
     // Iterate to Previous key;
-    public function next() {
-        if ($this->datCntr > 0 && $this->datCntr+1 < count($this->kv))
+    public function next()
+    {
+        if ($this->datCntr > 0 && $this->datCntr+1 < count($this->kv)) {
             $this->datCntr++;
-        else
+        } else {
             return 0;
+        }
         return next($this->kv);
     }
 
@@ -284,13 +311,17 @@ class Map implements Classes {
     *
     */
     // Sets and Joins Map Index
-    public function getIndex(): int {
+    public function getIndex(): int
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return 0;
         }
         return $this->datCntr;
     }
+
     /*
     *
     * public function setIndex
@@ -298,17 +329,20 @@ class Map implements Classes {
     *
     */
     // Sets and Joins Map Index
-    public function setIndex(int $indx): bool {
+    public function setIndex(int $indx): bool
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return 0;
         }
         $i = 0;
         reset($this->kv);
         $this->datCntr = 0;
-        if (count($this->kv) <= $indx + 1)
+        if (count($this->kv) <= $indx + 1) {
             end($this->kv);
-        else {
+        } else {
             do {
                 $i++;
             } while ($this->Iter() && $indx >= $i);
@@ -323,10 +357,13 @@ class Map implements Classes {
     *
     */
     // Remove Key with name $k
-    public function remove(string $k): bool {
+    public function remove(string $k): bool
+    {
         $temp = [];
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return 0;
         }
         $tmp = $this->kv;
@@ -353,7 +390,8 @@ class Map implements Classes {
     // Return Key
 
     // Return keys fitting $regex
-    public function findKey(string $regex): array {
+    public function findKey(string $regex): array
+    {
         $reglist = array();
         $tmp = $this->kv;
         reset($tmp);
@@ -366,8 +404,9 @@ class Map implements Classes {
             $i++;
         }
         $regs = [];
-        foreach ($reglist as $t)
+        foreach ($reglist as $t) {
             $regs = array_merge($regs, $t);
+        }
         return $regs;
     }
 
@@ -378,14 +417,16 @@ class Map implements Classes {
     *
     */
     // Remove entry with K & V matching $k and $v
-    public function removeKV($k, $v): bool{
+    public function removeKV($k, $v): bool
+    {
         $mtkv = array();
         $tmp = $this->kv;
         end($tmp);
         $i = 0;
         while ($i < count($tmp)) {
-            if (key($tmp) != $k && current($tmp) != $v)
+            if (key($tmp) != $k && current($tmp) != $v) {
                 $mtk = array_merge($mtk, array(key($tmp) => current($tmp)));
+            }
             next($tmp);
             $i++;
         }
@@ -400,7 +441,8 @@ class Map implements Classes {
     *
     */
     // Replace KV
-    public function replace(string $k, $v): bool {
+    public function replace(string $k, $v): bool
+    {
         $this->add($k,$v);
         return 1;
     }
@@ -412,7 +454,8 @@ class Map implements Classes {
     *
     */
     // Add entry
-    public function add(string $key, $val): bool {
+    public function add(string $key, $val): bool
+    {
         $t = array();
         if ($this->kv == null || count($this->kv) == 0) {
             $this->kv = array($key => $val);
@@ -426,8 +469,9 @@ class Map implements Classes {
             $t = array_merge($t, array((string)$key => $val));
         }
         reset($t);
-        for ($i = 0 ; $i < $this->datCntr ; $i++)
+        for ($i = 0 ; $i < $this->datCntr ; $i++) {
             next($t);
+        }
         $this->kv = $t;
 
         return 1;
@@ -439,10 +483,12 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function Iter(): bool {
+    public function Iter(): bool
+    {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->kv)) {
-            if (isset($this->map))
+            if (isset($this->map)) {
                 $this->add($this->map[0], $this->map[1]);
+            }
             next($this->kv);
             $this->datCntr++;
             $this->map = array(key($this->kv), current($this->kv));
@@ -457,10 +503,12 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function revIter(): bool {
+    public function revIter(): bool
+    {
         if ($this->datCntr > 0 && $this->datCntr + 1 < count($this->kv)) {
-            if (is_array($this->map) || $this->map[0] != null)
+            if (is_array($this->map) || $this->map[0] != null) {
                 $this->add($this->map[0], $this->map[1]);
+            }
             prev($this);
             $this->datCntr--;
             $this->map = array(key($this->kv), current($this->kv));
@@ -475,18 +523,20 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function Cycle(): bool {
+    public function Cycle(): bool
+    {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->kv)) {
-            if (isset($this->map))
+            if (isset($this->map)) {
                 $this->add($this->map[0], $this->map[1]);
+            }
             next($this->kv);
             $this->datCntr++;
             $this->map = array(key($this->kv), current($this->kv));
             return 1;
-        }
-        else if (count($this->kv) > 0) {
-            if (isset($this->map))
+        } elseif (count($this->kv) > 0) {
+            if (isset($this->map)) {
                 $this->add($this->map[0], $this->map[1]);
+            }
             reset($this->kv);
             $this->datCntr = 0;
             $this->map = array(key($this->kv), current($this->kv));
@@ -500,18 +550,20 @@ class Map implements Classes {
     * @parameters none
     *
     */
-    public function revCycle(): bool {
+    public function revCycle(): bool
+    {
         if ($this->datCntr > 0 && $this->datCntr + 1 < count($this->kv)) {
-            if (is_array($this->map) || $this->map[0] != null)
+            if (is_array($this->map) || $this->map[0] != null) {
                 $this->add($this->map[0], $this->map[1]);
+            }
             prev($this);
             $this->datCntr--;
             $this->map = array(key($this->kv), current($this->kv));
             return 1;
-        }
-        else if (count($this->kv) > 0) {
-            if (isset($this->map))
+        } elseif (count($this->kv) > 0) {
+            if (isset($this->map)) {
                 $this->add($this->map[0], $this->map[1]);
+            }
             end($this->kv);
             $this->datCntr = 0;
             $this->map = array(key($this->kv), current($this->kv));

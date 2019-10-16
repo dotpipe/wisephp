@@ -16,23 +16,27 @@ spl_autoload_register(function ($className) {
     }
 });
 
-class api {
+class api
+{
     public $regex_mapper;
     public $apiMap;
     public $indent;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->apiMap = new Vector("Any");
         $this->regex_mapper = "/[nul\,]{4,5}|[\[\{]|[\]\}][\,]{0,1}|[\,0-9_]{1,}[,$]{0,1}|[\,]{0,1}[\"']{0,1}[!#@?\,\\/%A-z0-9\s\._:]+[\"']{0,1}[:\,$]{0,1}/";
         $this->indent = "<img src=\".\\src\\icons\\code.gif\">";
     }
 
-    public function setIndent(string $ind): bool {
+    public function setIndent(string $ind): bool
+    {
         $this->indent = $ind;
         return 1;
     }
 
-    public function receive($m): mMap {
+    public function receive($m): mMap
+    {
         // If you don't have one, but need an example,
         // uncomment this line and run it
         //$s = "[ 'oids': [ 'aoi,sd': \"asoda\", 'askd': 9_312, 'ajds': [ 'cucre': [ 'asoidj': \"asdj\", 'aei': [ 'askd': \"adk\" ] ], 'ccsio': [ 'oidfa': \"adfd\" ], 'asdjnae': \"cnaa\", 'asidj': \"sdasa\" ] ] ]";
@@ -80,7 +84,8 @@ class api {
         return $this->apiMap;
     }
 
-    public function json2map($m): Map {
+    public function json2map($m): Map
+    {
         $map = new Map();
         foreach ($m as $x=>$y) {
             $map->add($x, $y);
@@ -88,7 +93,8 @@ class api {
         return $map;
     }
 
-    public function display($m): string {
+    public function display($m): string
+    {
         // If you don't have one, but need an example,
         // uncomment this line and run it
         //$s = "[ 'oids': [ 'aoi,sd': \"asoda\", 'askd': 9_312, 'ajds': [ 'cucre': [ 'asoidj': \"asdj\", 'aei': [ 'askd': \"adk\" ] ], 'ccsio': [ 'oidfa': \"adfd\" ], 'asdjnae': \"cnaa\", 'asidj': \"sdasa\" ] ] ]";
@@ -139,13 +145,15 @@ class api {
         return $output;
     }
 
-    public function clear(): void {
+    public function clear(): void
+    {
         $this->apiMap = new Vector("Any");
     }
 
     // Insert Vector("Any") with simple array(a,b) pairs
     // and to end sections use array("]")
-    public function convert($va = 0): string {
+    public function convert($va = 0): string
+    {
         $outstring = "";
         $lvl = 0;
         if (!is_array($va) || "Any" != $va->childType)
