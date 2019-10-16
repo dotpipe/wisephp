@@ -30,12 +30,11 @@ class NavigableMap extends SortedMap {
         $this->map = null;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -43,12 +42,11 @@ class NavigableMap extends SortedMap {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -63,12 +61,11 @@ class NavigableMap extends SortedMap {
         return 1;
     }
 
-    /*
-    *
-    * public function ceilKey
-    * @parameters string
-    *
-    */
+    /**
+     * public function ceilKey
+     * @parameters string
+     *
+     */
     // Return Values <= $r
     public function ceilKey(string $r) {
         $vMap = array();
@@ -88,12 +85,11 @@ class NavigableMap extends SortedMap {
         return 0;
     }
 
-    /*
-    *
-    * public function descKeySet
-    * @parameters none
-    *
-    */
+    /**
+     * public function descKeySet
+     * @parameters none
+     *
+     */
     // Descending Map Keys
     public function descKeySet() {
         $vMap = array();
@@ -120,12 +116,11 @@ class NavigableMap extends SortedMap {
         return 1;
     }
 
-    /*
-    *
-    * public function descMap
-    * @parameters none
-    *
-    */
+    /**
+     * public function descMap
+     * @parameters none
+     *
+     */
     // Reverse order of Map
     public function descMap() {
         $mapTempK = array();
@@ -146,12 +141,11 @@ class NavigableMap extends SortedMap {
         return 1;
     }
 
-    /*
-    *
-    * public function floorEntry
-    * @parameters string
-    *
-    */
+    /**
+     * public function floorEntry
+     * @parameters string
+     *
+     */
     // Get all Values >= $v
     public function floorEntry(string $v) {
         $vMap = '';
@@ -171,12 +165,11 @@ class NavigableMap extends SortedMap {
         return 0;
     }
 
-    /*
-    *
-    * public function navigableKeySet
-    * @parameters string
-    *
-    */
+    /**
+     * public function navigableKeySet
+     * @parameters string
+     *
+     */
     // Return all Keys
     public function navigableKeySet() {
         $mapTempK = array();
@@ -192,12 +185,11 @@ class NavigableMap extends SortedMap {
         return $mapTempK;
     }
 
-    /*
-    *
-    * public function pollFirst
-    * @parameters none
-    *
-    */
+    /**
+     * public function pollFirst
+     * @parameters none
+     *
+     */
     // Get first entry in Map and remove
     public function pollFirst() {
         $mapTempK = array();
@@ -233,12 +225,11 @@ class NavigableMap extends SortedMap {
         return $j;
     }
 
-    /*
-    *
-    * public function pollLast
-    * @parameters none
-    *
-    */
+    /**
+     * public function pollLast
+     * @parameters none
+     *
+     */
     // Get last entry in Map and Remove
     public function pollLast() {
         $mapTempK = array();

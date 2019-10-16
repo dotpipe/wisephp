@@ -19,12 +19,11 @@ class PageControllers {
     public $mvc = array();
     public $md;
     public $sid = array();
-    /*
-    *
-    * public function __construct
-    * @parameters string, string
-    *
-    */
+    /**
+     * public function __construct
+     * @parameters string, string
+     *
+     */
     function __construct(string $tok, string $view = 'index') {
         $this->mvc = null;
         $this->token = $tok;
@@ -74,23 +73,21 @@ class PageControllers {
         $this->mvc[$tok]->sid['view'] = new PageViews($tok, $_COOKIE['PHPSESSID']);
     }
 
-    /*
-    *
-    * public function addModelData
-    * @parameters string, array
-    *
-    */
+    /**
+     * public function addModelData
+     * @parameters string, array
+     *
+     */
     public function addModelData(string $view_name, array $data) {
         $this->mvc[$view_name]->addModelData($view_name, $data);
         return 1;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters none
-    *
-    */
+    /**
+     * public function save
+     * @parameters none
+     *
+     */
     public function save() {
         $fp = fopen("$this->token/$this->md/config.json", "w");
         fwrite($fp, serialize($this));
@@ -99,24 +96,22 @@ class PageControllers {
     }
 
 
-    /*
-    *
-    * public function paginateModels
-    * @parameters string, string, int, int
-    *
-    */
+    /**
+     * public function paginateModels
+     * @parameters string, string, int, int
+     *
+     */
     public function paginateModels(string $view_name, string $filename, int $begin = 0, int $end = 0) {
         $x = $this->mvc[$this->token]->paginateModels($this->token, $view_name, $filename, $begin, $end);
         return $x;
 
     }
 
-    /*
-    *
-    * private function add_view
-    * @parameters string
-    *
-    */
+    /**
+     * private function add_view
+     * @parameters string
+     *
+     */
     private function add_view(string $view_name) {
         if (is_dir("/$this->path/$view_name/")) {
             if (!file_exists("/$this->path/$view_name/index.php")) {
@@ -140,22 +135,20 @@ class PageControllers {
         return 1;
     }
 
-    /*
-    *
-    * public function newView
-    * @parameters string
-    *
-    */
+    /**
+     * public function newView
+     * @parameters string
+     *
+     */
     public function newView(string $view_name) {
         $this->add_view($view_name);
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters none
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters none
+     *
+     */
     public function loadJSON() {
         if (file_exists("$this->token/config.json") && filesize("$this->token/config.json") > 0)
             $fp = fopen("$this->token/config.json", "r");
@@ -170,32 +163,29 @@ class PageControllers {
         return $old;
     }
 
-    /*
-    *
-    * public function addPartial
-    * @parameters string
-    *
-    */
+    /**
+     * public function addPartial
+     * @parameters string
+     *
+     */
     public function addPartial(string $filename) {
         return $this->view->addPartial($filename);
     }
 
-    /*
-    *
-    * public function addShared
-    * @parameters string
-    *
-    */
+    /**
+     * public function addShared
+     * @parameters string
+     *
+     */
     public function addShared(string $filename) {
         return $this->view->addShared($filename);
     }
 
-    /*
-    *
-    * public function addAction
-    * @parameters string, string, string
-    *
-    */
+    /**
+     * public function addAction
+     * @parameters string, string, string
+     *
+     */
     public function addAction(string $token, string $view_name, string $action_name) {
         return $this->actions[] = new PageActions($this->token, $view_name, $action_name);
     }

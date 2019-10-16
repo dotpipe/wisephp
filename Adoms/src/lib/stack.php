@@ -33,12 +33,11 @@ class Stack {
         $this->stack = new Queue();
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -46,12 +45,11 @@ class Stack {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -66,12 +64,11 @@ class Stack {
         return 1;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     // Report size of stack
     public function size() {
         if (sizeof($this->stack) >= 0)
@@ -79,12 +76,11 @@ class Stack {
         else return -1;
     }
 
-    /*
-    *
-    * public function unstack
-    * @parameters none
-    *
-    */
+    /**
+     * public function unstack
+     * @parameters none
+     *
+     */
     // Add all elements of Stack to page
     public function unstack() {
         //tell each session ID to update..
@@ -93,12 +89,11 @@ class Stack {
         }
     }
 
-    /*
-    *
-    * public function threadManager
-    * @parameters none
-    *
-    */
+    /**
+     * public function threadManager
+     * @parameters none
+     *
+     */
     // ADDRS_STK_CNT is a variable of MAX Stack height
     // When surpassed, it calls unstack (careful to not set too high)
     public function threadManager() {
@@ -106,23 +101,21 @@ class Stack {
             $this->unstack();
     }
 
-    /*
-    *
-    * public function insert
-    * @parameters string
-    *
-    */
+    /**
+     * public function insert
+     * @parameters string
+     *
+     */
     // Add stack URL
     public function insert(string $stackurl) {
         $this->stack[] = $stackurl;
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     // Empty Stack
     public function clear() {
         $this->stack = array();

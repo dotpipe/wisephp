@@ -22,12 +22,11 @@ class PageModels {
     public $token;
     public $label;
 
-    /*
-    *
-    * public function __construct
-    * @parameters string, string
-    *
-    */
+    /**
+     * public function __construct
+     * @parameters string, string
+     *
+     */
     function ___construct(string $token, string $view_name) {
         $this->valid = [];
         $this->model = [];
@@ -36,12 +35,11 @@ class PageModels {
         $this->copy = $view_name;
     }
 
-    /*
-    *
-    * public function addModelField
-    * @parameters string
-    *
-    */
+    /**
+     * public function addModelField
+     * @parameters string
+     *
+     */
     public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null) {
         if ($fieldname == null)
             return 0;
@@ -53,12 +51,11 @@ class PageModels {
     }
 
 
-    /*
-    *
-    * public function editModelData
-    * @parameters string, array
-    *
-    */
+    /**
+     * public function editModelData
+     * @parameters string, array
+     *
+     */
     public function editModelData(string $view_name, array $data) {
         $wrong_ans = [];
         $this->checkValid($this->valid, $data, $wrong_ans);
@@ -71,12 +68,11 @@ class PageModels {
         return 1;
     }
 
-    /*
-    *
-    * public function addModelData
-    * @parameters string, array
-    *
-    */
+    /**
+     * public function addModelData
+     * @parameters string, array
+     *
+     */
     public function addModelData(string $view_name, array $data) {
         $wrong_ans = [];
         $this->checkValid($this->valid, $data, $wrong_ans);
@@ -89,12 +85,11 @@ class PageModels {
         return 1;
     }
 
-    /*
-    *
-    * public function paginateModels
-    * @parameters string, string, string, int, int
-    *
-    */
+    /**
+     * public function paginateModels
+     * @parameters string, string, string, int, int
+     *
+     */
     public function paginateModels(string $token, string $view_name, string $filename, int $begin = 0, int $end = 0) {
         $int_cnt = 0;
         $buf = "<?php\r\n\techo '<table>\r\n";
@@ -138,12 +133,11 @@ class PageModels {
         return $buf;
     }
 
-    /*
-    *
-    * public function addModelValid
-    * @parameters string, string, string
-    *
-    */
+    /**
+     * public function addModelValid
+     * @parameters string, string, string
+     *
+     */
     public function addModelValid(string $property, string $regex = "/.*/", string $errmsg = "Please check your entry", string $lbl = null) {
         $this->valid[$property]['label'] = $lbl;
         $this->valid[$property]['regex'] = $regex;
@@ -151,23 +145,21 @@ class PageModels {
         return 1;
     }
 
-    /*
-    *
-    * public function errorReturn
-    * @parameters string, array &
-    *
-    */
+    /**
+     * public function errorReturn
+     * @parameters string, array &
+     *
+     */
     private function errorReturn(string $key, array &$errormsgs = array()) {
         $errormsgs[$key] = $this->valid[$key]['errmsg'];
         return 1;
     }
 
-    /*
-    *
-    * public function checkValid
-    * @parameters array, array, array &
-    *
-    */
+    /**
+     * public function checkValid
+     * @parameters array, array, array &
+     *
+     */
     public function checkValid(array $valid, array $data, array &$wrong_ans = array()) {
         $this->errormsgs = [];
         foreach ($data as $k => $v) {

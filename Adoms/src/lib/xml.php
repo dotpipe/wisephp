@@ -48,12 +48,11 @@ class XML {
         }
     }
 
-    /*
-    *
-    * public function xmlIn
-    * @parameters string
-    *
-    */
+    /**
+     * public function xmlIn
+     * @parameters string
+     *
+     */
     function xmlIn($fname) {
         if ($fname == "" || strlen($fname) == 0)
             return 0;
@@ -252,12 +251,11 @@ class XML {
         }
     }
 
-    /*
-    *
-    * public function xmlOut
-    * @parameters mixed, DOM, int, mixed
-    *
-    */
+    /**
+     * public function xmlOut
+     * @parameters mixed, DOM, int, mixed
+     *
+     */
     function xmlOut($obj, $dom, bool $bool = FALSE , $trm = null) {
         $tier = null;
         $type = null;

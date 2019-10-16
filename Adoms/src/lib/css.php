@@ -52,12 +52,11 @@ class css
         $this->indent = "<img src=\".\\src\\icons\\design.gif\">";
     }
 
-    /*
-    *
-    * public function size
-    * @parameters
-    *
-    */
+    /**
+     * public function size
+     * @parameters
+     *
+     */
     // Report how many CSS Elements in Container
     public function size(): int
     {
@@ -67,24 +66,22 @@ class css
         return 0;
     }
 
-    /*
-    *
-    * public function setIndent
-    * @parameters string
-    *
-    */
+    /**
+     * public function setIndent
+     * @parameters string
+     *
+     */
     public function setIndent(string $ind): bool
     {
         $this->indent = $ind;
         return 1;
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     public function clear(): bool
     {
         $this->mCSS = new mMap();
@@ -94,24 +91,22 @@ class css
         return 1;
     }
 
-    /*
-    *
-    * public function add
-    * @parameters string, mixed
-    *
-    */
+    /**
+     * public function add
+     * @parameters string, mixed
+     *
+     */
     public function add(string $selector, $map): bool
     {
         $this->mCSS->newMap($selector, $map);
         return 1;
     }
 
-    /*
-    *
-    * public function write
-    * @parameters none
-    *
-    */
+    /**
+     * public function write
+     * @parameters none
+     *
+     */
     public function write(): bool
     {
         if ($this->size() == 0)
@@ -173,12 +168,11 @@ class css
         return 1;
     }
 
-    /*
-    *
-    * public function cssMap
-    * @parameters string, bool
-    *
-    */
+    /**
+     * public function cssMap
+     * @parameters string, bool
+     *
+     */
     public function cssMap(string $s, bool $bool): mMap
     {
 
@@ -232,12 +226,11 @@ class css
         return $apiMap;
     }
 
-    /*
-    *
-    * public function convert
-    * @parameters mMap
-    *
-    */
+    /**
+     * public function convert
+     * @parameters mMap
+     *
+     */
     public function convert(mMap $va): string
     {
         $outstring = "";

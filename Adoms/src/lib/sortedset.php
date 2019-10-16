@@ -27,22 +27,20 @@ class SortedSet extends Set {
         $this->dat = array();
     }
 
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy() {
         $this->dat = null;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -50,12 +48,11 @@ class SortedSet extends Set {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -70,12 +67,11 @@ class SortedSet extends Set {
         return 1;
     }
 
-    /*
-    *
-    * public function headSet
-    * @parameters int
-    *
-    */
+    /**
+     * public function headSet
+     * @parameters int
+     *
+     */
     // Return entries before $indx
     public function headSet(int $indx) {
         if (!is_array($this->dat))
@@ -84,12 +80,11 @@ class SortedSet extends Set {
         return $j;
     }
 
-    /*
-    *
-    * public function first
-    * @parameters none
-    *
-    */
+    /**
+     * public function first
+     * @parameters none
+     *
+     */
     // Returns first Entry
     public function first() {
         if (!is_array($this->dat))
@@ -99,12 +94,11 @@ class SortedSet extends Set {
         return current($t);
     }
 
-    /*
-    *
-    * public function last
-    * @parameters none
-    *
-    */
+    /**
+     * public function last
+     * @parameters none
+     *
+     */
     // Returns last Entry
     public function last() {
         if (!is_array($this->dat))
@@ -114,12 +108,11 @@ class SortedSet extends Set {
         return current($t);
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string, int, string, int
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string, int, string, int
+     *
+     */
     // Return between $st and $en (This is very functional)
     // $Lb == 1 >= $st ; $Lb == 0 < $st
     // $Hb == 0 >= $en ; $Hb == < $en

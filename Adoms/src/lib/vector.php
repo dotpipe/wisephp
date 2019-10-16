@@ -91,12 +91,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy() {
         $vectorTemp = null;
         $parentType = null;
@@ -104,33 +103,30 @@ class Vector implements Classes {
         $this->dat = null;
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     public function clear() {
         $this->dat = array();
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     // Report Size of Container
     public function size() {
         return count($this->dat);
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -138,12 +134,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -158,12 +153,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function push
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function push
+     * @parameters mixed
+     *
+     */
     // Add Vector with $r
     public function push($r) {
         if ($r == null)
@@ -184,12 +178,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function pop
-    * @parameters none
-    *
-    */
+    /**
+     * public function pop
+     * @parameters none
+     *
+     */
     // Remove $r from Vector
     public function pop() {
         if ($this->size() == 1)
@@ -201,23 +194,21 @@ class Vector implements Classes {
         return $this->dat = array_slice($this->dat, -1);
     }
 
-    /*
-    *
-    * public function getIndex
-    * @parameters none
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
     // Get Index
     public function getIndex() {
         return $this->datCntr;
     }
 
-    /*
-    *
-    * public function setIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function setIndex
+     * @parameters int
+     *
+     */
     // Sets and Joins Map Index
     public function setIndex(int $indx) {
         if ($this->size() == 0) {
@@ -235,23 +226,21 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function current
-    * @parameters none
-    *
-    */
+    /**
+     * public function current
+     * @parameters none
+     *
+     */
     // Retrieve current Index of Vector Pointer
     public function current() {
         return $this->getIndex();
     }
 
-    /*
-    *
-    * public function add
-    * @parameters mixed, int
-    *
-    */
+    /**
+     * public function add
+     * @parameters mixed, int
+     *
+     */
     public function add($r, int $indx = 0) {
         $setTemp = '';
         if ($this->size() == 0) {
@@ -284,12 +273,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function at
-    * @parameters int
-    *
-    */
+    /**
+     * public function at
+     * @parameters int
+     *
+     */
     // Return Vector at $indx
     public function at(int $indx) {
         if ($this->size() == 0) {
@@ -303,12 +291,11 @@ class Vector implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters none
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters none
+     *
+     */
     // Insert new Vector<T> (Element<T>)
     public function insVect($ins) {
 
@@ -372,12 +359,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function hasNext
-    * @parameters none
-    *
-    */
+    /**
+     * public function hasNext
+     * @parameters none
+     *
+     */
     // Returns 1 if Vector has next Element
     public function hasNext() {
         if ($this->size() == 0) {
@@ -389,12 +375,11 @@ class Vector implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function nextVect
-    * @parameters none
-    *
-    */
+    /**
+     * public function nextVect
+     * @parameters none
+     *
+     */
     // Iterate once forward through Vector
     public function next() {
         if ($this->hasNext()) {
@@ -406,12 +391,11 @@ class Vector implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Vector
     public function Iter() {
         if ($this->size() == 0) {
@@ -424,12 +408,11 @@ class Vector implements Classes {
         }
     }
 
-    /*
-    *
-    * public function Cycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
     // Cycle Forward through Vector
     public function Cycle() {
         if ($this->size() == 0) {
@@ -445,12 +428,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Vector
     public function revIter() {
         if ($this->size() == 0) {
@@ -464,12 +446,11 @@ class Vector implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function revCycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
     public function revCycle() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Vector Array');
@@ -484,12 +465,11 @@ class Vector implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function hasPrev
-    * @parameters none
-    *
-    */
+    /**
+     * public function hasPrev
+     * @parameters none
+     *
+     */
     // Return 1 if Previous Vector exists
     public function hasPrev() {
         if ($this->size() == 0) {
@@ -501,12 +481,11 @@ class Vector implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function prevVect
-    * @parameters none
-    *
-    */
+    /**
+     * public function prevVect
+     * @parameters none
+     *
+     */
     // Iterate to Previous Vector if $bool = 1;
     // Setup $cntDecr (index) for Prev. Vector if $bool = 0;
     public function prev() {
@@ -519,12 +498,11 @@ class Vector implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function remVect
-    * @parameters int
-    *
-    */
+    /**
+     * public function remVect
+     * @parameters int
+     *
+     */
     // Remove $r from Vector
     public function remVect(int $r) {
         if ($this->size() == 0 || $this->size() <= $r || $r < 0) {
@@ -541,12 +519,11 @@ class Vector implements Classes {
         return $this->dat = $temporneous;
     }
 
-    /*
-    *
-    * public function sync
-    * @parameters none
-    *
-    */
+    /**
+     * public function sync
+     * @parameters none
+     *
+     */
     public function sync() {
         if (is_object($this->vect) && $this->childType == "Set" && $this->vect->dat != null) {
             $t = $this->vect;

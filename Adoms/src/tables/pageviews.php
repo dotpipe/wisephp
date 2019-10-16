@@ -22,9 +22,9 @@ class PageViews
     public $selector;
 
     /**
-    * public function __construct
-    * @parameters string, string, string
-    */
+     * public function __construct
+     * @parameters string, string, string
+     */
     function __construct(string $token, string $view_name)
     {
         $this->token = $token;
@@ -37,10 +37,10 @@ class PageViews
     }
 
     /**
-    * public function addPartial
-    * @parameters string, string, string
-    * @return bool
-    */
+     * public function addPartial
+     * @parameters string, string, string
+     * @return bool
+     */
     public function addPartial(string $filename, string $view_name = "FALSE", string $res_dir = "FALSE")
     {
         if ($view_name == "FALSE")
@@ -76,10 +76,10 @@ class PageViews
     }
 
     /**
-    * public function addShared
-    * @parameters string
-    * @return bool
-    */
+     * public function addShared
+     * @parameters string
+     * @return bool
+     */
     public function addShared(string $filename)
     {
         $bool = 0;
@@ -108,10 +108,10 @@ class PageViews
     }
 
     /**
-    * public function save
-    * @parameters none
-    * @return 1
-    */
+     * public function save
+     * @parameters none
+     * @return 1
+     */
     public function save()
     {
         $fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json", "w");
@@ -121,10 +121,10 @@ class PageViews
     }
 
     /**
-    * public function loadJSON
-    * @parameters none
-    * @return bool
-    */
+     * public function loadJSON
+     * @parameters none
+     * @return bool
+     */
     public function loadThisJSON()
     {
         if (file_exists($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") && filesize($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") > 0)
@@ -141,11 +141,11 @@ class PageViews
     }
 
     /**
-    * For user usage;
-    * public function writeIndex
-    * @parameters none
-    * @return bool
-    */
+     * For user usage;
+     * public function writeIndex
+     * @parameters none
+     * @return bool
+     */
     private function writeThisIndex()
     {
         $buff = "<?php";
@@ -167,11 +167,11 @@ class PageViews
     }
 
     /**
-    * For domain usage;
-    * public function writeIndex
-    * @parameters none
-    * @return bool
-    */
+     * For domain usage;
+     * public function writeIndex
+     * @parameters none
+     * @return bool
+     */
     private function writeIndex()
     {
         $buff = "<?php";
@@ -193,9 +193,9 @@ class PageViews
     }
 
     /**
-    * public function is_session_started
-    * @return bool
-    */
+     * public function is_session_started
+     * @return bool
+     */
     function is_session_started()
     {
         if ( php_sapi_name() !== 'cli' ) {
@@ -209,11 +209,11 @@ class PageViews
     }
 
     /**
-    * For user usage;
-    * public function configJSON
-    * @parameters string
-    * @return bool
-    */
+     * For user usage;
+     * public function configJSON
+     * @parameters string
+     * @return bool
+     */
     public function configPageWrite(string $view_name = "index")
     {
         $fp = null;
@@ -250,11 +250,11 @@ class PageViews
 
 
     /**
-    * For domain usage;
-    * public function writePage
-    * @parameters string
-    * @return bool
-    */
+     * For domain usage;
+     * public function writePage
+     * @parameters string
+     * @return bool
+     */
     public function writePage(string $view_name)
     {
         $fp = null;
@@ -288,10 +288,10 @@ class PageViews
     }
 
     /**
-    * public function removeDependency
-    * @parameters string, string
-    * @return bool
-    */
+     * public function removeDependency
+     * @parameters string, string
+     * @return bool
+     */
     public function removeDependency(string $folder, string $partial)
     {
         $bool = 0;
@@ -309,10 +309,10 @@ class PageViews
     }
 
     /**
-    * public function createAction
-    * @parameters string
-    * @return bool
-    */
+     * public function createAction
+     * @parameters string
+     * @return bool
+     */
     public function createAction(string $action_name)
     {
         $this->actions[$this->copy] = new PageViews($this->token, $this->copy);

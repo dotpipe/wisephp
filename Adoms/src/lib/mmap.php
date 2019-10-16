@@ -41,12 +41,11 @@ class mMap extends Map implements Classes {
         $this->cnt = -1;
         $this->typeOf = 'mMap';
     }
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name): bool {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -54,12 +53,11 @@ class mMap extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name): bool {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -73,12 +71,11 @@ class mMap extends Map implements Classes {
         }
         return 1;
     }
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy(): bool {
         $this->datCntr = null;
         $this->cache = null;
@@ -92,22 +89,20 @@ class mMap extends Map implements Classes {
         $this->mname = null;
         return 1;
     }
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     public function size(): int {
         $j = 0;
         return sizeof($this->kv);
     }
-    /*
-    *
-    * public function getMap
-    * @parameters string
-    *
-    */
+    /**
+     * public function getMap
+     * @parameters string
+     *
+     */
     // Return Map fitting $regex
     public function getMap(string $regex): array {
         $reglist = array();
@@ -123,12 +118,11 @@ class mMap extends Map implements Classes {
         }
         return $reglist;
     }
-    /*
-    *
-    * public function newMap
-    * @parameters string, mixed
-    *
-    */
+    /**
+     * public function newMap
+     * @parameters string, mixed
+     *
+     */
     // Add Map
     public function newMap(string $key, $r): bool {
         $t = [];
@@ -144,12 +138,11 @@ class mMap extends Map implements Classes {
         $this->kv = $t;
         return 1;
     }
-    /*
-    *
-    * public function hasNext
-    * @parameters none
-    *
-    */
+    /**
+     * public function hasNext
+     * @parameters none
+     *
+     */
     // Return true if next Map exists
     public function hasNext(): bool {
         if ($this->size() == 0) {
@@ -160,23 +153,21 @@ class mMap extends Map implements Classes {
             return 1;
         return 0;
     }
-    /*
-    *
-    * public function nextMap
-    * @parameters none
-    *
-    */
+    /**
+     * public function nextMap
+     * @parameters none
+     *
+     */
     // Iterate once forward through Maps
     public function next(): bool {
         $this->Iter();
         return 0;
     }
-    /*
-    *
-    * public function findKey
-    * @parameters string
-    *
-    */
+    /**
+     * public function findKey
+     * @parameters string
+     *
+     */
     // Return Key
     public function findKey(string $regex): array {
         $reglist = array();
@@ -193,12 +184,11 @@ class mMap extends Map implements Classes {
             return 0;
         return $regreturn;
     }
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     public function Iter(): bool {
         if ($this->datCntr >= 0 && $this->datCntr < count($this->kv)) {
             if (is_array($this->mmap) && $this->mname != null)
@@ -210,12 +200,11 @@ class mMap extends Map implements Classes {
         }
         return 0;
     }
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     public function revIter(): bool {
         if ($this->datCntr - 1 >= 0 && $this->datCntr < count($this->kv)) {
             if (is_array($this->mmap) && $this->mname != null)
@@ -227,12 +216,11 @@ class mMap extends Map implements Classes {
         }
         return 0;
     }
-    /*
-    *
-    * public function Cycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
     // Turns to next Map entry, or starts over
     public function Cycle(): bool {
         if ($this->datCntr >= 0 && $this->datCntr < count($this->kv)) {
@@ -249,12 +237,11 @@ class mMap extends Map implements Classes {
         }
         return 0;
     }
-    /*
-    *
-    * public function revCycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
     public function revCycle(): bool {
         if ($this->datCntr > 0 && $this->datCntr < count($this->kv)) {
             if (is_array($this->mmap) && $this->mname != null)
@@ -270,12 +257,11 @@ class mMap extends Map implements Classes {
         }
         return 0;
     }
-    /*
-    *
-    * public function setIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function setIndex
+     * @parameters int
+     *
+     */
     // Sets and Joins Map Index
     public function setIndex(int $indx): bool {
         if ($this->size() == 0) {
@@ -298,12 +284,11 @@ class mMap extends Map implements Classes {
         }
         return 1;
     }
-    /*
-    *
-    * public function getIndex
-    * @parameters none
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
     // Returns Map Index
     public function getIndex(): int {
         if ($this->size() > $this->datCntr)
@@ -314,23 +299,21 @@ class mMap extends Map implements Classes {
         }
         return -1;
     }
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     // Clears all Map entries
     public function clear(): bool {
         $this->mmap = array();
         return 1;
     }
-    /*
-    *
-    * public function keyIsIn
-    * @parameters string
-    *
-    */
+    /**
+     * public function keyIsIn
+     * @parameters string
+     *
+     */
     // Returns true if Key is in Map
     public function keyIsIn(string $k): int {
         if (count($this->kv) == 0) {
@@ -347,12 +330,11 @@ class mMap extends Map implements Classes {
         }
         return -1;
     }
-    /*
-    *
-    * public function equals
-    * @parameters Map
-    *
-    */
+    /**
+     * public function equals
+     * @parameters Map
+     *
+     */
     // Compare Map to $r and Return false is not equal
     public function equals(Map $r): bool {
         if ($r->typeOf != 'Map') {
@@ -367,12 +349,11 @@ class mMap extends Map implements Classes {
         }
         return 1;
     }
-    /*
-    *
-    * public function get
-    * @parameters string
-    *
-    */
+    /**
+     * public function get
+     * @parameters string
+     *
+     */
     //  Return Value at Key $k
     public function get(string $k) {
         if ($this->size() == 0) {
@@ -387,12 +368,11 @@ class mMap extends Map implements Classes {
         $this->setIndex($x);
         return 0;
     }
-    /*
-    *
-    * public function isEmpty
-    * @parameters none
-    *
-    */
+    /**
+     * public function isEmpty
+     * @parameters none
+     *
+     */
     // Checks for Empty map
     public function isEmpty(): bool {
         if (count($this->kv) == 0)
@@ -400,12 +380,11 @@ class mMap extends Map implements Classes {
         else
             return 0;
     }
-    /*
-    *
-    * public function addAll
-    * @parameters string
-    *
-    */
+    /**
+     * public function addAll
+     * @parameters string
+     *
+     */
     // Add Map of $r KVs to current map
     public function addAll(mMap $r): bool {
         if ('NavigableMap' != $r->typeOf && 'SortedMap' != $r->typeOf && 'Map' != $r->typeOf) {
@@ -417,12 +396,11 @@ class mMap extends Map implements Classes {
         } while ($r->Iter());
         return 1;
     }
-    /*
-    *
-    * public function remove
-    * @parameters string
-    *
-    */
+    /**
+     * public function remove
+     * @parameters string
+     *
+     */
     // Remove Key of $k
     public function remove(string $k): bool {
         $mapTempK = array();
@@ -441,12 +419,11 @@ class mMap extends Map implements Classes {
         $this->kv = $mapTempK;
         return 1;
     }
-    /*
-    *
-    * public function replace
-    * @parameters string, string
-    *
-    */
+    /**
+     * public function replace
+     * @parameters string, string
+     *
+     */
     // Replace Key of $k with Value of $v
     public function replaceMap(string $k, Map $v): bool {
         if ($this->typeOf != $v->typeOf)
@@ -459,12 +436,11 @@ class mMap extends Map implements Classes {
         } while($this->Iter());
         return 1;
     }
-    /*
-    *
-    * public function sync
-    * @parameters none
-    *
-    */
+    /**
+     * public function sync
+     * @parameters none
+     *
+     */
     public function sync(): bool {
         $this->mmap = current($this->kv);
         $this->mname = key($this->kv);

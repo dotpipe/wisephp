@@ -59,22 +59,20 @@ class Thread implements Classes {
         $this->finit->seqCntr = 0;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters string
-    *
-    */
+    /**
+     * public function size
+     * @parameters string
+     *
+     */
     public function size() {
         return count($this->finit->size());
     }
 
-    /*
-    *
-    * public function startThread
-    * @parameters string
-    *
-    */
+    /**
+     * public function startThread
+     * @parameters string
+     *
+     */
     // $origin mut be Unique to each user.
     // This creates a database of CSV files
     // Each is seemingly randomly named.
@@ -90,12 +88,11 @@ class Thread implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -103,12 +100,11 @@ class Thread implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -123,89 +119,81 @@ class Thread implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function joinThread
-    * @parameters none
-    *
-    */
+    /**
+     * public function joinThread
+     * @parameters none
+     *
+     */
     // Like all joins
     public function join() {
         return $this->finit->sync();
     }
 
-    /*
-    *
-    * public function setIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function setIndex
+     * @parameters int
+     *
+     */
     // Set Index
     public function setIndex(int $index) {
         return $this->finit->setIndex($index);
     }
 
-    /*
-    *
-    * public function getIndex
-    * @parameters none
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
     // Current thread
     public function getIndex() {
         return $this->finit->getIndex();
     }
 
-    /*
-    *
-    * public function current
-    * @parameters none
-    *
-    */
+    /**
+     * public function current
+     * @parameters none
+     *
+     */
     // Current Thread
     public function current() {
         return $this->finit->current();
     }
 
-    /*
-    *
-    * public function nextThread
-    * @parameters none
-    *
-    */
+    /**
+     * public function nextThread
+     * @parameters none
+     *
+     */
     // Forward Iteration
     public function next() {
         return $this->finit->next();
     }
 
-    /*
-    *
-    * public function prevThread
-    * @parameters none
-    *
-    */
+    /**
+     * public function prevThread
+     * @parameters none
+     *
+     */
     // Previous Iteration
     public function prev() {
         return $this->finit->prev();
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     // Forward Iterator
     public function Iter() {
         return $this->finit->Iter();
     }
 
-    /*
-    *
-    * public function Cycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
     // Forward Cycle Iterator
     public function Cycle() {
         if ($this->size() == $this->getIndex()+1) {
@@ -216,23 +204,21 @@ class Thread implements Classes {
         return $this->finit->Iter();
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     // Reverse Iterator
     public function revIter() {
         return $this->finit->revIter();
     }
 
-    /*
-    *
-    * public function revCycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
     // Reverse Cycle Iterator
     public function revCycle() {
         if (-1 == $this->getIndex()-1) {
@@ -243,12 +229,11 @@ class Thread implements Classes {
         return $this->finit->Iter();
     }
 
-    /*
-    *
-    * public function clearThread
-    * @parameters string
-    *
-    */
+    /**
+     * public function clearThread
+     * @parameters string
+     *
+     */
     // Empty Thread file
     public function clearThread(string $origin) {
         $handle = md5($origin);
@@ -264,12 +249,11 @@ class Thread implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function endThread
-    * @parameters none
-    *
-    */
+    /**
+     * public function endThread
+     * @parameters none
+     *
+     */
     // Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
     public function endThread() {
         $this->finit->remSeqStream($this->finit->getIndex());
@@ -278,12 +262,11 @@ class Thread implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function readThread
-    * @parameters none
-    *
-    */
+    /**
+     * public function readThread
+     * @parameters none
+     *
+     */
     // Read from Thread file
     public function readThread() {
         $this->finit->setDelim("}");
@@ -296,12 +279,11 @@ class Thread implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function writeThread
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function writeThread
+     * @parameters mixed
+     *
+     */
     // Write to Thread file
     public function writeThread($obj_array) {
         $x = json_encode($obj_array);

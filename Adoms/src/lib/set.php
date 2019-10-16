@@ -31,12 +31,11 @@ class Set {
         $this->dat = null;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -44,12 +43,11 @@ class Set {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -64,12 +62,11 @@ class Set {
         return 1;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     // Report Size of Container
     public function size() {
         if (($this->typeOf == 'SortedSet' || $this->typeOf == 'NavigableSet') && $this->parentType == 'Set') {
@@ -81,12 +78,11 @@ class Set {
         else return -1;
     }
 
-    /*
-    *
-    * public function addAll
-    * @parameters string
-    *
-    */
+    /**
+     * public function addAll
+     * @parameters string
+     *
+     */
     // Merge sets
     public function addAll(string $r) {
         if ($this->typeOf != $r->typeOf) {
@@ -103,12 +99,11 @@ class Set {
 
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     // Empty Set
     public function clear() {
 
@@ -116,12 +111,11 @@ class Set {
         return;
     }
 
-    /*
-    *
-    * public function add
-    * @parameters none
-    *
-    */
+    /**
+     * public function add
+     * @parameters none
+     *
+     */
     // Splice $r into $indx point
     public function add($r) {
         $bool = 0;
@@ -134,24 +128,22 @@ class Set {
         return 1;
     }
 
-    /*
-    *
-    * public function valIsIn
-    * @parameters string
-    *
-    */
+    /**
+     * public function valIsIn
+     * @parameters string
+     *
+     */
     // Return if Value exists
     public function valIsIn(string $v) {
         $temp = array();
         return array_search($v, $this->dat);
     }
 
-    /*
-    *
-    * public function compare
-    * @parameters Set
-    *
-    */
+    /**
+     * public function compare
+     * @parameters Set
+     *
+     */
     // Compare $this with $r
     public function compare(Set $r) {
         $temp = array();
@@ -164,12 +156,11 @@ class Set {
         return 1;
     }
 
-    /*
-    *
-    * public function get
-    * @parameters int
-    *
-    */
+    /**
+     * public function get
+     * @parameters int
+     *
+     */
     // Return entry at $indx
     public function get(int $indx) {
         if ($this->size() == 0 || $indx >= $this->size()) {
@@ -180,12 +171,11 @@ class Set {
         return $this->dat[$indx];
     }
 
-    /*
-    *
-    * public function exists
-    * @parameters string
-    *
-    */
+    /**
+     * public function exists
+     * @parameters string
+     *
+     */
     // Return Index of Entry
     public function exists(string $r) {
         if ($this->size() == 0) {
@@ -201,12 +191,11 @@ class Set {
         return $indx;
     }
 
-    /*
-    *
-    * public function remIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function remIndex
+     * @parameters int
+     *
+     */
     // Remove Entry at $indx
     public function remIndex(int $indx) {
         $setTemp = [];
@@ -227,12 +216,11 @@ class Set {
         return 1;
     }
 
-    /*
-    *
-    * public function remValue
-    * @parameters string
-    *
-    */
+    /**
+     * public function remValue
+     * @parameters string
+     *
+     */
     // Remove Value if exists (otherwise 0)
     public function remValue(string $val) {
         $setTemp = [];

@@ -23,22 +23,20 @@ class SortedMap extends Map {
         $this->typeOf = 'SortedMap';
     }
 
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy() {
         $this->map = null;
     }
 
-    /*
-    *
-    * public function firstKey
-    * @parameters none
-    *
-    */
+    /**
+     * public function firstKey
+     * @parameters none
+     *
+     */
     // Return first KV
     public function firstKey() {
         if ($this->size() == 0) {
@@ -48,12 +46,11 @@ class SortedMap extends Map {
         return array($this->kv[0], $this->value[0]);
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -61,12 +58,11 @@ class SortedMap extends Map {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -81,12 +77,11 @@ class SortedMap extends Map {
         return 1;
     }
 
-    /*
-    *
-    * public function lastKey
-    * @parameters none
-    *
-    */
+    /**
+     * public function lastKey
+     * @parameters none
+     *
+     */
     // Return last KV
     public function lastKey() {
         if ($this->size() == 0) {
@@ -96,12 +91,11 @@ class SortedMap extends Map {
         return array($this->kv[$this->size()-1], $this->value[$this->size()-1]);
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string, int, int
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string, int, int
+     *
+     */
     // Return Keys before $r
     // $vb == 2 returns all
     // $vb == 1 >= $v
@@ -137,12 +131,11 @@ class SortedMap extends Map {
         return $vMap;
     }
 
-    /*
-    *
-    * public function subMap
-    * @parameters string, int, string, int
-    *
-    */
+    /**
+     * public function subMap
+     * @parameters string, int, string, int
+     *
+     */
     // Return KVs between $vst and $ven (This is very functional)
     // $Lb == 0 >= $vst ; $Lb == 1 < $vst
     // $Hb == 0 >= $ven ; $Hb == 1 < $ven
@@ -206,12 +199,11 @@ class SortedMap extends Map {
         return $vMap;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string, int
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string, int
+     *
+     */
     // Return Tail end of Map at $st
     public function tailMap(string $st, int $vb) {
         $mapTemp = array();

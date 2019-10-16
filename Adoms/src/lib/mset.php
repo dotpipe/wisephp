@@ -35,12 +35,11 @@ class mSet extends Set implements Classes {
         $this->sets = array();
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -48,12 +47,11 @@ class mSet extends Set implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -68,34 +66,31 @@ class mSet extends Set implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     // Report Size of Container
     public function size() {
         return count($this->sets);
     }
 
-    /*
-    *
-    * public function getIndex
-    * @parameters none
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
     // Get Index
     public function getIndex() {
         return $this->datCntr;
     }
 
-    /*
-    *
-    * public function setIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function setIndex
+     * @parameters int
+     *
+     */
     // Sets and Joins Set Index
     public function setIndex(int $indx) {
         reset($this->sets);
@@ -107,12 +102,11 @@ class mSet extends Set implements Classes {
         $this->datCntr = $indx;
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Set
     public function Iter() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
@@ -124,12 +118,11 @@ class mSet extends Set implements Classes {
 
     }
 
-    /*
-    *
-    * public function Cycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
     // Cycle Forward through Vector
     public function Cycle() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
@@ -141,12 +134,11 @@ class mSet extends Set implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Set
     public function revIter() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
@@ -158,12 +150,11 @@ class mSet extends Set implements Classes {
         return 1;
      }
 
-    /*
-    *
-    * public function revCycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
     public function revCycle() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
             $this->datCntr--;
@@ -174,12 +165,11 @@ class mSet extends Set implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function prev
-    * @parameters none
-    *
-    */
+    /**
+     * public function prev
+     * @parameters none
+     *
+     */
     // Iterate to Previous key
     public function prev() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
@@ -188,12 +178,11 @@ class mSet extends Set implements Classes {
             return 0;
         return prev($this->sets);
     }
-    /*
-    *
-    * public function next
-    * @parameters none
-    *
-    */
+    /**
+     * public function next
+     * @parameters none
+     *
+     */
     // Iterate to Next key
     public function next() {
         if ($this->datCntr > 0 && $this->datCntr+1 < count($this->sets))
@@ -203,23 +192,21 @@ class mSet extends Set implements Classes {
         return next($this->sets);
     }
 
-    /*
-    *
-    * public function current
-    * @parameters none
-    *
-    */
+    /**
+     * public function current
+     * @parameters none
+     *
+     */
     // Retrieve current Index of Vector Pointer
     public function current() {
         return $this->getIndex();
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     // Empty Set
     public function clear() {
 
@@ -227,12 +214,11 @@ class mSet extends Set implements Classes {
         return;
     }
 
-    /*
-    *
-    * public function get
-    * @parameters int
-    *
-    */
+    /**
+     * public function get
+     * @parameters int
+     *
+     */
     // Return entry at $indx
     public function get(int $indx) {
         if (!is_array($this->sets))
@@ -241,12 +227,11 @@ class mSet extends Set implements Classes {
         return array_slice($this->sets, $indx,1);
     }
 
-    /*
-    *
-    * public function addSet
-    * @parameters Set
-    *
-    */
+    /**
+     * public function addSet
+     * @parameters Set
+     *
+     */
     // Insert $r
     public function addSet(Set $r) {
         if (!is_array($this->sets))
@@ -273,12 +258,11 @@ class mSet extends Set implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function exists
-    * @parameters Set
-    *
-    */
+    /**
+     * public function exists
+     * @parameters Set
+     *
+     */
     // Return Indices of Entry
     public function exists(string $r) {
         if (!is_array($this->sets))
@@ -297,12 +281,11 @@ class mSet extends Set implements Classes {
         return $indx;
     }
 
-    /*
-    *
-    * public function remIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function remIndex
+     * @parameters int
+     *
+     */
     // Remove Entry at $indx
     public function remIndex(int $indx) {
         $setTemp = new mSet();
@@ -324,12 +307,11 @@ class mSet extends Set implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function sync
-    * @parameters none
-    *
-    */
+    /**
+     * public function sync
+     * @parameters none
+     *
+     */
     public function sync() {
         if (!is_array($this->sets))
             $this->sets = [];

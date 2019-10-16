@@ -96,12 +96,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name): bool
     {
         $fp = fopen("$json_name", "w");
@@ -110,17 +109,16 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name): bool
     {
         if (file_exists("$json_name") && filesize("$json_name") > 0) {
             $fp = fopen("$json_name", "r");
-        } else { 
+        } else {
             return 0;
         }
         $json_context = fread($fp, filesize("$json_name"));
@@ -132,12 +130,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function table
-    * @parameters string, array, string
-    *
-    */
+    /**
+     * public function table
+     * @parameters string, array, string
+     *
+     */
     public function table(string $classId = "", array $tdId, string $thId = ""): string
     {
         $cid = "";
@@ -284,12 +281,11 @@ class Matrix implements Classes
         return $html;
     }
 
-    /*
-    *
-    * public function rem
-    * @parameters int
-    *
-    */
+    /**
+     * public function rem
+     * @parameters int
+     *
+     */
     // Remove $r from Matrix
     public function rem(int $r): bool
     {
@@ -313,12 +309,11 @@ class Matrix implements Classes
         return $this->dat = $temporneous;
     }
 
-    /*
-    *
-    * public function hasNext
-    * @parameters none
-    *
-    */
+    /**
+     * public function hasNext
+     * @parameters none
+     *
+     */
     // Returns true if Matrix has next Element
     public function hasNext(): bool
     {
@@ -334,12 +329,11 @@ class Matrix implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function next
-    * @parameters none
-    *
-    */
+    /**
+     * public function next
+     * @parameters none
+     *
+     */
     // Iterate once forward through Vector
     public function next(): bool
     {
@@ -361,12 +355,11 @@ class Matrix implements Classes
         }
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Vector
     public function Iter(): bool
     {
@@ -387,12 +380,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function Cycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
     // Cycle Forward through Vector
     public function Cycle(): bool
     {
@@ -414,12 +406,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Vector
     public function revIter(): bool
     {
@@ -440,12 +431,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function revCycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
     public function revCycle(): bool
     {
         if ($this->size() == 0) {
@@ -466,12 +456,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function hasPrev
-    * @parameters none
-    *
-    */
+    /**
+     * public function hasPrev
+     * @parameters none
+     *
+     */
     // Return true if Previous Vector exists
     public function hasPrev(): bool
     {
@@ -484,12 +473,11 @@ class Matrix implements Classes
         return ($this->getIndex() - 1 > 0) ? 1 : 0;
     }
 
-    /*
-    *
-    * public function prev8
-    * @parameters none
-    *
-    */
+    /**
+     * public function prev8
+     * @parameters none
+     *
+     */
     // Iterate to Previous Vector if $bool = 1;
     // Setup $cntDecr (index) for Prev. Vector if $bool = 0;
     public function prev(): bool
@@ -512,24 +500,22 @@ class Matrix implements Classes
         }
     }
 
-    /*
-    *
-    * public function current8
-    * @parameters none
-    *
-    */
+    /**
+     * public function current8
+     * @parameters none
+     *
+     */
     // Retrieve current Index of Vector Pointer
     public function current(): int
     {
         return $this->getIndex();
     }
 
-    /*
-    *
-    * public function cntIncr
-    * @parameters none
-    *
-    */
+    /**
+     * public function cntIncr
+     * @parameters none
+     *
+     */
     // Increment datCntr (index)
     private function cntIncr(): int
     {
@@ -538,12 +524,11 @@ class Matrix implements Classes
         return ++$this->datCnt;
     }
 
-    /*
-    *
-    * public function cntDecr
-    * @parameters none
-    *
-    */
+    /**
+     * public function cntDecr
+     * @parameters none
+     *
+     */
     // Decrement datCntr (index)
     private function cntDecr(): int
     {
@@ -552,24 +537,22 @@ class Matrix implements Classes
         return --$this->datCnt;
     }
 
-    /*
-    *
-    * public function getIndex
-    * @parameters none
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
     // Get Index
     public function getIndex(): int
     {
         return $this->datCnt;
     }
 
-    /*
-    *
-    * public function setIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function setIndex
+     * @parameters int
+     *
+     */
     // Sets and Joins Map Index
     public function setIndex(int $indx): bool
     {
@@ -586,12 +569,11 @@ class Matrix implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy(): bool
     {
         $this->vectorTemp = null;
@@ -601,24 +583,22 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     public function clear(): bool
     {
         $this->dat = array();
         return 1;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     // Report Size of Container
     public function size(): int
     {
@@ -627,12 +607,11 @@ class Matrix implements Classes
         else return 0;
     }
 
-    /*
-    *
-    * public function push
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function push
+     * @parameters mixed
+     *
+     */
     // Add Vector with $r and Join if $bool == 1
     public function push($r): bool
     {
@@ -656,12 +635,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function pop
-    * @parameters none
-    *
-    */
+    /**
+     * public function pop
+     * @parameters none
+     *
+     */
     // Remove $r from Vector
     public function pop(): int
     {
@@ -683,12 +661,11 @@ class Matrix implements Classes
         return $this->dat = $temporneous;
     }
 
-    /*
-    *
-    * public function sIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function sIndex
+     * @parameters int
+     *
+     */
     // Set new Index
     private function sIndex(int $indx): int
     {
@@ -706,12 +683,11 @@ class Matrix implements Classes
         }
     }
 
-    /*
-    *
-    * public function at
-    * @parameters int
-    *
-    */
+    /**
+     * public function at
+     * @parameters int
+     *
+     */
     // Return Vector at $indx
     public function at(int $indx)
     {
@@ -729,12 +705,11 @@ class Matrix implements Classes
         return -1;
     }
 
-    /*
-    *
-    * public function sync
-    * @parameters none
-    *
-    */
+    /**
+     * public function sync
+     * @parameters none
+     *
+     */
     public function sync(): bool
     {
         if ($this->pv >= 0 && $this->pv < $this->size()) {
@@ -755,12 +730,11 @@ class Matrix implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function join
-    * @parameters none
-    *
-    */
+    /**
+     * public function join
+     * @parameters none
+     *
+     */
     // Point Vector to getIndex()
     public function join(): bool
     {
@@ -779,12 +753,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function add
-    * @parameters mixed, int, int
-    *
-    */
+    /**
+     * public function add
+     * @parameters mixed, int, int
+     *
+     */
     // $indx = row
     public function add($r, int $indx = -1, int $col = -1): bool
     {
@@ -837,12 +810,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function grow
-    * @parameters int
-    *
-    */
+    /**
+     * public function grow
+     * @parameters int
+     *
+     */
     public function grow(int $r): bool
     {
         if ($r < 1) {
@@ -854,12 +826,11 @@ class Matrix implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function shrink
-    * @parameters int
-    *
-    */
+    /**
+     * public function shrink
+     * @parameters int
+     *
+     */
     public function shrink(int $r): bool
     {
         if ($r < 1 || $r > $this->size()) {

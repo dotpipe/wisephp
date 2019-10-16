@@ -27,12 +27,11 @@ class Trees {
         $this->apiMap = new Map();
     }
 
-    /*
-    *
-    * public function linkTree
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function linkTree
+     * @parameters mixed
+     *
+     */
     public function linkTree($m) {
         $s = $m;
         if (is_array($m))
@@ -98,12 +97,11 @@ class Trees {
         return $output;
     }
 
-    /*
-    *
-    * public function create
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function create
+     * @parameters mixed
+     *
+     */
     public function create($va = 0) {
         $outstring = "";
         $lvl = 0;
@@ -145,12 +143,11 @@ class Trees {
         return $outstring;
     }
 
-    /*
-    *
-    * public function mockTree
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function mockTree
+     * @parameters mixed
+     *
+     */
     public function mockTree($m) {
         $s = $m;
         if (is_array($m))

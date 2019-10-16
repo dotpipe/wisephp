@@ -34,12 +34,11 @@ class Map implements Classes
         $this->datCntr = 0;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $file_name): bool
     {
         $fp = fopen("$file_name", "w");
@@ -48,12 +47,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $file_name): bool
     {
         if (file_exists("$file_name") && filesize("$file_name") > 0)
@@ -69,12 +67,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy()
     {
         $this->cache = null;
@@ -82,12 +79,11 @@ class Map implements Classes
         $this->map = null;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     public function size(): int
     {
         if (!is_array($this->kv)) {
@@ -99,12 +95,11 @@ class Map implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     public function clear(): bool
     {
         $this->map = array();
@@ -112,12 +107,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function at
-    * @parameters int
-    *
-    */
+    /**
+     * public function at
+     * @parameters int
+     *
+     */
     public function at(int $indx)
     {
         if ($this->size() == 0) {
@@ -134,12 +128,11 @@ class Map implements Classes
         return $temp;
     }
 
-    /*
-    *
-    * public function Sorter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Sorter
+     * @parameters none
+     *
+     */
     public function Sorter(): bool
     {
         if ($this->size() > 0) {
@@ -150,23 +143,21 @@ class Map implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function keyIsIn
-    * @parameters string
-    *
-    */
+    /**
+     * public function keyIsIn
+     * @parameters string
+     *
+     */
     public function keyIsIn(string $k)
     {
         return array_keys($k,$this->kv);
     }
 
-    /*
-    *
-    * public function valisIn
-    * @parameters string
-    *
-    */
+    /**
+     * public function valisIn
+     * @parameters string
+     *
+     */
     public function valIsIn(string $v)
     {
         $y = null;
@@ -183,12 +174,11 @@ class Map implements Classes
         return $e;
     }
 
-    /*
-    *
-    * public function equals
-    * @parameters Map
-    *
-    */
+    /**
+     * public function equals
+     * @parameters Map
+     *
+     */
     public function equals(Map $r): bool
     {
         if ($r->kv == $this->kv) {
@@ -197,12 +187,11 @@ class Map implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function get
-    * @parameters string
-    *
-    */
+    /**
+     * public function get
+     * @parameters string
+     *
+     */
     public function get(string $k)
     {
         if ($this->size() == 0) {
@@ -224,23 +213,21 @@ class Map implements Classes
         return current($t);
     }
 
-    /*
-    *
-    * public function isEmpty
-    * @parameters none
-    *
-    */
+    /**
+     * public function isEmpty
+     * @parameters none
+     *
+     */
     public function isEmpty(): bool
     {
         return (count($this->kv) === 0) ? 1 : 0;
     }
 
-    /*
-    *
-    * public function mergeAll
-    * @parameters array
-    *
-    */
+    /**
+     * public function mergeAll
+     * @parameters array
+     *
+     */
     // Merge maps (returns number inserted)
     public function mergeAll(array $r): bool
     {
@@ -258,24 +245,22 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function current
-    * @parameters none
-    *
-    */
+    /**
+     * public function current
+     * @parameters none
+     *
+     */
     // Retrieve current Index of Vector Pointer
     public function current(): int
     {
         return $this->getIndex();
     }
 
-    /*
-    *
-    * public function prev
-    * @parameters none
-    *
-    */
+    /**
+     * public function prev
+     * @parameters none
+     *
+     */
     // Iterate to Previous key
     public function prev()
     {
@@ -287,12 +272,11 @@ class Map implements Classes
         return prev($this->kv);
     }
 
-    /*
-    *
-    * public function next
-    * @parameters none
-    *
-    */
+    /**
+     * public function next
+     * @parameters none
+     *
+     */
     // Iterate to Previous key;
     public function next()
     {
@@ -304,12 +288,11 @@ class Map implements Classes
         return next($this->kv);
     }
 
-    /*
-    *
-    * public function getIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters int
+     *
+     */
     // Sets and Joins Map Index
     public function getIndex(): int
     {
@@ -322,12 +305,11 @@ class Map implements Classes
         return $this->datCntr;
     }
 
-    /*
-    *
-    * public function setIndex
-    * @parameters int
-    *
-    */
+    /**
+     * public function setIndex
+     * @parameters int
+     *
+     */
     // Sets and Joins Map Index
     public function setIndex(int $indx): bool
     {
@@ -350,12 +332,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function remove
-    * @parameters string
-    *
-    */
+    /**
+     * public function remove
+     * @parameters string
+     *
+     */
     // Remove Key with name $k
     public function remove(string $k): bool
     {
@@ -381,12 +362,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function findKey
-    * @parameters string
-    *
-    */
+    /**
+     * public function findKey
+     * @parameters string
+     *
+     */
     // Return Key
 
     // Return keys fitting $regex
@@ -410,12 +390,11 @@ class Map implements Classes
         return $regs;
     }
 
-    /*
-    *
-    * public function removeKV
-    * @parameters string, string
-    *
-    */
+    /**
+     * public function removeKV
+     * @parameters string, string
+     *
+     */
     // Remove entry with K & V matching $k and $v
     public function removeKV($k, $v): bool
     {
@@ -434,12 +413,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function replace
-    * @parameters string, string
-    *
-    */
+    /**
+     * public function replace
+     * @parameters string, string
+     *
+     */
     // Replace KV
     public function replace(string $k, $v): bool
     {
@@ -447,12 +425,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function add
-    * @parameters string, mixed
-    *
-    */
+    /**
+     * public function add
+     * @parameters string, mixed
+     *
+     */
     // Add entry
     public function add(string $key, $val): bool
     {
@@ -477,12 +454,11 @@ class Map implements Classes
         return 1;
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     public function Iter(): bool
     {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->kv)) {
@@ -497,12 +473,11 @@ class Map implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     public function revIter(): bool
     {
         if ($this->datCntr > 0 && $this->datCntr + 1 < count($this->kv)) {
@@ -517,12 +492,11 @@ class Map implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     public function Cycle(): bool
     {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->kv)) {
@@ -544,12 +518,11 @@ class Map implements Classes
         return 0;
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     public function revCycle(): bool
     {
         if ($this->datCntr > 0 && $this->datCntr + 1 < count($this->kv)) {

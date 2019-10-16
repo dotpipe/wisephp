@@ -43,33 +43,30 @@ class Streams extends Map implements Classes {
         $this->dir = "";
     }
 
-    /*
-    *
-    * public function destroy
-    * @parameters none
-    *
-    */
+    /**
+     * public function destroy
+     * @parameters none
+     *
+     */
     public function destroy() {
         $this->kv = new Map();
     }
 
-    /*
-    *
-    * public function getIndex
-    * @parameters none
-    *
-    */
+    /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
     // Retrieve Index
     public function getIndex(): int {
         return $this->datCntr;
     }
 
-    /*
-    *
-    * public function erase
-    * @parameters string
-    *
-    */
+    /**
+     * public function erase
+     * @parameters string
+     *
+     */
     // Erase file
     public function erase(string $filename): bool {
         if (file_exists($filename)) {
@@ -80,12 +77,11 @@ class Streams extends Map implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function delete
-    * @parameters string
-    *
-    */
+    /**
+     * public function delete
+     * @parameters string
+     *
+     */
     // Delete file
     public function delete(string $filename): bool {
         if (file_exists($filename)) {
@@ -96,12 +92,11 @@ class Streams extends Map implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function touch
-    * @parameters string
-    *
-    */
+    /**
+     * public function touch
+     * @parameters string
+     *
+     */
     // Create new File Or check if exists
     public function touch(string $filename): bool {
         if (file_exists($filename))
@@ -113,12 +108,11 @@ class Streams extends Map implements Classes {
         return 0;
     }
 
-    /*
-    *
-    * public function addStrm
-    * @parameters string
-    *
-    */
+    /**
+     * public function addStrm
+     * @parameters string
+     *
+     */
     // Add to Stream array()
     public function addStrm(string $r, bool $bool = FALSE): bool {
         $rw = '';
@@ -135,23 +129,21 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters string
-    *
-    */
+    /**
+     * public function size
+     * @parameters string
+     *
+     */
     // Report how many streams in Object
     public function size(): int {
         return count($this->kv);
     }
 
-    /*
-    *
-    * public function Iter
-    * @parameters none
-    *
-    */
+    /**
+     * public function Iter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Streams
     public function Iter(): bool {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->kv)) {
@@ -167,12 +159,11 @@ class Streams extends Map implements Classes {
 
     }
 
-    /*
-    *
-    * public function Cycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
     // Cycle Forward through Vector
     public function Cycle(): bool {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->kv)) {
@@ -187,12 +178,11 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function revIter
-    * @parameters none
-    *
-    */
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
     // Iterate Forward through Streams
     public function revIter(): bool {
         if ($this->datCntr > 0 && $this->datCntr < count($this->kv)) {
@@ -207,12 +197,11 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function revCycle
-    * @parameters none
-    *
-    */
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
     public function revCycle(): bool {
         if ($this->datCntr > 0 && $this->datCntr < count($this->kv)) {
             if (key($this->kv) != null && current($this->kv) != null)
@@ -226,12 +215,11 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function prevStrm
-    * @parameters none
-    *
-    */
+    /**
+     * public function prevStrm
+     * @parameters none
+     *
+     */
     // Iterate to Previous Streams if $bool = 1;
     // Setup $cntDecr (index) for Prev. Streams if $bool = 0;
     public function prev(): bool {
@@ -247,24 +235,22 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function currStrm
-    * @parameters none
-    *
-    */
+    /**
+     * public function currStrm
+     * @parameters none
+     *
+     */
     // Retrieve current Index of Vector Pointer
     public function current(): int {
         return $this->getIndex();
     }
 
 
-    /*
-    *
-    * public function remove
-    * @parameters string
-    *
-    */
+    /**
+     * public function remove
+     * @parameters string
+     *
+     */
     // Remove Stream at index $r
     public function removeIndex(int $r): bool {
         if (!is_array($this->kv)) {
@@ -275,23 +261,21 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function fileSize
-    * @parameters none
-    *
-    */
+    /**
+     * public function fileSize
+     * @parameters none
+     *
+     */
     // Get FileSize
     public function fileSize(): int {
         return filesize(key($this->kv));
     }
 
-    /*
-    *
-    * public function sync
-    * @parameters none
-    *
-    */
+    /**
+     * public function sync
+     * @parameters none
+     *
+     */
     public function sync(): bool {
         $keys = array_keys($this->kv);
 
@@ -303,12 +287,11 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function resize
-    * @parameters int
-    *
-    */
+    /**
+     * public function resize
+     * @parameters int
+     *
+     */
     // Resize reading Buffer
     public function resize(int $s): bool {
         if ($s > 0)
@@ -318,46 +301,42 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function setDelim
-    * @parameters string
-    *
-    */
+    /**
+     * public function setDelim
+     * @parameters string
+     *
+     */
     // Set Delimiter
     public function setDelim(string $d): bool {
         $d = $d[0];
         return $this->delim = $d;
     }
 
-    /*
-    *
-    * public function resetDelimm
-    * @parameters none
-    *
-    */
+    /**
+     * public function resetDelimm
+     * @parameters none
+     *
+     */
     // Eliminate Delimiter
     public function resetDelim(): bool {
         return $this->delim = '';
     }
 
-    /*
-    *
-    * public function clearBuf
-    * @parameters none
-    *
-    */
+    /**
+     * public function clearBuf
+     * @parameters none
+     *
+     */
     // Empty Buffer
     public function clearBuf(): bool {
         return $this->buffData = null;
     }
 
-    /*
-    *
-    * public function seek
-    * @parameters int, int
-    *
-    */
+    /**
+     * public function seek
+     * @parameters int, int
+     *
+     */
     // Seek to point in file
     public function seek(int $pos, int $flag): bool {
         $f = '';
@@ -380,12 +359,11 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function eof
-    * @parameters none
-    *
-    */
+    /**
+     * public function eof
+     * @parameters none
+     *
+     */
     // Check for End of File
     public function eof(): bool {
         if (feof(current($this->kv)) || key($this->kv) == null)
@@ -394,12 +372,11 @@ class Streams extends Map implements Classes {
             return 1;
     }
 
-    /*
-    *
-    * public function readBuf
-    * @parameters none
-    *
-    */
+    /**
+     * public function readBuf
+     * @parameters none
+     *
+     */
     // Read from File
     public function readBuf(): bool {
         if ($this->parentType != 'Streams' && ($this->typeOf != 'rwStream' || $this->typeOf != 'readStream')) {
@@ -431,24 +408,22 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function writeBuf
-    * @parameters none
-    *
-    */
+    /**
+     * public function writeBuf
+     * @parameters none
+     *
+     */
     // Write to Buffer File
     public function writeBuf(): int {
         if ($this->strm != null && $this->typeOf != "readStream")
             return fwrite($this->strm, $this->buf);
     }
 
-    /*
-    *
-    * public function close
-    * @parameters none
-    *
-    */
+    /**
+     * public function close
+     * @parameters none
+     *
+     */
     // Close File
     public function close(): bool {
         fclose(current($this->kv));
@@ -457,12 +432,11 @@ class Streams extends Map implements Classes {
         return 1;
     }
 
-    /*
-    *
-    * public function changeDir
-    * @parameters string
-    *
-    */
+    /**
+     * public function changeDir
+     * @parameters string
+     *
+     */
     // Change local directory
     public function changeDir(string $directory): string {
         $this->dir = $directory;

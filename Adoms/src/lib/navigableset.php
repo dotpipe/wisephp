@@ -32,12 +32,11 @@ class NavigableSet extends SortedSet {
         $this->dat = null;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -45,12 +44,11 @@ class NavigableSet extends SortedSet {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -65,12 +63,11 @@ class NavigableSet extends SortedSet {
         return 1;
     }
 
-    /*
-    *
-    * public function ceiling
-    * @parameters string
-    *
-    */
+    /**
+     * public function ceiling
+     * @parameters string
+     *
+     */
     // Retrieves first entry <= $r
     public function ceiling(string $r) {
         if (!is_array($this->dat))
@@ -88,12 +85,11 @@ class NavigableSet extends SortedSet {
         return current($t);
     }
 
-    /*
-    *
-    * public function floor
-    * @parameters string
-    *
-    */
+    /**
+     * public function floor
+     * @parameters string
+     *
+     */
     // Retrieves first entry < $r
     public function floor(string $r) {
         if (!is_array($this->dat))
@@ -111,12 +107,11 @@ class NavigableSet extends SortedSet {
         return current($t);
     }
 
-    /*
-    *
-    * public function pollFirst
-    * @parameters none
-    *
-    */
+    /**
+     * public function pollFirst
+     * @parameters none
+     *
+     */
     // Retrieves and removes First Entry
     public function pollFirst() {
         if (!is_array($this->dat))
@@ -126,12 +121,11 @@ class NavigableSet extends SortedSet {
         return $j;
     }
 
-    /*
-    *
-    * public function pollLast
-    * @parameters none
-    *
-    */
+    /**
+     * public function pollLast
+     * @parameters none
+     *
+     */
     // Retrieves and erases last entry
     public function pollLast() {
         if (!is_array($this->dat))

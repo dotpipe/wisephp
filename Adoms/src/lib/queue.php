@@ -29,12 +29,11 @@ class Queue {
         $this->dat = null;
     }
 
-    /*
-    *
-    * public function size
-    * @parameters none
-    *
-    */
+    /**
+     * public function size
+     * @parameters none
+     *
+     */
     // Report Size of Container
     public function size() {
         if (sizeof($this->dat) >= 0)
@@ -42,12 +41,11 @@ class Queue {
         else return -1;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters string
-    *
-    */
+    /**
+     * public function save
+     * @parameters string
+     *
+     */
     public function save(string $json_name) {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
@@ -55,12 +53,11 @@ class Queue {
         return 1;
     }
 
-    /*
-    *
-    * public function loadJSON
-    * @parameters string
-    *
-    */
+    /**
+     * public function loadJSON
+     * @parameters string
+     *
+     */
     public function loadJSON(string $json_name) {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
@@ -75,12 +72,11 @@ class Queue {
         return 1;
     }
 
-    /*
-    *
-    * public function poll
-    * @parameters none
-    *
-    */
+    /**
+     * public function poll
+     * @parameters none
+     *
+     */
     // Remove while Retrieving entry 1
     public function poll() {
         if ($this->size() == 0) {
@@ -93,23 +89,21 @@ class Queue {
         return $j;
     }
 
-    /*
-    *
-    * public function push
-    * @parameters mixed
-    *
-    */
+    /**
+     * public function push
+     * @parameters mixed
+     *
+     */
     // Push on to Queue
     public function push($r) {
         return array_push($this->dat, $r);
     }
 
-    /*
-    *
-    * public function pop
-    * @parameters none
-    *
-    */
+    /**
+     * public function pop
+     * @parameters none
+     *
+     */
     // Retrieve first Queue and pop
     public function pop() {
         if ($this->size() == 0) {
@@ -121,12 +115,11 @@ class Queue {
         return 1;
     }
 
-    /*
-    *
-    * public function getElement
-    * @parameters none
-    *
-    */
+    /**
+     * public function getElement
+     * @parameters none
+     *
+     */
     // Return first Queue
     public function getElement() {
         if ($this->size() == 0) {
@@ -136,12 +129,11 @@ class Queue {
         return $this->dat[0];
     }
 
-    /*
-    *
-    * public function clear
-    * @parameters none
-    *
-    */
+    /**
+     * public function clear
+     * @parameters none
+     *
+     */
     // Empty Queue
     public function clear() {
         $this->dat = array();
