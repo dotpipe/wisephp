@@ -20,23 +20,25 @@ spl_autoload_register(function ($className) {
 
 <script src="src/routes/pipes.js"></script>
 <script>
-    function dataNext() {
-        var x = document.getElementById("s_titlewr");
-        var y = document.getElementById("s_dirwr");
-        document.getElementById("s_titlemd").value = x.value;
-        document.getElementById("s_dirmd").value = y.value;
-        document.getElementById("s_view").innerHTML = y.value;
-        document.getElementById("s_title").innerHTML = x.value;
-    }
-    function next() {
-        document.getElementById("createView").style.display = "none";
-        document.getElementById("createData").style.display = "block";
-        dataNext();
-    }
-    function back() {
-        document.getElementById("createView").style.display = "block";
-        document.getElementById("createData").style.display = "none";
-    }
+function dataNext() {
+    var x = document.getElementById("s_titlewr");
+    var y = document.getElementById("s_dirwr");
+    document.getElementById("s_titlemd").value = x.value;
+    document.getElementById("s_dirmd").value = y.value;
+    document.getElementById("s_view").innerHTML = y.value;
+    document.getElementById("s_title").innerHTML = x.value;
+}
+
+function next() {
+    document.getElementById("createView").style.display = "none";
+    document.getElementById("createData").style.display = "block";
+    dataNext();
+}
+
+function back() {
+    document.getElementById("createView").style.display = "block";
+    document.getElementById("createData").style.display = "none";
+}
 </script>
 <style>
 body {

@@ -10,7 +10,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
-
 var undo_text = [];
 var redo_text = [];
 var index = 0;
@@ -26,41 +25,40 @@ var index = 0;
             document.execCommand("copy");
             document.getElementById("clip").style.visibility = "visible";
 
-        }
-        else
+        } else
             document.getElementById("clip").style.visibility = "hidden";
-        if (redo_text[redo_text.length-1] != document.getElementById("code").value)
+        if (redo_text[redo_text.length - 1] != document.getElementById("code").value)
             redo_text.push(document.getElementById("code").value);
         if (elem.id == "isstr")
-            textareaClicked("is_string(",")");
+            textareaClicked("is_string(", ")");
         else if (elem.id == "isbool")
-            textareaClicked("is_bool(",")");
+            textareaClicked("is_bool(", ")");
         else if (elem.id == "isarr")
-            textareaClicked("is_array(",")");
+            textareaClicked("is_array(", ")");
         else if (elem.id == "isobj")
-            textareaClicked("is_object(",")");
+            textareaClicked("is_object(", ")");
         else if (elem.id == "isint")
-            textareaClicked("is_int(",")");
+            textareaClicked("is_int(", ")");
         else if (elem.id == "isnum")
-            textareaClicked("is_numeric(",")");
+            textareaClicked("is_numeric(", ")");
         else if (elem.id == "isres")
-            textareaClicked("is_resource(",")");
+            textareaClicked("is_resource(", ")");
         else if (elem.id == "isscl")
-            textareaClicked("is_scalar(",")");
+            textareaClicked("is_scalar(", ")");
         else if (elem.id == "isfunc")
-            textareaClicked("function_exists(",")");
+            textareaClicked("function_exists(", ")");
         else if (elem.id == "ismeth")
-            textareaClicked("method_exists(",")");
+            textareaClicked("method_exists(", ")");
         else if (elem.id == "isnull")
-            textareaClicked("is_null(",")");
+            textareaClicked("is_null(", ")");
         else if (elem.id == "isdbl")
-            textareaClicked("is_float(",")");
+            textareaClicked("is_float(", ")");
         else if (elem.id == "iscall")
-            textareaClicked("is_callable(",")");
+            textareaClicked("is_callable(", ")");
         else if (elem.id == "getcls")
-            textareaClicked("get_class(",")");
+            textareaClicked("get_class(", ")");
         else if (elem.id == "parentheses")
-            textareaClicked("(",")");
+            textareaClicked("(", ")");
         else if (elem.id == "square")
             textareaClicked("[", "]");
         else if (elem.id == "single")
@@ -68,7 +66,7 @@ var index = 0;
         else if (elem.id == "double")
             textareaClicked("\"", "\"");
         else if (elem.id == "curly")
-            textareaClicked("{ "," }");
+            textareaClicked("{ ", " }");
         else if (elem.id == "and")
             textareaClicked("&& ");
         else if (elem.id == "or")
@@ -88,7 +86,7 @@ var index = 0;
         else if (elem.id == "gt")
             textareaClicked(" > ");
         else if (elem.id == "settype")
-            textareaClicked("settype(",")");
+            textareaClicked("settype(", ")");
         else if (elem.id == "dot")
             textareaClicked(".");
         else if (elem.id == "hash")
@@ -110,33 +108,31 @@ var index = 0;
         else if (elem.id == "assertbool")
             textareaClicked("assert(", ");");
         else if (elem.id == "redo" && undo_text.length > 0) {
-            if (redo_text[redo_text.length-1] == "undefined")
+            if (redo_text[redo_text.length - 1] == "undefined")
                 redo_text.pop();
             console.log(undo_text);
             redo_text.push(document.getElementById("code").value);
             undo_text.pop();
-            document.getElementById("code").value = undo_text[undo_text.length-1];
+            document.getElementById("code").value = undo_text[undo_text.length - 1];
             if (redo_text[0] == "")
                 redo_text.shift();
-        }
-        else if (elem.id == "undo" && redo_text.length > 0) {
+        } else if (elem.id == "undo" && redo_text.length > 0) {
             console.log(redo_text);
             undo_text.push(document.getElementById("code").value);
             redo_text.pop();
-            document.getElementById("code").value = redo_text[redo_text.length-1];
+            document.getElementById("code").value = redo_text[redo_text.length - 1];
             if (undo_text[0] == "")
                 undo_text.shift();
-        }
-        else if (elem.id == "clear" || document.getElementById("code").value == "undefined") {
+        } else if (elem.id == "clear" || document.getElementById("code").value == "undefined") {
             document.getElementById("code").value = "public function function_name(\$arg1, \$arg2) { \n\n\n }";
         }
         index = 1;
         var ty = 0;
-        if (undo_text[undo_text.length-1] != document.getElementById("code").value)
+        if (undo_text[undo_text.length - 1] != document.getElementById("code").value)
             undo_text.push(document.getElementById("code").value);
         while (index < undo_text.length) {
-            var search_term = undo_text[undo_text.length-index]
-            for (var i=undo_text.length-index-1 ; i>=0; i--) {
+            var search_term = undo_text[undo_text.length - index]
+            for (var i = undo_text.length - index - 1; i >= 0; i--) {
                 if (undo_text[i] === search_term) {
                     undo_text.splice(i, 1);
                 }
@@ -145,8 +141,8 @@ var index = 0;
         }
         index = 1;
         while (index < redo_text.length) {
-            var search_term = redo_text[redo_text.length-index]
-            for (var i=redo_text.length-index-1 ; i>=0; i--) {
+            var search_term = redo_text[redo_text.length - index]
+            for (var i = redo_text.length - index - 1; i >= 0; i--) {
                 if (redo_text[i] === search_term) {
                     redo_text.splice(i, 1);
                 }
@@ -162,24 +158,22 @@ var posE;
 textareaClicked = function(str1, str2) {
     posS = document.getElementById("code").selectionStart;
     posE = document.getElementById("code").selectionEnd;
-    var beforeSelection = document.getElementById("code").value.slice(0,posS);
-    var Selection = document.getElementById("code").value.slice(posS,posE);
+    var beforeSelection = document.getElementById("code").value.slice(0, posS);
+    var Selection = document.getElementById("code").value.slice(posS, posE);
     var afterSelection = document.getElementById("code").value.slice(posE);
     console.log(posS + " " + posE);
     if (str2 == "" || str2 == undefined) {
         var newHTML = beforeSelection + str1 + afterSelection;
         document.getElementById("code").value = newHTML;
-    }
-    else if (str2 !== undefined && Selection !== undefined && Selection !== "") {
+    } else if (str2 !== undefined && Selection !== undefined && Selection !== "") {
         var newHTML = beforeSelection + str1 + Selection + str2 + afterSelection;
         document.getElementById("code").value = newHTML;
-    }
-    else if (Selection === "undefined" || Selection === "") {
+    } else if (Selection === "undefined" || Selection === "") {
         var newHTML = beforeSelection + str1 + str2 + afterSelection;
         document.getElementById("code").value = newHTML;
     }
 
-    document.getElementById("code").setSelectionRange(beforeSelection.length+str1.length+Selection.length,beforeSelection.length+str1.length+Selection.length);
+    document.getElementById("code").setSelectionRange(beforeSelection.length + str1.length + Selection.length, beforeSelection.length + str1.length + Selection.length);
     document.getElementById("code").focus();
 };
 
