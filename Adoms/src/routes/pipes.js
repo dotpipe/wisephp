@@ -9,7 +9,7 @@
 	var refer_thru = "";
 	var elem = document.getElementById(ev.target.id);
 
-	
+
 	if (elem === null || elem === undefined) {
 		if (ev.target.onclick !== null && ev.target.onclick !== undefined)
 			(ev.target.onclick)();
@@ -85,7 +85,7 @@
 		pipe_back = "json";
 	}
 	fetch(opts_req, {signal});
-	
+
 	setTimeout(() => abort_ctrl.abort(), 3 * 1000);
 	const __grab = async (opts_r, opts_) => {
 		return fetch(opts_r, opts_)
