@@ -1,15 +1,7 @@
 <?php
 namespace Adoms\src\lib;
-spl_autoload_register(function ($className)
-{
-    $path1 = 'Adoms/src/lib/';
-    $path2 = '';
-    if (file_exists($path1.$className.'.php'))
-        include $path1.$className.'.php';
-    else
-        include $path2.$className.'.php';
-});
-include('classes.php');
+
+include 'classes.php';
 
 class Map implements Classes {
 
