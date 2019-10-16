@@ -221,8 +221,9 @@ class css
             }
         }
         $this->mCSS = $apiMap;
-        if ($bool == 1)
+        if ($bool == 1) {
             echo $output;
+        }
         return $apiMap;
     }
 
@@ -231,42 +232,48 @@ class css
      * @parameters mMap
      *
      */
-    public function convert(mMap $va): string
+    public function convert(mMap $va): ?string
     {
         $outstring = "";
         $lvl = 0;
-        if ("mMap" != $va->typeOf)
+        if ("mMap" != $va->typeOf) {
             return null;
+        }
         $i = 0;
         $va->setIndex(0);
-        if ($this->ext_int)
+        if ($this->ext_int) {
             $outstring = sprintf($outstring . "<style>");
+        }
         while ($this->imps->size() > $i) {
             $outstring = sprintf($outstring . "@import url('" . $this->imps->dat[$i] . "');");
             $i++;
         }
         do {
             $temp = $va->mmap;
-            if (preg_match("/[\{]/", $va->mname))
+            if (preg_match("/[\{]/", $va->mname)) {
                 $outstring = sprintf($outstring . $va->mname);
-            else
-                $outstring =sprintf( $outstring . $va->mname . " {");
+            } else {
+                $outstring = sprintf($outstring . $va->mname . " {");
+            }
             $i = 0;
             while ($temp->size() > $i) {
-                if (preg_match("/[:]/", $temp->key[$i]))
+                if (preg_match("/[:]/", $temp->key[$i])) {
                     $outstring = sprintf($outstring . $temp->key[$i]);
-                else
+                } else {
                     $outstring = sprintf($outstring . $temp->key[$i] . ":");
-                if (preg_match("/[;]/", $temp->value[$i]))
+                }
+                if (preg_match("/[;]/", $temp->value[$i])) {
                     $outstring = sprintf($outstring . $temp->value[$i]);
-                else
+                } else {
                     $outstring = sprintf($outstring . $temp->value[$i] .';');
+                }
                 $i++;
             }
             $outstring = sprintf($outstring . '}');
         } while ($temp->Iter());
-        if ($this->ext_int)
+        if ($this->ext_int) {
             $outstring = $outstring . '</style>';
+        }
         return $outstring;
     }
 }
