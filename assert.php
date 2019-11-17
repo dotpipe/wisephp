@@ -178,7 +178,7 @@ textareaClicked = function(str1, str2) {
 		var newHTML = beforeSelection + str1 + str2 + afterSelection;
 		document.getElementById("code").value = newHTML;
 	}
-		
+
 	document.getElementById("code").setSelectionRange(beforeSelection.length+str1.length+Selection.length,beforeSelection.length+str1.length+Selection.length);
 	document.getElementById("code").focus();
 };
@@ -207,8 +207,72 @@ td {
 
 </head>
 
-<body bgcolor="lightgray">
+<body style="lightgray">
+<?php
 
+function io_class(){
+	$pu_pv="";
+	do {
+		$pu_pv .= $lock_mx[$i];
+		$i++;
+	} while (strtolower(substr($lock_mx, $i, 5)) != 'class');
+}
+
+function extract_funct(string $lock_mx,string $output)
+{
+    $i = 0;
+    $pluck = file_get_contents($lock_mx);
+    $json = [];
+    $appended_json=[];
+    while ($i < strlen($pluck)) {
+        $pu_pv = "";
+        $str = "";
+//*
+        do {
+            $pu_pv .= $lock_mx[$i];
+            $i++;
+        } while (strtolower(substr($lock_mx, $i, 7)) != 'public ' && strtolower(substr($lock_mx, $i, 7)) != 'private' && strtolower(substr($lock_mx, $i, 8)) != 'function');
+
+//*
+        if (strtolower(substr($lock_mx, $i, 8)) != 'function') {
+            $i--;
+            while (strtolower(substr($lock_mx, $i, 8)) != 'function') {
+                $i++;
+            }
+            $i += 8;
+        } else {
+            $pu_pv = trim(substr($lock_mx, $i, 7));
+            $i += 7;
+        }
+//$()
+        do {
+            $str .= $lock_mx[$i];
+            $i++;
+        } while ($str[strlen(trim($str)) - 1] != ')');
+        $str = trim($str);
+//{
+        $j = 0;
+        $func = "";
+        do {
+            $func .= $lock_mx[$i];
+            $i++;
+            if ($func[strlen($func) - 1] == '{') {
+                $j++;
+            } else if ($func[strlen($func) - 1] == '}') {
+                $j--;
+            }
+        } while ($func[strlen($func) - 1] != '}' && $j == 0);
+        $json['pupv'] = $pu_pv;
+        $json['function'] = $str;
+        $json['body'] = $func;
+        $appended_json[] = $json;
+    }
+	file_put_contents($output,json_encode($appended_json));
+}
+if ($_GET['x']=='1') {
+	extract_funct($_GET['io1'],$_GET['io2']);
+}
+?>
 <div class="jumbotron">
 	<h3>Assertion Code Manipulator</h3>
 </div>

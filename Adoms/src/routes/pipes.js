@@ -87,8 +87,8 @@
 	fetch(opts_req, {signal});
 	
 	setTimeout(() => abort_ctrl.abort(), 3 * 1000);
-	const __grab = async (opts_r, opts_) => {
-		return fetch(opts_r, opts_)
+	const __grab = async (opts_req, opts) => {
+		return fetch(opts_req, opts)
 			.then(function(response){
 			return response.text().then(function(text) {
 // Make sure that the target out-pipe exists still
@@ -104,8 +104,8 @@
 	}
 
 //  Insert a callback function by useing call-pipe
-	const getActivity = async (opts_rq, opts) => {
-		let g = await __grab(opts_rq, opts);
+	const getActivity = async (opts_req, opts) => {
+		let g = await __grab(opts_req, opts);
 		if (elem.hasAttribute("callback")) {
 			var t = elem.getAttribute("callback");
 			return (t)(g);
