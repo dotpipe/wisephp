@@ -1,17 +1,8 @@
 <?php
 namespace Adoms\src\lib;
 
-spl_autoload_register(function ($className) {
-    foreach ([
-        'Adoms/src/lib/',
-        ''
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
+include_once("map.php");
+include_once("classes.php");
 
 // $this->mmap is the set of Maps
 //This is the Map-in-Map Extension
@@ -103,7 +94,6 @@ class mMap extends Map implements Classes {
      * @parameters string
      *
      */
-    // Return Map fitting $regex
     public function getMap(string $regex): array {
         $reglist = array();
         $tmp = $this->kv;
@@ -123,7 +113,6 @@ class mMap extends Map implements Classes {
      * @parameters string, mixed
      *
      */
-    // Add Map
     public function newMap(string $key, $r): bool {
         $t = [];
         if ($this->kv == null) {
@@ -143,7 +132,6 @@ class mMap extends Map implements Classes {
      * @parameters none
      *
      */
-    // Return true if next Map exists
     public function hasNext(): bool {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -158,7 +146,6 @@ class mMap extends Map implements Classes {
      * @parameters none
      *
      */
-    // Iterate once forward through Maps
     public function next(): bool {
         $this->Iter();
         return 0;
@@ -168,7 +155,6 @@ class mMap extends Map implements Classes {
      * @parameters string
      *
      */
-    // Return Key
     public function findKey(string $regex): array {
         $reglist = array();
         $x = getIndex();
@@ -221,7 +207,6 @@ class mMap extends Map implements Classes {
      * @parameters none
      *
      */
-    // Turns to next Map entry, or starts over
     public function Cycle(): bool {
         if ($this->datCntr >= 0 && $this->datCntr < count($this->kv)) {
             if (is_object($this->mmap) && $this->mname != null)
@@ -262,7 +247,6 @@ class mMap extends Map implements Classes {
      * @parameters int
      *
      */
-    // Sets and Joins Map Index
     public function setIndex(int $indx): bool {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -289,7 +273,6 @@ class mMap extends Map implements Classes {
      * @parameters none
      *
      */
-    // Returns Map Index
     public function getIndex(): int {
         if ($this->size() > $this->datCntr)
             return $this->datCntr;
@@ -304,7 +287,6 @@ class mMap extends Map implements Classes {
      * @parameters none
      *
      */
-    // Clears all Map entries
     public function clear(): bool {
         $this->mmap = array();
         return 1;
@@ -314,7 +296,6 @@ class mMap extends Map implements Classes {
      * @parameters string
      *
      */
-    // Returns true if Key is in Map
     public function keyIsIn(string $k): int {
         if (count($this->kv) == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -335,7 +316,6 @@ class mMap extends Map implements Classes {
      * @parameters Map
      *
      */
-    // Compare Map to $r and Return false is not equal
     public function equals(Map $r): bool {
         if ($r->typeOf != 'Map') {
             throw new Type_Error('Mismatched Types');
@@ -354,7 +334,6 @@ class mMap extends Map implements Classes {
      * @parameters string
      *
      */
-    //  Return Value at Key $k
     public function get(string $k) {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -373,7 +352,6 @@ class mMap extends Map implements Classes {
      * @parameters none
      *
      */
-    // Checks for Empty map
     public function isEmpty(): bool {
         if (count($this->kv) == 0)
             return 1;
@@ -385,7 +363,6 @@ class mMap extends Map implements Classes {
      * @parameters string
      *
      */
-    // Add Map of $r KVs to current map
     public function addAll(mMap $r): bool {
         if ('NavigableMap' != $r->typeOf && 'SortedMap' != $r->typeOf && 'Map' != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
@@ -401,7 +378,6 @@ class mMap extends Map implements Classes {
      * @parameters string
      *
      */
-    // Remove Key of $k
     public function remove(string $k): bool {
         $mapTempK = array();
         $mapTempV = array();
@@ -424,7 +400,6 @@ class mMap extends Map implements Classes {
      * @parameters string, string
      *
      */
-    // Replace Key of $k with Value of $v
     public function replaceMap(string $k, Map $v): bool {
         if ($this->typeOf != $v->typeOf)
             return 0;

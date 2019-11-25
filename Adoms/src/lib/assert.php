@@ -13,14 +13,74 @@
 var undo_text = [];
 var redo_text = [];
 var index = 0;
+
+function getSelectionText() {
+    var text = "";
+    var activeEl = document.getElementById("code"); //document.activeElement;
+    var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+    if (
+      (activeElTagName == "textarea") || (activeElTagName == "input" &&
+      /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+      (typeof activeEl.selectionStart == "number")
+    ) {
+        text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+    } else if (window.getSelection) {
+        text = window.getSelection().toString();
+    }
+    return text;
+}
+
+var textSel = "";
+document.onmouseup = document.onkeyup = document.onselectionchange = function() {
+  document.getElementById("sel").value = getSelectionText();
+  textSel = document.getElementById("sel").value;
+};
+function x (t) {
+
+    if (t.id == "annotations")
+    textareaClicked(t.options[t.selectedIndex].innerText);
+    else
+    textareaClicked(t.options[t.selectedIndex].innerText + "( );");
+}
+function surround (t) {
+
+    if (t.id == "annotations")
+    textareaClicked(t.options[t.selectedIndex].innerText);
+    else
+    textareaClicked(t.options[t.selectedIndex].innerText + "( );");
+}
+function func_change (t) {
+    g = t.options[t.selectedIndex];
+    f = document.getElementById("functions").getAttribute("file_type") + " ";
+    m = document.getElementById("functions").getAttribute("type_name") + " ";
+    scope = g.getAttribute("scope") + " ";
+    func = g.getAttribute("function") + " ";
+    arg = g.getAttribute("args") + " ";
+    type = g.getAttribute("type") + " {\n}";
+    
+    var x = document.getElementById("code").value;
+    console.log(x);
+    var j, h = "";
+    for (var i =0; i < x.length ; i++) {
+        if (x[i+1] == '{') {
+            j=1;
+            i+=2;
+        }
+        if (j == 1)
+            h = h + x[i];
+    }
+    document.getElementById("code").value = f + m + "{\n" + scope + func + arg + ":" + type + h + "\n}";
+    console.log(h);
+}
 ['click', 'touch', 'tap'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
         var elem = document.getElementById(ev.target.id);
         if (elem == null)
             return;
         console.log(elem.id);
+        var elemselect = "";
         if (elem.id == "copy") {
-            var copyText = document.getElementById("code");
+            var copyText = document.getElementById("sel");
             copyText.select();
             document.execCommand("copy");
             document.getElementById("clip").style.visibility = "visible";
@@ -29,84 +89,16 @@ var index = 0;
             document.getElementById("clip").style.visibility = "hidden";
         if (redo_text[redo_text.length - 1] != document.getElementById("code").value)
             redo_text.push(document.getElementById("code").value);
-        if (elem.id == "isstr")
-            textareaClicked("is_string(", ")");
-        else if (elem.id == "isbool")
-            textareaClicked("is_bool(", ")");
-        else if (elem.id == "isarr")
-            textareaClicked("is_array(", ")");
-        else if (elem.id == "isobj")
-            textareaClicked("is_object(", ")");
-        else if (elem.id == "isint")
-            textareaClicked("is_int(", ")");
-        else if (elem.id == "isnum")
-            textareaClicked("is_numeric(", ")");
-        else if (elem.id == "isres")
-            textareaClicked("is_resource(", ")");
-        else if (elem.id == "isscl")
-            textareaClicked("is_scalar(", ")");
-        else if (elem.id == "isfunc")
-            textareaClicked("function_exists(", ")");
-        else if (elem.id == "ismeth")
-            textareaClicked("method_exists(", ")");
-        else if (elem.id == "isnull")
-            textareaClicked("is_null(", ")");
-        else if (elem.id == "isdbl")
-            textareaClicked("is_float(", ")");
-        else if (elem.id == "iscall")
-            textareaClicked("is_callable(", ")");
-        else if (elem.id == "getcls")
-            textareaClicked("get_class(", ")");
         else if (elem.id == "parentheses")
-            textareaClicked("(", ")");
+            textareaClicked("(" + textSel +")");
         else if (elem.id == "square")
-            textareaClicked("[", "]");
+            textareaClicked("[" + textSel +"]");
         else if (elem.id == "single")
-            textareaClicked("'", "'");
+            textareaClicked("'" + textSel +"'");
         else if (elem.id == "double")
-            textareaClicked("\"", "\"");
+            textareaClicked("\"" + textSel +"\"");
         else if (elem.id == "curly")
-            textareaClicked("{ ", " }");
-        else if (elem.id == "and")
-            textareaClicked("&& ");
-        else if (elem.id == "or")
-            textareaClicked(" || ");
-        else if (elem.id == "neg")
-            textareaClicked("!");
-        else if (elem.id == "xor")
-            textareaClicked("^");
-        else if (elem.id == "semic")
-            textareaClicked(";");
-        else if (elem.id == "jq")
-            textareaClicked("$");
-        else if (elem.id == "pointer")
-            textareaClicked("->");
-        else if (elem.id == "lt")
-            textareaClicked(" < ");
-        else if (elem.id == "gt")
-            textareaClicked(" > ");
-        else if (elem.id == "settype")
-            textareaClicked("settype(", ")");
-        else if (elem.id == "dot")
-            textareaClicked(".");
-        else if (elem.id == "hash")
-            textareaClicked("#");
-        else if (elem.id == "mod")
-            textareaClicked("%");
-        else if (elem.id == "plus")
-            textareaClicked(" + ");
-        else if (elem.id == "minus")
-            textareaClicked(" - ");
-        else if (elem.id == "multiply")
-            textareaClicked(" * ");
-        else if (elem.id == "instof")
-            textareaClicked(" instanceof ");
-        else if (elem.id == "divide")
-            textareaClicked(" / ");
-        else if (elem.id == "assertstr")
-            textareaClicked("assert('", "');");
-        else if (elem.id == "assertbool")
-            textareaClicked("assert(", ");");
+            textareaClicked("{ " + textSel +" }");
         else if (elem.id == "redo" && undo_text.length > 0) {
             if (redo_text[redo_text.length - 1] == "undefined")
                 redo_text.pop();
@@ -193,11 +185,7 @@ textarea {
     width:75%;
     height:150;
     border-radius: 5px 5px 5px 5px;
-}
-td {
-    text-align:center;
-}
-</style>
+}</style>
 
 </head>
 
@@ -209,31 +197,63 @@ function io_x($lock_mx, &$i)
 {
     $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ' ', ';'];
     $_class = "";
-    $j=0;
+    $j = $i;
+
     do {
         if ($i == strlen($lock_mx)) {
             break;
         }
         $_class .= $lock_mx[$i];
         if (in_array($lock_mx[$i], $_haystack)) {
+
             //echo $_class . "-";
             $_class = substr($lock_mx, $i, strlen($_class));
-
-            $i++;
-        break;
-            continue;
+            //$i++;
+            //continue;
         }
         $i++;
-    } while ($i + 1 < strlen($lock_mx) && (strlen($_class) - 1 == -1) || !in_array($lock_mx[$i], $_haystack));
-    //echo $_class . "-";
+    } while ($i < strlen($lock_mx) && !in_array($lock_mx[$i], $_haystack));
+    //echo $_class . "-".$i."@";
+    return trim($_class);
+}
+
+function io_pm($lock_mx, &$i)
+{
+    $_haystack = ['\n', '\r', '\t', '{', ';'];
+    $j = 0;
+    $ol = 0;
+    $pl = $i;
+    $_class = "";
+    do {
+        if ($lock_mx[$i] == '(') {
+            $ol++;
+            if ($j == 0) {
+                $pl = $i;
+            }
+            $j++;
+        }
+        if ($lock_mx[$i] == ')') {
+            $j--;
+        }
+        if ($ol > 0) {
+            $ol++;
+            $_class .= $lock_mx[$i];
+        }
+        if ($j == 0 && $ol > 0) {
+            break;
+        }
+        $i++;
+    } while ($i < strlen($lock_mx));
+    //echo $_class . "-".$i."@";
     return trim($_class);
 }
 
 function io__($lock_mx, &$i, $lm)
 {
-    $kp = $cm = $i - ($i % 1000);
+    $cm = $i - ($i % 500);
+    $kp = $i;
     $_class = "";
-    while ($cm++ < 1000 && $i + 1 < strlen($lock_mx) && $lm != substr($lock_mx, $i, strlen($lm))) {
+    while (++$cm % 500 < 499 && $i < strlen($lock_mx) && $lm != substr($lock_mx, $i, strlen($lm))) {
         $i++;
     }
     //echo $_class . "-";
@@ -246,57 +266,120 @@ function io__($lock_mx, &$i, $lm)
 
 function io_class(string $pluck, string $output)
 {
+    $mp = fopen("assert.ini", 'r');
+    $lock_mx = fread($mp, filesize("assert.ini"));
+    $ini_i = 0;
+    fclose($mp);
+    $php_errormsg=[];
+    
+    
+    $php_exec = io__($lock_mx,$ini_i,'php_exec="');
+    if ($php_exec == 'php_exec="') {
+        $ini_i += 10;
+        $php_exec = io_x($lock_mx,$ini_i);
+        $php_exec = substr($php_exec,0,strlen($php_exec)-1);
+    }
+    else {
+        echo 'Corrupted assert.ini';
+        exit();
+    }
+    // Parse for errors in class
+    passthru($php_exec . " \"" . $pluck . "\"", $php_errormsg);
+    
+    if (0 > strlen($php_errormsg)) {
+        echo '<b>Error Report:</b>  ' . json_encode($php_errormsg);
+    }
+    
     $mp = fopen($pluck, 'r');
     $lock_mx = fread($mp, filesize($pluck));
+    fclose($mp);
     $_class = [];
     $pool = 0;
     $i = 0;
 
+    $ipl = io__($lock_mx, $i, 'namespace');
+
     //while ($i < strlen($lock_mx) && $pool != 3)
-    {
-        $ipl = io__($lock_mx, $i, 'spl_autoload_register');
-    }
+    $ipl = io__($lock_mx, $i, 'spl_autoload_register');
+
     //while ($i < strlen($lock_mx) && $pool != 3)
-    {
-        $ipl = io__($lock_mx, $i, '});');
-    }
-    echo $i;
+    $ipl = io__($lock_mx, $i, '});');
 
     $pool = 0;
-    $ipl = io__($lock_mx, $i, 'abstract ');
-    if ($ipl != 'abstract') {
-        $ipl = io__($lock_mx, $i, 'interface ');
-        if ($ipl != 'interface') {
-            $ipl = io__($lock_mx, $i, 'class ');
-        }
-    }
-    $_class['file_type'] = $ipl;
-    //class
-    $_class['type_name'] = io_x($lock_mx, $i);
     $ipl = "";
     $j = $i;
-    $ipl = io__($lock_mx, $i, "extends ");
-    if ($ipl == 'extends') {
-        $_class['extends'] = io_x($lock_mx, $i);
-        $i=$j;
-    }
-    $ipl = io__($lock_mx, $i, "implements ");
-    if ($ipl == 'implements') {
-        $_class['implements'] = io_x($lock_mx, $i);
-        
-    }
-    $ipl = io__($lock_mx, $i, '{');
-    echo json_encode($_class);
+    $ipl = $_class['file_type'] = io__($lock_mx, $i, 'abstract class ');
 
-    extract_funct($lock_mx, $output, $_class, $i);
+    if ($ipl != 'abstract class') {
+        $ipl = $_class['file_type'] = io__($lock_mx, $i, 'interface ');
+    }
+    if ($ipl != 'interface') {
+        $ipl = $_class['file_type'] = io__($lock_mx, $i, 'class ');
+        if ($ipl != 'class') {
+            echo "FATAL ERROR: Must be 'abstract class', 'interface', 'class'\nExiting...";
+            exit();
+        }
+    }
+
+    //class
+    while ($i < strlen($lock_mx) && $ipl == $_class['file_type']) {
+        $ipl = $_class['type_name'] = io_x($lock_mx, $i);
+    }
+    $ipl = "";
+    $j = $i;
+    $ipl = $_class['extends'] = io__($lock_mx, $i, 'extends');
+    if ($ipl == 'extends') {
+        while ($i < strlen($lock_mx) && $_class['extends'] == 'extends') {
+            $_class['extends'] = io_x($lock_mx, $i);
+        }
+    }
+    $ipl = $_class['implements'] = io__($lock_mx, $i, 'implements');
+    if ($ipl == 'implements') {
+        while ($i < strlen($lock_mx) && $_class['implements'] == 'implements') {
+            $_class['implements'] = io_x($lock_mx, $i);
+        }
+    }
+    $ipl = io__($lock_mx, $i, ' {');
+
+    $j = sizeof($_class);
+    
+    while ($i < strlen($lock_mx)) {
+        extract_funct($lock_mx, $output, $_class, $i, $j);
+    }
+    $i = 0;
+    $html = $_class['type_name'] . ": ";
+    $html .= '<select id="functions" style="float:right;width:280px" file_type="' . $_class['file_type'] . '" type_name="' . $_class['type_name'] . '" onchange="func_change(this)">';
+    foreach ($_class as $k => $v) {
+        if (!is_numeric($k))
+            continue;
+
+        $html .= '<option ';
+        foreach ($v as $f => $g) {
+            $html .= $f . '="' . $g . '" ';
+        }
+        $html .= '>' . $v['function'] . '</option>';
+
+    }
+    return $html . "</select>";
 }
 
-function extract_funct(string $pluck, string $output, array $_class, $i)
+function extract_funct(string $lock_mx, string $output, array &$appended_json, &$i, &$m)
 {
-    $json = $_class;
-    $appended_json = [];
-    $lock_mx = $pluck;
-    $j=0;
+    $json = [];
+    $j = 0;
+    $v = 0;
+    $v = $i;
+    $cmt_srch = '';
+    if (($cmt_srch = io__($lock_mx, $v, '/*')) !== null) {
+        $i = $v;
+    }
+    if (($cmt_srch = io__($lock_mx, $v, '*/')) !== null) {
+        $i = $v;
+    }
+    if (($cmt_srch = io__($lock_mx, $v, '//')) !== null) {
+        $i = $v;
+        io__($lock_mx, $v, '\r\n');
+    }
     while ($i < strlen($lock_mx)) {
 
         $ipl = io_x($lock_mx, $i);
@@ -309,6 +392,21 @@ function extract_funct(string $pluck, string $output, array $_class, $i)
                 break;
             case 'function':
                 $json['function'] = io_x($lock_mx, $i);
+                $json['args'] = io_pm($lock_mx, $i);
+                if ($i < strlen($lock_mx) && (strlen($json['args']) == 0 || $json['args'][strlen($json['args']) - 1] != ')')) {
+                    $json['args'] .= ' ' . io_pm($lock_mx, $i);
+                }
+                $ccc = 0;
+                $i++;
+                if ($ccc = strpos($lock_mx, ':', $i)) {
+                    $ccc++;
+                    $json['type'] = "";
+                    while ($lock_mx[$ccc + 1] != '{') {
+                        $json['type'] .= trim($lock_mx[$ccc]);
+                        $ccc++;
+                    }
+                    $i = $ccc;
+                }
                 break;
             case '{':
                 $j++;
@@ -316,81 +414,53 @@ function extract_funct(string $pluck, string $output, array $_class, $i)
             case '}':
                 $j--;
                 if ($j == 0) {
-                    break 2;
+                    $json = array_unique($json);
+                    $appended_json[] = $json;
+                    $m++;
+                    return;
                 }
                 break;
         }
-        $appended_json[] = $json;
     }
-    echo json_encode($appended_json);
-    //file_put_contents($output, json_encode($appended_json));
+    return null;
 }
+$html = "";
 if (isset($_GET['x']) && isset($_GET['io1']) && isset($_GET['io2']) && $_GET['x'] == '1') {
-    io_class($_GET['io1'], $_GET['io2']);
+    $html = io_class($_GET['io1'], $_GET['io2']);
 }
 ?>
 <div class="jumbotron">
     <h3>Assertion Code Manipulator</h3>
 </div>
 <center>
+    <input type="text" id="sel" style="height:0px;visibility:hidden"></input>
     <div id="clip" style="visibility:hidden">
         <p class="alert alert-success" role="alert">
             <strong>Success!</strong> The text was copied to the clipboard
         </p>
     </div>
     <textarea id="code"><?php echo "public function function_name(\$arg1, \$arg2) { \n\n\n }"; ?></textarea><hr>
-    <table class="table-responsive" position="fixed" style="width:100%">
-        <tr>
-            <td class="well">
-            <div class="btn-group">
-                <p class="btn btn-primary" id="isstr">String</p>
-                <p class="btn btn-primary" id="isbool">Boolean</p>
-                <p class="btn btn-primary" id="isdbl">Float/Double</p>
-                <p class="btn btn-primary" id="isint">Integer</p>
-                <p class="btn btn-primary" id="isarr">Array</p>
-                <p class="btn btn-primary" id="isobj">Object</p>
-                <p class="btn btn-primary" id="instof">instanceof</p>
-                <p class="btn btn-primary" id="isnull">NULL</p>
-                <p class="btn btn-primary" id="isres">Resource</p>
-                <p class="btn btn-primary" id="iscall">Callable</p>
-                <p class="btn btn-primary" id="isnum">Numeric</p>
-                <p class="btn btn-primary" id="isscl">Scalar</p>
-            </div>
-            <div class="btn-group">
-                <p class="btn btn-primary" id="isfunc">Function Exists</p>
-                <p class="btn btn-primary" id="ismeth">Method Exists</p>
-                <p class="btn btn-primary" id="settype">Set Type</p>
-                <p class="btn btn-primary" id="parentheses">()</p>
-                <p class="btn btn-primary" id="square">[]</p>
-                <p class="btn btn-primary" id="curly">{}</p>
-                <p class="btn btn-primary" id="and">&&</p>
-                <p class="btn btn-primary" id="or">||</p>
-                <p class="btn btn-primary" id="xor">^</p>
-                <p class="btn btn-primary" id="neg"> ! </p>
-                <p class="btn btn-primary" id="lt">&lt;</p>
-                <p class="btn btn-primary" id="gt">&gt;</p>
-                 <p class="btn btn-primary" id="single"> ' ' </p>
-                <p class="btn btn-primary" id="double"> " " </p>
-                <p class="btn btn-primary" id="dot"> . </p>
-                <p class="btn btn-primary" id="hash"> # </p>
-                <p class="btn btn-primary" id="jq"> $ </p>
-                <p class="btn btn-primary" id="mod"> % </p>
-                <p class="btn btn-primary" id="plus"> + </p>
-                <p class="btn btn-primary" id="minus"> - </p>
-                <p class="btn btn-primary" id="multiply"> * </p>
-                <p class="btn btn-primary" id="divide"> / </p>
-                <p class="btn btn-primary" id="semic"> ; </p>
-                <p class="btn btn-primary" id="pointer"> -> </p>
-            </div>
-            <div class="btn-group">
-                <p class="btn btn-primary" id="assertstr">Assert: String</p>
-                <p class="btn btn-primary" id="assertbool">Assert: Boolean</p>
-                <p class="btn btn-primary" id="undo">Undo</p>
-                <p class="btn btn-primary" id="redo">Redo</p>
-                <p class="btn btn-primary" id="copy">Copy Text</p>
-                <p class="btn btn-primary" id="clear">Start Over</p>
-            </div>
-            </td>
-        </tr>
-    </table>
+        <block style="display:inline-grid;grid-template-rows:50px 50px 50x;grid-template-columns:500px 10px 150px 10px 150px 10px 150px;grid-column-start:1;grid-column-end:7;">
+            <p class="btn btn-primary">Functions from <?php echo $html; ?></p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="parentheses">()</p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="square">[]</p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="curly">{}</p>
+            <p class="btn btn-primary">Assertions: <?php include_once "assertions.php"; ?></p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="single"> ' ' </p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="double"> " " </p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="undo">Undo</p>
+            <p class="btn btn-primary">Annotations: <?php include_once "annotations.php"; ?></p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="clear">Start Over</p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="copy">Copy Text</p>
+            <p>&nbsp;</p>
+            <p class="btn btn-primary" id="redo">Redo</p>
+        </block>
 </center>

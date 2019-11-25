@@ -203,103 +203,183 @@ td {
 
 <body style="lightgray">
 <?php
-
 global $i;
 $i = 0;
 function io_x($lock_mx, &$i)
 {
+    $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ' ', ';'];
+    $_class = "";
+    $j = $i;
+
+    do {
+        if ($i == strlen($lock_mx)) {
+            break;
+        }
+        $_class .= $lock_mx[$i];
+        if (in_array($lock_mx[$i], $_haystack)) {
+
+            //echo $_class . "-";
+            $_class = substr($lock_mx, $i, strlen($_class));
+            //$i++;
+            //continue;
+        }
+        $i++;
+    } while ($i < strlen($lock_mx) && !in_array($lock_mx[$i], $_haystack));
+    //echo $_class . "-".$i."@";
+    return trim($_class);
+}
+
+function io_pm($lock_mx, &$i)
+{
+    $_haystack = ['\n', '\r', '\t', '{', ';'];
+    $j = 0;
+    $ol = 0;
+    $pl = $i;
     $_class = "";
     do {
-        $_class .= $lock_mx[$i];
+        if ($lock_mx[$i] == '(') {
+            $ol++;
+            if ($j == 0) {
+                $pl = $i;
+            }
+            $j++;
+        }
+        if ($lock_mx[$i] == ')') {
+            $j--;
+        }
+        if ($ol > 0) {
+            $ol++;
+            $_class .= $lock_mx[$i];
+        }
+        if ($j == 0&&$ol>0) {
+        break;
+        }
         $i++;
-    } while ($i < $lock_mx && $lock_mx[$i] != ' ' && $lock_mx[$i] != '{');
-
+    } while ($i < strlen($lock_mx));
+    //echo $_class . "-".$i."@";
     return trim($_class);
+}
+
+function io__($lock_mx, &$i, $lm)
+{
+    $cm = $i - ($i % 100);
+    $kp = $i;
+    $_class = "";
+    while (++$cm % 1000 < 999 && $i < strlen($lock_mx) && $lm != substr($lock_mx, $i, strlen($lm))) {
+        $i++;
+    }
+    //echo $_class . "-";
+    if (substr($lock_mx, $i, strlen($lm)) == $lm) {
+        return trim(substr($lock_mx, $i, strlen($lm)));
+    }
+    $i = $kp;
+    return null;
 }
 
 function io_class(string $pluck, string $output)
 {
-    $lock_mx = file_get_contents($pluck);
+    $mp = fopen($pluck, 'r');
+    $lock_mx = fread($mp, filesize($pluck));
     $_class = [];
     $pool = 0;
     $i = 0;
-    while ($i < $lock_mx && $pool == 0) {
-        $ipl = io_x($lock_mx, $i);
-        switch ($ipl) {
-            case 'abstract':
-                $_class['type'] = 'abstract';
-                $pool = 1;
-                break;
-            case 'interface':
-                $_class['type'] = 'interface';
-                $pool = 1;
-                break;
-            case 'class':
-                $_class['type'] = 'class';
-                $pool = 1;
-                break;
+
+    $ipl = io__($lock_mx, $i, 'namespace');
+
+    //while ($i < strlen($lock_mx) && $pool != 3)
+    $ipl = io__($lock_mx, $i, 'spl_autoload_register');
+
+    //while ($i < strlen($lock_mx) && $pool != 3)
+    $ipl = io__($lock_mx, $i, '});');
+
+    $pool = 0;
+    $ipl = "";
+    $j = $i;
+    $ipl = $_class['file_type'] = io__($lock_mx, $i, 'abstract');
+    if ($ipl != 'abstract') {
+        $ipl = $_class['file_type'] = io__($lock_mx, $i, 'interface');
+    }
+    if ($ipl != 'interface') {
+        $ipl = $_class['file_type'] = io__($lock_mx, $i, 'class ');
+    }
+    //class
+    while ($i < strlen($lock_mx) && $ipl == $_class['file_type']) {
+        $ipl = $_class['type_name'] = io_x($lock_mx, $i);
+    }
+    $ipl = "";
+    $j = $i;
+    $ipl = $_class['extends'] = io__($lock_mx, $i, 'extends');
+    if ($ipl == 'extends') {
+        while ($i < strlen($lock_mx) && $_class['extends'] == 'extends') {
+            $_class['extends'] = io_x($lock_mx, $i);
         }
     }
-    $_class['class'] = io_x($lock_mx, $i);
-    while ($_class != '{') {
-        $ipl = io_x($lock_mx, $i);
-        switch ($ipl) {
-            case 'implements':
-                $_class['implements'] = io_x($lock_mx, $i);
-                break;
-            case 'extends':
-                $_class['extends'] = io_x($lock_mx, $i);
-                break;
-            case '{':
-                break 2;
+    $ipl = $_class['implements'] = io__($lock_mx, $i, 'implements');
+    if ($ipl == 'implements') {
+        while ($i < strlen($lock_mx) && $_class['implements'] == 'implements') {
+            $_class['implements'] = io_x($lock_mx, $i);
         }
+    }
+    $ipl = io__($lock_mx, $i, ' {');
+
+    $j = 0;
+
+    while ($i < strlen($lock_mx)) {
+        extract_funct($lock_mx, $output, $_class, $i, $j);
+        //$j++;
     }
 
-    extract_funct($lock_mx, $output, $_class);
+    echo json_encode($_class);
 }
 
-function extract_funct(string $pluck, string $output, array $_class)
+function extract_funct(string $lock_mx, string $output, array &$appended_json, &$i, &$m)
 {
-    $i = 0;
-    $json = $_class;
-    $appended_json = [];
+    $json = [];
+    $j = 0;
+    $v = 0;
     while ($i < strlen($lock_mx)) {
-        $pu_pv = "";
-        $str = "";
-//*
-        while ($i < $lock_mx) {
 
-			$ipl = io_x($lock_mx, $i);
-			switch ($ipl) {
-                case 'public':
-                    $json['scope'] = 'public';
-                    break;
-                case 'private':
-                    $json['scope'] = 'private';
-                    break;
-                case 'function':
-                    $json['function'] = io_x($lock_mx, $i);
-                    break;
-                case 'function':
-                    $json['function'] = io_x($lock_mx, $i);
-                    break;
-                case '{':
-                    $j++;
-                    break;
-                case '}':
-                    $j--;
-                    if ($j == 0) {
-                        break 2;
+        $ipl = io_x($lock_mx, $i);
+        switch ($ipl) {
+            case 'public':
+                $json['scope'] = 'public';
+                break;
+            case 'private':
+                $json['scope'] = 'private';
+                break;
+            case 'function':
+                $json['function'] = io_x($lock_mx, $i);
+                $json['args'] = io_pm($lock_mx, $i);
+                if ($i < strlen($lock_mx) && (strlen($json['args']) == 0 || $json['args'][strlen($json['args']) - 1] != ')')) {
+                    $json['args'] .= ' ' . io_pm($lock_mx, $i);
+                }
+                $ccc=0;
+                $i++;
+                if ($ccc=strpos($lock_mx,':',$i)) {
+                $ccc++;
+                    $json['type']="";
+                    while ($lock_mx[$ccc+1]!='{'){
+                    $json['type'].=trim($lock_mx[$ccc]);
+                    $ccc++;
                     }
-                    break;
-            }
+                    $i=$ccc;
+                }
+                break;
+            case '{':
+                $j++;
+                break;
+            case '}':
+                $j--;
+                if ($j == 0) {
+                    $json = array_unique($json);
+                    //$iv=$m++;
+                    $appended_json[] = $json;
+                    //return;
+                }
+                break;
         }
-        $json['pub_pv'] = $pu_pv;
-        $json['function'] = $str;
-        $appended_json[$_class][] = $json;
     }
-    echo json_encode($appended_json);
-    //file_put_contents($output, json_encode($appended_json));
+    return null;
 }
 if (isset($_GET['x']) && isset($_GET['io1']) && isset($_GET['io2']) && $_GET['x'] == '1') {
     io_class($_GET['io1'], $_GET['io2']);

@@ -1,56 +1,6 @@
 <?php
 namespace Adoms\src\lib;
 
-spl_autoload_register(function ($className) {
-    foreach ([
-        'Adoms/src/lib/',
-        ''
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
-
-// REQUIRED FILE
-/*
- * SCHOOL - Copyright (C) 2018
- * Author: Anthony Pulse, Jr.
- * @thexiv via twitter.com
- * inland14@live.com - www.github.com/thexiv
- * You may use this file. You may not
- * extract portions. You must
- * leave notices and comments
- * where they are. The code is
- * provided without liability. If you have
- * a bug, please explain your bug.
- * If you have an idea, leave a msg.
- * I have 2 contacts. you can reach
- * me at, above. Thank you.
- * Plz donate via PayPal!
- * You likey, Me likey! - Cabaret
-*/
-
-/* Swatch Containers Hypertext Object-Oriented Library for PHP
- * -------------------------------------------------------------
- * SCHOOL is a container super-extension for PHP 7+
- * that makes everything you thought difficult,
- * impossible, or completely outside the grasp of
- * PHPs language restrictions completely doable.
- * It contains each container Java has (except the
- * legacy ones) to make projects as suitable to other
- * coders to continue on when the work as they
- * have done ends, setting up a dialog between
- * incoming and outgoing programmers. This is all
- * made in the hopes that PHP will one day be
- * able to be used for GUI engagement; in other
- * words: OS based apps can be made strictly
- * from PHP and JS for Android and Windows!
- * -- Sincerely, @thexiv - inland14@live.com --
- * Donations Welcome!
-*/
-
 class Error_call {
     public function __construct($message) {
         echo $err_type . ': ' . $err_msg . ' In file ' . $err_file . ' On line ' . $err_line;

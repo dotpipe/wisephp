@@ -1,17 +1,8 @@
 <?php
 namespace Adoms\src\lib;
 
-spl_autoload_register(function ($className) {
-    foreach ([
-        'Adoms/src/lib/',
-        ''
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
+include_once("set.php");
+include_once("classes.php");
 
 class mSet extends Set implements Classes {
 
@@ -23,7 +14,7 @@ class mSet extends Set implements Classes {
     public $set;
     public $sets;
 
-    public function __construct($type = "Set") {
+    public function __construct(string $type) {
         $this->cache = array();
         $this->rootType = 'Container';
         $this->parentType = 'mSet';
@@ -61,7 +52,7 @@ class mSet extends Set implements Classes {
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
+            $this->$key = $b->$key;
         }
         return 1;
     }
@@ -71,7 +62,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Report Size of Container
     public function size() {
         return count($this->sets);
     }
@@ -81,7 +71,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Get Index
     public function getIndex() {
         return $this->datCntr;
     }
@@ -91,7 +80,6 @@ class mSet extends Set implements Classes {
      * @parameters int
      *
      */
-    // Sets and Joins Set Index
     public function setIndex(int $indx) {
         reset($this->sets);
         if ($indx == count($this->sets) - 1)
@@ -107,7 +95,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Iterate Forward through Set
     public function Iter() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
             $this->datCntr--;
@@ -123,7 +110,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Cycle Forward through Vector
     public function Cycle() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
             $this->datCntr++;
@@ -139,7 +125,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Iterate Forward through Set
     public function revIter() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
             $this->datCntr--;
@@ -170,7 +155,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Iterate to Previous key
     public function prev() {
         if ($this->datCntr > 0 && $this->datCntr < count($this->sets))
             $this->datCntr--;
@@ -183,7 +167,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Iterate to Next key
     public function next() {
         if ($this->datCntr > 0 && $this->datCntr+1 < count($this->sets))
             $this->datCntr++;
@@ -197,7 +180,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Retrieve current Index of Vector Pointer
     public function current() {
         return $this->getIndex();
     }
@@ -207,7 +189,6 @@ class mSet extends Set implements Classes {
      * @parameters none
      *
      */
-    // Empty Set
     public function clear() {
 
         $this->sets = null;
@@ -219,7 +200,6 @@ class mSet extends Set implements Classes {
      * @parameters int
      *
      */
-    // Return entry at $indx
     public function get(int $indx) {
         if (!is_array($this->sets))
             $this->sets = [];
@@ -232,7 +212,6 @@ class mSet extends Set implements Classes {
      * @parameters Set
      *
      */
-    // Insert $r
     public function addSet(Set $r) {
         if (!is_array($this->sets))
             $this->sets = [];
@@ -263,7 +242,6 @@ class mSet extends Set implements Classes {
      * @parameters Set
      *
      */
-    // Return Indices of Entry
     public function exists(string $r) {
         if (!is_array($this->sets))
             $this->sets = [];
@@ -286,7 +264,6 @@ class mSet extends Set implements Classes {
      * @parameters int
      *
      */
-    // Remove Entry at $indx
     public function remIndex(int $indx) {
         $setTemp = new mSet();
         if (!is_array($this->sets))

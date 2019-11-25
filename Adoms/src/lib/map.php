@@ -1,7 +1,7 @@
 <?php
 namespace Adoms\src\lib;
 
-include 'classes.php';
+include_once("classes.php");
 
 class Map implements Classes
 {
@@ -226,9 +226,8 @@ class Map implements Classes
     /**
      * public function mergeAll
      * @parameters array
-     *
+     * Merge maps -returns number inserted
      */
-    // Merge maps (returns number inserted)
     public function mergeAll(array $r): bool
     {
         if ($this->typeOf != $r->typeOf) {
