@@ -448,19 +448,19 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
         <block style="display:inline-grid;grid-template-rows:50px 50px 50x;grid-template-columns:500px 10px 150px 10px 150px 10px 150px;grid-column-start:1;grid-column-end:7;">
             <p class="btn btn-primary">Functions from <?php echo $html; ?></p>
             <p>&nbsp;</p>
-            <p class="btn btn-primary" id="parentheses">()</p>
+            <p class="btn btn-primary" id="parentheses">( )</p>
             <p>&nbsp;</p>
-            <p class="btn btn-primary" id="square">[]</p>
+            <p class="btn btn-primary" id="square">[ ]</p>
             <p>&nbsp;</p>
-            <p class="btn btn-primary" id="curly">{}</p>
-            <p class="btn btn-primary">Assertions: <?php require_once("assertions.php");?></p>
+            <p class="btn btn-primary" id="curly">{ }</p>
+            <p class="btn btn-primary">Assertions: <?php require_once("assertions.html");?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="single"> ' ' </p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="double"> " " </p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="undo">Undo</p>
-            <p class="btn btn-primary">Annotations: <?php require_once("annotations.php");?></p>
+            <p class="btn btn-primary">Annotations: <?php require_once("annotations.html");?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="clear">Start Over</p>
             <p>&nbsp;</p>
