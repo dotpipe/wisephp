@@ -61,7 +61,7 @@ fclose($mp);
 $i = 0;
 $com = "";
 $arr = [];
-$mp = fopen("assertions.php", 'w');
+$mp = fopen("assertions.html", 'w');
 $tmp = '<select id="assertions" onchange="x(this)" style="float:right;width:280">';
 fwrite($mp, $tmp);
 while ($i < strlen($lock_mx)) {
@@ -83,7 +83,7 @@ fclose($mp);
 $mp = fopen("annotations.csv", 'r');
 $lock_mx = fread($mp, filesize("assertions.csv"));
 fclose($mp);
-$mp = fopen("annotations.php", 'w');
+$mp = fopen("annotations.html", 'w');
 $i = 0;
 $tmp = '<select id="annotations" onchange="x(this)" style="float:right;width:280">';
 fwrite($mp, $tmp);

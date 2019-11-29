@@ -24,6 +24,7 @@ class Map implements Classes
     public $pm;
     public $childType;
     public $parentType;
+    public $strict;
 
     public function __construct()
     {

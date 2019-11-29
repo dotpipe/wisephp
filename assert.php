@@ -452,14 +452,14 @@ if (isset($_GET['x']) && isset($_GET['io1']) && isset($_GET['io2']) && $_GET['x'
             <p class="btn btn-primary" id="square">[]</p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="curly">{}</p>
-            <p class="btn btn-primary">Assertions: <?php include_once "assertions.php"; ?></p>
+            <p class="btn btn-primary">Assertions: <?php include_once "assertions.html"; ?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="single"> ' ' </p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="double"> " " </p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="undo">Undo</p>
-            <p class="btn btn-primary">Annotations: <?php include_once "annotations.php"; ?></p>
+            <p class="btn btn-primary">Annotations: <?php include_once "annotations.html"; ?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="clear">Start Over</p>
             <p>&nbsp;</p>

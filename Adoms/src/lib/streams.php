@@ -92,10 +92,20 @@ class Streams extends Map implements Classes {
      */
     // Create new File Or check if exists
     public function touch(string $filename): bool {
-        if (file_exists($filename))
+        $dir = \explode("/", $filename);
+        $i = 0;
+        $dir_structs = "";
+        while ($i < sizeof($dir)-1  && 10 > sizeof($dir)) {
+            if (!is_dir($dir_structs . "/" . $dir[$i]))
+                \mkdir($dir_structs . "/" . $dir[$i]);
+            if (!is_dir($dir_structs . "/" . $dir[$i]))
+                return 0;
+            $dir_structs .= "/" . $dir[$i];
+            $i++;
+        }
+        if (file_exists($dir_structs . "/" . $dir[sizeof($dir)-1]))
             return 1;
-        touch($filename);
-        if (file_exists($filename)) {
+        if (file_exists($dir_structs . "/" . $dir[sizeof($dir)-1])) {
             return 1;
         }
         return 0;
@@ -410,6 +420,8 @@ class Streams extends Map implements Classes {
     public function writeBuf(): int {
         if ($this->strm != null && $this->typeOf != "readStream")
             return fwrite($this->strm, $this->buf);
+        else
+            return 0;
     }
 
     /**
