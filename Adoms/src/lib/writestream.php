@@ -1,7 +1,11 @@
 <?php
-namespace Adoms\src\lib;
+namespace adoms\src\lib;
 
-include_once("streams.php");
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
+
 
 class writeStream extends Streams {
 

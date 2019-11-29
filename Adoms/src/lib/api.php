@@ -1,20 +1,10 @@
 <?php
-namespace Adoms\src\lib;
+namespace adoms\src\lib;
 
-spl_autoload_register(function ($className) {
-    if ($className === "Classes") {
-        return;
-    }
-    foreach ([
-        'Adoms/src/lib/',
-        ''
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
 
 class api
 {

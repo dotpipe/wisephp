@@ -1,6 +1,6 @@
 <?php
 
-function io_x($lock_mx, &$i)
+function io_xx($lock_mx, &$i)
 {
     $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ' ', ';'];
     $_class = "";
@@ -24,7 +24,7 @@ function io_x($lock_mx, &$i)
     return trim($_class);
 }
 
-function io_pm($lock_mx, &$i)
+function io_pmx($lock_mx, &$i)
 {
     $_haystack = ['\n', '\r', '\t', ')'];
     $j = 0;
@@ -39,7 +39,7 @@ function io_pm($lock_mx, &$i)
     return trim($_class);
 }
 
-function io__($lock_mx, &$i, $lm)
+function io__x($lock_mx, &$i, $lm)
 {
     $cm = $i - ($i % 10000);
     $kp = $i;
@@ -66,7 +66,7 @@ $tmp = '<select id="assertions" onchange="x(this)" style="float:right;width:280"
 fwrite($mp, $tmp);
 while ($i < strlen($lock_mx)) {
 
-    if (io__($lock_mx, $i, '"assert') != null) {
+    if (io__x($lock_mx, $i, '"assert') != null) {
         $tmp = io_x($lock_mx, $i);
         $tmp = substr($tmp, 1, strlen($tmp) - 2);
         $html = '<option id="' . $tmp . '">' . $tmp . '</option>';
@@ -89,8 +89,8 @@ $tmp = '<select id="annotations" onchange="x(this)" style="float:right;width:280
 fwrite($mp, $tmp);
 while ($i < strlen($lock_mx)) {
 
-    if (io__($lock_mx, $i, '"@') != null) {
-        $tmp = io_x($lock_mx, $i);
+    if (io__x($lock_mx, $i, '"@') != null) {
+        $tmp = io_xx($lock_mx, $i);
         $n = 2;
         $tmp1 = substr($tmp, 2, strlen($tmp)-$n);
         $tmp2 = substr($tmp, 1, strlen($tmp)-$n);

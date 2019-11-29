@@ -1,5 +1,11 @@
 <?php
-namespace Adoms\src\lib;
+namespace adoms\src\lib;
+
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
+
 
 class Error_call {
     public function __construct($message) {

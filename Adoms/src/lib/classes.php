@@ -1,5 +1,5 @@
 <?php
-namespace Adoms\src\lib;
+namespace adoms\src\lib;
 
 interface Classes
 {

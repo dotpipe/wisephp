@@ -1,16 +1,12 @@
 <?php
-namespace src\tables;
+namespace adoms\src\tables;
 
-spl_autoload_register(function ($className) {
-    foreach ([
-        '/src/lib/'
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
+namespace adoms\src\lib;
+
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
 
 class PageViews
 {

@@ -1,20 +1,10 @@
 <?php
-session_start();
+namespace adoms\src\lib;
 
-spl_autoload_register(function ($className) {
-    if ($className === "Classes") {
-        return;
-    }
-    foreach ([
-        '../src/lib/',
-        '../src/tables/',
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
 
 $view = null;
 if (isset($_GET['s_titlewr']) && isset($_GET['s_directory']) && $_GET['s_name']) {

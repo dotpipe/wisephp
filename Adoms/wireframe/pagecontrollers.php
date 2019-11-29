@@ -1,15 +1,12 @@
 <?php
-namespace Adoms\wireframe;
-spl_autoload_register(function ($className)
-{
-	$path1 = 'Adoms/wireframe/';
-	$path2 = '';
+namespace adoms\src\tables;
 
-	if (file_exists($path1.$className.'.php'))
-		include $path1.$className.'.php';
-	else
-		include $path2.$className.'.php';
-});
+namespace adoms\src\lib;
+
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
 
 
 	class PageControllers {

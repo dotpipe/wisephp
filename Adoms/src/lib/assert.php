@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Assertion Test Maker</title>
+<title>Runt - Build v0.0.1a</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -20,7 +20,7 @@ function getSelectionText() {
     var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
     if (
       (activeElTagName == "textarea") || (activeElTagName == "input" &&
-      /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+      /^(?:text|search|password|tel|url)$/i._class(activeEl.type)) &&
       (typeof activeEl.selectionStart == "number")
     ) {
         text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
@@ -57,12 +57,12 @@ function func_change (t) {
     func = g.getAttribute("function") + " ";
     arg = g.getAttribute("args") + " ";
     type = g.getAttribute("type") + " {\n}";
-    
+
     var x = document.getElementById("code").value;
     console.log(x);
-    var j, h = "";
-    for (var i =0; i < x.length ; i++) {
-        if (x[i+1] == '{') {
+    var j = 0, h = "";
+    for (var i =0; i < x.length-1 ; i++) {
+        if (j == 0 && x[i+1] == '{') {
             j=1;
             i+=2;
         }
@@ -191,11 +191,12 @@ textarea {
 
 <body style="lightgray">
 <?php
+require("strip_csv.php");
 global $i;
 $i = 0;
 function io_x($lock_mx, &$i)
 {
-    $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ' ', ';'];
+    $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ';', ' '];
     $_class = "";
     $j = $i;
 
@@ -205,19 +206,14 @@ function io_x($lock_mx, &$i)
         }
         $_class .= $lock_mx[$i];
         if (in_array($lock_mx[$i], $_haystack)) {
-
-            //echo $_class . "-";
             $_class = substr($lock_mx, $i, strlen($_class));
-            //$i++;
-            //continue;
         }
         $i++;
     } while ($i < strlen($lock_mx) && !in_array($lock_mx[$i], $_haystack));
-    //echo $_class . "-".$i."@";
     return trim($_class);
 }
 
-function io_pm($lock_mx, &$i)
+function io_params($lock_mx, &$i)
 {
     $_haystack = ['\n', '\r', '\t', '{', ';'];
     $j = 0;
@@ -264,32 +260,37 @@ function io__($lock_mx, &$i, $lm)
     return null;
 }
 
-function io_class(string $pluck, string $output)
+function io_class(string $pluck)
 {
     $mp = fopen("assert.ini", 'r');
     $lock_mx = fread($mp, filesize("assert.ini"));
     $ini_i = 0;
     fclose($mp);
-    $php_errormsg=[];
-    
-    
-    $php_exec = io__($lock_mx,$ini_i,'php_exec="');
+    $php_errormsg = [];
+
+    $php_exec = io__($lock_mx, $ini_i, 'php_exec="');
     if ($php_exec == 'php_exec="') {
         $ini_i += 10;
-        $php_exec = io_x($lock_mx,$ini_i);
-        $php_exec = substr($php_exec,0,strlen($php_exec)-1);
-    }
-    else {
+        $php_exec = io_x($lock_mx, $ini_i);
+        $php_exec = substr($php_exec, 0, strlen($php_exec) - 1);
+    } else {
         echo 'Corrupted assert.ini';
         exit();
     }
+    
+    if (!file_exists($pluck) || filesize($pluck) == 0)
+    {
+        echo '<b>No such file exists</b>';
+        return;
+    }
+    
     // Parse for errors in class
     passthru($php_exec . " \"" . $pluck . "\"", $php_errormsg);
-    
+
     if (0 > strlen($php_errormsg)) {
         echo '<b>Error Report:</b>  ' . json_encode($php_errormsg);
     }
-    
+
     $mp = fopen($pluck, 'r');
     $lock_mx = fread($mp, filesize($pluck));
     fclose($mp);
@@ -344,26 +345,27 @@ function io_class(string $pluck, string $output)
     $j = sizeof($_class);
     
     while ($i < strlen($lock_mx)) {
-        extract_funct($lock_mx, $output, $_class, $i, $j);
+        extract_funct($lock_mx, $_class, $i, $j);
     }
-    $i = 0;
+    
     $html = $_class['type_name'] . ": ";
-    $html .= '<select id="functions" style="float:right;width:280px" file_type="' . $_class['file_type'] . '" type_name="' . $_class['type_name'] . '" onchange="func_change(this)">';
+    $html .= '<select id="functions" style="float:right;width:280px" file_type="' . $_class['file_type'] . '" type_name="' . $_class['type_name'] . '" onchange="func_change(this)">\r\n';
     foreach ($_class as $k => $v) {
-        if (!is_numeric($k))
+        if (!is_numeric($k)) {
             continue;
+        }
 
-        $html .= '<option ';
+        $html .= '\t<option ';
         foreach ($v as $f => $g) {
             $html .= $f . '="' . $g . '" ';
         }
-        $html .= '>' . $v['function'] . '</option>';
+        $html .= '>' . $v['function'] . '</option>\r\n';
 
     }
     return $html . "</select>";
 }
 
-function extract_funct(string $lock_mx, string $output, array &$appended_json, &$i, &$m)
+function extract_funct(string $lock_mx, array &$appended_json, &$i, &$m)
 {
     $json = [];
     $j = 0;
@@ -373,7 +375,7 @@ function extract_funct(string $lock_mx, string $output, array &$appended_json, &
     if (($cmt_srch = io__($lock_mx, $v, '/*')) !== null) {
         $i = $v;
     }
-    if (($cmt_srch = io__($lock_mx, $v, '*/')) !== null) {
+    if (($cmt_srch = io__($lock_mx, $v, '*/\r\n')) !== null) {
         $i = $v;
     }
     if (($cmt_srch = io__($lock_mx, $v, '//')) !== null) {
@@ -392,12 +394,12 @@ function extract_funct(string $lock_mx, string $output, array &$appended_json, &
                 break;
             case 'function':
                 $json['function'] = io_x($lock_mx, $i);
-                $json['args'] = io_pm($lock_mx, $i);
+                $json['args'] = io_params($lock_mx, $i);
                 if ($i < strlen($lock_mx) && (strlen($json['args']) == 0 || $json['args'][strlen($json['args']) - 1] != ')')) {
-                    $json['args'] .= ' ' . io_pm($lock_mx, $i);
+                    $json['args'] .= ' ' . io_params($lock_mx, $i);
                 }
                 $ccc = 0;
-                $i++;
+                //$i++;
                 if ($ccc = strpos($lock_mx, ':', $i)) {
                     $ccc++;
                     $json['type'] = "";
@@ -417,7 +419,7 @@ function extract_funct(string $lock_mx, string $output, array &$appended_json, &
                     $json = array_unique($json);
                     $appended_json[] = $json;
                     $m++;
-                    return;
+                    return $json;
                 }
                 break;
         }
@@ -425,15 +427,18 @@ function extract_funct(string $lock_mx, string $output, array &$appended_json, &
     return null;
 }
 $html = "";
-if (isset($_GET['x']) && isset($_GET['io1']) && isset($_GET['io2']) && $_GET['x'] == '1') {
-    $html = io_class($_GET['io1'], $_GET['io2']);
+if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
+    $html = io_class($_GET['io1']);
 }
 ?>
-<div class="jumbotron">
-    <h3>Assertion Code Manipulator</h3>
+<div class="jumbotron" style="height:150px !important;">
+    <h3>Runt Class Unit Test Manipulator</h3>
+    <form action="assert.php" method="GET">
+    <label value="">Input File (inc. rel. path): <input type="text" name="io1" style="width:150px"/></label>
+    <input type="hidden" name="x" value="1"/>
+    </form>
 </div>
 <center>
-    <input type="text" id="sel" style="height:0px;visibility:hidden"></input>
     <div id="clip" style="visibility:hidden">
         <p class="alert alert-success" role="alert">
             <strong>Success!</strong> The text was copied to the clipboard
@@ -448,14 +453,14 @@ if (isset($_GET['x']) && isset($_GET['io1']) && isset($_GET['io2']) && $_GET['x'
             <p class="btn btn-primary" id="square">[]</p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="curly">{}</p>
-            <p class="btn btn-primary">Assertions: <?php include_once "assertions.php"; ?></p>
+            <p class="btn btn-primary">Assertions: <?php require_once("assertions.php");?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="single"> ' ' </p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="double"> " " </p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="undo">Undo</p>
-            <p class="btn btn-primary">Annotations: <?php include_once "annotations.php"; ?></p>
+            <p class="btn btn-primary">Annotations: <?php require_once("annotations.php");?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="clear">Start Over</p>
             <p>&nbsp;</p>
@@ -464,3 +469,5 @@ if (isset($_GET['x']) && isset($_GET['io1']) && isset($_GET['io2']) && $_GET['x'
             <p class="btn btn-primary" id="redo">Redo</p>
         </block>
 </center>
+
+<input type="text" id="sel" style="height:0px;visibility:hidden"></input>
