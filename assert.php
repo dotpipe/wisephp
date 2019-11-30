@@ -434,7 +434,7 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
 <div class="jumbotron" style="height:150px !important;">
     <h3>Runt Class Unit Test Manipulator</h3>
     <form action="assert.php" method="GET">
-    <label value="">Input File (inc. rel. path): <input type="text" name="io1" style="width:150px"/></label>
+    <label value="">Input File (inc. relative path): <input type="text" name="io1" style="width:150px"/></label>
     <input type="hidden" name="x" value="1"/>
     </form>
 </div>
