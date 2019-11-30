@@ -431,11 +431,20 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
     $html = io_class($_GET['io1']);
 }
 ?>
-<div class="jumbotron" style="height:150px !important;">
+<div class="jumbotron" style="padding-top:40px;vertical-align:center;border:1px solid black;border-top:1px solid darkgray;cell-spacing:0px;background-color:darkgray;border-radius:0px 0px 25px 25px;height:100px !important;">
     <h3>Runt Class Unit Test Manipulator</h3>
+</div>
+<hr style="background-color:darkgray;width:96.5%;height:1px;margin-left:25px;float:left;margin-top:-25px">
+<div class="jumbotron" style="padding:1px;vertical-align:top;margin-top:-15px;margin-left:25px;width:96.5%;border-radius:0px 0px 25px 25px;height:50px !important;">
     <form action="assert.php" method="GET">
-    <label value="">Input File (inc. relative path): <input type="text" name="io1" style="width:150px"/></label>
-    <input type="hidden" name="x" value="1"/>
+    <block style="display:inline-grid;grid-row-start:1;grid-row-end:1;grid-template-columns:450px 400px 450px;grid-column-start:1;grid-column-end:3;">
+    
+    <quote><label style="margin-top:-5px;margin-left:35px;">> Input File (inc. relative path): <input type="text" name="io1" style="height:20px;width:150px"/></label></quote>
+    <quote><hr style="margin-top:9px;background-color:darkgray;width:100%"><input type="hidden" name="x" value="1"/></quote>
+    <quote>
+    <label style="float:right;margin-top:-5px;margin-right:35px;">> Output File (inc. relative path): <input placeholder="Non-functional" type="text" name="io2" style="height:20px;width:150px"/></label>
+    </quote>
+    </block>
     </form>
 </div>
 <center>
@@ -444,7 +453,7 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
             <strong>Success!</strong> The text was copied to the clipboard
         </p>
     </div>
-    <textarea id="code"><?php echo "public function function_name(\$arg1, \$arg2) { \n\n\n }"; ?></textarea><hr>
+    <textarea id="code"><?php echo "public function function_name(\$arg1, \$arg2) { \n\n\n }"; ?></textarea><hr style="width:800">
         <block style="display:inline-grid;grid-template-rows:50px 50px 50x;grid-template-columns:500px 10px 150px 10px 150px 10px 150px;grid-column-start:1;grid-column-end:7;">
             <p class="btn btn-primary">Functions from <?php echo $html; ?></p>
             <p>&nbsp;</p>
