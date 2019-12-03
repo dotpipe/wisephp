@@ -2,7 +2,10 @@
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
+	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
+	else
+	include_once(strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 
@@ -79,7 +82,7 @@ class Stack {
     public function unstack() {
         //tell each session ID to update..
         while ($this->size() > 0) {
-            include($this->stack->poll());
+            include_once($this->stack->poll());
         }
     }
 

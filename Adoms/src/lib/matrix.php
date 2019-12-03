@@ -2,7 +2,10 @@
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
+	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
+	else
+	include_once(strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 
@@ -814,7 +817,8 @@ class Matrix implements Classes
             return 0;
         }
         for ($x = 0 ; $x < $r ; $x++) {
-            $this->dat[] = newObj($this->childType, 'String');
+            $obj = $this->childType . "('String')";
+            $this->dat[] = new $obj();
         }
         return 1;
     }

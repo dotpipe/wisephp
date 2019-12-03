@@ -7,7 +7,7 @@ namespace adoms\src\tables;
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+    include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 

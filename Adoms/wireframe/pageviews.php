@@ -6,7 +6,7 @@ namespace adoms\src\tables;
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+    include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 
@@ -151,10 +151,10 @@ spl_autoload_register($my, true, 1);
 			foreach ($this->injections as $k) {
 				$vk = $k;
 				if ($vk == "shared") {
-					$buff .= "\r\n\tinclude(\"../shared/$vk\");";
+					$buff .= "\r\n\tinclude_once(\"../shared/$vk\");";
 				}
 				else {
-					$buff .= "\r\n\tinclude(\"../index/$vk\");";
+					$buff .= "\r\n\tinclude_once(\"../index/$vk\");";
 				}
 			}
 			$buff .= "?>\r\n";
@@ -175,10 +175,10 @@ spl_autoload_register($my, true, 1);
 				$vk = $k;
 				$vv = ''; //$k;
 				if ($vk == "shared") {
-					$buff .= "\r\n\tinclude(\"view/shared/$vk\");";
+					$buff .= "\r\n\tinclude_once(\"view/shared/$vk\");";
 				}
 				else {
-					$buff .= "\r\n\tinclude(\"view/index/$vk\");";
+					$buff .= "\r\n\tinclude_once(\"view/index/$vk\");";
 				}
 			}
 			$buff .= "?>\r\n";
@@ -226,12 +226,12 @@ spl_autoload_register($my, true, 1);
 			foreach ($this->injections as $k) {
 				$vk = $k;
 				if ($vk == "shared") {
-					$buff .= "include(\"../shared/$vk\");\r\n";
+					$buff .= "include_once(\"../shared/$vk\");\r\n";
 				}
 				else if ($vk == "partials")
-					$buff .= "include(\"../$view_name/$vk\");\r\n";
+					$buff .= "include_once(\"../$view_name/$vk\");\r\n";
 				else
-					$buff .= "include(\"../view/".$_COOKIE['PHPSESSID']."/$vk\");\r\n";
+					$buff .= "include_once(\"../view/".$_COOKIE['PHPSESSID']."/$vk\");\r\n";
 			}
 			$buff .= "?>\r\n";
 			fwrite($fp, $buff);
@@ -263,12 +263,12 @@ spl_autoload_register($my, true, 1);
 			foreach ($this->injections as $k) {
 				$vk = $k;
 				if ($vk == "shared") {
-					$buff .= "include(\"../shared/$vk\");\r\n";
+					$buff .= "include_once(\"../shared/$vk\");\r\n";
 				}
 				else if ($vk == "partials")
-					$buff .= "include(\"../$view_name/$vk\");\r\n";
+					$buff .= "include_once(\"../$view_name/$vk\");\r\n";
 				else
-					$buff .= "include(\"../$view_name/$vk\");\r\n";
+					$buff .= "include_once(\"../$view_name/$vk\");\r\n";
 			}
 			fwrite($fp, $buff);
 			fclose($fp);

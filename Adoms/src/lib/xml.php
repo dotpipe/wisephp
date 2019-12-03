@@ -2,45 +2,15 @@
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
+	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
+	else
+	include_once(strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 
 
-class XML {
-    // call with just the first parameter, the filename
-    public function newObj($r, $e = "Any") {
-        switch ($r) {
-            case 'Vector':
-                return new Vector($e);
-            case 'Map':
-                return new Map();
-            case 'mMap':
-                return new mMap();
-            case 'Queue':
-                return new Queue();
-            case 'Dequeue':
-                return new Queue();
-            case 'Set':
-                return new Set();
-            case 'mSet':
-                return new mSet();
-            case 'Matrix':
-                return new Matrix($e);
-            case 'rwStream':
-                return new rwStream();
-            case 'writeStream':
-                return new writeStream($e);
-            case 'readStream':
-                return new readStream($e);
-            case 'CSS':
-                return new css();
-            case 'API':
-                return new api();
-            default:
-                return null;
-        }
-    }
+class xml {
 
     /**
      * public function xmlIn
@@ -151,8 +121,7 @@ class XML {
                 if ($type->nodeName == "ObjectType" && $type->nodeValue == 'mSet') {
                     $t = $type->nextSibling;
                     $mS = new mSet($t->nodeValue);
-                    $mnm = new newObject();
-                    $s = $mnm->newObj($t->nodeValue);
+                    
                     $g = $t->parentNode;
                     $go = $g->childNodes;
                     foreach ($go as $svr) {
@@ -174,7 +143,8 @@ class XML {
                 }
                 if ($type->nodeName == "ObjectType" && $type->nodeValue == 'Vectors') {
                     $t = $type->nextSibling;
-                    $s = newObj("Vector", $t->nodeValue);
+                    $obj = "Vector";
+                    $s = new $obj($t->nodevalue);
                     $go = $t->nextSibling;
                     $g = $go->childNodes;
                     foreach ($g as $svr) {
@@ -215,8 +185,9 @@ class XML {
                             else if ($st->nodeName == "Vector") {
                                 $varname = $st->nodeValue;
 
-                                $mmm = new newObject();
-                                $s = $mmm->newObj($varname);
+                                $obj = "Vector";
+                                $s = new Vector($st->nodeValue);
+                                //$s = $mmm->newObj($varname);
 
                                 continue;
                             }

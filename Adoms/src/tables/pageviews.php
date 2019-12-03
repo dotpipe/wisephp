@@ -4,7 +4,7 @@ namespace adoms\src\tables;
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+    include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 
@@ -150,10 +150,10 @@ class PageViews
             $vk = $k[0];
             $vv = $k[1];
             if ($vk == "shared") {
-                $buff .= "\r\n\tinclude(\"../shared/$vv\");";
+                $buff .= "\r\n\tinclude_once(\"../shared/$vv\");";
             }
             else {
-                $buff .= "\r\n\tinclude(\"../index/$vk/$vv\");";
+                $buff .= "\r\n\tinclude_once(\"../index/$vk/$vv\");";
             }
         }
         $buff .= "?>\r\n";
@@ -176,10 +176,10 @@ class PageViews
             $vk = $k[0];
             $vv = $k[1];
             if ($vk == "shared") {
-                $buff .= "\r\n\tinclude(\"view/shared/$vv\");";
+                $buff .= "\r\n\tinclude_once(\"view/shared/$vv\");";
             }
             else {
-                $buff .= "\r\n\tinclude(\"view/index/$vk/$vv\");";
+                $buff .= "\r\n\tinclude_once(\"view/index/$vk/$vv\");";
             }
         }
         $buff .= "?>\r\n";
@@ -231,12 +231,12 @@ class PageViews
             $vk = $k[0];
             $vv = $k[1];
             if ($vk == "shared") {
-                $buff .= "include(\"../shared/$vv\");\r\n";
+                $buff .= "include_once(\"../shared/$vv\");\r\n";
             }
             else if ($vk == "partials")
-                $buff .= "include(\"../$view_name/$vk/$vv\");\r\n";
+                $buff .= "include_once(\"../$view_name/$vk/$vv\");\r\n";
             else
-                $buff .= "include(\"../view/".$_COOKIE['PHPSESSID']."/$vk/$vv\");\r\n";
+                $buff .= "include_once(\"../view/".$_COOKIE['PHPSESSID']."/$vk/$vv\");\r\n";
         }
         $buff .= "?>\r\n";
         fwrite($fp, $buff);
@@ -270,12 +270,12 @@ class PageViews
             $vk = $k[0];
             $vv = $k[1];
             if ($vk == "shared") {
-                $buff .= "include(\"../shared/$vv\");\r\n";
+                $buff .= "include_once(\"../shared/$vv\");\r\n";
             }
             else if ($vk == "partials")
-                $buff .= "include(\"../$view_name/$vk/$vv\");\r\n";
+                $buff .= "include_once(\"../$view_name/$vk/$vv\");\r\n";
             else
-                $buff .= "include(\"../$view_name/$vk/$vv\");\r\n";
+                $buff .= "include_once(\"../$view_name/$vk/$vv\");\r\n";
         }
         $buff .= "?>\r\n";
         fwrite($fp, $buff);

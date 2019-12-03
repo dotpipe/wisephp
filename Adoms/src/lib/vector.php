@@ -2,7 +2,10 @@
 namespace adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
+	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
+	else
+	include_once(strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 
@@ -247,9 +250,14 @@ class Vector implements Classes {
         if ($this->childType == "Any" || $r->childType == $this->childType
             || ($this->childType == 'Array' && is_array($r))) {
             $t = null;
-            if ($this->childType != 'Any')
-                $t = newObj($this->childType);
-            else $t = newObj("Vector", "Any");
+            if ($this->childType != 'Any') {
+                $obj = $this->childType . "('String')";
+                $t = new $obj();
+            }
+            else {
+                $obj = $this->childType . "('Any')";
+                $t = new $obj();
+            }
             if ($this->childType == "mMap")
                 $t->newMap($r);
             else if ($this->childType == "String")
