@@ -1,4 +1,4 @@
-<?php
+<?php declare (strict_types = 1);
 
 function io_xx($lock_mx, &$i)
 {

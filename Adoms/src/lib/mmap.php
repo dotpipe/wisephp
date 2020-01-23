@@ -1,20 +1,13 @@
 <?php
-namespace adoms\src\lib;
+namespace Adoms\src\lib;
 
-$my = function ($pClassName) {
-	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
-	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
-	else
-	include_once(strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
-// $this->mmap is the set of Maps
+// $this->mmap is the set of Map
 //This is the Map-in-Map Extension
 class mMap extends Map implements Classes {
     public $val;
     public $kv;
     public $dat;
-    // Maps array()
+    // Map array()
     public $map;
     // Index integer
     public $datCntr;

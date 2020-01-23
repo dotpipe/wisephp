@@ -1,10 +1,7 @@
-<?php
-namespace adoms\src\lib;
+<?php declare (strict_types = 1);
+namespace Adoms\src\lib;
 
-$my = function ($pClassName) {
-    include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
+
 
 $view = null;
 if (isset($_GET['s_titlewr']) && isset($_GET['s_directory']) && $_GET['s_name']) {
