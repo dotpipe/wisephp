@@ -1,17 +1,17 @@
 {
     "name": "thexiv/adoms",
-    "description": "A complete MVC and OOP Package",
+    "description": "OOP toolset",
     "type": "library",
-    "license": "MIT",
+    "license": "mit",
+    "version": "2.0",
     "authors": [
         {
-            "name": "swatchphp",
-            "email": "tcp@null.net"
+            "name": "Anthony Pulse, Jr.",
+            "email": "48605836+saasey@users.noreply.github.com"
         }
     ],
     "minimum-stability": "stable",
-    "require": {
-        "php": ">=7.1.0",
-        "ext-pcre": "*"
+    "autoload": {
+        "classmap": ["Adoms/src/lib", "Adoms/creator/make_controller.php", "Adoms/wireframe"]
     }
 }

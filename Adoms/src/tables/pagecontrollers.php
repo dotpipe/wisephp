@@ -1,12 +1,9 @@
-<?php
-namespace adoms\src\tables;
+<?php declare (strict_types = 1);
+namespace Adoms\src\tables;
 
-namespace adoms\src\lib;
+namespace Adoms\src\lib;
 
-$my = function ($pClassName) {
-    include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
+
 
 class PageControllers {
 

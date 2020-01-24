@@ -1,14 +1,7 @@
-<?php
+<?php declare (strict_types = 1);
 
-namespace adoms\src\lib;
+namespace Adoms\src\lib;
 
-$my = function ($pClassName) {
-	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
-	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
-	else
-	include_once(strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
 
 class SyntaxError extends Error {
     public function __construct($message)  {

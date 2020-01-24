@@ -1,4 +1,4 @@
-<?php
+<?php declare (strict_types = 1);
 file_put_contents("example.txt",":):):):)");
 ?>
 <script src="src/routes/pipes.js"></script>

@@ -1,14 +1,5 @@
-<?php
-namespace adoms\src\lib;
-
-$my = function ($pClassName) {
-	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
-	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
-	else
-	include_once(strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
-
+<?php ///declare (strict_types = 1);
+namespace Adoms\src\lib;
 
 class Map implements Classes
 {
@@ -62,10 +53,12 @@ class Map implements Classes
      */
     public function loadJSON(string $file_name): bool
     {
-        if (file_exists("$file_name") && filesize("$file_name") > 0)
+        if (file_exists("$file_name") && filesize("$file_name") > 0) {
             $fp = fopen("$file_name", "r");
-        else
+        } else {
             return 0;
+        }
+
         $json_context = fread($fp, filesize("$file_name"));
         $old = unserialize($json_context);
         $b = $old;
@@ -144,7 +137,7 @@ class Map implements Classes
     public function Sorter(): bool
     {
         if ($this->size() > 0) {
-            $vals =& $this->kv;
+            $vals = &$this->kv;
             sort($vals);
             return 1;
         }
@@ -158,7 +151,7 @@ class Map implements Classes
      */
     public function keyIsIn(string $k)
     {
-        return array_keys($k,$this->kv);
+        return array_keys($k, $this->kv);
     }
 
     /**
@@ -210,14 +203,16 @@ class Map implements Classes
         }
         $t = $this->kv;
         reset($t);
-        for ($j = 0; $j < count($t); $j++) {
-            if (key($t) != $k) {
-                next($t);
-            }
-            else {
-                break;
+        if ($this->keyIsIn($k)) {
+            for ($j = 0; $j < count($t); $j++) {
+                if (key($t) != $k) {
+                    next($t);
+                } else {
+                    break;
+                }
             }
         }
+        else return 0;
         return current($t);
     }
 
@@ -287,7 +282,7 @@ class Map implements Classes
     // Iterate to Previous key;
     public function next()
     {
-        if ($this->datCntr > 0 && $this->datCntr+1 < count($this->kv)) {
+        if ($this->datCntr > 0 && $this->datCntr + 1 < count($this->kv)) {
             $this->datCntr++;
         } else {
             return 0;
@@ -334,7 +329,7 @@ class Map implements Classes
         } else {
             do {
                 $i++;
-            } while ($this->Iter() && $indx >= $i);
+            } while ($this->Iter() && $i <= $indx);
         }
         return 1;
     }
@@ -357,7 +352,7 @@ class Map implements Classes
         $tmp = $this->kv;
         reset($tmp);
         $i = 0;
-        while($i < count($tmp)) {
+        while ($i < count($tmp)) {
             if (key($tmp) != $k) {
                 $temp = array_merge($temp, array(key($tmp) => current($tmp)));
             }
@@ -428,7 +423,7 @@ class Map implements Classes
     // Replace KV
     public function replace(string $k, $v): bool
     {
-        $this->add($k,$v);
+        $this->add($k, $v);
         return 1;
     }
 
@@ -445,15 +440,17 @@ class Map implements Classes
             $this->kv = array($key => $val);
             return 1;
         }
-        foreach ($this->kv as $x=>$y) {
-            if (isset($x) && isset($y))
+        foreach ($this->kv as $x => $y) {
+            if (isset($x) && isset($y)) {
                 $t = array_merge($t, array($x => $y));
+            }
+
         }
         if (isset($key) && isset($val)) {
-            $t = array_merge($t, array((string)$key => $val));
+            $t = array_merge($t, array((string) $key => $val));
         }
         reset($t);
-        for ($i = 0 ; $i < $this->datCntr ; $i++) {
+        for ($i = 0; $i < $this->datCntr; $i++) {
             next($t);
         }
         $this->kv = $t;

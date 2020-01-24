@@ -1,24 +1,13 @@
-<?php
-namespace adoms\src\lib;
+<?php //declare (strict_types = 1);
+
+namespace Adoms;
+
+require "vendor/autoload.php";
+
 session_start();
 
-spl_autoload_register(function ($className) {
-    if ($className === "Classes") {
-        return;
-    }
-    foreach ([
-        'adoms/src/lib/',
-        ''
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
-
 //Background
-$tro = new Map();
+$tro = new src\lib\Map();
 $tro->add("font-size","125%");
 $tro->add("position","fixed");
 $tro->add("background-color","red");
@@ -220,7 +209,7 @@ do {
     $s->vect = $ccc;
     echo json_encode($ccc);
 } while ($s->Iter());
-//Don"t forget to sync your Maps and Vectors!!
+//Don"t forget to sync your Map and Vectors!!
 $s->vect = $q;
 $s->sync();
 echo json_encode($ccc);
@@ -357,7 +346,7 @@ if (strlen(json_encode($temp)) + strlen(json_encode($mm)) < 250)
 else
     echo "</p><p id=\"sbox\">";
 echo "<b>Guess what *I* Found \$mm->mmap->findKey(\"/ya/\"); !</b><br>" . json_encode($e) . "<br><br>";
-echo "<b>Did you notice that? Maps don't overwrite with changes to ->map if it ignores the rule of multiple keys :)</b><br>";
+echo "<b>Did you notice that? Map don't overwrite with changes to ->map if it ignores the rule of multiple keys :)</b><br>";
 echo json_encode($mm);
 echo "<br><br><b>I also found this mMap ->mname! with getMap(\"/S/\")</b><br>";
 echo json_encode($temp);

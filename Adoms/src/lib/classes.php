@@ -1,5 +1,7 @@
-<?php
-namespace adoms\src\lib;
+<?php declare (strict_types = 1);
+namespace Adoms\src\lib;
+
+
 
 interface Classes
 {

@@ -1,7 +1,7 @@
 <?php
-namespace adoms\src\tables;
+namespace Adoms\src\tables;
 
-namespace adoms\src\lib;
+namespace Adoms\src\lib;
 
 $my = function ($pClassName) {
     include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");

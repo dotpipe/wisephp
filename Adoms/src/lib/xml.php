@@ -1,13 +1,8 @@
-<?php
-namespace adoms\src\lib;
+<?php declare (strict_types = 1);
+namespace Adoms\src\lib;
 
-$my = function ($pClassName) {
-	if (\file_exists("adoms\\src\\lib\\".strtolower($pClassName) . ".php"))
-	include_once("adoms\\src\\lib\\".strtolower($pClassName) . ".php");
-	else
-	include_once(strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
+
+
 
 
 class xml {
@@ -100,7 +95,7 @@ class xml {
                     }
                     return $newmMap;
                 }
-                if ($type->nodeName == "ObjectType" && $type->nodeValue == 'Maps') {
+                if ($type->nodeName == "ObjectType" && $type->nodeValue == 'Map') {
                     $M1 = new Map();
                     $t = $type->nextSibling;
                     $a = $t->childNodes;
@@ -245,7 +240,7 @@ class xml {
                 $tmp = $dom->createElement('Names');
                 break;
             case 'Map':
-                $root = $dom->createTextNode("Maps");
+                $root = $dom->createTextNode("Map");
                 break;
             case 'mSet':
                 $root = $dom->createTextNode("mSet");
