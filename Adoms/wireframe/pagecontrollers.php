@@ -79,7 +79,7 @@ spl_autoload_register($my, true, 1);
 		*/
 		public function addModelData(string $view_name, array $data) {
 			$this->mvc[$view_name]->addModelData($view_name, $data);
-			return 1;
+			return true;
 		}
 
 		/*
@@ -92,7 +92,7 @@ spl_autoload_register($my, true, 1);
 			$fp = fopen("$this->token/$this->md/config.json", "w");
 			fwrite($fp, serialize($this));
 			fclose($fp);
-			return 1;
+			return true;
 		}
 		
 		
@@ -126,7 +126,7 @@ spl_autoload_register($my, true, 1);
 				mkdir("$this->path/$view_name");
 				if (!is_dir("$this->path/$view_name")) {
 					echo "Permissions Error: Unable to create Directory";
-					return 0;
+					return false;
 				}
 				
 				touch("$this->path/$view_name/index.php");
@@ -134,7 +134,7 @@ spl_autoload_register($my, true, 1);
 			}
 			$this->mvc[$view_name] = new PageModels($view_name);
 			$this->mvc[$view_name]->view = new PageViews($this->token, $view_name);
-			return 1;
+			return true;
 		}
 		
 		/*
@@ -157,7 +157,7 @@ spl_autoload_register($my, true, 1);
 			if (file_exists("$this->token/config.json") && filesize("$this->token/config.json") > 0)
 				$fp = fopen("$this->token/config.json", "r");
 			else
-				return 0;
+				return false;
 			$json_context = fread($fp, filesize("$this->token/config.json"));
 			$old = unserialize($json_context);
 			$b = $old->mvc[$old->token];

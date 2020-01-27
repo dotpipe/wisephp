@@ -3,7 +3,7 @@
 namespace Adoms\src\lib;
 
 
-class Container {
+class Container extends Common {
     // Type Specifications
     public $typeOf;
     public $rootType;
@@ -18,7 +18,7 @@ class Container {
     // Strict IndexException Error Calling
     public function use_strict(bool $bool = FALSE) {
         if ($bool != 0)
-            $this->strict = 1;
+            $this->strict = true;
         else $this->strict = 0;
         return $this->strict;
     }

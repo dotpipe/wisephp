@@ -31,7 +31,7 @@ class Set {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -43,14 +43,14 @@ class Set {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
-            return 0;
+            return false;
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
             $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -78,7 +78,7 @@ class Set {
     public function addAll(string $r) {
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
-            return 0;
+            return false;
         }
 
         $s = $this->dat;
@@ -116,7 +116,7 @@ class Set {
         if ($bool == 0)
             $this->dat[] = $r;
 
-        return 1;
+        return true;
     }
 
     /**
@@ -140,11 +140,11 @@ class Set {
         $temp = array();
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
-            return 0;
+            return false;
         }
         if ($r->size() != $this->size() || $r->dat != $this->dat)
-            return 0;
-        return 1;
+            return false;
+        return true;
     }
 
     /**
@@ -156,7 +156,7 @@ class Set {
     public function get(int $indx) {
         if ($this->size() == 0 || $indx >= $this->size()) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
-            return 0;
+            return false;
         }
 
         return $this->dat[$indx];
@@ -171,7 +171,7 @@ class Set {
     public function exists(string $r) {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
-            return 0;
+            return false;
         }
 
         $indx = -1;
@@ -192,7 +192,7 @@ class Set {
         $setTemp = [];
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
-            return 0;
+            return false;
         }
 
         $i = 0;
@@ -204,7 +204,7 @@ class Set {
             $i++;
         }
         $this->dat = $setTemp;
-        return 1;
+        return true;
     }
 
     /**
@@ -217,7 +217,7 @@ class Set {
         $setTemp = [];
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
-            return 0;
+            return false;
         }
 
         $i = 0;
@@ -229,7 +229,7 @@ class Set {
             $i++;
         }
         $this->dat = $setTemp;
-        return 1;
+        return true;
     }
 
 }

@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace Adoms\src\tables;
 
-namespace Adoms\src\lib;
+//namespace Adoms\src\lib;
 
 $my = function ($pClassName) {
     include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
@@ -54,21 +54,21 @@ class PageViews
         }
         if (!is_dir("$this->path/$view_name/$res_dir") && !mkdir("$this->path/$view_name/$res_dir")) {
             echo "Unable to create directories needed";
-            return 0;
+            return false;
         }
         if (!file_exists("$this->path/$view_name/$res_dir/$filename") && !touch("$this->path/$view_name/$res_dir/$filename")) {
             echo "Unable to create files needed";
-            return 0;
+            return false;
         }
         foreach ($this->injections as $k=>$v) {
             if ($v[0] == $res_dir && $v[1] == $filename)
                 $bool = 1;
         }
         if ($bool == 1)
-            return 0;
+            return false;
         else
             $this->injections[] = $res_dir . "/" . $filename;
-        return 1;
+        return true;
     }
 
     /**
@@ -83,13 +83,13 @@ class PageViews
             mkdir("$this->path/shared");
         if (!is_dir("$this->path/shared")) {
             echo "Unable to create directories needed";
-            return 0;
+            return false;
         }
         if (!file_exists("$this->path/shared/$filename")) {
             touch("$this->path/shared/$filename");
             if (!file_exists("$this->path/shared/$filename")) {
                 echo "Unable to create files needed";
-                return 0;
+                return false;
             }
         }
         foreach ($this->injections as $k=>$v) {
@@ -97,10 +97,10 @@ class PageViews
                 $bool = 1;
         }
         if ($bool == 1)
-            return 0;
+            return false;
         else
             $this->injections[] = array("shared","$filename");
-        return 1;
+        return true;
     }
 
     /**
@@ -113,7 +113,7 @@ class PageViews
         $fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -126,14 +126,14 @@ class PageViews
         if (file_exists($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") && filesize($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") > 0)
             $fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json", "r");
         else
-            return 0;
+            return false;
         $json_context = fread($fp, filesize($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json"));
         $old = unserialize($json_context);
         $b = $old->mvc[$old->token];
         foreach ($b as $key => $val) {
             $this->mvc[$this->token]->sid->$key = $b->sid->$key;
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -159,7 +159,7 @@ class PageViews
         $buff .= "?>\r\n";
         fwrite($fp, $buff);
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -185,7 +185,7 @@ class PageViews
         $buff .= "?>\r\n";
         fwrite($fp, $buff);
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -219,7 +219,7 @@ class PageViews
         if ($view_name == "index") {
             touch($this->token."/view/".$_COOKIE['PHPSESSID']."/index.php");
             $this->writeIndex($this->md);
-            return 1;
+            return true;
         }
         else if (!file_exists($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json"))
             echo "Unable to find files needed: ".$this->token."/view/".$_COOKIE['PHPSESSID']."/config.json";
@@ -241,7 +241,7 @@ class PageViews
         $buff .= "?>\r\n";
         fwrite($fp, $buff);
         fclose($fp);
-        return 1;
+        return true;
     }
 
 
@@ -257,7 +257,7 @@ class PageViews
         if ($view_name == "index") {
             touch("$this->token/index.php");
             $this->writeIndex();
-            return 1;
+            return true;
         }
         else if (!dir_exists("$this->token/$this->md") && !mkdir("$this->path/$this->md"))
             echo "Unable to create directory needed";
@@ -280,7 +280,7 @@ class PageViews
         $buff .= "?>\r\n";
         fwrite($fp, $buff);
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -299,9 +299,9 @@ class PageViews
         }
         if ($bool == 1) {
             $this->injections = $k;
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
     /**
@@ -314,6 +314,6 @@ class PageViews
         $this->actions[$this->copy] = new PageViews($this->token, $this->copy);
         $this->actions[$this->copy]->addPartial("index.php", $this->copy, $action_name);
         echo "<br><br><br>" . json_encode($this->actions);
-        return 1;
+        return true;
     }
 }

@@ -40,7 +40,7 @@ class Queue {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -52,14 +52,14 @@ class Queue {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
-            return 0;
+            return false;
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
             $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -71,7 +71,7 @@ class Queue {
     public function poll() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Queue');
-            return 0;
+            return false;
         }
         $j = $this->dat[0];
         array_shift($this->dat);
@@ -98,11 +98,11 @@ class Queue {
     public function pop() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Queue');
-            return 0;
+            return false;
         }
         array_pop($this->dat);
         $this->dat = $queueTemp;
-        return 1;
+        return true;
     }
 
     /**
@@ -114,7 +114,7 @@ class Queue {
     public function getElement() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Queue');
-            return 0;
+            return false;
         }
         return $this->dat[0];
     }
@@ -127,6 +127,6 @@ class Queue {
     // Empty Queue
     public function clear() {
         $this->dat = array();
-        return 1;
+        return true;
     }
 }

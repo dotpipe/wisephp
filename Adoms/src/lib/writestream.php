@@ -17,12 +17,12 @@ class writeStream extends Streams {
     }
 
     public function addStrm(string $r, bool $bool = FALSE): bool {
-        if (!\file_exists($r))
-            return 0;
-        $ed = fopen($r, 'w');
-        $this->add($r,$ed);
+        if (!\file_exists($this->dir . $r))
+            return false;
+        $ed = fopen($this->dir . $r, 'w');
+        $this->add($this->dir . $r,$ed);
         $this->sync();
-        return 1;
+        return true;
 
     }
 }

@@ -19,10 +19,10 @@ class rwStream extends Streams {
     }
 
     public function add(string $r, bool $bool = TRUE) {
-        $ed = fopen($r, 'w+');
-        $this->add($r,$ed);
+        $ed = fopen($this->dir . $r, 'w+');
+        $this->add($this->dir . $r,$ed);
         $this->sync();
-        return 1;
+        return true;
 
     }
 }

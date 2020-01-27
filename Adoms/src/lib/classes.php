@@ -16,7 +16,5 @@ interface Classes
     public function Cycle();
     public function revCycle();
     public function current();
-    public function next();
-    public function prev();
 
 }

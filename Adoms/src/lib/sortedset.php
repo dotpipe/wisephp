@@ -26,37 +26,6 @@ class SortedSet extends Set {
     }
 
     /**
-     * public function save
-     * @parameters string
-     *
-     */
-    public function save(string $json_name) {
-        $fp = fopen("$json_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
-        return 1;
-    }
-
-    /**
-     * public function loadJSON
-     * @parameters string
-     *
-     */
-    public function loadJSON(string $json_name) {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
-            $fp = fopen("$json_name", "r");
-        else
-            return 0;
-        $json_context = fread($fp, filesize("$json_name"));
-        $old = unserialize($json_context);
-        $b = $old;
-        foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
-        }
-        return 1;
-    }
-
-    /**
      * public function headSet
      * @parameters int
      *

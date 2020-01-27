@@ -6,7 +6,7 @@ namespace Adoms\src\lib;
 
 class Type_Error extends Error_call {
     public function __construct($message) {
-        echo $this->getCode() . ': ' . $message . ' In file ' . $this->getFile() . ' On line ' . $this->getLine();
+        echo $message;
 
     //    trigger_error($this->getCode(), $message, $this->getFile(), $this->getLine());
     }

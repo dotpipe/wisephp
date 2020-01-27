@@ -12,6 +12,6 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
-        "classmap": ["Adoms/src/lib", "Adoms/creator/make_controller.php", "Adoms/wireframe"]
+        "classmap": ["Adoms/src/lib", "Adoms/src/lib/map.php", "Adoms/src/lib/common.php", "Adoms/creator/", "Adoms/wireframe"]
     }
 }
