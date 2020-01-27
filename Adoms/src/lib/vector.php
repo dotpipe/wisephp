@@ -2,15 +2,13 @@
 namespace Adoms\src\lib;
 
 
-class Vector implements Classes {
+class Vector extends Container implements Classes {
 
     public $vectorTemp;
     public $parentType;
     public $childType;
-    // Pointer to current Index
-    public $vect;
     // $vect[$datCntr] (The index pointed to)
-    private $datCntr;
+    public $datCntr;
 
     public function __construct($type) {
         if ($type == 'Dequeue') {
@@ -70,14 +68,14 @@ class Vector implements Classes {
             $this->parentType = 'Vector';
         }
         else {
-            throw new Type_Error('Invalid Type');
-            return 0;
+            $this->childType = 'Any';
+            $this->parentType = 'Vector';
         }
         $this->rootType = 'Container';
         $this->typeOf = 'Vector';
         $this->dat = array();
         $this->pv = 0;
-        return 1;
+        return true;
     }
 
     /**
@@ -92,6 +90,26 @@ class Vector implements Classes {
         $this->dat = null;
     }
 
+    public function conv2vector($m): Map
+    {
+        if (is_object($m) && $m->parentType == "Set")
+            $vect = new Vector("String");
+        else if (is_object($m) && $m->parentType == "mSet")
+            $vect = new Vector("Set");
+        else if (is_object($m) && $m->parentType == "mMap")
+            $vect = new Vector("Map");
+        else if (is_object($m) && $m->parentType == "Matrix")
+            $vect = new Vector("Any");
+        else
+            $vect = new Vector("String");
+
+        foreach ($m as $n => $s) {
+            $vect->push($s);
+        }
+
+        return $vect;
+    }
+
     /**
      * public function clear
      * @parameters none
@@ -99,47 +117,6 @@ class Vector implements Classes {
      */
     public function clear() {
         $this->dat = array();
-    }
-
-    /**
-     * public function size
-     * @parameters none
-     *
-     */
-    // Report Size of Container
-    public function size() {
-        return count($this->dat);
-    }
-
-    /**
-     * public function save
-     * @parameters string
-     *
-     */
-    public function save(string $json_name) {
-        $fp = fopen("$json_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
-        return 1;
-    }
-
-    /**
-     * public function loadJSON
-     * @parameters string
-     *
-     */
-    public function loadJSON(string $json_name) {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
-            $fp = fopen("$json_name", "r");
-        else
-            return 0;
-        $json_context = fread($fp, filesize("$json_name"));
-        $old = unserialize($json_context);
-        $b = $old;
-        foreach ($b as $key => $val) {
-            $this->$key = $b->$key;
-        }
-        return 1;
     }
 
     /**
@@ -155,16 +132,14 @@ class Vector implements Classes {
             $this->dat[] = $r;
         else if ($this->childType == 'Any' || ($this->childType == 'Array' && is_array($r)) || $this->childType == $r->childType)
             $this->dat[] = $r;
-        else if ($this->childType == 'Array' && is_array($r))
-            $this->dat[] = $r;
         else if (!is_object($r) && !is_array($r)) {
-            return 0;
+            return false;
         }
         else {
             throw new Type_Error('Invalid Type');
-            return 0;
+            return false;
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -178,51 +153,9 @@ class Vector implements Classes {
             $this->dat = null;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
+            return false;
         }
         return $this->dat = array_slice($this->dat, -1);
-    }
-
-    /**
-     * public function getIndex
-     * @parameters none
-     *
-     */
-    // Get Index
-    public function getIndex() {
-        return $this->datCntr;
-    }
-
-    /**
-     * public function setIndex
-     * @parameters int
-     *
-     */
-    // Sets and Joins Map Index
-    public function setIndex(int $indx) {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector');
-            return 0;
-        }
-        if ($indx < $this->size()) {
-            reset($this->dat);
-            for($i = 0 ; $i < $indx ; $i++)
-                next($this->dat);
-            $this->datCntr = $indx;
-            $this->sync();
-            return 1;
-        }
-        return 1;
-    }
-
-    /**
-     * public function current
-     * @parameters none
-     *
-     */
-    // Retrieve current Index of Vector Pointer
-    public function current() {
-        return $this->getIndex();
     }
 
     /**
@@ -234,11 +167,11 @@ class Vector implements Classes {
         $setTemp = '';
         if ($this->size() == 0) {
             $this->dat[] = $r;
-            return 1;
+            return true;
         }
         else if ($indx < 0 || $indx >= $this->size()) {
             throw new IndexException('Invalid Index');
-            return 0;
+            return false;
         }
         if ($this->childType == "Any" || $r->childType == $this->childType
             || ($this->childType == 'Array' && is_array($r))) {
@@ -259,12 +192,12 @@ class Vector implements Classes {
                 $t->dat[] = $r;
             else
                 $t->add($r);
-            $this->vect = $t;
+            $this->pt = $t;
             $this->sync();
         }
-        else return 0;
+        else return false;
 
-        return 1;
+        return true;
     }
 
     /**
@@ -275,14 +208,14 @@ class Vector implements Classes {
     // Return Vector at $indx
     public function at(int $indx) {
         if ($this->size() == 0) {
-            return 0;
+            return false;
         }
         $temp = array();
         if ($indx < $this->size() && $indx >= 0) {
             return $this->dat[$indx];
             $temp;
         }
-        return 0;
+        return false;
     }
 
     /**
@@ -337,7 +270,7 @@ class Vector implements Classes {
         }
         else {
             throw new Type_Error('Invalid Type');
-            return 0;
+            return false;
         }
 
         $t = array();
@@ -350,148 +283,9 @@ class Vector implements Classes {
         $this->dat = $t;
 
         $t = array();
-        return 1;
+        return true;
     }
-
-    /**
-     * public function hasNext
-     * @parameters none
-     *
-     */
-    // Returns 1 if Vector has next Element
-    public function hasNext() {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
-        }
-        if ($this->datCntr + 1 < $this->size())
-            return 1;
-        return 0;
-    }
-
-    /**
-     * public function nextVect
-     * @parameters none
-     *
-     */
-    // Iterate once forward through Vector
-    public function next() {
-        if ($this->hasNext()) {
-            next($this->dat);
-            $this->datCntr++;
-            $this->sync();
-            return 1;
-        }
-        return 0;
-    }
-
-    /**
-     * public function Iter
-     * @parameters none
-     *
-     */
-    // Iterate Forward through Vector
-    public function Iter() {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
-        }
-        if ($this->next()) {
-            $this->sync();
-            return 1;
-        }
-    }
-
-    /**
-     * public function Cycle
-     * @parameters none
-     *
-     */
-    // Cycle Forward through Vector
-    public function Cycle() {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
-        }
-        if ($this->next() == 0) {
-            reset($this->dat);
-            $this->sync();
-            $this->datCntr = 0;
-            return 0;
-        }
-        return 1;
-    }
-
-    /**
-     * public function revIter
-     * @parameters none
-     *
-     */
-    // Iterate Forward through Vector
-    public function revIter() {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
-        }
-        if ($this->prev()) {
-            $this->sync();
-            return 1;
-        }
-        return 0;
-    }
-
-    /**
-     * public function revCycle
-     * @parameters none
-     *
-     */
-    public function revCycle() {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
-        }
-        if ($this->prev() == 0) {
-            end($this->dat);
-            $this->datCntr = $this->size() - 1;
-            $this->sync();
-            return 0;
-        }
-        return 1;
-    }
-
-    /**
-     * public function hasPrev
-     * @parameters none
-     *
-     */
-    // Return 1 if Previous Vector exists
-    public function hasPrev() {
-        if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
-        }
-        if ($this->getIndex() - 1 >= 0)
-            return 1;
-        return 0;
-    }
-
-    /**
-     * public function prevVect
-     * @parameters none
-     *
-     */
-    // Iterate to Previous Vector if $bool = 1;
-    // Setup $cntDecr (index) for Prev. Vector if $bool = 0;
-    public function prev() {
-        if ($this->hasPrev()) {
-            prev($this->dat);
-            $this->sync();
-            $this->datCntr--;
-            return 1;
-        }
-        return 0;
-    }
-
+    
     /**
      * public function remVect
      * @parameters int
@@ -501,7 +295,7 @@ class Vector implements Classes {
     public function remVect(int $r) {
         if ($this->size() == 0 || $this->size() <= $r || $r < 0) {
             if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return 0;
+            return false;
         }
         $temporneous = array();
 
@@ -518,22 +312,22 @@ class Vector implements Classes {
      * @parameters none
      *
      */
-    public function sync() {
-        if (is_object($this->vect) && $this->childType == "Set" && $this->vect->dat != null) {
-            $t = $this->vect;
+    public function sync(): bool {
+        if (is_object($this->pt) && $this->childType == "Set" && $this->pt->dat != null) {
+            $t = $this->pt;
             $t->dat = array_unique($t->dat);
-            $this->vect->dat = $t->dat;
+            $this->pt->dat = $t->dat;
         }
         if ($this->pv < $this->size()) {
-            if ($this->vect != null)
-                $this->dat[$this->pv] = $this->vect;
+            if ($this->pt != null)
+                $this->dat[$this->pv] = $this->pt;
         }
         if ($this->datCntr >= $this->size()) {
             $this->datCntr = $this->size() - 1;
             end($this->dat);
         }
-        $this->vect = $this->dat[$this->datCntr];
+        $this->pt = current($this->dat);
         $this->pv = $this->datCntr;
-        return 1;
+        return true;
     }
 }

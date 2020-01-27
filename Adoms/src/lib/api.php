@@ -18,7 +18,7 @@ class api
     public function setIndent(string $ind): bool
     {
         $this->indent = $ind;
-        return 1;
+        return true;
     }
 
     public function receive($m): mMap

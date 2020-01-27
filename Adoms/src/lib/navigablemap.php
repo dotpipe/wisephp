@@ -13,38 +13,7 @@ class NavigableMap extends SortedMap {
     }
 
     public function destroy() {
-        $this->map = null;
-    }
-
-    /**
-     * public function save
-     * @parameters string
-     *
-     */
-    public function save(string $json_name) {
-        $fp = fopen("$json_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
-        return 1;
-    }
-
-    /**
-     * public function loadJSON
-     * @parameters string
-     *
-     */
-    public function loadJSON(string $json_name) {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
-            $fp = fopen("$json_name", "r");
-        else
-            return 0;
-        $json_context = fread($fp, filesize("$json_name"));
-        $old = unserialize($json_context);
-        $b = $old;
-        foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
-        }
-        return 1;
+        $this->pt = null;
     }
 
     /**
@@ -57,18 +26,18 @@ class NavigableMap extends SortedMap {
         $vMap = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1)
-            return array($this->kv[0], $this->value[0]);
+            return array($this->dat[0], $this->value[0]);
         for ($i = 0; $i < $this->size(); $i++) {
             if ($r <= $this->value[$i]) {
-                $vMap[] = $this->kv[$i-1];
+                $vMap[] = $this->dat[$i-1];
                 $vMap[] = $this->value[$i-1];
                 return $vMap;
             }
         }
-        return 0;
+        return false;
     }
 
     /**
@@ -82,24 +51,24 @@ class NavigableMap extends SortedMap {
         ;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1)
-            return array($this->kv[0], $this->value[0]);
-        $keys = $this->kv;
+            return array($this->dat[0], $this->value[0]);
+        $keys = $this->dat;
         rsort($keys, SORT_STRING);
         for ($i = 0; $i < $this->size(); $i++) {
             for ($j = $i; $j < $this->size(); $j++) {
-                if ($keys[$i] == $this->kv[$j]) {
-                    $mapTempK[] = $this->kv[$j];
+                if ($keys[$i] == $this->dat[$j]) {
+                    $mapTempK[] = $this->dat[$j];
                     $mapTempV[] = $this->value[$j];
                     break;
                 }
             }
         }
-        $this->kv = $mapTempK;
+        $this->dat = $mapTempK;
         $this->value = $mapTempV;
-        return 1;
+        return true;
     }
 
     /**
@@ -108,23 +77,22 @@ class NavigableMap extends SortedMap {
      *
      */
     // Reverse order of Map
-    public function descMap() {
+    public function descMap(): bool {
         $mapTempK = array();
         $mapTempV = array();
-        ;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1)
-            return array($this->kv, $this->value);
+            return array($this->dat, $this->value);
         for ($j = $this->size()-1; $j >= 0; $j--) {
-            $mapTempK[] = $this->kv[$j];
+            $mapTempK[] = $this->dat[$j];
             $mapTempV[] = $this->value[$j];
         }
-        $this->kv = $mapTempK;
+        $this->dat = $mapTempK;
         $this->value = $mapTempV;
-        return 1;
+        return true;
     }
 
     /**
@@ -137,18 +105,18 @@ class NavigableMap extends SortedMap {
         $vMap = '';
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1)
-            return array($this->kv[0], $this->value[0]);
+            return array($this->dat[0], $this->value[0]);
         for ($i = 0; $i < $this->size(); $i++) {
             if (! ($v >= $this->value[$i])) {
-                $vMap[] = $this->kv[$i-1];
+                $vMap[] = $this->dat[$i-1];
                 $vMap[] = $this->value[$i-1];
                 return $vMap;
             }
         }
-        return 0;
+        return false;
     }
 
     /**
@@ -161,12 +129,12 @@ class NavigableMap extends SortedMap {
         $mapTempK = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1)
-            return array($this->kv[0]);
+            return array($this->dat[0]);
         for ($i = 0; $i < $this->size(); $i++) {
-            $mapTempK[] = $this->kv[$i];
+            $mapTempK[] = $this->dat[$i];
         }
         return $mapTempK;
     }
@@ -183,29 +151,29 @@ class NavigableMap extends SortedMap {
         ;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1) {
-            $j[0] = $this->kv[0];
+            $j[0] = $this->dat[0];
             $j[1] = $this->value[1];
-            $this->kv = null;
+            $this->dat = null;
             $this->value = null;
             return $j;
         }
         for ($i = 1; $i < $this->size(); $i++) {
-            $mapTempK[] = $this->kv[$i];
+            $mapTempK[] = $this->dat[$i];
             $mapTempV[] = $this->value[$i];
             break;
         }
         if (sizeof($mapTempK) == 0) {
-            $this->kv = null;
+            $this->dat = null;
             $this->value = null;
             $this->setIndex(0);
-            return 1;
+            return true;
         }
-        $j[0] = $this->kv[0];
+        $j[0] = $this->dat[0];
         $j[1] = $this->value[0];
-        $this->kv = $mapTempK;
+        $this->dat = $mapTempK;
         $this->value = $mapTempV;
         $this->setIndex($this->getIndex());
         return $j;
@@ -223,28 +191,28 @@ class NavigableMap extends SortedMap {
         ;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         else if ($this->size() == 1) {
-            $j[0] = $this->kv[0];
+            $j[0] = $this->dat[0];
             $j[1] = $this->value[1];
-            $this->kv = null;
+            $this->dat = null;
             $this->value = null;
             return $j;
         }
         for ($i = 0; $i < $this->size(); $i++) {
-            $mapTempK[] = $this->kv[$i];
+            $mapTempK[] = $this->dat[$i];
             $mapTempV[] = $this->value[$i];
         }
         if (sizeof($tempAneous) == 0) {
-            $this->kv = null;
+            $this->dat = null;
             $this->value = null;
             $this->setIndex($this->getIndex());
-            return 1;
+            return true;
         }
-        $j[0] = $this->kv[$this->size()-1];
+        $j[0] = $this->dat[$this->size()-1];
         $j[1] = $this->value[$this->size()-1];
-        $this->kv = $mapTempK;
+        $this->dat = $mapTempK;
         $this->value = $mapTempV;
         $this->setIndex($this->getIndex());
         return $j;

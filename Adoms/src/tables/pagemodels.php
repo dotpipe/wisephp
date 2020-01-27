@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace Adoms\src\tables;
 
-namespace Adoms\src\lib;
+//namespace Adoms\src\lib;
 
 $my = function ($pClassName) {
     include_once("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
@@ -38,12 +38,12 @@ class PageModels {
      */
     public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null) {
         if ($fieldname == null)
-            return 0;
+            return false;
         $this->model['data'] = null;
         $this->model['data']['label'] = $lbl;
         $this->model['data']['regex'] = $regex;
         $this->model['data']['errmsg'] = $errmsg;
-        return 1;
+        return true;
     }
 
 
@@ -61,7 +61,7 @@ class PageModels {
             else
                 $this->data[$view_name]->$k = $v;
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -78,7 +78,7 @@ class PageModels {
             else
                 $this->data[$view_name][$k] = $v;
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -121,7 +121,7 @@ class PageModels {
             touch($view);
         if (!file_exists($view)) {
             echo "Unable to make files needed";
-            return 0;
+            return false;
         }
         $fp = fopen($view, "w");
         fwrite($fp, $buf);
@@ -138,7 +138,7 @@ class PageModels {
         $this->valid[$property]['label'] = $lbl;
         $this->valid[$property]['regex'] = $regex;
         $this->valid[$property]['errmsg'] = $errmsg;
-        return 1;
+        return true;
     }
 
     /**
@@ -148,7 +148,7 @@ class PageModels {
      */
     private function errorReturn(string $key, array &$errormsgs = array()) {
         $errormsgs[$key] = $this->valid[$key]['errmsg'];
-        return 1;
+        return true;
     }
 
     /**
@@ -166,6 +166,6 @@ class PageModels {
             else
                 $wrong_ans[$k] = $v;
         }
-        return 1;
+        return true;
     }
 }

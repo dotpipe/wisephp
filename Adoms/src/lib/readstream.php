@@ -21,10 +21,12 @@ class readStream extends Streams {
     }
 
     public function addStream(string $r, bool $bool = FALSE) {
-        $ed = fopen($r, 'r');
-        $this->add($r,$ed);
+        if (!\file_exists($this->dir . $r))
+            return false;
+        $ed = fopen($this->dir . $r, 'r');
+        $this->add($this->dir . $r,$ed);
         $this->sync();
-        return 1;
+        return true;
 
     }
 }

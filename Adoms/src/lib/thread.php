@@ -3,7 +3,7 @@ namespace Adoms\src\lib;
 
 
 
-class Thread implements Classes {
+class Thread extends Streams implements Classes {
     // *************
     // BEGIN HERE
     // start new thread for Javascript
@@ -44,9 +44,8 @@ class Thread implements Classes {
         $this->rootType = 'DataLayer';
         $this->parentType = 'DataLayer';
         $this->typeOf = 'Thread';
-        $this->finit = new rwStream();
         $this->dir = "ini/";
-        $this->finit->seqCntr = 0;
+        $this->seqCntr = 0;
     }
 
     /**
@@ -55,7 +54,7 @@ class Thread implements Classes {
      *
      */
     public function size() {
-        return count($this->finit->size());
+        return count($this->size());
     }
 
     /**
@@ -70,12 +69,12 @@ class Thread implements Classes {
     // Use JSON if CSV is not to your liking.
     public function startThread(string $origin) {
         $handle = md5($origin);
-        if ($this->finit->touch($this->dir . $handle) == 1)
-            $this->finit->add($this->dir . $handle, 1);
+        if ($this->touch($this->dir . $handle) == 1)
+            $this->add($this->dir . $handle, 1);
         else
-            return 0;
-        $this->finit->Iter();
-        return 1;
+            return false;
+        $this->Iter();
+        return true;
     }
 
     /**
@@ -87,7 +86,7 @@ class Thread implements Classes {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -99,14 +98,14 @@ class Thread implements Classes {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
-            return 0;
+            return false;
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
             $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -116,7 +115,7 @@ class Thread implements Classes {
      */
     // Like all joins
     public function join() {
-        return $this->finit->sync();
+        return $this->sync();
     }
 
     /**
@@ -126,7 +125,7 @@ class Thread implements Classes {
      */
     // Set Index
     public function setIndex(int $index) {
-        return $this->finit->setIndex($index);
+        return $this->setIndex($index);
     }
 
     /**
@@ -136,7 +135,7 @@ class Thread implements Classes {
      */
     // Current thread
     public function getIndex() {
-        return $this->finit->getIndex();
+        return $this->getIndex();
     }
 
     /**
@@ -146,7 +145,7 @@ class Thread implements Classes {
      */
     // Current Thread
     public function current() {
-        return $this->finit->current();
+        return $this->current();
     }
 
     /**
@@ -156,7 +155,7 @@ class Thread implements Classes {
      */
     // Forward Iteration
     public function next() {
-        return $this->finit->next();
+        return $this->next();
     }
 
     /**
@@ -166,7 +165,7 @@ class Thread implements Classes {
      */
     // Previous Iteration
     public function prev() {
-        return $this->finit->prev();
+        return $this->prev();
     }
 
     /**
@@ -176,7 +175,7 @@ class Thread implements Classes {
      */
     // Forward Iterator
     public function Iter() {
-        return $this->finit->Iter();
+        return $this->Iter();
     }
 
     /**
@@ -187,11 +186,11 @@ class Thread implements Classes {
     // Forward Cycle Iterator
     public function Cycle() {
         if ($this->size() == $this->getIndex()+1) {
-            $this->finit->setIndex(0);
-            $this->finit->join();
-            return 0;
+            $this->setIndex(0);
+            $this->join();
+            return false;
         }
-        return $this->finit->Iter();
+        return $this->Iter();
     }
 
     /**
@@ -201,7 +200,7 @@ class Thread implements Classes {
      */
     // Reverse Iterator
     public function revIter() {
-        return $this->finit->revIter();
+        return $this->revIter();
     }
 
     /**
@@ -212,11 +211,11 @@ class Thread implements Classes {
     // Reverse Cycle Iterator
     public function revCycle() {
         if (-1 == $this->getIndex()-1) {
-            $this->finit->setIndex($this->finit->size()-1);
-            $this->finit->join();
-            return 0;
+            $this->setIndex($this->size()-1);
+            $this->join();
+            return false;
         }
-        return $this->finit->Iter();
+        return $this->Iter();
     }
 
     /**
@@ -230,13 +229,13 @@ class Thread implements Classes {
         if (file_exists($this->dir . $handle) == 1) {
             fopen($this->dir . $handle, 'w');
             if (filesize($this->dir . $handle) == 0)
-                return 1;
+                return true;
             else
-                return 0;
+                return false;
         }
         else
-            return 0;
-        return 1;
+            return false;
+        return true;
     }
 
     /**
@@ -246,10 +245,10 @@ class Thread implements Classes {
      */
     // Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
     public function endThread() {
-        $this->finit->remSeqStream($this->finit->getIndex());
-        $this->finit->Iter();
+        $this->remSeqStream($this->getIndex());
+        $this->Iter();
         $this->seqStrms->setIndex($this->getIndex());
-        return 1;
+        return true;
     }
 
     /**
@@ -259,14 +258,14 @@ class Thread implements Classes {
      */
     // Read from Thread file
     public function readThread() {
-        $this->finit->setDelim("}");
-        $this->finit->resize(0);
-        while (! $this->finit->eof()) {
-            $this->finit->readBuf();
-            $this->json[] = $this->finit->buffData;
-            $this->finit->buffData = null;
+        $this->setDelim("}");
+        $this->resize(0);
+        while (! $this->eof()) {
+            $this->readBuf();
+            $this->json[] = $this->buffData;
+            $this->buffData = null;
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -277,9 +276,9 @@ class Thread implements Classes {
     // Write to Thread file
     public function writeThread($obj_array) {
         $x = json_encode($obj_array);
-        if ($this->finit->stream == null || $this->finit->streamName == null)
-            return 0;
-        fwrite($this->finit->stream, $x);
-        return 1;
+        if ($this->stream == null || $this->streamName == null)
+            return false;
+        fwrite($this->stream, $x);
+        return true;
     }
 }

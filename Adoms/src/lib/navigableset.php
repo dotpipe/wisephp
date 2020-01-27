@@ -21,37 +21,6 @@ class NavigableSet extends SortedSet {
     }
 
     /**
-     * public function save
-     * @parameters string
-     *
-     */
-    public function save(string $json_name) {
-        $fp = fopen("$json_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
-        return 1;
-    }
-
-    /**
-     * public function loadJSON
-     * @parameters string
-     *
-     */
-    public function loadJSON(string $json_name) {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
-            $fp = fopen("$json_name", "r");
-        else
-            return 0;
-        $json_context = fread($fp, filesize("$json_name"));
-        $old = unserialize($json_context);
-        $b = $old;
-        foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
-        }
-        return 1;
-    }
-
-    /**
      * public function ceiling
      * @parameters string
      *
@@ -104,7 +73,8 @@ class NavigableSet extends SortedSet {
     public function pollFirst() {
         if (!is_array($this->dat))
             $this->dat = [];
-        $j = $this->dat[0];
+        reset($this->dat);
+        $j = current($this->dat);
         array_splice($this->dat, 0, 1);
         return $j;
     }
@@ -118,7 +88,8 @@ class NavigableSet extends SortedSet {
     public function pollLast() {
         if (!is_array($this->dat))
             $this->dat = [];
-        $j = $this->dat[count($this->dat)-1];
+        end($this->dat);
+        $j = current($this->dat);
         array_splice($this->dat, -1);
         return $j;
     }

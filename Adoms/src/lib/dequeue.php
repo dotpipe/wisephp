@@ -25,7 +25,7 @@ class Dequeue
     {
         if (count($this->dat) >= 0)
             return count($this->dat);
-        else return 0;
+        else return false;
     }
 
     // Retrieve and Remove first Entry
@@ -33,7 +33,7 @@ class Dequeue
     {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Dequeue');
-            return 0;
+            return false;
         }
         $hold = array_shift($this->dat);
         return $hold;
@@ -44,7 +44,7 @@ class Dequeue
     {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Dequeue');
-            return 0;
+            return false;
         }
         $hold = $this->dat->pop();
         return $hold;
@@ -60,7 +60,7 @@ class Dequeue
     public function pop(): bool
     {
         array_pop($this->dat);
-        return 1;
+        return true;
     }
 
     // Retrieve First Entry
@@ -70,7 +70,7 @@ class Dequeue
             if ($this->strict == 1) {
                 throw new IndexException('Empty Dequeue');
             }
-            return 0;
+            return false;
         }
         return $this->dat[0];
     }
@@ -82,7 +82,7 @@ class Dequeue
             if ($this->strict == 1) {
                 throw new IndexException('Empty Dequeue');
             }
-            return 0;
+            return false;
         }
         return $this->dat[$this->size()-1];
     }
@@ -91,7 +91,7 @@ class Dequeue
     public function clear(): bool
     {
         $this->dat = array();
-        return 1;
+        return true;
     }
 
     // Remove first entry
@@ -102,10 +102,10 @@ class Dequeue
             if ($this->strict == 1) {
                 throw new IndexException('Empty Dequeue');
             }
-            return 0;
+            return false;
         }
         array_shift($this->dat);
-        return 1;
+        return true;
     }
 
     // Remove first occurrence of $r
@@ -116,13 +116,13 @@ class Dequeue
             if ($this->strict == 1) {
                 throw new IndexException('Empty Dequeue');
             }
-            return 0;
+            return false;
         }
         $p = 0;
         $r = array_search($r, $this->dat, false);
         unset($this->dat[$r]);
         $this->dat = $dequeueTemp;
-        return 1;
+        return true;
     }
 
     // Remove Last occurrence of $r
@@ -133,7 +133,7 @@ class Dequeue
             if ($this->strict == 1) {
                 throw new IndexException('Empty Dequeue');
             }
-            return 0;
+            return false;
         }
         $m = $this->size();
         array_reverse($this->dat);
@@ -141,6 +141,6 @@ class Dequeue
         unset($this->dat[$t]);
         array_reverse($this->dat);
         $this->setIndex($this->getIndex());
-        return 1;
+        return true;
     }
 }

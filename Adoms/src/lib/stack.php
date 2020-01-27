@@ -32,7 +32,7 @@ class Stack {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -44,14 +44,14 @@ class Stack {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
-            return 0;
+            return false;
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
             $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
         }
-        return 1;
+        return true;
     }
 
     /**

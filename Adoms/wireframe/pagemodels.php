@@ -43,12 +43,12 @@ spl_autoload_register($my, true, 1);
 		*/
 		public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null) {
 			if ($fieldname == null)
-				return 0;
+				return false;
 			$this->model['data'] = null;
 			$this->model['data']['label'] = $lbl;
 			$this->model['data']['regex'] = $regex;
 			$this->model['data']['errmsg'] = $errmsg;
-			return 1;
+			return true;
 		}
 		
 		
@@ -67,7 +67,7 @@ spl_autoload_register($my, true, 1);
 				else
 					$this->data[$view_name]->$k = $v;
 			}
-			return 1;
+			return true;
 		}
 
 		/*
@@ -85,7 +85,7 @@ spl_autoload_register($my, true, 1);
 				else
 					$this->data[$view_name][$k] = $v;
 			}
-			return 1;
+			return true;
 		}
 		
 		/*
@@ -129,7 +129,7 @@ spl_autoload_register($my, true, 1);
 				touch($view);
 			if (!file_exists($view)) {
 				echo "Unable to make files needed";
-				return 0;
+				return false;
 			}
 			$fp = fopen($view, "w");
 			fwrite($fp, $buf);
@@ -147,7 +147,7 @@ spl_autoload_register($my, true, 1);
 			$this->valid[$property]['label'] = $lbl;
 			$this->valid[$property]['regex'] = $regex;
 			$this->valid[$property]['errmsg'] = $errmsg;
-			return 1;
+			return true;
 		}
 		
 		/*
@@ -158,7 +158,7 @@ spl_autoload_register($my, true, 1);
 		*/
 		private function errorReturn(string $key, array &$errormsgs = array()) {
 			$errormsgs[$key] = $this->valid[$key]['errmsg'];
-			return 1;
+			return true;
 		}
 
 		/*
@@ -177,6 +177,6 @@ spl_autoload_register($my, true, 1);
 				else
 					$wrong_ans[$k] = $v;
 			}
-			return 1;
+			return true;
 		}
 	}

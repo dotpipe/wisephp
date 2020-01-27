@@ -19,7 +19,7 @@ class SortedMap extends Map {
      *
      */
     public function destroy() {
-        $this->map = null;
+        $this->pt = null;
     }
 
     /**
@@ -31,9 +31,9 @@ class SortedMap extends Map {
     public function firstKey() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
-        return array($this->kv[0], $this->value[0]);
+        return array($this->dat[0], $this->value[0]);
     }
 
     /**
@@ -45,7 +45,7 @@ class SortedMap extends Map {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
-        return 1;
+        return true;
     }
 
     /**
@@ -57,14 +57,14 @@ class SortedMap extends Map {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
-            return 0;
+            return false;
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
             $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
         }
-        return 1;
+        return true;
     }
 
     /**
@@ -76,9 +76,9 @@ class SortedMap extends Map {
     public function lastKey() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
-        return array($this->kv[$this->size()-1], $this->value[$this->size()-1]);
+        return array($this->dat[$this->size()-1], $this->value[$this->size()-1]);
     }
 
     /**
@@ -95,24 +95,24 @@ class SortedMap extends Map {
         $mapTempV = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         for ($i = 0; $i < $r; $i++) {
             if ($v >= $this->value[$i] && $vb == 1) {
-                $mapTempK[] = $this->kv[$i];
+                $mapTempK[] = $this->dat[$i];
                 $mapTempV[] = $this->value[$i];
             }
             else if ($v < $this->value[$i] && $vb == 0) {
-                $mapTempK[] = $this->kv[$i];
+                $mapTempK[] = $this->dat[$i];
                 $mapTempV[] = $this->value[$i];
             }
             else if ($vb == 2) {
-                $mapTempK[] = $this->kv[$i];
+                $mapTempK[] = $this->dat[$i];
                 $mapTempV[] = $this->value[$i];
             }
             else {
                 throw new SyntaxError('Invalid Syntax');
-                return 0;
+                return false;
             }
         }
         $vMap = new Map();
@@ -134,7 +134,7 @@ class SortedMap extends Map {
         $mapTempV = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         if ($vst > $ven) {
             $tmp = $ven;
@@ -145,7 +145,7 @@ class SortedMap extends Map {
             if ($Lb == 1) {
                 if ($this->value[$i] >= $vst) {
                     do {
-                        $mapTempK[] = $this->kv[$i];
+                        $mapTempK[] = $this->dat[$i];
                         $mapTempV[] = $this->value[$i];
                         $i++;
                     } while ($vst <= $this->value[$i]);
@@ -154,7 +154,7 @@ class SortedMap extends Map {
             else if ($Lb == 0) {
                 if ($this->value[$i] > $vst) {
                     do {
-                        $mapTempK[] = $this->kv[$i];
+                        $mapTempK[] = $this->dat[$i];
                         $mapTempV[] = $this->value[$i];
                         $i++;
                     } while ($vst <= $this->value[$i]);
@@ -163,7 +163,7 @@ class SortedMap extends Map {
             else if ($Hb == 1) {
                 if ($this->value[$i] <= $ven) {
                     do {
-                        $mapTempK[] = $this->kv[$i];
+                        $mapTempK[] = $this->dat[$i];
                         $mapTempV[] = $this->value[$i];
                         $i++;
                     } while ($ven >= $this->value[$i]);
@@ -172,7 +172,7 @@ class SortedMap extends Map {
             else if ($Hb == 0) {
                 if ($this->value[$i] < $ven) {
                     do {
-                        $mapTempK[] = $this->kv[$i];
+                        $mapTempK[] = $this->dat[$i];
                         $mapTempV[] = $this->value[$i];
                         $i++;
                     } while ($ven >= $this->value[$i]);
@@ -180,7 +180,7 @@ class SortedMap extends Map {
             }
             else {
                 throw new SyntaxError('Invalid Syntax');
-                return 0;
+                return false;
             }
         }
         $vMap = new Map();
@@ -200,17 +200,17 @@ class SortedMap extends Map {
         $mapTempV = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
-            return 0;
+            return false;
         }
         $vals = $this->value;
         sort($vals, SORT_STRING);
         for ($i = 0; $i < $this->size(); $i++) {
             if ($v >= $vals[$i] && $vb == 1) {
-                $mapTempK[] = $this->kv[$i];
+                $mapTempK[] = $this->dat[$i];
                 $mapTempV[] = $this->value[$i];
             }
             else if ($v > $vals[$i] && $vb == 0) {
-                $mapTempK[] = $this->kv[$i];
+                $mapTempK[] = $this->dat[$i];
                 $mapTempV[] = $this->value[$i];
             }
         }
