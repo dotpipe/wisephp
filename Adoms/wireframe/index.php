@@ -1,12 +1,13 @@
 <?php
 namespace Adoms\wireframe;
-namespace Adoms\src\tables;
+use Adoms\src\tables;
 
-namespace Adoms\src\lib;
+use Adoms\src\lib;
 
 $my = function ($pClassName) {
-    include_once(dirname($_SERVER['DOCUMENT_ROOT']) . strtolower($pClassName) . ".php");
+    include_once(__DIR__ . "/../../" . strtolower($pClassName) . ".php");
 };
+
 spl_autoload_register($my, true, 1);
     $y = array("Address" => "BenSt", "Duration" => "fixed");
     $z = array("Address" => "25th", "Duration" => "limited");
