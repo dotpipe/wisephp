@@ -14,6 +14,13 @@ var undo_text = [];
 var redo_text = [];
 var index = 0;
 
+function getTests(e,y) {
+    if (e.keyCode == 13) {
+        console.log(y.value);
+        window.location = "assert.php?io1=" + y + "&x=1";
+    }
+}
+
 function getSelectionText() {
     var text = "";
     var activeEl = document.getElementById("code"); //document.activeElement;
@@ -399,13 +406,15 @@ function extract_funct(string $lock_mx, array &$appended_json, &$i, &$m)
                     $json['args'] .= ' ' . io_params($lock_mx, $i);
                 }
                 $ccc = 0;
-                //$i++;
+                
                 if ($ccc = strpos($lock_mx, ':', $i)) {
                     $ccc++;
                     $json['type'] = "";
                     while ($lock_mx[$ccc + 1] != '{') {
                         $json['type'] .= trim($lock_mx[$ccc]);
                         $ccc++;
+                        if ($ccc > count($lock_mx))
+                            break;
                     }
                     $i = $ccc;
                 }
@@ -439,7 +448,7 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
     <form action="assert.php" method="GET">
     <block style="display:inline-grid;grid-row-start:1;grid-row-end:1;grid-template-columns:450px 400px 450px;grid-column-start:1;grid-column-end:3;">
     
-    <quote><label style="margin-top:-5px;margin-left:35px;">> Input File (inc. relative path): <input type="text" name="io1" style="height:20px;width:150px"/></label></quote>
+    <quote><label style="margin-top:-5px;margin-left:35px;">> Input File (inc. relative path): <input onkeypress="getTests(event,this.value)" type="text" name="io1" style="height:20px;width:150px"/></label></quote>
     <quote><hr style="margin-top:9px;background-color:darkgray;width:100%"><input type="hidden" name="x" value="1"/></quote>
     <quote>
     <label style="float:right;margin-top:-5px;margin-right:35px;">> Output File (inc. relative path): <input placeholder="Non-functional" type="text" name="io2" style="height:20px;width:150px"/></label>
@@ -480,3 +489,4 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
 </center>
 
 <input type="text" id="sel" style="height:0px;visibility:hidden"></input>
+

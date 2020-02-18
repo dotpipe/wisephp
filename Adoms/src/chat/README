@@ -10,7 +10,7 @@ File: \Adoms\config\chat.ini
     it needs the correct user (default: root) and the password defaulted to and
     empty string.
 
-COOKIES:
+Set these COOKIES accordingly, possibly in users HOME directory:
     'myemail'   : The user's username, likely their email. This is without doubt
                 probably the most important attribute
     'chatfile'  : This is another cookie attribute to get the nod in the app.
