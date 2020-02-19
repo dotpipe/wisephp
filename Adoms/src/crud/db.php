@@ -49,7 +49,8 @@ class db {
         $this->db = new \PDO($dsn, $this->ini->username, $this->ini->password);
         $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->db->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY,"true");
-        $this->testCRUD();
+        $this->ini->password = null;
+        
     }
 
     function create(array $values, string $table, string $database) {
