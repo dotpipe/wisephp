@@ -2,7 +2,7 @@
 namespace Adoms\src\lib;
 //
 
-class Streams extends Map implements Classes {
+class Streams extends Map {
 
     public $rootType;
     public $parentType;
@@ -302,7 +302,9 @@ class Streams extends Map implements Classes {
     // Write to Buffer File
     public function writeBuf(): int {
         echo json_encode($this->dat);
-        return fwrite(current($this->dat), $this->buffData, $this->buffSize);
+        if (\is_resource(current($this->dat)))
+            return fwrite(current($this->dat), $this->buffData, $this->buffSize);
+        return 0;
     }
 
     /**

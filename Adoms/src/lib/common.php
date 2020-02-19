@@ -114,7 +114,7 @@ class Common implements Classes {
     {
         $typeArray = array("Map", "mMap", "Set", "mSet", "Streams");
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
-            if (isset($this->pt) && 1 == count(array_intersect($typeArray, array($this->parentType)))) {
+            if (is_array($this->pt) && sizeof($this->pt) == 2 && 1 == count(array_intersect($typeArray, array($this->parentType)))) {
                 $this->add($this->pt[0], $this->pt[1]);
             }
             else if (1 == count(array_intersect($typeArray, array($this->parentType)))) {
