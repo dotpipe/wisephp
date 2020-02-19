@@ -7,7 +7,7 @@ spl_autoload_register(function ($className) {
     }
     foreach ([
         'Adoms/src/lib/',
-        ''
+        '',
     ] as $Path) {
         if (!file_exists($Path . $className . '.php')) {
             continue;
@@ -47,7 +47,7 @@ class css
         $this->fwriter = new writeStream();
         $this->freader = new readStream();
         if ($this->filename != "") {
-            $this->fwriter->addStrm($this->filename,$this->ext_int);
+            $this->fwriter->addStrm($this->filename, $this->ext_int);
         }
         $this->indent = "<img src=\".\\src\\icons\\design.gif\">";
     }
@@ -60,8 +60,8 @@ class css
     // Report how many CSS Elements in Container
     public function size(): int
     {
-        if (count($this->mCSS->kv) > 0) {
-            return count($this->mCSS->kv);
+        if (is_array($this->mCSS->dat) && count($this->mCSS->dat) > 0) {
+            return count($this->mCSS->dat);
         }
         return 0;
     }
@@ -96,7 +96,7 @@ class css
      * @parameters string, mixed
      *
      */
-    public function add(string $selector, $map): bool
+    public function add(string $selector, Map $map): bool
     {
         $this->mCSS->newMap($selector, $map);
         return 1;
@@ -109,10 +109,14 @@ class css
      */
     public function write(): bool
     {
-        if ($this->size() == 0)
+        if ($this->size() == 0) {
             return 0;
-        if ($this->fwriter->size() == 0)
+        }
+
+        if ($this->fwriter->size() == 0) {
             return 0;
+        }
+
         $this->fwriter->buf = "";
         $this->fwriter->sync();
         if ($this->ext_int == 0 || $this->filename != "") {
@@ -130,24 +134,28 @@ class css
                 $i++;
             }
             $k = 0;
-            $keys = array_keys($this->mCSS->kv);
+            $keys = array_keys($this->mCSS->dat);
             do {
-                //echo json_encode($this->mCSS->kv[(string)$keys[$k]]->kv);
-                $tm = ($this->mCSS->kv[(string)$keys[$k]]->kv);
+                //echo json_encode($this->mCSS->dat[(string)$keys[$k]]->dat);
+                $tm = ($this->mCSS->dat[(string) $keys[$k]]->dat);
                 $i = 0;
                 $this->fwriter->buf .= $keys[$k] . " {";
                 while ($i < count($tm)) {
                     $j = 0;
                     $i++;
                     while (count($tm) > $j) {
-                        if (key($tm) != "")
+                        if (key($tm) != "") {
                             $this->fwriter->buf .= key($tm) . ":" . current($tm) . ";";
+                        }
+
                         next($tm);
                         $j++;
                     }
                     next($tm);
-                    if ($tm == null)
+                    if ($tm == null) {
                         break;
+                    }
+
                 }
                 $this->fwriter->buf .= "}";
                 $k++;
@@ -157,14 +165,14 @@ class css
                 $outstring = $this->fwriter->buf;
                 echo $outstring . "<br>";
                 $this->fwriter->buf = "";
-            }
-            else {
+            } else {
                 $this->fwriter->writeBuf();
                 echo "<style>@import url(\"" . $this->filename . "\");</style>";
             }
-        }
-        else
+        } else {
             echo "Could not create file $this->filename";
+        }
+
         return 1;
     }
 
@@ -184,37 +192,38 @@ class css
         $smallMap = new Map();
         $apiMap = new mMap();
         $mapname = "";
-        for ($i = 0 ; $i < sizeof($tmp) ; $i++) {
+        for ($i = 0; $i < sizeof($tmp); $i++) {
             $temp = $tmp[$i];
 
-            if (preg_match("/[\}]/", $temp))
+            if (preg_match("/[\}]/", $temp)) {
                 $lvl = 0;
-            for ($j = 0 ; $j < $lvl ; $j++) {
+            }
+
+            for ($j = 0; $j < $lvl; $j++) {
                 $output = $output . "&nbsp;&nbsp;&nbsp&nbsp;&nbsp;";
                 $output = $output . $this->indent;
             }
-            if (preg_match("/[\{]/", $temp))
+            if (preg_match("/[\{]/", $temp)) {
                 $lvl = 1;
+            }
+
             $imps = 0;
             if ($i + 1 < sizeof($tmp) && preg_match("/[#@\,_\(\)>\-A-z0-9\s\.]+[\{:$]{0}/", $temp, $t)) {
                 if (preg_match("/[\{]/", $temp, $tk)) {
                     $output = $output . $t[0] . ' {<br>';
                     $mapname = $t[0];
-                }
-                else if (preg_match("/[@]/", $temp)) {
+                } else if (preg_match("/[@]/", $temp)) {
                     preg_match_all("/[\@impor]+[t\s$]{1,2}|[url\(][\"'$]{1}+|[_\/\-A-z0-9\s\.]+|['\"\)$]{2}+|[;$]/", $temp, $tk);
                     $this->imps->add($tk[0][3]);
                     $output = $output . '@import url("' . $tk[0][3] . '");<br>';
-                }
-                else {
+                } else {
                     $i++;
                     preg_match("/[\/\\\(\)\-A-z0-9\s\.]+[;$]{0}/", $tmp[$i], $tm);
-                    $smallMap->add($t[0],$tm[0]);
+                    $smallMap->add($t[0], $tm[0]);
                     $output = $output . $t[0] . ': ' . $tm[0] . ';<br>';
                 }
-            }
-            else if (preg_match_all("/[\}]{1}/", $temp)) {
-                $apiMap->newMap($mapname,$smallMap);
+            } else if (preg_match_all("/[\}]{1}/", $temp)) {
+                $apiMap->newMap($mapname, $smallMap);
                 $smallMap->clear();
                 $mapname = "";
                 $output = $output . $temp . '<br>';
@@ -234,7 +243,7 @@ class css
      */
     public function convert(mMap $va): ?string
     {
-        $outstring = "";
+        $outstring = "<style>";
         $lvl = 0;
         if ("mMap" != $va->typeOf) {
             return null;
@@ -242,38 +251,40 @@ class css
         $i = 0;
         $va->setIndex(0);
         if ($this->ext_int) {
-            $outstring = sprintf($outstring . "<style>");
+            $outstring = ($outstring . "<style>");
         }
         while ($this->imps->size() > $i) {
-            $outstring = sprintf($outstring . "@import url('" . $this->imps->dat[$i] . "');");
+            $outstring = ($outstring . "@import url('" . $this->imps->dat[$i] . "');");
             $i++;
         }
-        do {
-            $temp = $va->mmap;
-            if (preg_match("/[\{]/", $va->mname)) {
-                $outstring = sprintf($outstring . $va->mname);
+        foreach ($va->dat as $ky => $val) {
+            
+            if (preg_match("/[\{]/", $ky)) {
+                $outstring = ($outstring . $ky);//->mname);
             } else {
-                $outstring = sprintf($outstring . $va->mname . " {");
+                $outstring = ($outstring . $ky . " {");
             }
             $i = 0;
-            while ($temp->size() > $i) {
-                if (preg_match("/[:]/", $temp->key[$i])) {
-                    $outstring = sprintf($outstring . $temp->key[$i]);
+            //echo json_encode($va);
+            //echo json_encode($va->mmap->dat);
+            foreach ($val->dat as $key => $value) {
+                if (preg_match("/[:]/", $key)) {
+                    $outstring = ($outstring . $key);
                 } else {
-                    $outstring = sprintf($outstring . $temp->key[$i] . ":");
+                    $outstring = ($outstring . $key . ":");
                 }
-                if (preg_match("/[;]/", $temp->value[$i])) {
-                    $outstring = sprintf($outstring . $temp->value[$i]);
+                if (preg_match("/[;]/", json_encode($value))) {
+                    $outstring = ($outstring . $value);
                 } else {
-                    $outstring = sprintf($outstring . $temp->value[$i] .';');
+                    $outstring = ($outstring . $value . ";");
                 }
-                $i++;
             }
-            $outstring = sprintf($outstring . '}');
-        } while ($temp->Iter());
+            $outstring = ($outstring . '}');
+        }
         if ($this->ext_int) {
             $outstring = $outstring . '</style>';
         }
-        return $outstring;
+        echo $outstring;
+        return null;
     }
 }

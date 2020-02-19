@@ -1,7 +1,7 @@
 <?php
 // Sidebar for chat
-$chat = '<javascript src="chat.js"></javascript>'
-$chat = '<div id="startchat" loaded="0"><h3 style="color:wine">Menu</h3>';
+$chat = '<javascript src="chat.js"></javascript>';
+$chat .= '<div id="startchat" loaded="0"><h3 style="color:wine">Menu</h3>';
 $chat .= '<table style="border:1px solid black;padding:3px;spacing:0px;width:250px;">';
 $chat .= '<tr><td><select id="chatters" onclick="listConvo()" onchange="getOption(this)"><option default value="" label="Click To see chats waiting"></select></td>';
 $chat .= '<td><button onclick=\'setConduct(this)\' style="border-radius:50%;color:green">&check;</button></td></tr></table>';

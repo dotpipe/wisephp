@@ -23,8 +23,4 @@ class PageErrors {
         file_put_contents("$date", $phpmsg);
     }
 }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 ?>

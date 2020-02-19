@@ -6,11 +6,7 @@ use Adoms\src\tables;
 use Adoms\src\lib;
 
 $my = function ($pClassName) {
-<<<<<<< Updated upstream
     include_once(__DIR__ . "/../../" . strtolower($pClassName) . ".php");
-=======
-    include_once(dirname($_SERVER['DOCUMENT_ROOT']) . strtolower($pClassName) . ".php");
->>>>>>> Stashed changes
 };
 
 	class PageViews {

@@ -1,16 +1,131 @@
-<?php //declare (strict_types = 1);
-
+<?php
 namespace Adoms\src\lib;
-
-require "vendor/autoload.php";
-
 session_start();
 
+require 'vendor/autoload.php';
+
+//Background
+$tro = new Map();
+$tro->add("font-size","125%");
+$tro->add("position","fixed");
+$tro->add("background-color","red");
+$tro->add("width", "85%");
+$tro->add("margin-top","1in");
+$tro->add("margin-left","0.55in");
+$tro->add("margin-bottom","0.25in");
+$tro->add("height","6in");
+$tro->add("z-index","-2");
+//Header
+$tru = new Map();
+$tru->add("position","fixed");
+$tru->add("z-index","2");
+$tru->add("font-size","175%");
+$tru->add("text-align","center");
+$tru->add("background-color","black");
+$tru->add("color","white");
+$tru->add("width","98%");
+$tru->add("margin-top","-15px");
+$tru->add("margin-left","-15px");
+$tru->add("border-bottom","10px dashed red");
+//Body
+$tri = new Map();
+$tri->add("font-size","125%");
+$tri->add("color","#eeeeee");
+$tri->add("margin-top","-15px");
+$tri->add("text-decoration","none");
+$tri->add("background-color","black");
+//Table th
+$try = new Map();
+$try->add("font-size","125%");
+$try->add("color","#eeeeee");
+$try->add("padding","20");
+$try->add("text-decoration","none");
+$try->add("background-color","red");
+//Table td
+$trd = new Map();
+$trd->add("font-size","125%");
+$trd->add("color","#eeeeee");
+$trd->add("padding","20");
+$trd->add("border","2px");
+$trd->add("border-color","red");
+$trd->add("text-decoration","underline");
+$trd->add("background-color","black");
+//Rounded Boxes (scrolls)
+$tred = new Map();
+$tred->add("background-color","gray");
+$tred->add("border-radius","10px");
+$tred->add("margin-left","0.35in");
+$tred->add("margin-right","0.35in");
+$tred->add("padding","0.25in");
+$tred->add("font-size","90%");
+$tred->add("color","black");
+$tred->add("height","175");
+$tred->add("overflow-y","auto");
+$tred->add("overflow-x","hidden");
+$tred->add("word-wrap","word-break");
+$tred->add("position","relative");
+//Rounded Boxes (auto)
+$tre = new Map();
+$tre->add("background-color","gray");
+$tre->add("border-radius","10px");
+$tre->add("margin-left","0.35in");
+$tre->add("margin-right","0.35in");
+$tre->add("padding","0.25in");
+$tre->add("font-size","90%");
+$tre->add("color","black");
+$tre->add("height","auto");
+$tre->add("overflow-y","auto");
+$tre->add("overflow-x","hidden");
+$tre->add("word-wrap","word-break");
+//$tre->add("position","relative");
+// Tree displays
+$tree = new Map();
+$tree->add("font-style","bold");
+//$tree->add("position", "relative");
+$tree->add("background-color","#cccccc");
+$tree->add("margin-left","-0.35in");
+$tree->add("margin-right","0.35in");
+$tree->add("padding-top","0.15in");
+$tree->add("padding-left","0.15in");
+$tree->add("overflow-y","auto");
+$tree->add("overflow-x","hidden");
+$tree->add("height","200");
+$tree->add("width","600");
+//$tree->add("background","-webkit-linear-gradient(left, #cccccc, #000000)");
+$tree->add("color","green");
+//Floating text
+$trey = new Map();
+$trey->add("font-style","bold");
+$trey->add("padding-top","0.15in");
+$trey->add("padding-left","0.15in");
+//Columns
+$tra = new Map();
+$tra->add("word-wrap","break-word");
+$tra->add("column-count","2");
+$tra->add("column-gap","1em");
+$tra->add("column-rule","10px dashed black");
+$r = new css("swatch.css", 0);
+
+$r->mCSS->add("body", $tri);
+$r->mCSS->add("th", $try);
+$r->mCSS->add("td", $trd);
+$r->mCSS->add("#bigcols", $tra);
+$r->mCSS->add("#hed", $tru);
+$r->mCSS->add(".cols", $tre);
+$r->mCSS->add("p > div", $tree);
+$r->mCSS->add("#bg", $tro);
+$r->mCSS->add(".tree", $tree);
+$r->mCSS->add(".box", $trey);
+$r->mCSS->add("#sbox",$tred);
+
 echo "<html><head>";
-echo "<script src=\"adoms/src/routes/pipes.js\"></script>";
+echo $r->convert($r->mCSS);
+//$r->write();
+echo "<script src=\"Adoms/src/routes/pipes.js\"></script>";
 echo "<title>Swatch Test Page</title></head><body>";
+echo "<style>@import url(\"swatch.css\");</style>";
 echo "<span id=\"hed\" style=\"background-color:black;width:100%\"><br>";
-echo "adoms::Helium v1.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
+echo "Adoms::Hydrogen v9.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
 echo "<a id=\"wiki-link\" method=\"GET\" out-pipe='red' thru-pipe=\"tests\\" . md5('inland14') . "\">Wiki</a> + ";
 echo "<a id=\"donate\" redirect=\"follow\" method=\"POST\" to-pipe=\"https://www.paypal.com/cgi-bin/webscr\"> Donate + </a>"; //?cmd=_s-xclick&hosted_button_id=TMZJ4ZGG84ACL\">Donate</a> + ";
 echo "<input type=\"hidden\" pipe=\"donate\" class=\"data-pipe\" name=\"cmd\" value=\"_s-xclick\" />";
@@ -42,25 +157,27 @@ for ($i = 0 ; $i < 5 ; $i++) {
     $m->add($n, ":)");
 }
 $v2 = md5("inland14");
-$t->changeDir("./tests/g/h/j/");
-$t->addStrm($v2);
+$t->touch("tests/$v2");
+$t->addStrm("tests/$v2",1);
 $x = 0;
-
-echo json_encode($t);
-\ob_flush();
-$t->buffData = json_encode($m->dat);
-
-$t->buffSize = strlen($t->buffData);
+$t->setIndex(0);
+$nm = [];
+$t->buf = json_encode($m->dat);
 $t->writeBuf();
-
-$rrr->changeDir("./tests/g/h/j/");
-$rrr->addStrm($v2);
+while (!$m->isEmpty()) {
+    $n = "m$x";
+    $nm = array_merge($nm, array($n => $m->get($n)));
+    $m->remove($n);
+    $x++;
+} 
+$rrr->changeDir("tests");
+$rrr->addStrm("$v2", filesize("tests/$v2"));
+$rrr->Iter();
 $rrr->buffSize = 0;
 $rrr->readBuf();
 $tt = new api();
 $tvv = json_decode($rrr->buffData);
-echo "*" . json_encode($rrr->buffData);
-
+echo "*" . json_encode($tvv);
 $xx = $tt->json2map($tvv);
 echo json_encode($xx);
 echo "</p>";
@@ -89,11 +206,11 @@ do {
     $s->vect = $ccc;
     echo json_encode($ccc);
 } while ($s->Iter());
-//Don"t forget to sync your Map and Vectors!!
+//Don"t forget to sync your Maps and Vectors!!
 $s->vect = $q;
 $s->sync();
 echo json_encode($ccc);
-echo "<br>Line 210 <b>I incremented each of these once (But I'm using a Reverse Iterator)</b><br>";
+echo "<br>Line 224 <b>I incremented each of these once (But I'm using a Reverse Iterator)</b><br>";
 $i = $s->size()-1;
 
 do {
@@ -130,10 +247,28 @@ echo json_encode($sss);
 echo "<br><b>What? Oh my god.. MultiSets!</b><br>";
 echo "<br><br>" . json_encode($vs) . "<br><br>";
 
-if (strlen(json_encode($vs)) < 250)
+$matrix = new Matrix("Any");
+$matrix->push($ccc);
+$matrix->push($ccc);
+$matrix->push($ccc);
+$matrix->push($s);
+use src\lib\newObj;
+$xml = new XML();
+$dom1 = new \DOMDocument();
+$dom1 = $xml->xmlOut($matrix,$dom1);
+$dom1->save("mtx.xml");
+$eeyore = $xml->xmlIn("mtx.xml");
+
+if (strlen(json_encode($eeyore)) < 250)
     echo "</p><p class=\"cols\">";
 else
     echo "</p><p id=\"sbox\">";
+echo "<b id=\"test\" class=\"box\">" . "Here's a Matrix returned from an XML File" . "</b><br>";
+echo json_encode($eeyore);
+$dom = new \DOMDocument();
+$dom = $xml->xmlOut($vs,$dom);
+$dom->save("f.xml");
+$serv = $xml->xmlIn("f.xml");
 
 $s->clear();
 $ms = new Map();
@@ -142,7 +277,8 @@ $ms->add("yay1", "me!");
 $ms->setIndex(0);
 // This is a writeable iterator!!
 do {
-    echo "<b>This is ->pt at Index:</b>" . json_encode($ms->pt) . "<br>";
+
+    echo "<b>This is ->map at Index:</b>" . json_encode($ms->map) . "<br>";
     $ms->replace("yay", "Value");
     $ms->add("yay","no");
 } while ($ms->Iter());
@@ -152,14 +288,15 @@ else
     echo "</p><p id=\"sbox\">";
 echo "<b>This is \$ms output to a JSON:</b>";
 echo "<br><br>" . json_encode($ms) . "<br>";
-// Above I changed the KV pairs to "New/Value"
+// Above I changed the pairs to "New/Value"
 // And below I"ll show it worked during a reverse Iter
 // (which is also writeable!)
 // Don"t be deceived by the output, this is a bad example
 
+echo "</p><p class=\"cols\">";
 do {
-    $ms->pt = array("yay1", ":P");
-    echo json_encode($ms->pt) . "<br>";
+    $ms->map = array("yay1", ":P");
+    echo json_encode($ms->map) . "<br>";
 } while ($ms->revIter());
 
 $mm = new mMap();
@@ -173,19 +310,23 @@ $mn = new Map();
 $mn->add("ay", "me!");
 $mn->add("ay1", "me!");
 
-$mm->mapReplace("MS",$mn);
+$mm->replaceMap("MS",$mn);
 
 $mm->setIndex(0);
 $mt = new Map();
 $mt->add("ya", "me!");
 $mt->add("ya1", "me!");
 
-if (strlen(json_encode($mm)) < 250)
+$domvar = new \DOMDocument();
+$domvar = $xml->xmlOut($mm,$domvar);
+$domvar->save("testing.xml");
+$something = $xml->xmlIn("testing.xml");
+if (strlen(json_encode($something)) < 250)
     echo "</p><p class=\"cols\">";
 else
     echo "</p><p id=\"sbox\">";
 echo "<b>Here's a mMap returned from a XML File!</b>";
-echo json_encode($mm);
+echo json_encode($something);
 $mm->setIndex(0);
 echo "<b>This shows we have 3 maps in \$mm</b><br>";
 do {
@@ -202,20 +343,21 @@ if (strlen(json_encode($temp)) + strlen(json_encode($mm)) < 250)
 else
     echo "</p><p id=\"sbox\">";
 echo "<b>Guess what *I* Found \$mm->mmap->findKey(\"/ya/\"); !</b><br>" . json_encode($e) . "<br><br>";
-echo "<b>Did you notice that? Map don't overwrite with changes to ->pt if it ignores the rule of multiple keys :)</b><br>";
+echo "<b>Did you notice that? Maps don't overwrite with changes to ->map if it ignores the rule of multiple keys :)</b><br>";
 echo json_encode($mm);
 echo "<br><br><b>I also found this mMap ->mname! with getMap(\"/S/\")</b><br>";
 echo json_encode($temp);
 
+
+echo "</p>";
+
 $s = "'<a href=\"#\">testing</a>','asdj',['adk',['adfd']],'cnaa',['sdasa']";
-//use Adoms\src\lib\trees;
-$treevar = new Trees();
+$treevar = new trees();
 $g = $treevar->mockTree($s,1);
 if (strlen(json_encode($g)) < 250)
     echo "</p><p class=\"cols\">";
 else
     echo "</p><p id=\"sbox\">";
-
 echo "<b>Use the trees() class to make link trees</b><br>";
 echo "<b>This is a proper tree. Single quotes for values, deepen as you wish</b><br>";
 echo '$s = "&lt;a href=\'#\'&gt;testing&lt;/a&gt;\',\'asdj\',[\'adk\',[\'adfd\']],\'cnaa\',[\'sdasa\']"';
@@ -238,24 +380,24 @@ echo "$sd";
 // For API Handling
 // JSON from wherever
 if (strlen($n) < 250)
-    echo "</p><p class=\"cols\">";
+    echo "</p><div class=\"cols\">";
 else
-    echo "</p><p id=\"sbox\">";
+    echo "</p><div id=\"sbox\">";
 echo "<b>Oh, like you didn't want CSS included ;)</b>";
 $ts = "@import url(\"dss.css\"); #id .classname p b { property:value; property-1: value; } .classname p b { property:value; property-1: value; }";
 
-$o = new css("readcss.css");
+$o = new css("readcss.css", 1);
 echo "<div class=\"tree\">";
-//$eq = $o->cssMap($ts,1);
+$eq = $o->cssMap($ts,1);
 echo "</div>";
 echo '<br>If you want to read it in, you can! $cssObj->freader->add($fname,1); Then readBuf() (mind your $this->delim)';
 echo 'Afterward, cycle through $cssObj->cssMap($cssString,0). It\'ll turn it all into arrays for editing.';
 // Now! CSS!!
-//echo json_encode($eq);
-//$mh = $o->convert($eq);
+/*
+$mh = $o->convert($eq);
 //echo $mh;
-//$o->fwriter->add("read2.css",1);
-//$o->fwriter->setIndex(0);
+$o->fwriter->add("read2.css",1);
+$o->fwriter->setIndex(0);
 
 // Justing flipping this back into the same thing (MAGIC!)
 // Create takes 0 or 1 parameter(s), it can be anything.
@@ -263,14 +405,18 @@ echo 'Afterward, cycle through $cssObj->cssMap($cssString,0). It\'ll turn it all
 // $this->apiRecv();
 // Rip it up!! Move from object to vector
 // then back again
-
+*/
 $re = $y->display($mm);
-echo "</p><br><div class=\"cols\">";
+echo "</div><br><div class=\"cols\">";
 
 echo "<b>Tell me if this is impressive:</b><br>";
 echo "<div class=\"tree\">" . $re;
 echo "</div>";
 echo "<b style='color:green;font-size:25'>&check;</b> <b>Check</b>";
 
-echo "</div>";
+echo "</div><br>";
+echo "<div class=\"cols\"><b>Here's a neat trick! If you have a Matrix with each dimension equal in length,";
+echo " then a table can be constructed. Use \$matrix->table(\"[#|.]Idclass=\"); to return the HTML";
+echo $eeyore->table(".idClass", array(".idClass"));
+echo "</b></div>";
 echo "</body></html>";

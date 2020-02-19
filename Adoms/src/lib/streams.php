@@ -303,7 +303,7 @@ class Streams extends Map {
     public function writeBuf(): int {
         echo json_encode($this->dat);
         if (\is_resource(current($this->dat)))
-            return fwrite(current($this->dat), $this->buffData, $this->buffSize);
+            return fwrite(current($this->dat), $this->buf, strlen($this->buf));
         return 0;
     }
 

@@ -187,7 +187,7 @@ class Map extends Common
      */
     public function isEmpty(): bool
     {
-        return (count($this->dat) === 0) ? 1 : 0;
+        return (count($this->dat) == 0) ? true : false;
     }
 
     /**
@@ -321,7 +321,7 @@ class Map extends Common
             if (isset($x) && isset($y)) {
                 $t = array_merge($t, array($x => $y));
             }
-        }
+        } 
         if (isset($key) && isset($val)) {
             $t = array_merge($t, array((string) $key => $val));
         }

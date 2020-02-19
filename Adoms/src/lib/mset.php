@@ -9,7 +9,7 @@ class mSet extends Set {
     public $parentType;
     public $childType;
     public $datCntr;
-    public $sv;
+    public $pt;
     public $set;
     public $dat;
 
@@ -20,7 +20,7 @@ class mSet extends Set {
         $this->typeOf = 'Set';
         $this->childType = $type;
         $this->datCntr = 0;
-        $this->sv = -1;
+        $this->pt = -1;
         $this->dat = array();
     }
 
@@ -133,7 +133,7 @@ class mSet extends Set {
         if (!is_array($this->dat))
             $this->dat = [];
         $this->dat = current($this->dat);
-        $this->sv = $this->datCntr;
+        $this->pt = $this->datCntr;
         return true;
     }
 }
