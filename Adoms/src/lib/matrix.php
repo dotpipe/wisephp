@@ -780,7 +780,8 @@ spl_autoload_register(function ($className)
 			if ($r < 1)
 				return 0;
 			for ($x = 0 ; $x < $r ; $x++)
-				$this->dat[] = newObj($this->childType, 'String');
+                $this->dat[] = newObj($this->childType, 'String');
+            $this->pt = current($this->dat);
 			return 1;
 		}
 
@@ -795,7 +796,9 @@ spl_autoload_register(function ($className)
 				return 0;
 			$t = array();
 			for ($x = 0 ; $x < $r ; $x++)
-				$this->pop();
+                $this->pop();
+            
+            $this->pt = current($this->dat);
 			return 1;
 		}
 			

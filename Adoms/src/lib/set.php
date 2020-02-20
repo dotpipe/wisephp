@@ -87,6 +87,7 @@ class Set extends Common {
             $this->add($r->dat[$i]);
         for ($i = 0; $i < sizeof($s); $i++)
             $this->add($s[$i]);
+        $this->pt = current($this->dat);
         return true;
     }
 
@@ -99,6 +100,7 @@ class Set extends Common {
     public function clear(): void {
 
         $this->dat = array();
+        $this->pt = "";
         return;
     }
 
@@ -115,7 +117,7 @@ class Set extends Common {
                 $bool = 1;
         if ($bool == 0)
             $this->dat[] = $r;
-
+        $this->pt = current($this->dat);
         return true;
     }
 
@@ -204,6 +206,7 @@ class Set extends Common {
             $i++;
         }
         $this->dat = $setTemp;
+        $this->pt = current($this->dat);
         return true;
     }
 
@@ -229,6 +232,7 @@ class Set extends Common {
             $i++;
         }
         $this->dat = $setTemp;
+        $this->pt = current($this->dat);
         return true;
     }
 

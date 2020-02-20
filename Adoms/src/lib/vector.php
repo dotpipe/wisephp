@@ -100,8 +100,10 @@ class Vector extends Container implements Classes {
             $vect = new Vector("Map");
         else if (is_object($m) && $m->parentType == "Matrix")
             $vect = new Vector("Any");
-        else
+        else {
             $vect = new Vector("String");
+            $m = json_decode($m);
+        }
 
         foreach ($m as $n => $s) {
             $vect->push($s);
@@ -125,9 +127,9 @@ class Vector extends Container implements Classes {
      *
      */
     // Add Vector with $r
-    public function push($r) {
+    public function push($r): bool {
         if ($r == null)
-            return;
+            return false;
         else if ($this->childType == 'String' && !is_object($r) && !is_array($r))
             $this->dat[] = $r;
         else if ($this->childType == 'Any' || ($this->childType == 'Array' && is_array($r)) || $this->childType == $r->childType)
@@ -148,14 +150,16 @@ class Vector extends Container implements Classes {
      *
      */
     // Remove $r from Vector
-    public function pop() {
+    public function pop(): void {
         if ($this->size() == 1)
             $this->dat = null;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-            return false;
+            return;
         }
-        return $this->dat = array_slice($this->dat, -1);
+        $this->dat = array_slice($this->dat, -1);
+        $this->pt = current($this->dat);
+        return;
     }
 
     /**
@@ -192,11 +196,11 @@ class Vector extends Container implements Classes {
                 $t->dat[] = $r;
             else
                 $t->add($r);
-            $this->pt = $t;
+            $this->pt = current($this->dat);
             $this->sync();
         }
         else return false;
-
+        $this->pt = current($this->dat);
         return true;
     }
 
@@ -306,12 +310,12 @@ class Vector extends Container implements Classes {
         reset($temporneous);
         return $this->dat = $temporneous;
     }
-
+/*
     /**
      * public function sync
      * @parameters none
      *
-     */
+     *
     public function sync(): bool {
         if (is_object($this->pt) && $this->childType == "Set" && $this->pt->dat != null) {
             $t = $this->pt;
@@ -330,4 +334,5 @@ class Vector extends Container implements Classes {
         $this->pv = $this->datCntr;
         return true;
     }
+    */
 }

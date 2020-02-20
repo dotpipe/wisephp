@@ -125,6 +125,7 @@ class Common implements Classes {
                 return true;
             }
             next($this->dat);
+            $this->pt = current($this->dat);
             $this->datCntr++;
             $this->sync();
             return true;
@@ -145,6 +146,7 @@ class Common implements Classes {
                 $this->add($this->pt[0], $this->pt[1]);
             }
             prev($this->dat);
+            $this->pt = current($this->dat);
             $this->datCntr--;
             $this->sync();
             return true;
@@ -161,12 +163,14 @@ class Common implements Classes {
     {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
             $this->next($this->dat);
+            $this->pt = current($this->dat);
             $this->datCntr++;
             $this->sync();
             return true;
         } 
         else {
             reset($this->dat);
+            $this->pt = current($this->dat);
             $this->datCntr = 0;
             $this->sync();
             return false;
@@ -182,12 +186,14 @@ class Common implements Classes {
     {
         if ($this->datCntr > 0 && $this->datCntr + 1 < count($this->dat)) {
             prev($this->dat);
+            $this->pt = current($this->dat);
             $this->datCntr--;
             $this->sync();
             return true;
         } 
         else {
             end($this->dat);
+            $this->pt = current($this->dat);
             $this->datCntr = sizeof($this->dat) - 1;
             $this->sync();
             return false;
