@@ -131,16 +131,4 @@ class mSet extends Set {
         return true;
     }
 
-    /**
-     * public function sync
-     * @parameters none
-     *
-     */
-    public function sync() {
-        if (!is_array($this->dat))
-            $this->dat = [];
-        $this->dat = current($this->dat);
-        $this->sv = $this->datCntr;
-        return true;
-    }
 }
