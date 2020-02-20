@@ -29,7 +29,7 @@ class mSet extends Set {
      * @parameters none
      *
      */
-    public function clear() {
+    public function clear(): void {
 
         $this->dat = null;
         return;
@@ -52,7 +52,7 @@ class mSet extends Set {
      * @parameters Set
      *
      */
-    public function addSet(Set $r) {
+    public function addSet(Set $r): bool {
         if (!is_array($this->dat))
             $this->dat = [];
         if ($r->typeOf != $this->childType) {
@@ -65,7 +65,7 @@ class mSet extends Set {
         sort($r_temp);
         for ($i = 0; $i < $this->size(); $i++) {
             $temp = $this->dat[$i]->dat;
-            sort($temp);
+            sort($temp);    
             if ($temp != $r_temp)
                 $t++;
         }
@@ -104,7 +104,7 @@ class mSet extends Set {
      * @parameters int
      *
      */
-    public function remIndex(int $indx) {
+    public function remIndex(int $indx):bool {
         $setTemp = new mSet();
         if (!is_array($this->dat))
             $this->dat = [];
@@ -123,17 +123,18 @@ class mSet extends Set {
         $this->sync();
         return true;
     }
-
+/*
     /**
      * public function sync
      * @parameters none
      *
-     */
+     
     public function sync() {
         if (!is_array($this->dat))
             $this->dat = [];
-        $this->dat = current($this->dat);
+        $this-> = current($this->dat);
         $this->pt = $this->datCntr;
         return true;
     }
+    */
 }

@@ -4,7 +4,7 @@ namespace Adoms\src\lib;
 
 
 
-class Set {
+class Set extends Common {
 
     public $setTemp;
     public $parentType;
@@ -27,8 +27,8 @@ class Set {
      * @parameters string
      *
      */
-    public function save(string $json_name) {
-        $fp = fopen("$json_name", "w");
+    public function save(string $file_name): bool {
+        $fp = fopen("$file_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
         return true;
@@ -39,7 +39,7 @@ class Set {
      * @parameters string
      *
      */
-    public function loadJSON(string $json_name) {
+    public function loadJSON(string $json_name): bool {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
@@ -59,7 +59,7 @@ class Set {
      *
      */
     // Report Size of Container
-    public function size() {
+    public function size(): int {
         if (($this->typeOf == 'SortedSet' || $this->typeOf == 'NavigableSet') && $this->parentType == 'Set') {
 
             sort($this->dat);
@@ -75,7 +75,7 @@ class Set {
      *
      */
     // Merge sets
-    public function addAll(string $r) {
+    public function addAll(string $r): bool {
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
             return false;
@@ -87,7 +87,7 @@ class Set {
             $this->add($r->dat[$i]);
         for ($i = 0; $i < sizeof($s); $i++)
             $this->add($s[$i]);
-
+        return true;
     }
 
     /**
@@ -96,7 +96,7 @@ class Set {
      *
      */
     // Empty Set
-    public function clear() {
+    public function clear(): void {
 
         $this->dat = array();
         return;
@@ -108,7 +108,7 @@ class Set {
      *
      */
     // Splice $r into $indx point
-    public function add($r) {
+    public function add($r): bool {
         $bool = 0;
         foreach ($this->dat as $x)
             if ($r == $x)
@@ -125,7 +125,7 @@ class Set {
      *
      */
     // Return if Value exists
-    public function valIsIn(string $v) {
+    public function valIsIn(string $v):array {
         $temp = array();
         return array_search($v, $this->dat);
     }
@@ -136,7 +136,7 @@ class Set {
      *
      */
     // Compare $this with $r
-    public function compare(Set $r) {
+    public function compare(Set $r): bool {
         $temp = array();
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
@@ -188,7 +188,7 @@ class Set {
      *
      */
     // Remove Entry at $indx
-    public function remIndex(int $indx) {
+    public function remIndex(int $indx):bool {
         $setTemp = [];
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
@@ -213,7 +213,7 @@ class Set {
      *
      */
     // Remove Value if exists (otherwise 0)
-    public function remValue(string $val) {
+    public function remValue(string $val):bool {
         $setTemp = [];
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Set');

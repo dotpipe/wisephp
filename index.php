@@ -229,7 +229,7 @@ if (strlen(json_encode($s->vect)) < 250)
     echo "</p><p class=\"cols\">";
 else
     echo "</p><p id=\"sbox\">";
-echo "<b class=\"box\">This is the pointed to Vector held in ->vect<br></b>" . json_encode($s->vect) . "<br>";
+echo "<b class=\"box\">This is the pointed to Vector held in ->pt<br></b>" . json_encode($s->vect) . "<br>";
 $vs = new mSet("Set");
 $vs->addSet($ccc);
 $vs->addSet($ccc);
@@ -278,8 +278,7 @@ $ms->add("yay1", "me!");
 $ms->setIndex(0);
 // This is a writeable iterator!!
 do {
-
-    echo "<b>This is ->map at Index:</b>" . json_encode($ms->map) . "<br>";
+    echo "<br><b>This is ->pt at Index:</b>" . json_encode($ms->pt) . "<br>";
     $ms->replace("yay", "Value");
     $ms->add("yay","no");
 } while ($ms->Iter());
@@ -297,7 +296,7 @@ echo "<br><br>" . json_encode($ms) . "<br>";
 echo "</p><p class=\"cols\">";
 do {
     $ms->map = array("yay1", ":P");
-    echo json_encode($ms->map) . "<br>";
+    echo json_encode($ms->pt) . "<br>";
 } while ($ms->revIter());
 
 $mm = new mMap();
