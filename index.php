@@ -125,7 +125,7 @@ echo "<script src=\"Adoms/src/routes/pipes.js\"></script>";
 echo "<title>Swatch Test Page</title></head><body>";
 echo "<style>@import url(\"swatch.css\");</style>";
 echo "<span id=\"hed\" style=\"background-color:black;width:100%\"><br>";
-echo "Adoms::Hydrogen v9.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
+echo "Adoms::Helium v1.8.2 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
 echo "<a id=\"wiki-link\" method=\"GET\" out-pipe='red' thru-pipe=\"tests\\" . md5('inland14') . "\">Wiki</a> + ";
 echo "<a id=\"donate\" redirect=\"follow\" method=\"POST\" to-pipe=\"https://www.paypal.com/cgi-bin/webscr\"> Donate + </a>"; //?cmd=_s-xclick&hosted_button_id=TMZJ4ZGG84ACL\">Donate</a> + ";
 echo "<input type=\"hidden\" pipe=\"donate\" class=\"data-pipe\" name=\"cmd\" value=\"_s-xclick\" />";
@@ -157,8 +157,9 @@ for ($i = 0 ; $i < 5 ; $i++) {
     $m->add($n, ":)");
 }
 $v2 = md5("inland14");
+$t->changeDir("tests");
 $t->touch("tests/$v2");
-$t->addStrm("tests/$v2",1);
+$t->addStrm("$v2",1);
 $x = 0;
 $t->setIndex(0);
 $nm = [];
@@ -171,14 +172,14 @@ while (!$m->isEmpty()) {
     $x++;
 } 
 $rrr->changeDir("tests");
-$rrr->addStrm("$v2", filesize("tests/$v2"));
+$rrr->addStrm("$v2");
 $rrr->Iter();
 $rrr->buffSize = 0;
-$rrr->readBuf();
+$rbuf = $rrr->readBuf();
 $tt = new api();
-$tvv = json_decode($rrr->buffData);
-echo "*" . json_encode($tvv);
+$tvv = ($rbuf);
 $xx = $tt->json2map($tvv);
+echo " Here's the object back from the file, after running thru ->json2map()";
 echo json_encode($xx);
 echo "</p>";
 

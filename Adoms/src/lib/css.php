@@ -265,8 +265,7 @@ class css
                 $outstring = ($outstring . $ky . " {");
             }
             $i = 0;
-            //echo json_encode($va);
-            //echo json_encode($va->mmap->dat);
+            
             foreach ($val->dat as $key => $value) {
                 if (preg_match("/[:]/", $key)) {
                     $outstring = ($outstring . $key);

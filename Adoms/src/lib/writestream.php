@@ -12,10 +12,10 @@ class writeStream extends Streams {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
         $this->typeOf = 'writeStream';
-        $this->dat = new Map();
         $this->datCntr = 0;
+        $this->dir = "./";
     }
-
+/*
     public function addStrm(string $r, bool $bool = FALSE): bool {
         if (!\file_exists($this->dir . $r))
             return false;
@@ -25,4 +25,5 @@ class writeStream extends Streams {
         return true;
 
     }
+*/
 }

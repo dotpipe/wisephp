@@ -40,7 +40,7 @@ class Streams extends Map implements Classes {
         $this->parentType = "Streams";
         $this->rootType = "Maps";
         reset($this->dat);
-        $this->dir = "";
+        $this->dir = ".";
     }
 
     /**
@@ -139,8 +139,8 @@ class Streams extends Map implements Classes {
             $this->touch_dir($this->dir);
         if (!file_exists($this->dir . $r))
             $this->touch($this->dir . $r);
-        ////$ed = fopen($this->dir . "/" . $r, $rw);
-        $this->add($this->dir . $r, fopen($this->dir . $r,$rw,1));
+        $ed = fopen($this->dir . "/" . $r, $rw);
+        $this->add($this->dir . $r, $ed);
         $this->sync();
         return true;
     }

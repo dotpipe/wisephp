@@ -70,9 +70,10 @@ class api
         return $this->apiMap;
     }
 
-    public function json2map($m): Map
+    public function json2map(string $m): Map
     {
         $map = new Map();
+        $m = json_decode($m);
         foreach ($m as $x=>$y) {
             $map->add($x, $y);
         }

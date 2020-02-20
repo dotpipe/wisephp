@@ -12,12 +12,12 @@ class rwStream extends Streams {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
         $this->typeOf = 'rwStream';
-        $this->dat = new Map();
         $this->buffSize = 16;
         $this->datCntr = 0;
         $this->delim = ';';
+        $this->dir = "./";
     }
-
+/*
     public function add(string $r, bool $bool = TRUE) {
         $ed = fopen($this->dir . $r, 'w+');
         $this->add($this->dir . $r,$ed);
@@ -25,4 +25,5 @@ class rwStream extends Streams {
         return true;
 
     }
+    */
 }

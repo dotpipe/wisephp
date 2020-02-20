@@ -1,8 +1,12 @@
-<?php //declare (strict_types = 1);
-namespace Adoms\src\lib;
-//
+<?php
+namespace adoms\src\lib;
 
-class Streams extends Map {
+$my = function ($pClassName) {
+    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+};
+spl_autoload_register($my, true, 1);
+
+class Streams extends Map implements Classes {
 
     public $rootType;
     public $parentType;
@@ -13,7 +17,7 @@ class Streams extends Map {
     public $strm;
     public $strmkey;
     // $stream array()
-    public $dat = array();
+    public $dat;
     // Index of $dat
     public $datCntr;
     // Buffer of Read data
@@ -24,16 +28,13 @@ class Streams extends Map {
     public $buf;
     // Stop at $delim if before $buffSize OR $buffsize == 0
     private $delim;
-    // CWD
     public $dir;
 
     public function __construct() {
         $this->dat = new Map();
         $this->datCntr = 0;
-        $this->parentType = "Streams";
-        $this->rootType = "Maps";
         reset($this->dat);
-        $this->dir = "";
+        $this->dir = "./";
     }
 
     /**
@@ -46,6 +47,16 @@ class Streams extends Map {
     }
 
     /**
+     * public function getIndex
+     * @parameters none
+     *
+     */
+    // Retrieve Index
+    public function getIndex(): int {
+        return $this->datCntr;
+    }
+
+    /**
      * public function erase
      * @parameters string
      *
@@ -55,9 +66,9 @@ class Streams extends Map {
         if (file_exists($filename)) {
             $this->delete($filename);
             touch($filename);
-            return true;
+            return 1;
         }
-        return false;
+        return 0;
     }
 
     /**
@@ -69,10 +80,10 @@ class Streams extends Map {
     public function delete(string $filename): bool {
         if (file_exists($filename)) {
             unlink($filename);
-            fclose(current($this->dat));
-            return true;
+            fclose($this->dat[$filename]);
+            return 1;
         }
-        return false;
+        return 0;
     }
 
     /**
@@ -89,28 +100,6 @@ class Streams extends Map {
         return false;
     }
 
-    /**
-     * public function touch
-     * @parameters string
-     *
-     */
-    // Create new File Or check if exists
-    public function touch_dir(string $directory): bool {
-        $directory = \str_replace("\\", "/", $directory);
-        $directory = explode("/", $directory); 
-        $i = 0;
-        $dir_structs = ".";
-        //$directory = json_decode($directory);
-        foreach ($directory as $d) {
-            if (!is_dir($dir_structs . "/" . $d))
-                \mkdir($dir_structs . "/" . $d);
-            if (!is_dir($dir_structs . "/" . $d))
-                return false;
-            $dir_structs .= "/" . $d;
-        }
-        
-        return false;
-    }
 
     /**
      * public function addStrm
@@ -125,17 +114,14 @@ class Streams extends Map {
         else if ($this->typeOf == 'rwStream')
             $rw = 'a';
         else $rw = 'w';
-        if ($bool == true)
+        if ($bool == 1)
             $rw .= '+';
-
-        if (!is_dir($this->dir))
-            $this->touch_dir($this->dir);
-        if (!file_exists($this->dir . $r))
-            $this->touch($this->dir . $r);
-        ////$ed = fopen($this->dir . "/" . $r, $rw);
-        $this->add($this->dir . $r, fopen($this->dir . $r,$rw,1));
+        if (!\file_exists("$this->dir/$r"))
+            $this->touch("$this->dir/$r");
+        $ed = fopen("$this->dir/$r", $rw);
+        $this->add("$this->dir/$r",$ed);
         $this->sync();
-        return true;
+        return 1;
     }
 
     /**
@@ -149,6 +135,113 @@ class Streams extends Map {
     }
 
     /**
+     * public function Iter
+     * @parameters none
+     *
+     */
+    // Iterate Forward through Streams
+    public function Iter(): bool {
+        if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
+            if (key($this->dat) != null && current($this->dat) != null)
+                $this->add(key($this->dat), current($this->dat));
+            $this->datCntr++;
+            next($this->dat);
+            $this->sync();
+        }
+        else
+            return 0;
+        return 1;
+
+    }
+
+    /**
+     * public function Cycle
+     * @parameters none
+     *
+     */
+    // Cycle Forward through Vector
+    public function Cycle(): bool {
+        if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
+            if (key($this->dat) != null && current($this->dat) != null)
+                $this->add(key($this->dat), current($this->dat));
+            $this->datCntr++;
+            next($this->dat);
+            $this->sync();
+        }
+        else
+            return 0;
+        return 1;
+    }
+
+    /**
+     * public function revIter
+     * @parameters none
+     *
+     */
+    // Iterate Forward through Streams
+    public function revIter(): bool {
+        if ($this->datCntr > 0 && $this->datCntr < count($this->dat)) {
+            if (key($this->dat) != null && current($this->dat) != null)
+                $this->add(key($this->dat), current($this->dat));
+            $this->datCntr--;
+            prev($this->dat);
+            $this->sync();
+        }
+        else
+            return 0;
+        return 1;
+    }
+
+    /**
+     * public function revCycle
+     * @parameters none
+     *
+     */
+    public function revCycle(): bool {
+        if ($this->datCntr > 0 && $this->datCntr < count($this->dat)) {
+            if (key($this->dat) != null && current($this->dat) != null)
+                $this->add(key($this->dat), current($this->dat));
+            $this->datCntr--;
+            prev($this->dat);
+            $this->sync();
+        }
+        else
+            return 0;
+        return 1;
+    }
+
+    /**
+     * public function prevStrm
+     * @parameters none
+     *
+     */
+    // Iterate to Previous Streams if $bool = 1;
+    // Setup $cntDecr (index) for Prev. Streams if $bool = 0;
+    public function prev(): bool {
+        if ($this->datCntr > 0 && $this->datCntr < count($this->dat)) {
+            if (key($this->dat) != null && current($this->dat) != null)
+                $this->add(key($this->dat), current($this->dat));
+            $this->datCntr--;
+            prev($this->dat);
+            $this->sync();
+        }
+        else
+            return 0;
+        return 1;
+    }
+
+    /**
+     * public function currStrm
+     * @parameters none
+     *
+     */
+    // Retrieve current Index of Vector Pointer
+    public function current(): int {
+        return $this->getIndex();
+    }
+
+
+    /**
      * public function remove
      * @parameters string
      *
@@ -157,10 +250,10 @@ class Streams extends Map {
     public function removeIndex(int $r): bool {
         if (!is_array($this->dat)) {
             $this->dat = [];
-            return false;
+            return 0;
         }
         $j = array_splice($this->dat, $r, 1);
-        return true;
+        return 1;
     }
 
     /**
@@ -174,6 +267,22 @@ class Streams extends Map {
     }
 
     /**
+     * public function sync
+     * @parameters none
+     *
+     */
+    public function sync(): bool {
+        $keys = array_keys($this->dat);
+
+        $t = $this->dat[$keys[$this->datCntr]];
+        $k = $keys[$this->datCntr];
+
+        $this->strm = $t;
+        $this->strmkey = $k;
+        return 1;
+    }
+
+    /**
      * public function resize
      * @parameters int
      *
@@ -183,8 +292,8 @@ class Streams extends Map {
         if ($s > 0)
             $this->buffSize = $s;
         else
-            return false;
-        return true;
+            return 0;
+        return 1;
     }
 
     /**
@@ -235,14 +344,14 @@ class Streams extends Map {
         else if ($flag == 'SEEK_END' || $flag == 'SEEK_SET' || $flag == 'SEEK_CUR')
             $f = $f;
         else
-            return false;
+            return 0;
         if (current($this->dat) == null || key($this->dat) == null) {
             throw new IndexException('Stream is null');
-            return false;
+            return 0;
         }
         else
             fseek(current($this->dat), $pos, $f);
-        return true;
+        return 1;
     }
 
     /**
@@ -253,9 +362,9 @@ class Streams extends Map {
     // Check for End of File
     public function eof(): bool {
         if (feof(current($this->dat)) || key($this->dat) == null)
-            return false;
+            return 0;
         else
-            return true;
+            return 1;
     }
 
     /**
@@ -264,34 +373,34 @@ class Streams extends Map {
      *
      */
     // Read from File
-    public function readBuf(): bool {
+    public function readBuf(): string {
         if ($this->parentType != 'Streams' && ($this->typeOf != 'rwStream' || $this->typeOf != 'readStream')) {
             throw new IndexException('Not a valid Stream');
-            return false;
+            return "Error: No stream";
         }
         if ($this->size() == 0) {
             throw new IndexException('Empty Stream Array');
-            return false;
+            return "Error: No stream";
         }
         if (!file_exists(key($this->dat)))
-            return false;
+            return "Error: No stream";
         if ($this->buffSize == 0) {
-            $path = $this->pt[1];
+            $path = key($this->dat);
             $this->buffData = file_get_contents($path);
-            return true;
+            return $this->buffData;
         }
         else
             $y = $this->buffSize;
 
         for ($i = 0; $i < $y; $i++) {
-            $buf = fgetc($this->strm);
+            $buf = fgetc(current($this->dat));
             if ($buf == '<')
                 $buf = '&lt;';
-            if ($buf == $this->delim || feof($this->pt[0]))
+            if ($buf == $this->delim || feof(current($this->dat)))
                 break;
             $this->buffData .= $buf;
         }
-        return true;
+        return $this->buffData;
     }
 
     /**
@@ -301,9 +410,8 @@ class Streams extends Map {
      */
     // Write to Buffer File
     public function writeBuf(): int {
-        echo json_encode($this->dat);
-        if (\is_resource(current($this->dat)))
-            return fwrite(current($this->dat), $this->buf, strlen($this->buf));
+        if (current($this->dat) != null && $this->typeOf != "readStream")
+            return fwrite(current($this->dat), $this->buf);
         return 0;
     }
 
@@ -317,7 +425,7 @@ class Streams extends Map {
         fclose(current($this->dat));
         $this->remSeqStrm($this->getIndex());
         $this->setIndex($this->getIndex());
-        return true;
+        return 1;
     }
 
     /**
@@ -327,10 +435,7 @@ class Streams extends Map {
      */
     // Change local directory
     public function changeDir(string $directory): string {
-        $this->dir = null;
-        
         $this->dir = $directory;
-        $this->touch_dir($directory);
-        return true;
+        return $this->dir;
     }
 }

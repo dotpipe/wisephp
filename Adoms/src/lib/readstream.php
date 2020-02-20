@@ -14,10 +14,10 @@ class readStream extends Streams {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
         $this->typeOf = 'readStream';
-        $this->dat = new Map();
-        $this->buffSize = 16;
+        $this->buffSize = 0;
         $this->datCntr = 0;
         $this->delim = ';';
+        $this->dir = "./";
     }
 
     public function addStream(string $r, bool $bool = FALSE) {
