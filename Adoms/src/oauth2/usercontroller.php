@@ -4,7 +4,7 @@ namespace Adoms\src\oauth2;
 
 use Adoms\src\crud;
 
-class userController {
+class userController extends OAuth2Owner {
 
     public function newUser(string $userdb_ini, array $login_credentials, string $table) {
 
@@ -47,7 +47,7 @@ class userController {
 
         if (!$connection)
             return false;
-            
+
         $connection->update($table, $credentials, $where);
 
         return true;

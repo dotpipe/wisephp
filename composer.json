@@ -1,5 +1,5 @@
 {
-    "name": "thexiv/adoms",
+    "name": "swatchphp/adoms",
     "description": "OOP toolset",
     "type": "library",
     "license": "mit",
@@ -12,6 +12,6 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
-        "classmap": ["Adoms/src/lib", "Adoms/src/lib/map.php", "Adoms/src/lib/common.php", "Adoms/creator/", "Adoms/wireframe"]
+        "classmap": ["Adoms"]
     }
 }
