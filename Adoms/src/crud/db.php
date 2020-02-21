@@ -53,7 +53,14 @@ class db {
         
     }
 
-    function create(array $values, string $table, string $database) {
+    /*
+        $create([
+            col1 => value,
+            col2 => value,
+            col3 => value
+        ], $table)
+    */
+    function create(array $values, string $table) {
 
         $db_msg = "INSERT INTO `" . $this->ini->database . "`.`$table` (";
         foreach ($values as $key => $val) {
@@ -61,7 +68,7 @@ class db {
         }
 
         $db_msg = substr($db_msg, 0,strlen($db_msg)-2) . ") VALUES(";
-        
+
         foreach ($values as $key => $val) {
             if (is_numeric($val))
                 $db_msg .= $val . ", ";
@@ -75,9 +82,23 @@ class db {
         return 1;
     }
 
+    /*
+        Use instruction:
+        $read([
+            $table1 => [
+                col1,
+                col2,
+                col3,
+                ...,
+                coln
+            ]
+        ], $where)
+    */
+
     function read(array $ta_ky, string $where) {
 
         $db_msg = "SELECT ";
+        
         foreach ($ta_ky as $ta => $ky) {
             foreach ($ky as $key) {
                 $db_msg .= "`" . $ta . "`.`$key`, ";
@@ -88,7 +109,6 @@ class db {
         $db_msg .= " FROM ";
         foreach ($ta_ky as $ta => $ky) {
             $db_msg .= "`$ta`, ";
-            
         }
         $db_msg = substr($db_msg,0,strlen($db_msg)-2);
         $db_msg .= " WHERE $where";
@@ -101,17 +121,26 @@ class db {
         return $this->rows;
     }
 
+    /*
+        Use:
+        $update(
+            $table,
+            [
+                key1 => value,
+                key2 => value
+            ],
+            $where
+        )
+    */
     public function update(string $table, array $key_value, string $where) {
 
         $db_msg = "UPDATE $table SET ";
         foreach ($key_value as $ky => $val) {
             if (is_numeric($val))
-                $db_msg .= "`$ky` = $val, ";
+                $db_msg .= "`$table`.`$ky` = $val, ";
             else if (!is_numeric($val))
-                $db_msg .= "`$ky` = \"$val\", ";
-            
+                $db_msg .= "`$table`.`$ky` = \"$val\", ";
         }
-
         $db_msg = substr($db_msg,0,strlen($db_msg)-2);
         $db_msg .= " WHERE $where";
         $db_ = $this->db->prepare($db_msg);
@@ -120,6 +149,10 @@ class db {
         return 1;
     }
 
+
+    /*
+        $delete($table,$where)
+    */
     public function delete(string $table, string $where) {
 
         $db_msg = "DELETE FROM $table WHERE $where";
