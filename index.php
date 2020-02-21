@@ -104,7 +104,7 @@ $tra->add("word-wrap","break-word");
 $tra->add("column-count","2");
 $tra->add("column-gap","1em");
 $tra->add("column-rule","10px dashed black");
-$r = new css("swatch.css", 0);
+$r = new css("swatch.css", 1);
 
 $r->mCSS->add("body", $tri);
 $r->mCSS->add("th", $try);
@@ -120,7 +120,7 @@ $r->mCSS->add("#sbox",$tred);
 
 echo "<html><head>";
 echo $r->convert($r->mCSS);
-//$r->write();
+$r->write();
 echo "<script src=\"Adoms/src/routes/pipes.js\"></script>";
 echo "<title>Swatch Test Page</title></head><body>";
 echo "<style>@import url(\"swatch.css\");</style>";
