@@ -1,4 +1,7 @@
 <?php
+
+include_once("/vendor/autoload.php");
+
 // Send appropriate mime type
 header("Content-Type: text/event-stream\n\n");
 

@@ -1,5 +1,7 @@
 <?php
 
+include_once("/vendor/autoload.php");
+
 $con = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database'], $_SESSION['port']) or die("Error: Cannot create connection");
 
 $results = $con->query('SELECT id, filename FROM chat WHERE 1');

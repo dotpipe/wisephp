@@ -1,5 +1,7 @@
 <?php
 
+include_once("/vendor/autoload.php");
+
 // Update
 function updateChatFile($con) {
     $filename = $_COOKIE['chatfile'];

@@ -10,11 +10,7 @@ $_SESSION['password'] = (isset($ini->host)) ? $ini->password : "";
 $_SESSION['database'] = (isset($ini->host)) ? $ini->database : die("No Database Selected. Please check chat.ini in your root folder.");
 $_SESSION['port'] = (isset($ini->host)) ? $ini->port : "port";
 
-require_once(dirname(__DIR__) . "/chataliases.php");
-require_once(dirname(__DIR__) . "/chatsocket.php");
-require_once(dirname(__DIR__) . "/chat.php");
-require_once(dirname(__DIR__) . "/createchat.php");
-
+include_once("/vendor/autoload.php");
 
 $results = $cnxn->query('SELECT * FROM tokenName WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' . $_COOKIE['myemail'] . '") LIMIT 1');
 

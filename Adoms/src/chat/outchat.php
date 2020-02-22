@@ -1,4 +1,6 @@
 <?php
+include_once("/vendor/autoload.php");
+
 // Sidebar for chat
 $chat = '<javascript src="chat.js"></javascript>';
 $chat .= '<div id="startchat" loaded="0"><h3 style="color:wine">Menu</h3>';
