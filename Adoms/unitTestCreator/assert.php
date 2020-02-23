@@ -394,10 +394,10 @@ function extract_funct(string $lock_mx, array &$appended_json, &$i, &$m)
         $ipl = io_x($lock_mx, $i);
         switch ($ipl) {
             case 'public':
-                $json['scope'] = 'public';
+                $json['scope'] = 'public function';
                 break;
             case 'private':
-                $json['scope'] = 'private';
+                $json['scope'] = 'private function';
                 break;
             case 'function':
                 $json['function'] = io_x($lock_mx, $i);
@@ -413,7 +413,7 @@ function extract_funct(string $lock_mx, array &$appended_json, &$i, &$m)
                     while ($lock_mx[$ccc + 1] != '{') {
                         $json['type'] .= trim($lock_mx[$ccc]);
                         $ccc++;
-                        if ($ccc > count($lock_mx))
+                        if ($ccc > strlen($lock_mx))
                             break;
                     }
                     $i = $ccc;
