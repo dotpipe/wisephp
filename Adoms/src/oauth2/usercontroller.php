@@ -9,8 +9,7 @@ class userController extends OAuth2Owner {
     public function newUser(string $userdb_ini, array $login_credentials, string $table) {
 
         $connection = new db($userdb_ini);
-
-        $login_credentials['password'] = \password_hash($login_credentials['password'],PASSWORD_BCRYPT);
+        $this->hash_password($login_credentials['password']);
 
         if (!$connection)
             return false;
@@ -47,7 +46,7 @@ class userController extends OAuth2Owner {
 
         $connection = new db($userdb_ini);
 
-        $credentials['password'] = \password_hash($credentials['password'],PASSWORD_BCRYPT);
+        $this->hash_password($login_credentials['password']);
 
         if (!$connection)
             return false;

@@ -10,6 +10,7 @@ else {
     $oauth2 = new OAuth2();
     $oauth2->login();
     $oauth2->checkexpiry();
+    $oauth2->home_dir();
 }
 
 ?>

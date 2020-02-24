@@ -27,7 +27,7 @@ class OAuth2Owner {
      *   parameters per site necessities.
     */
 
-    public function login($login_info_array): void {
+    public function login(array $login_info_array, string $home_dir = "/", string $home_page = "index.php"): void {
 
         $this->hashPassword($login_info_array['password']);
         
@@ -51,7 +51,7 @@ class OAuth2Owner {
                 $this->checkExpiry($login_info_array, $connection);
                 unset($login_info_array['password']);
                 $connection->close();
-                header("Location: " . $login_info_array['goto']);
+                header("Location: $home_dir/$home_page");
             }
         }
         $connection->close();
@@ -74,25 +74,18 @@ class OAuth2Owner {
                 $connection = new db();
                 $connection->delete($login_info_array['request'],$usern);
                 $this->newUserTokenizer($login_info_array, $connection);
-                $read_rows->close();
-                return true;
             }
-            else
-            {
-                $read_rows->close();
-                return true;
-            }
+            $read_rows->close();
+            return true;
         }
         else if ($read_rows->num_rows > 1) {
             echo "\nPlease contact admin with error code: 3x04f";
-            $read_rows->close();
-            return false;
         }
         else {
             echo "\nLogin issue: Did you forget your password?";
-            $read_rows->close();
-            return false;
         }
+        $read_rows->close();
+        return false;
     }
 
     public function newUserTokenizer(array $login_info_array, resource $connection):string {
@@ -135,5 +128,5 @@ class OAuth2Owner {
         $this->delete($login_info_array['table'],$usrn);
         unset($_COOKIE['TOK']);
     }
-    
+
 }
