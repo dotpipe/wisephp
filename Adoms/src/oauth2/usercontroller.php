@@ -8,7 +8,9 @@ class userController extends OAuth2Owner {
 
     public function newUser(string $userdb_ini, array $login_credentials, string $table) {
 
-        $connection = new CRUD($userdb_ini);
+        $connection = new db($userdb_ini);
+
+        $login_credentials['password'] = \password_hash($login_credentials['password'],PASSWORD_BCRYPT);
 
         if (!$connection)
             return false;
@@ -20,7 +22,7 @@ class userController extends OAuth2Owner {
 
     public function deleteUser(string $userdb_ini, string $table, string $where) {
 
-        $connection = new CRUD($userdb_ini);
+        $connection = new db($userdb_ini);
 
         if (!$connection)
             return false;
@@ -43,7 +45,9 @@ class userController extends OAuth2Owner {
     */
     public function newUserPass(string $userdb_ini, array $credentials, string $table, string $where) {
 
-        $connection = new CRUD($userdb_ini);
+        $connection = new db($userdb_ini);
+
+        $credentials['password'] = \password_hash($credentials['password'],PASSWORD_BCRYPT);
 
         if (!$connection)
             return false;
