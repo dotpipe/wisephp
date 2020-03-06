@@ -27,19 +27,14 @@ class NavigableSet extends SortedSet {
      */
     // Retrieves first entry <= $r
     public function ceiling(string $r) {
-        if (!is_array($this->dat))
-            $this->dat = [];
-        $t = $this->dat;
-        rsort($t);
-        $i = 0;
-        reset($t);
-        while ($i < count($t)) {
-            if ($r >= current($t))
-                break;
-            next($t);
-            $i++;
+        $handler = $this->dat;
+        $ceil = null;
+        foreach ($handler as $k => $v) {
+            if ($v >= $r && $ceil >= $v)
+                $ceil = $v;
         }
-        return current($t);
+
+        return array_search($ceil, $handler,true);
     }
 
     /**
@@ -49,19 +44,14 @@ class NavigableSet extends SortedSet {
      */
     // Retrieves first entry < $r
     public function floor(string $r) {
-        if (!is_array($this->dat))
-            $this->dat = [];
-        $t = $this->dat;
-        sort($t);
-        $i = 0;
-        reset($t);
-        while ($i < count($t)) {
-            if ($r > current($t))
-                break;
-            next($t);
-            $i++;
+        $handler = $this->dat;
+        $floor = null;
+        foreach ($handler as $k => $v) {
+            if ($v <= $r && $floor <= $v)
+                $floor = $v;
         }
-        return current($t);
+
+        return array_search($floor, $handler,true);
     }
 
     /**
@@ -75,7 +65,7 @@ class NavigableSet extends SortedSet {
             $this->dat = [];
         reset($this->dat);
         $j = current($this->dat);
-        array_splice($this->dat, 0, 1);
+        array_shift($this->dat);
         return $j;
     }
 
@@ -88,9 +78,8 @@ class NavigableSet extends SortedSet {
     public function pollLast() {
         if (!is_array($this->dat))
             $this->dat = [];
-        end($this->dat);
-        $j = current($this->dat);
-        array_splice($this->dat, -1);
+        $j = end($this->dat);
+        array_pop($this->dat);
         return $j;
     }
 

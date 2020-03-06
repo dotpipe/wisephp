@@ -74,37 +74,43 @@ class SortedSet extends Set {
     // Return between $st and $en (This is very functional)
     // $Lb == 1 >= $st ; $Lb == 0 < $st
     // $Hb == 0 >= $en ; $Hb == < $en
-    public function subSet(string $st, int $Lb, string $en, int $Hb) {
-        $sSetTemp = '';
+    public function subSet(int $st, int $Lb, string $en, int $Hb) {
+        $sSetTemp = new Set();
         if (!is_array($this->dat))
             $this->dat = [];
-        for ($i = $st; $i < $this->size(); $i++) {
-            if ($Lb == 1 && $this->dat[$i] >= $st) {
-                do {
-                    $sSetTemp[] = $this->dat[$i];
-                    $i++;
-                } while ($st <= $this->dat[$i] && $i < $this->size());
+            
+        if ($Lb == 1) {
+            foreach ($this->dat as $v) {
+                if ($v >= $ven) {
+                    $sSetTemp = $sSetTemp->add($v);
+                }
             }
-            if ($Lb == 0 && $this->dat[$i] < $st) {
-                do {
-                    $sSetTemp[] = $this->dat[$i];
-                    $i++;
-                } while ($st < $this->dat[$i] && $i < $this->size());
+        }
+        else if ($Lb == 0) {
+            foreach ($this->dat as $v) {
+                if ($v > $ven) {
+                    $sSetTemp = $sSetTemp->add($v);
+                }
             }
-            if ($Hb == 1 && $this->dat[$i] <= $en) {
-                do {
-                    $sSetTemp[] = $this->dat[$i];
-                    $i++;
-                } while ($en <= $this->dat[$i] && $i < $this->size());
+        }
+        if ($Hb == 1) {
+            foreach ($this->dat as $v) {
+                if ($v <= $ven) {
+                    $sSetTemp = $sSetTemp->add($v);
+                }
             }
-            if ($Hb == 0 && $this->dat[$i] > $en) {
-                do {
-                    $sSetTemp[] = $this->dat[$i];
-                    $i++;
-                } while ($en < $this->dat[$i] && $i < $this->size());
+        }
+        else if ($Hb == 0) {
+            foreach ($this->dat as $k => $v) {
+                if ($v < $ven) {
+                    $sSetTemp = $sSetTemp->add($v);
+                }
             }
+        }
+        else {
+            throw new SyntaxError('Invalid Syntax');
+            return false;
         }
         return $sSetTemp;
     }
-
 }

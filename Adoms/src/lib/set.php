@@ -75,7 +75,7 @@ class Set extends Common {
      *
      */
     // Merge sets
-    public function addAll(string $r): bool {
+    public function addAll(Set $r): bool {
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
             return false;
@@ -83,10 +83,7 @@ class Set extends Common {
 
         $s = $this->dat;
         $this->clear();
-        for ($i = 0; $i < sizeof($r->dat); $i++)
-            $this->add($r->dat[$i]);
-        for ($i = 0; $i < sizeof($s); $i++)
-            $this->add($s[$i]);
+        array_merge($this->dat,$r);
         $this->pt = current($this->dat);
         return true;
     }
@@ -112,9 +109,10 @@ class Set extends Common {
     // Splice $r into $indx point
     public function add($r): bool {
         $bool = 0;
-        foreach ($this->dat as $x)
+        foreach ($this->dat as $x) {
             if ($r == $x)
                 $bool = 1;
+        }
         if ($bool == 0)
             $this->dat[] = $r;
         $this->pt = current($this->dat);
@@ -160,7 +158,6 @@ class Set extends Common {
             if ($this->strict == 1) throw new IndexException('Empty Set');
             return false;
         }
-
         return $this->dat[$indx];
     }
 
@@ -175,13 +172,7 @@ class Set extends Common {
             if ($this->strict == 1) throw new IndexException('Empty Set');
             return false;
         }
-
-        $indx = -1;
-        for ($i = 0; $i < $this->size(); $i++) {
-            if ($this->dat[$i] == $r)
-                $indx = $i;
-        }
-        return $indx;
+        return array_search($r,$this->dat);
     }
 
     /**
@@ -196,17 +187,7 @@ class Set extends Common {
             if ($this->strict == 1) throw new IndexException('Empty Set');
             return false;
         }
-
-        $i = 0;
-        reset($this->dat);
-        while ($i < count($this->dat)) {
-            if ($i != $indx)
-                $setTemp[] = current($this->dat);
-            next($this->dat);
-            $i++;
-        }
-        $this->dat = $setTemp;
-        $this->pt = current($this->dat);
+        array_splice($this->dat,$indx,1);
         return true;
     }
 
@@ -222,16 +203,7 @@ class Set extends Common {
             if ($this->strict == 1) throw new IndexException('Empty Set');
             return false;
         }
-
-        $i = 0;
-        reset($this->dat);
-        while ($i < count($this->dat)) {
-            if ($current($this->dat) != $val)
-                $setTemp[] = current($this->dat);
-            next($this->dat);
-            $i++;
-        }
-        $this->dat = $setTemp;
+        array_splice($this->dat,array_search($val,$this->dat),1);
         $this->pt = current($this->dat);
         return true;
     }

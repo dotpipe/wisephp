@@ -44,7 +44,7 @@ class mSet extends Set {
         if (!is_array($this->dat))
             $this->dat = [];
 
-        return array_slice($this->dat, $indx,1);
+        return array_search($indx,$this->dat, 1);
     }
 
     /**
@@ -59,17 +59,8 @@ class mSet extends Set {
             if ($this->strict == 1) throw new Type_Error('Incorrect Type');
             return false;
         }
-        $h = 1;
-        $t = 0;
-        $r_temp = $r->dat;
-        sort($r_temp);
-        for ($i = 0; $i < $this->size(); $i++) {
-            $temp = $this->dat[$i]->dat;
-            sort($temp);    
-            if ($temp != $r_temp)
-                $t++;
-        }
-        if ($t == $this->size()) {
+        $handler = array_search($r,$this->dat,1);
+        if ($handler == FALSE) {
             $this->dat[] = $r;
             $this->sync();
             return true;
@@ -85,18 +76,16 @@ class mSet extends Set {
     public function exists(string $r) {
         if (!is_array($this->dat))
             $this->dat = [];
-        $indx = array();
-        $temp = array();
-        for ($i = 0; $i < $this->size(); $i++) {
-            $temp = $this->dat[$i];
-            for ($j = 0 ; $j < sizeof($temp->dat) ; $j++) {
-                if ($temp->dat[$j] == $r) {
-                    $indx[] = array($i, $j);
-                    break;
-                }
-            }
+        $list = [];
+        $handler = array_keys($this->dat);
+        foreach($handler as $k => $v) {
+            $list[] = array_search($r,$k);
         }
-        return $indx;
+        $pot = 0;
+        foreach ($list as $v) {
+            ($v == FALSE) ? $pot++ : 0;
+        }
+        return $pot == count($list);
     }
 
     /**
@@ -105,21 +94,13 @@ class mSet extends Set {
      *
      */
     public function remIndex(int $indx):bool {
-        $setTemp = new mSet();
         if (!is_array($this->dat))
             $this->dat = [];
-
-        $i = 0;
-        $t = $this->dat;
-        reset($t);
-        $m = new mSet();
-        while ($i < count($t)) {
-            if ($i != $indx)
-                $m->addSet(current($t));
-            next($t);
-            $i++;
-        }
-        $this->dat = $m->dat;
+        $keys = array_keys($this->dat);
+        if (\in_array($k,$keys))
+            unset($this->dat[$indx]);
+        else
+            return 0;
         $this->sync();
         return true;
     }

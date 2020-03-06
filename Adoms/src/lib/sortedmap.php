@@ -33,7 +33,7 @@ class SortedMap extends Map {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        return array($this->dat[0], $this->value[0]);
+        return array_keys($this->dat)[0];
     }
 
     /**
@@ -78,7 +78,7 @@ class SortedMap extends Map {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        return array($this->dat[$this->size()-1], $this->value[$this->size()-1]);
+        return array_keys($this->dat)[count($this->dat)];
     }
 
     /**
@@ -87,28 +87,20 @@ class SortedMap extends Map {
      *
      */
     // Return Keys before $r
-    // $vb == 2 returns all
     // $vb == 1 >= $v
     // $vb == 0 < $v
-    public function headMap(string $v, int $vb, int $r) {
-        $mapTempK = array();
-        $mapTempV = array();
+    public function headMap(string $v, bool $vb, int $r) {
+        $mapTemp = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        for ($i = 0; $i < $r; $i++) {
-            if ($v >= $this->value[$i] && $vb == 1) {
-                $mapTempK[] = $this->dat[$i];
-                $mapTempV[] = $this->value[$i];
+        foreach ($this->dat as $k => $v) {
+            if ($st >= $v && $vb == 1) {
+                $mapTemp = array_merge($mapTemp, array($k => $v));
             }
-            else if ($v < $this->value[$i] && $vb == 0) {
-                $mapTempK[] = $this->dat[$i];
-                $mapTempV[] = $this->value[$i];
-            }
-            else if ($vb == 2) {
-                $mapTempK[] = $this->dat[$i];
-                $mapTempV[] = $this->value[$i];
+            else if ($st < $v && $vb == 0) {
+                $mapTemp = array_merge($mapTemp, array($k => $v));
             }
             else {
                 throw new SyntaxError('Invalid Syntax');
@@ -116,8 +108,8 @@ class SortedMap extends Map {
             }
         }
         $vMap = new Map();
-        $vMap->key = mapTempK;
-        $vMap->value = mapTempV;
+        foreach ($mapTemp as $k => $v)
+            $vMap->add($k, $v);
         return $vMap;
     }
 
@@ -127,65 +119,55 @@ class SortedMap extends Map {
      *
      */
     // Return KVs between $vst and $ven (This is very functional)
-    // $Lb == 0 >= $vst ; $Lb == 1 < $vst
-    // $Hb == 0 >= $ven ; $Hb == 1 < $ven
-    public function subMap(string $vst, int $Lb, string $ven, int $Hb) {
-        $mapTempK = array();
-        $mapTempV = array();
+    // $Lb == 0 : >= $vst ; $Lb == 1 : < $vst
+    // $Hb == 0 : >= $ven ; $Hb == 1 : < $ven
+    public function subMap(string $vst, bool $Lb, string $ven, bool $Hb) {
+        $mapTemp = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
+        // let's go the right way thru
         if ($vst > $ven) {
             $tmp = $ven;
             $ven = $vst;
             $vst = $tmp;
         }
-        for ($i = 0; $i < $this->size(); $i++) {
-            if ($Lb == 1) {
-                if ($this->value[$i] >= $vst) {
-                    do {
-                        $mapTempK[] = $this->dat[$i];
-                        $mapTempV[] = $this->value[$i];
-                        $i++;
-                    } while ($vst <= $this->value[$i]);
+        if ($Lb == 1) {
+            foreach ($this->dat as $k => $v) {
+                if ($v >= $ven) {
+                    $mapTemp = array_merge($mapTemp, array($k => $v));
                 }
-            }
-            else if ($Lb == 0) {
-                if ($this->value[$i] > $vst) {
-                    do {
-                        $mapTempK[] = $this->dat[$i];
-                        $mapTempV[] = $this->value[$i];
-                        $i++;
-                    } while ($vst <= $this->value[$i]);
-                }
-            }
-            else if ($Hb == 1) {
-                if ($this->value[$i] <= $ven) {
-                    do {
-                        $mapTempK[] = $this->dat[$i];
-                        $mapTempV[] = $this->value[$i];
-                        $i++;
-                    } while ($ven >= $this->value[$i]);
-                }
-            }
-            else if ($Hb == 0) {
-                if ($this->value[$i] < $ven) {
-                    do {
-                        $mapTempK[] = $this->dat[$i];
-                        $mapTempV[] = $this->value[$i];
-                        $i++;
-                    } while ($ven >= $this->value[$i]);
-                }
-            }
-            else {
-                throw new SyntaxError('Invalid Syntax');
-                return false;
             }
         }
+        else if ($Lb == 0) {
+            foreach ($this->dat as $k => $v) {
+                if ($v > $ven) {
+                    $mapTemp = array_merge($mapTemp, array($k => $v));
+                }
+            }
+        }
+        if ($Hb == 1) {
+            foreach ($this->dat as $k => $v) {
+                if ($v <= $ven) {
+                    $mapTemp = array_merge($mapTemp, array($k => $v));
+                }
+            }
+        }
+        else if ($Hb == 0) {
+            foreach ($this->dat as $k => $v) {
+                if ($v < $ven) {
+                    $mapTemp = array_merge($mapTemp, array($k => $v));
+                }
+            }
+        }
+        else {
+            throw new SyntaxError('Invalid Syntax');
+            return false;
+        }
         $vMap = new Map();
-        $vMap->key = $mapTempK;
-        $vMap->value = $mapTempV;
+        foreach ($mapTemp as $k => $v)
+            $vMap->add($k, $v);
         return $vMap;
     }
 
@@ -195,28 +177,23 @@ class SortedMap extends Map {
      *
      */
     // Return Tail end of Map at $st
-    public function tailMap(string $st, int $vb) {
+    public function tailMap(int $st, bool $vb) {
         $mapTemp = array();
-        $mapTempV = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        $vals = $this->value;
-        sort($vals, SORT_STRING);
-        for ($i = 0; $i < $this->size(); $i++) {
-            if ($v >= $vals[$i] && $vb == 1) {
-                $mapTempK[] = $this->dat[$i];
-                $mapTempV[] = $this->value[$i];
+        foreach ($this->dat as $k => $v) {
+            if ($st >= $v && $vb == 1) {
+                $mapTemp = array_merge($mapTemp, array($k => $v));
             }
-            else if ($v > $vals[$i] && $vb == 0) {
-                $mapTempK[] = $this->dat[$i];
-                $mapTempV[] = $this->value[$i];
+            else if ($st > $v && $vb == 0) {
+                $mapTemp = array_merge($mapTemp, array($k => $v));
             }
         }
         $vMap = new Map();
-        $vMap->key = $mapTempK;
-        $vMap->value = $mapTempV;
+        foreach ($mapTemp as $k => $v)
+            $vMap->add($k, $v);
         return $vMap;
     }
 }

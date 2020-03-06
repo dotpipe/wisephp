@@ -422,20 +422,15 @@ spl_autoload_register(function ($className)
 		*/
 		// Remove Key of $k
 		public function remove(string $k): bool {
-			$mapTempK = array();
-			$mapTempV = array();
 			if ($this->size() == 0) {
 				if ($this->strict == 1) throw new IndexException('Empty Map');
 				return 0;
 			}
-			for ($i = 0; $i < $this->size(); $i++) {
-				if ($this->at($i) != $k) {
-					$mapTempK = array_merge($mapTempK, $this->at($i));
-				}
-			}
-			if (sizeof($mapTempK) == 0)
+			$keys = array_keys($this->dat);
+			if (\in_array($k,$keys))
+				unset($this->dat["$k"]);
+			else
 				return 0;
-			$this->dat = $mapTempK;
 			return 1;
 		}
 		/*
