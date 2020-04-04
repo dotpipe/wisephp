@@ -1,13 +1,8 @@
 <?php
 
-namespace Adoms\wireframe;
-use Adoms\src\tables;
+namespace wireframe;
 
-use Adoms\src\lib;
-
-$my = function ($pClassName) {
-    include_once(__DIR__ . "/../../" . strtolower($pClassName) . ".php");
-};
+require 'vendor/autoload.php';
 
 	class PageViews {
 
@@ -16,7 +11,7 @@ $my = function ($pClassName) {
 		public $token;
 		public $injections = array();
 		public $selector;
-
+		public $md;
 		/*
 		*
 		* public function __construct
@@ -26,7 +21,7 @@ $my = function ($pClassName) {
 		function __construct(string $token, string $view_name) {
 			$this->token = $token;
 			$this->path = "$this->token/view";
-
+			$this->md = $_COOKIE['PHPSESSID'];
 			if (!is_dir("$this->path/$view_name") && !mkdir("$this->path/$view_name"))
 				echo "Unable to create needed directories";
 			$this->copy = $view_name;
@@ -171,15 +166,15 @@ $my = function ($pClassName) {
 			$fp = fopen("$this->token/index.php", "w");
 			foreach ($this->injections as $k) {
 				$vk = $k;
-				$vv = ''; //$k;
-				if ($vk == "shared") {
-					$buff .= "\r\n\tinclude_once(\"view/shared/$vk\");";
+				$vv = '';
+				if (is_array($vk) && $vk[0] == "shared") {
+					$buff .= "\r\n\tinclude_once(__DIR__ . '/view/shared/$vk[1]');";
 				}
 				else {
-					$buff .= "\r\n\tinclude_once(\"view/index/$vk\");";
+					$buff .= "\r\n\tinclude_once(__DIR__ . \"/view/$this->copy/$vk\");";
 				}
 			}
-			$buff .= "?>\r\n";
+			$buff .= "\r\n?>\r\n";
 			fwrite($fp, $buff);
 			fclose($fp);
 		}
@@ -244,34 +239,37 @@ $my = function ($pClassName) {
 		* @parameters string
 		*
 		*/
-		public function writePage(string $view_name) {
+		public function writePage(string $view_name = "index") {
 			$fp = null;
-			if ($view_name == "index") {
-				touch("$this->token/index.php");
-				$this->writeIndex();
+			try {
+				if ($view_name == "index") {
+					\touch("$this->token/index.php");
+					$this->writeIndex();
+					return true;
+				}
+				if (!\is_dir("$this->token/view/$this->md") && !\mkdir("$this->token/view/$this->md"))
+					echo "Unable to create directory needed";
+				if (!\file_exists("$this->token/view/$this->md/index.php") && !\file_put_contents("$this->token/view/$this->md/index.php",""))
+					echo "Unable to create files needed";
+				if ($view_name != "index")
+					$fp = \fopen("$this->token/view/$this->md/index.php", "w");
+				$buff = "<?php\r\n";
+				foreach ($this->injections as $k) {
+					$vk = $k;
+					if ($vk == "shared") {
+						$buff .= "include_once(\"../shared/$vk\");\r\n";
+					}
+					else if ($vk == "partials")
+						$buff .= "include_once(\"../$view_name/$vk\");\r\n";
+					else
+						$buff .= "include_once(\"../$view_name/$vk\");\r\n";
+				}
+				\fwrite($fp, $buff);
+				\fclose($fp);
+			}
+			catch(exception $e) {}
 				return true;
 			}
-			else if (!dir_exists("$this->token/$this->md") && !mkdir("$this->path/$this->md"))
-				echo "Unable to create directory needed";
-			else if (!file_exists("$this->token/$this->md/index.php") && !touch("$this->token/$this->md/index.php"))
-				echo "Unable to create files needed";
-			if ($view_name != "index")
-				$fp = fopen("$this->token/$this->md/index.php", "w");
-			$buff = "<?php\r\n";
-			foreach ($this->injections as $k) {
-				$vk = $k;
-				if ($vk == "shared") {
-					$buff .= "include_once(\"../shared/$vk\");\r\n";
-				}
-				else if ($vk == "partials")
-					$buff .= "include_once(\"../$view_name/$vk\");\r\n";
-				else
-					$buff .= "include_once(\"../$view_name/$vk\");\r\n";
-			}
-			fwrite($fp, $buff);
-			fclose($fp);
-			return true;
-		}
 
 		/*
 		*

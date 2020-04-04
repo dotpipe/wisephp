@@ -1,13 +1,7 @@
 <?php
-namespace Adoms\wireframe;
-use Adoms\src\tables;
+namespace wireframe;
 
-use Adoms\src\lib;
-
-$my = function ($pClassName) {
-    include_once(__DIR__ . "/../../" . strtolower($pClassName) . ".php");
-};
-
+require 'vendor/autoload.php';
 
 	class PageControllers {
 
@@ -66,7 +60,7 @@ $my = function ($pClassName) {
 			$this->mvc[$tok] = new PageModels($view);
 			$this->mvc[$tok]->view = new PageViews($tok, $view);
 			$this->mvc[$tok]->md = $_COOKIE['PHPSESSID'];
-			setcookie('PHPSESSID', $_COOKIE['PHPSESSID'], time() * 60 * 60 * 24 * 365, "$this->token/$this->md");
+			setcookie('PHPSESSID', $_COOKIE['PHPSESSID'], time() + (60 * 60 * 24 * 365), "$this->token/$this->md");
 			$this->mvc[$tok]->sid['model'] = new PageModels($_COOKIE['PHPSESSID']);
 			$this->mvc[$tok]->sid['view'] = new PageViews($tok, $_COOKIE['PHPSESSID']);
 		}
@@ -128,7 +122,6 @@ $my = function ($pClassName) {
 					echo "Permissions Error: Unable to create Directory";
 					return false;
 				}
-				
 				touch("$this->path/$view_name/index.php");
 				touch("$this->token/config.json");
 			}

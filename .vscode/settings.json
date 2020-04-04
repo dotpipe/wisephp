@@ -1,8 +1,6 @@
 {
     "files.associations": {
         "xstring": "cpp",
-        "string": "cpp",
-        "regex": "cpp",
         "vector": "cpp"
     }
 }
