@@ -78,9 +78,9 @@ class mSet extends Set {
             $this->dat = [];
         $list = [];
         $handler = array_keys($this->dat);
-        foreach($handler as $k => $v) {
+        //foreach($handler as $k => $v) {
             $list[] = array_search($r,$this->dat);
-        }
+        //}
         $pot = 0;
         foreach ($list as $v) {
             ($v == FALSE) ? $pot++ : 0;

@@ -22,7 +22,6 @@
         // specify which pipe with pipe="target.id"
         var elem_values = document.getElementsByClassName("data-pipe");
         var elem_qstring = "";
-
         // No 'pipe' means it is generic. This means it is open season for all with this class
         for (var i = 0; i < elem_values.length; i++) {
 
@@ -30,6 +29,7 @@
             if (!elem_values[i].hasAttribute("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
                 elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
             // Multi-select box
+            console.log(".");
             if (elem_values[i].hasAttribute("multiple")) {
                 for (var o of elem_values.options) {
                     if (o.selected) {
@@ -50,11 +50,12 @@
             return;
         }
 
+        document.cookie = document.cookie  + "SameSite=Strict; Max-Age=2600000; Secure";
         // communicate properties of Fetch Request
         (!elem.hasAttribute("method")) ? method_thru = "GET": method_thru = elem.getAttribute("method");
         (!elem.hasAttribute("mode")) ? mode_thru = "no-cors": mode_thru = elem.getAttribute("mode");
         (!elem.hasAttribute("cache")) ? cache_thru = "no-cache": cache_thru = elem.getAttribute("cache");
-        (!elem.hasAttribute("credentials")) ? cred_thru = "same-origin": cred_thru = elem.getAttribute("credentials");
+        (!elem.hasAttribute("credentials")) ? cred_thru = " ": cred_thru = elem.getAttribute("credentials");
         // updated "headers" attribute to more friendly "content-type" attribute
         (!elem.hasAttribute("content-type")) ? content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}': content_thru = elem.getAttribute("headers");
         (!elem.hasAttribute("redirect")) ? redirect_thru = "manual": redirect_thru = elem.getAttribute("redirect");
@@ -87,14 +88,16 @@
             signal
         });
 
-        setTimeout(() => abort_ctrl.abort(), 3 * 1000);
+        setTimeout(() => abort_ctrl.abort(), 10 * 1000);
         const __grab = async (opts_req, opts_) => {
             return fetch(opts_req, opts_)
                 .then(function(response) {
                     return response.text().then(function(text) {
                         // Make sure that the target out-pipe exists still
-                        if (target__ != null && pipe_back != "json")
+                        if (target__ != null && pipe_back != "json") {
                             target__.innerHTML = text;
+                            console.log(target__);
+                        }
                         else if (target__ != null && pipe_back == "json") {
                             let v = JSON.parse(text);
                             return v;

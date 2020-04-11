@@ -1,8 +1,8 @@
 <?php
-namespace adoms\src\lib;
+namespace Adoms\src\lib;
 
 $my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\adoms\\" . strtolower($pClassName) . ".php");
+    include("c:\\xampp\\htdocs\\Adoms\\" . strtolower($pClassName) . ".php");
 };
 spl_autoload_register($my, true, 1);
 

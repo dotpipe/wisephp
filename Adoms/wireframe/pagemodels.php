@@ -2,7 +2,7 @@
 
 namespace wireframe;
 
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 	class PageModels {
 	
