@@ -59,7 +59,7 @@ class mSet extends Set {
             if ($this->strict == 1) throw new Type_Error('Incorrect Type');
             return false;
         }
-        $handler = array_search($r,$this->dat,1);
+        $handler = array_search($r,$this->dat,true);
         if ($handler == FALSE) {
             $this->dat[] = $r;
             $this->sync();
@@ -79,7 +79,7 @@ class mSet extends Set {
         $list = [];
         $handler = array_keys($this->dat);
         foreach($handler as $k => $v) {
-            $list[] = array_search($r,$k);
+            $list[] = array_search($r,$this->dat);
         }
         $pot = 0;
         foreach ($list as $v) {

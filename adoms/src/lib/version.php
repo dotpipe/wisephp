@@ -6,8 +6,8 @@ namespace Adoms\src\lib;
 class Version {
     public function about($vbool)  {
         if ($vbool == 0) {
-            echo 'Adoms - (Helium) 1.0<br>';
-            echo 'Adoms Obiented Library / PVC Model-View-Controller / Pipes Routing';
+            echo 'Adoms - (Helium v2.0.5) <br>';
+            echo 'Adoms Objected Library / PVC Model-View-Controller / Pipes Routing';
         }
         else if ($vbool == 1)
             echo 'Adoms v1';

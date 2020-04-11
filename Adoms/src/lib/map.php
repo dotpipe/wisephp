@@ -314,7 +314,7 @@ class Map extends Common
     {
         $t = array();
         if ($this->dat == null || (is_array($this->dat) && sizeof($this->dat) == 0)) {
-            $this->dat = array_merge($t, array($key =>  (\gettype($val))($val)));
+            $this->dat = array_merge($t, array($key =>  ($val)));
             $this->datCntr = 0;
         }
         foreach ($this->dat as $x => $y) {

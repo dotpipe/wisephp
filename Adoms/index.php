@@ -10,7 +10,7 @@ echo "<html><head>";
 echo "<script src=\"adoms/src/routes/pipes.js\"></script>";
 echo "<title>Swatch Test Page</title></head><body>";
 echo "<span id=\"hed\" style=\"background-color:black;width:100%\"><br>";
-echo "adoms::Helium v1.0 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
+echo "Adoms::Helium v2.0.5 - <a href=\"http://www.github.com/swatchphp\">GitHub</a> + ";
 echo "<a id=\"wiki-link\" method=\"GET\" out-pipe='red' thru-pipe=\"tests\\" . md5('inland14') . "\">Wiki</a> + ";
 echo "<a id=\"donate\" redirect=\"follow\" method=\"POST\" to-pipe=\"https://www.paypal.com/cgi-bin/webscr\"> Donate + </a>"; //?cmd=_s-xclick&hosted_button_id=TMZJ4ZGG84ACL\">Donate</a> + ";
 echo "<input type=\"hidden\" pipe=\"donate\" class=\"data-pipe\" name=\"cmd\" value=\"_s-xclick\" />";
