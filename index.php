@@ -17,8 +17,7 @@ Adoms::Helium v2.0.5 - <a href="http://www.github.com/swatchphp">GitHub</a> +
 <input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
 <a pipe="wiki-link" class="data-pipe" name="me" value="mailto:inland14@live.com">Contact</a> +
 <a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a>
-
-// the out-pipe attribute comes to here
+    
  <b id="red"></b>
 </span>
 <button id="donate" redirect="follow" method="POST" goto="https://www.paypal.com/cgi-bin/webscr">Submit</button>
