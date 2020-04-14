@@ -109,18 +109,17 @@ echo "<b class=\"box\">This is the pointed to Vector held in ->vect<br></b>" . j
 $vs = new mSet("Set");
 $vs->addSet($ccc);
 $vs->addSet($ccc);
+//$ccc->add(6);
 $vs->addSet($ccc);
-//echo "<br><b>This was retrieved from the JSON I put out.<b><br>" . json_encode($serv);
 //Notice that only 1 exists after trying 3 times.
 // No joke! Multi-Sets are here!
-$sss = $vs->exists(4);
-
+$sss = $vs->setExists($ccc);
+echo json_encode($vs);
 if (strlen(json_encode($sss)) + strlen(json_encode($vs)) < 250)
     echo "</p><p class=\"cols\">";
 else
     echo "</p><p id=\"sbox\">";
-echo "<b class=\"box\">I found the number 4 at index " . json_encode($sss[0]) . "!</b><br>";
-echo json_encode($sss);
+echo "<b class=\"box\">Inserted Set is in MultiSet: " . json_encode($sss) . "!</b><br>";
 echo "<br><b>What? Oh my god.. MultiSets!</b><br>";
 echo "<br><br>" . json_encode($vs) . "<br><br>";
 

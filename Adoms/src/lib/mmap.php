@@ -107,12 +107,8 @@ spl_autoload_register(function ($className)
 		*/
 		// Return Map fitting $regex
 		public function mapSearch(string $regex): array {
-			$reglist = array();
-			$tmp = $this->dat;
-			reset($tmp);
-			$i = 0;
-			while (list($t) = each($tmp)) {
-				if (preg_match($regex, ($t))) {
+			while (list($t) = each($this->dat)) {
+				if (preg_match($regex, $t)) {
 					array_push($reglist, $t);
 				}
 			}

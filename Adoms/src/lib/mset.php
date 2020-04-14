@@ -59,7 +59,7 @@ class mSet extends Set {
             if ($this->strict == 1) throw new Type_Error('Incorrect Type');
             return false;
         }
-        $handler = array_search($r,$this->dat,true);
+        $handler = $this->setExists($r);
         if ($handler == FALSE) {
             array_push($this->dat, $r);
             $this->sync();
@@ -73,10 +73,14 @@ class mSet extends Set {
      * @parameters Set
      *
      */
-    public function exists(string $r) {
+    public function setExists(Set $read_in): bool {
         if (!is_array($this->dat))
             $this->dat = [];
-        return in_array($r,array_count_values($this->dat));
+        foreach ($this->dat as $t => $val0) {
+            if (isset($val0->dat) && array_diff_assoc($val0->dat,$read_in->dat) == array())
+                return true;
+        }
+        return false;
     }
 
     /**
