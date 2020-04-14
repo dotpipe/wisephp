@@ -7,9 +7,9 @@ require "vendor/autoload.php";
 session_start();
 file_put_contents("example.txt",":):):):)");
 ?>
-<script src="src/routes/pipes.js"></script>
+<script src="adoms/src/routes/pipes.js"></script>
 <span id="hed" style="width:100%"><br>
-Adoms::Helium v2.0.5 - <a href="http://www.github.com/swatchphp">GitHub</a> +
+Adoms::Helium v2.1.0 - <a href="http://www.github.com/swatchphp">GitHub</a> +
 <a id="wiki-link" method="GET" insert-in="red" ajax="example.txt">Wiki</a> +
 <i id="donate" redirect="follow" method="POST" goto="https://www.paypal.com/cgi-bin/webscr"> Donate + </button></i>
 <input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
@@ -52,7 +52,6 @@ $rrr->buffSize = 0;
 $rrr->readBuf();
 $tt = new api();
 
-echo print_r($rrr);
 $tvv = ($rrr->buffData);
 echo "*" . ($rrr->buffData);
 
@@ -190,7 +189,7 @@ do {
 $mm->setIndex($mm->size()-1);
 $mm->mmap = $mt;
 
-$temp = $mm->getMap("/S/");
+$temp = $mm->mapSearch("/S/");
 $e = $mm->mmap->findKey("/ya/");
 if (strlen(json_encode($temp)) + strlen(json_encode($mm)) < 250)
     echo "</p><p class=\"cols\">";
@@ -199,7 +198,7 @@ else
 echo "<b>Guess what *I* Found \$mm->mmap->findKey(\"/ya/\"); !</b><br>" . json_encode($e) . "<br><br>";
 echo "<b>Did you notice that? Map don't overwrite with changes to ->pt if it ignores the rule of multiple keys :)</b><br>";
 echo json_encode($mm);
-echo "<br><br><b>I also found this mMap ->mname! with getMap(\"/S/\")</b><br>";
+echo "<br><br><b>I also found this mMap ->mname! with mapSearch(\"/S/\")</b><br>";
 echo json_encode($temp);
 
 $s = "'<a href=\"#\">testing</a>','asdj',['adk',['adfd']],'cnaa',['sdasa']";

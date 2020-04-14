@@ -112,8 +112,8 @@ spl_autoload_register(function ($className)
 			reset($tmp);
 			$i = 0;
 			while (list($t) = each($tmp)) {
-				if (preg_match($regex, key($t))) {
-					array_push($reglist, array(key($t) => current($t)));
+				if (preg_match($regex, ($t))) {
+					array_push($reglist, $t);
 				}
 			}
 			return $reglist;
