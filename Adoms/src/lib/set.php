@@ -108,15 +108,9 @@ class Set extends Common {
      */
     // Splice $r into $indx point
     public function add($r): bool {
-        $bool = 0;
-        foreach ($this->dat as $x) {
-            if ($r == $x)
-                $bool = 1;
-        }
-        if ($bool == 0)
-            $this->dat[] = $r;
-        $this->pt = current($this->dat);
-        return true;
+        $bool = true;
+        (in_array($r)) ? $bool = false : array_push($r);
+        return $bool;
     }
 
     /**

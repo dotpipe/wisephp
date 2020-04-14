@@ -53,7 +53,7 @@ class Dequeue
     // Add entry
     public function push($r)
     {
-        return $this->dat[] = $r;
+        return array_push($this->dat, $r);
     }
 
     // Remove last entry

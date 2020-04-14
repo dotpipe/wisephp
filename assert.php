@@ -417,7 +417,7 @@ function extract_funct(string $lock_mx, array &$appended_json, &$i, &$m)
                 $j--;
                 if ($j == 0) {
                     $json = array_unique($json);
-                    $appended_json[] = $json;
+                    array_push($appended_json,$json);
                     $m++;
                     return $json;
                 }

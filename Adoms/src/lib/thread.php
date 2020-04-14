@@ -262,7 +262,7 @@ class Thread extends Streams implements Classes {
         $this->resize(0);
         while (! $this->eof()) {
             $this->readBuf();
-            $this->json[] = $this->buffData;
+            array($this->json, $this->buffData);
             $this->buffData = null;
         }
         return true;

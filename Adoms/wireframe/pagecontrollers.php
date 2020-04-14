@@ -187,6 +187,6 @@ require_once 'vendor/autoload.php';
 		*
 		*/
 		public function addAction(string $token, string $view_name, string $action_name) {
-			return $this->actions[] = new PageActions($this->token, $view_name, $action_name);
+			return array_push($this->actions[], new PageActions($this->token, $view_name, $action_name));
 		}
 	}

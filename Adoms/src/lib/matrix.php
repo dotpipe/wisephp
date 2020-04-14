@@ -28,57 +28,57 @@ spl_autoload_register(function ($className)
 			$this->parentType = 'Matrix';
 
 			if ($type == 'Dequeue') {
-				$this->dat[] = new Dequeue();
+				array_push($this->dat, new Dequeue());
 				$this->childType = 'Dequeue';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'Queue') {
-				$this->dat[] = new Queue();
+				array_push($this->dat, new Queue());
 				$this->childType = 'Queue';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'Set') {
-				$this->dat[] = new Set();
+				array_push($this->dat, new Set());
 				$this->childType = 'Set';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'SortedSet') {
-				$this->dat[] = new SortedSet();
+				array_push($this->dat, new SortedSet());
 				$this->childType = 'SortedSet';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'NavigableSet') {
-				$this->dat[] = new NavigableSet();
+				array_push($this->dat, new NavigableSet());
 				$this->childType = 'NavigableSet';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'Map') {
-				$this->dat[] = new Map();
+				array_push($this->dat, new Map());
 				$this->childType = 'Map';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'SortedMap') {
-				$this->dat[] = new SortedMap();
+				array_push($this->dat, new SortedMap());
 				$this->childType = 'SortedMap';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'NavigableMap') {
-				$this->dat[] = new Navigablemap();
+				array_push($this->dat, new Navigablemap());
 				$this->childType = 'NavigableMap';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'mMap') {
-				$this->dat[] = new mMap();
+				array_push($this->dat, new mMap());
 				$this->childType = 'mMap';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'Stack') {
-				$this->dat[] = new Stack();
+				array_push($this->dat, new Stack());
 				$this->childType = 'Stack';
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'Thread') {
-				$this->dat[] = new Thread();
+				array_push($this->dat, new Thread());
 				$this->childType = 'Thread';
 				$this->parentType = 'Matrix';
 			}
@@ -95,7 +95,7 @@ spl_autoload_register(function ($className)
 				$this->parentType = 'Matrix';
 			}
 			else if ($type == 'Vector') {
-				$this->dat[] = new Vector($child);
+				array_push($this->dat, new Vector($child));
 				$this->childType = $child;
 				$this->parentType = 'Vector';
 			}
@@ -217,7 +217,7 @@ spl_autoload_register(function ($className)
 			$mcnt = array();
 			$tab = array();
 			for ($i = 1; $i < sizeof($this->dat); $i++)
-				$tab[] = $this->dat[$i];
+				array_push($tab, $this->dat[$i]);
 			$e = 0;
 			for ($i = 0; $i < sizeof($tab); $i++) {
 				if ($g == 1 || $g == 3)
@@ -286,14 +286,9 @@ spl_autoload_register(function ($className)
 				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
 				return 0;
 			}
-			$temporneous = array();
-
-			for ($i = 0; $i < $this->size(); $i++) {
-				if ($i != $r)
-					$temporneous[] = $this->dat[$i];
-			}
+			$temp = array_merge(\array_splice($this->dat, 0, $r+1), \array_splice($this->dat, $r+1));
 			$this->setIndex($this->getIndex());
-			return $this->dat = $temporneous;
+			return $this->dat = $temp;
 		}
 
 		/*
@@ -594,10 +589,10 @@ spl_autoload_register(function ($className)
 		// Add Vector with $r and Join if $bool == 1
 		public function push($r): bool {
 			if ($this->childType == 'String' && !is_object($r))
-				$this->dat[] = $r;
+				array_push($this->dat, $r);
 			else if ($this->childType == 'Any' || $this->childType == $r->childType
 				|| ($this->childType == 'Array' && is_array($r)))
-				$this->dat[] = $r;
+				array_push($this->dat, $r);
 			else {
 				throw new Type_Error('Invalid Type');
 				return 0;
@@ -614,20 +609,14 @@ spl_autoload_register(function ($className)
 		*
 		*/
 		// Remove $r from Vector
-		public function pop(): int {
+		public function pop(): mixed {
 			if ($this->size() == 1)
 				$this->dat = null;
 			if ($this->size() == 0) {
 				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
 				return 0;
 			}
-			$temporneous = array();
-
-			for ($i = 0; $i < $this->size()-1; $i++) {
-				$temporneous[] = $this->dat[$i];
-			}
-			$this->setIndex($this->getIndex());
-			return $this->dat = $temporneous;
+			return array_pop($this->dat);
 		}
 
 		/*
@@ -735,7 +724,7 @@ spl_autoload_register(function ($className)
 				$col = sizeof($this->dat)-1;
 			$setTemp = '';
 			if ($this->size() == 0) {
-				$this->dat[] = $r;
+				array_push($this->dat, $r);
 				return 1;
 			}
 			if ($indx < 0) {
@@ -744,26 +733,9 @@ spl_autoload_register(function ($className)
 			}
 			if (!is_object($r) && !is_array($r) || $r->childType == $this->typeOf) {
 				$t = array();
-			
-				for ($x = 0 ; $x < $indx ; $x++) {
-					$t[] = $this->dat[$x];
-					for ($y = 0 ; $y < $col ; $y++)
-						$t[$x][] = $this->dat[$x][$y];
-				}
-				for ($x = 0 ; $x < $col ; $x++)
-					$t[$indx][$x] = $this->dat[$indx][$x];
-				$t = $this->mx;
-				$t[$indx][$col] = $r;
-			
-				for ($x = $col+1 ; $x < sizeof($this->dat[$indx]) ; $x++)
-					$t[$indx][$x] = $this->dat[$indx][$x];
-				for ($x = $indx + 1 ; $x < $this->size() ; $x++) {
-					$t[] = $this->dat[$x];
-					for ($y = 0 ; $y < sizeof($this->dat[$x]) ; $y++)
-						$t[$x][] = $this->dat[$x][$y];
-				}
-			
-				$this->dat = $t;
+				$mtx_row_tmp = &$this->dat[$row];
+				$mtx_col_temp = array_splice($mtx_row_tmp, $col, 0, $r);
+				$this->dat = $this->dat[$row][$col];
 			}
 			else return 0;
 			
@@ -780,7 +752,7 @@ spl_autoload_register(function ($className)
 			if ($r < 1)
 				return 0;
 			for ($x = 0 ; $x < $r ; $x++)
-                $this->dat[] = newObj($this->childType, 'String');
+                array_push($this->dat, newObj($this->childType, 'String'));
             $this->pt = current($this->dat);
 			return 1;
 		}

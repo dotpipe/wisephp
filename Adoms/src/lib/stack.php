@@ -98,7 +98,7 @@ class Stack {
      */
     // Add stack URL
     public function insert(string $stackurl) {
-        $this->stack[] = $stackurl;
+        array_push($this->stack, $stackurl);
     }
 
     /**

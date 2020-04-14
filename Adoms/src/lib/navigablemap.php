@@ -67,17 +67,11 @@ class NavigableMap extends SortedMap {
      */
     // Return all Keys
     public function navigableKeySet() {
-        $mapTempK = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        else if ($this->size() == 1)
-            return array($this->dat[0]);
-        for ($i = 0; $i < $this->size(); $i++) {
-            $mapTempK[] = $this->dat[$i];
-        }
-        return $mapTempK;
+        return keys($this->dat);
     }
 
     /**
@@ -87,37 +81,11 @@ class NavigableMap extends SortedMap {
      */
     // Get first entry in Map and remove
     public function pollFirst() {
-        $mapTempK = array();
-        $mapTempV = array();
-        ;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        else if ($this->size() == 1) {
-            $j[0] = $this->dat[0];
-            $j[1] = $this->value[1];
-            $this->dat = null;
-            $this->value = null;
-            return $j;
-        }
-        for ($i = 1; $i < $this->size(); $i++) {
-            $mapTempK[] = $this->dat[$i];
-            $mapTempV[] = $this->value[$i];
-            break;
-        }
-        if (sizeof($mapTempK) == 0) {
-            $this->dat = null;
-            $this->value = null;
-            $this->setIndex(0);
-            return true;
-        }
-        $j[0] = $this->dat[0];
-        $j[1] = $this->value[0];
-        $this->dat = $mapTempK;
-        $this->value = $mapTempV;
-        $this->setIndex($this->getIndex());
-        return $j;
+        return array_shift($this->dat);
     }
 
     /**
@@ -127,35 +95,10 @@ class NavigableMap extends SortedMap {
      */
     // Get last entry in Map and Remove
     public function pollLast() {
-        $mapTempK = array();
-        $mapTempV = array();
-        ;
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        else if ($this->size() == 1) {
-            $j[0] = $this->dat[0];
-            $j[1] = $this->value[1];
-            $this->dat = null;
-            $this->value = null;
-            return $j;
-        }
-        for ($i = 0; $i < $this->size(); $i++) {
-            $mapTempK[] = $this->dat[$i];
-            $mapTempV[] = $this->value[$i];
-        }
-        if (sizeof($tempAneous) == 0) {
-            $this->dat = null;
-            $this->value = null;
-            $this->setIndex($this->getIndex());
-            return true;
-        }
-        $j[0] = $this->dat[$this->size()-1];
-        $j[1] = $this->value[$this->size()-1];
-        $this->dat = $mapTempK;
-        $this->value = $mapTempV;
-        $this->setIndex($this->getIndex());
-        return $j;
+        return array_pop($this->dat);
     }
 }

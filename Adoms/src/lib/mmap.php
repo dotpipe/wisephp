@@ -101,22 +101,20 @@ spl_autoload_register(function ($className)
 		}
 		/*
 		*
-		* public function getMap
+		* public function mapSearch
 		* @parameters string
 		*
 		*/
 		// Return Map fitting $regex
-		public function getMap(string $regex): array {
+		public function mapSearch(string $regex): array {
 			$reglist = array();
 			$tmp = $this->dat;
 			reset($tmp);
 			$i = 0;
-			while ($i < count($tmp)) {
-				if (preg_match($regex, key($tmp))) {
-					$reglist[] = array(key($tmp) => current($tmp));
+			while (list($t) = each($tmp)) {
+				if (preg_match($regex, key($t))) {
+					array_push($reglist, array(key($t) => current($t)));
 				}
-				next($tmp);
-				$i++;
 			}
 			return $reglist;
 		}
@@ -134,11 +132,7 @@ spl_autoload_register(function ($className)
 				$this->dat = array($key => $r);
 				return 1;
 			}
-			foreach ($this->dat as $x=>$y) {
-				$t = array_merge($this->dat, array($x => $y));
-			}
-			$t = array_merge($t, array($key => $r));
-			$this->dat = $t;
+			$this->dat = array_merge_recursive($this->dat, [$key => $r]);
 			return 1;
 		}
 		/*
@@ -179,11 +173,9 @@ spl_autoload_register(function ($className)
 			$reglist = array();
 			$x = getIndex();
 			$this->setIndex(0);
-			do {
-				$t = $this->mmap;
-				$reglist[] = $t->findKey($regex);
-				
-			} while ($this->Iter());
+			while (list($t) = each($this->dat)) {
+				array_push($reglist, $t->findKey($regex));
+			}
 			$regreturn = $reglist;
 			$this->setIndex($x);
 			if (sizeof($reglist) == 0)
@@ -329,20 +321,13 @@ spl_autoload_register(function ($className)
 		*
 		*/
 		// Returns true if Key is in Map
-		public function keyIsIn(string $k): int {
+		public function keyIsIn(string $k): bool {
 			if (count($this->dat) == 0) {
 				if ($this->strict == 1) throw new IndexException('Empty Map');
 				return 0;
 			}
-			$tmp = $this->dat;
-			reset($tmp);
-			$i = 0;
-			while ($i < count($this->dat)) {
-				if (key($tmp) == $k)
-					return $i;
-				$i++;
-			}
-			return -1;
+			
+			return array_key_exists($k,$this->dat);
 		}
 		/*
 		*
@@ -350,7 +335,7 @@ spl_autoload_register(function ($className)
 		* @parameters Map
 		*
 		*/
-		// Compare Map to $r and Return false is not equal
+		// Compare Map to $r and Return false if not equal
 		public function equals(Map $r): bool {
 			if ($r->typeOf != 'Map') {
 				throw new Type_Error('Mismatched Types');
@@ -358,11 +343,9 @@ spl_autoload_register(function ($className)
 			}
 			if ($r->size() != $this->size())
 				return 0;
-			for ($i = 0; $i < $this->size(); $i++) {
-				if (!($this->keyIsIn($r[$i])))
-					return 0;
-			}
-			return 1;
+			if (count(array_intersect_assoc($this->dat,$r) == $r->size()))
+				return 1;
+			return 0;
 		}
 		/*
 		*
@@ -376,11 +359,15 @@ spl_autoload_register(function ($className)
 				if ($this->strict == 1) throw new IndexException('Empty Map');
 				return 0;
 			}
+			if (!keyIsIn($k))
+				return 0;
+			$i = 0;
+			while (list($key,$val) = each($this->dat)){
+				if ($key == $k)
+					return array_slice($this->dat,$i);
+				$i++;
+			}
 			$x = $this->getIndex();
-			do {
-				if (key($this->dat) == $k)
-					return current($this->dat);
-			} while ($this->Iter());
 			$this->setIndex($x);
 			return 0;
 		}

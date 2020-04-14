@@ -61,7 +61,7 @@ class mSet extends Set {
         }
         $handler = array_search($r,$this->dat,true);
         if ($handler == FALSE) {
-            $this->dat[] = $r;
+            array_push($this->dat, $r);
             $this->sync();
             return true;
         }
@@ -76,16 +76,7 @@ class mSet extends Set {
     public function exists(string $r) {
         if (!is_array($this->dat))
             $this->dat = [];
-        $list = [];
-        $handler = array_keys($this->dat);
-        //foreach($handler as $k => $v) {
-            $list[] = array_search($r,$this->dat);
-        //}
-        $pot = 0;
-        foreach ($list as $v) {
-            ($v == FALSE) ? $pot++ : 0;
-        }
-        return $pot == count($list);
+        return in_array($r,array_count_values($this->dat));
     }
 
     /**

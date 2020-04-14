@@ -10,13 +10,13 @@ function getaliases($con) {
     
     if ($results->num_rows > 0) {
         while ($row = $results->fetch_assoc()) {
-            $c[] = $row['username'];
+            array_push($c, $row['username']);
         }
     }
     
     $f = [];
     foreach ($c as $v)
-        $f[] = $v;
+    array_push($f,$v);
     
     $f = array_unique($f);
     echo json_encode($f);

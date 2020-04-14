@@ -63,7 +63,7 @@ require_once 'vendor/autoload.php';
 			if ($bool == 1)
 				return false;
 			else
-				$this->injections[] = $res_dir . "/" . $filename;
+				array_push($this->injections, $res_dir . "/" . $filename);
 			return true;
 		}
 		
@@ -95,7 +95,7 @@ require_once 'vendor/autoload.php';
 			if ($bool == 1)
 				return false;
 			else
-				$this->injections[] = array("shared","$filename");
+				array_push($this->injections, array("shared","$filename"));
 			return true;
 		}
 

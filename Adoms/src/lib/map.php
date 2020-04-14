@@ -257,7 +257,7 @@ class Map extends Common
         $i = 0;
         while ($i < count($tmp)) {
             if (preg_match_all($regex, key($tmp))) {
-                $reglist[] = array(key($tmp) => current($tmp));
+                array_push($reglist, array(key($tmp) => current($tmp)));
             }
             next($tmp);
             $i++;
