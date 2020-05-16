@@ -8,8 +8,9 @@
         var redirect_thru = "";
         var refer_thru = "";
         var elem = document.getElementById(ev.target.id);
+        var elem = document.querySelector(ev.target);
 
-        if (elem === null || elem === undefined) {
+        if ((elem.className === null || elem.className === undefined) && (elem.id === null || elem === undefined)) {
             if (ev.target.onclick !== null && ev.target.onclick !== undefined)
                 (ev.target.onclick)();
             //does not mix with href (but you can still use <a></a>)
@@ -79,7 +80,7 @@
         // This is where the output will go. Indicates id attribute to aim at
         if (elem.hasAttribute("insert-in"))
             target__ = document.getElementById(elem.getAttribute("insert-in"));
-        // This is where the output will go. Indicates id attribute to aim at
+        // This determines if the information will be passed back as a json
         if (elem.hasAttribute("json")) {
             target__ = document.getElementById(elem.getAttribute("json"));
             pipe_back = "json";
