@@ -1,16 +1,14 @@
 <?php
 
 namespace Adoms\oauth2;
-use Adoms\crud;
 
-
-include_once ("../vendor/autoload.php");
+include_once ("load.php");
 
 class userController extends OAuth2Owner {
 
     public function newUser(string $userdb_ini, array $login_credentials, string $table) {
 
-        $connection = new db($userdb_ini);
+        $connection = new crud($userdb_ini);
         $this->hashPassword($login_credentials['password']);
 
         if (!$connection)
@@ -23,7 +21,7 @@ class userController extends OAuth2Owner {
 
     public function deleteUser(string $userdb_ini, string $table, string $where) {
 
-        $connection = new db($userdb_ini);
+        $connection = new crud($userdb_ini);
 
         if (!$connection)
             return false;
@@ -46,7 +44,7 @@ class userController extends OAuth2Owner {
     */
     public function newUserPass(string $userdb_ini, array $credentials, string $table, string $where) {
 
-        $connection = new db($userdb_ini);
+        $connection = new crud($userdb_ini);
 
         $this->hashPassword($login_credentials['password']);
 

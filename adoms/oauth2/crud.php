@@ -1,25 +1,9 @@
 <?php
 namespace Adoms\oauth2;
 
-//require_once('../vendor/autoload.php');
-if (!file_exists('vendor/autoload.php')) {
-    if (!file_exists('../vendor/autoload.php')) {
-        if (!file_exists('../../vendor/autoload.php')) {
-            if (file_exists('../../../vendor/autoload.php')) {
-                require_once('../../../vendor/autoload.php');
-            }
-        }
-        else {
-            require_once('../../vendor/autoload.php');
-        }
-    }
-    else
-        require_once('../vendor/autoload.php');
-}
-else
-    require_once('vendor/autoload.php');
+include_once("load.php");
 
-class db
+class CRUD
 {
 
     private $ini;
@@ -197,4 +181,4 @@ class db
     }
 }
 
-//$db = new db();
+//$db = new crud();

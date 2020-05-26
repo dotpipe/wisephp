@@ -2,7 +2,8 @@
 
 namespace Adoms\oauth2;
 use Adoms\src\lib;
-require_once('../vendor/autoload.php');
+
+require_once('load.php');
 
 class OAuth2Owner {
 
@@ -29,7 +30,7 @@ class OAuth2Owner {
         $password = $login_info_array['password'];
         $this->hashPassword($password);
         
-        $connection = new db($config);
+        $connection = new crud($config);
         $table = $login_info_array['table'];
         $username = $login_info_array['username'];
         
@@ -56,7 +57,7 @@ class OAuth2Owner {
         if ($read_rows->num_rows == 1) {
             $cookie = mysqli_fetch_assoc($read_rows);
             if (time() - $cookie['expiry'] > -600) {
-                $connection = new db();
+                $connection = new crud();
                 $connection->delete($login_info_array['request'],$usern);
                 $this->newUserTokenizer($login_info_array, $connection);
             }
@@ -112,7 +113,7 @@ class OAuth2Owner {
 
     public function logout($login_info_array) {
 
-        $connection = new db();
+        $connection = new crud();
         $usern = sprintf("`%1$s`.`username` = %s AND `%1$s`.`realm` = %s", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
         $this->delete($login_info_array['table'],$usrn);
