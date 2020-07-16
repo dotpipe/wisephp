@@ -118,20 +118,20 @@ function goCheri(i, j) {
       x.offsetTop = x.childElementCount * 20;
   
       // Get current username
-      var z = document.getElementById("Cheriters");
+      var z = document.getElementById("chatters");
       var idx = z.options[getCookie("nodeNo")];
       z.selectedIndex = getCookie("nodeNo");
       var str = idx.value;
       getConduct();
       // Check cuss filter and if they are allowing it
       if (getCookie("conductOn") == 1 && t.toUpperCase() != v.toUpperCase()) {
-        callFile("Cheri/Cherialiases.php?c=4&d=" + str + "&a=" + v);
-        callFile("Cheri/Cheri.php?a=" + t + "&d=" + str);
+        callFile("chat/chataliases.php?c=4&d=" + str + "&a=" + v);
+        callFile("chat/chat.php?text=" + t + "&d=" + str);
         callPage(str);
       }
       else {
-        callFile("Cheri/Cherialiases.php?c=1&d=" + str);
-        callFile("Cheri/Cheri.php?a=" + y.value + "&d=" + str);
+        callFile("chat/chataliases.php?c=1&d=" + str);
+        callFile("chat/chat.php?a=" + y.value + "&d=" + str);
         callPage(str);
       }
     }
@@ -139,7 +139,7 @@ function goCheri(i, j) {
   
 function setConduct(th) {
 
-    var z = document.getElementById("Cheriters");
+    var z = document.getElementById("chatters");
     var idx = z.options[getCookie("nodeNo")];
     z.selectedIndex = getCookie("nodeNo");
     var str = idx.value;
@@ -151,7 +151,7 @@ function setConduct(th) {
   
       }
     };
-    xhttp.open("GET", "Cheri/Cherialiases.php?c=5&d=" + str, false);
+    xhttp.open("GET", "chat/chataliases.php?c=5&d=" + str, false);
     xhttp.send();
   
     if (getCookie("conductOn") == 0)
@@ -162,7 +162,7 @@ function setConduct(th) {
 
   function flagComment(r_val) {
 
-    var z = document.getElementById("Cheriters");
+    var z = document.getElementById("chatters");
     var idx = z.options[getCookie("nodeNo")];
     z.selectedIndex = getCookie("nodeNo");
     var str = idx.value;
@@ -176,14 +176,14 @@ function setConduct(th) {
     var tyd = r_val.parentNode.previousElementSibling;
   
     console.log(r_val.parentNode.previousElementSibling);
-    xhttp.open("GET", "Cheri/Cherialiases.php?c=6&d=" + str + "&msg=" + tyd.innerHTML + "&time=" + tyd.getAttribute("time"), false);
+    xhttp.open("GET", "chat/chataliases.php?c=6&d=" + str + "&msg=" + tyd.innerHTML + "&time=" + tyd.getAttribute("time"), false);
     xhttp.send();
     console.log(getCookie("conductOn"));
   }
 
   function getConduct() {
 
-    var z = document.getElementById("Cheriters");
+    var z = document.getElementById("chatters");
     var idx = z.options[getCookie("nodeNo")];
     z.selectedIndex = getCookie("nodeNo");
     var str = idx.value;
@@ -196,7 +196,7 @@ function setConduct(th) {
         return this.responseText;
       }
     };
-    xhttp.open("GET", "Cheri/Cherialiases.php?c=3&d=" + str, false);
+    xhttp.open("GET", "chat/chataliases.php?c=3&d=" + str, false);
     xhttp.send();
     console.log(getCookie("conductOn"));
   }
