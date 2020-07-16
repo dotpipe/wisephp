@@ -5,8 +5,10 @@
 		session_start();
 
 	include_once ("load.php");
+	use Adoms\oauth2\userController;
+	use Adoms\pasm\PASM;
 
-	class Routes extends oauth2\UserClass {
+	class Routes extends oauth2\UserController {
 
 		public $QURY;
 		public $resh;
@@ -21,7 +23,7 @@
 		*
 		*/
 		function __construct() {
-			$this->pasm = new \PASM();
+			$this->pasm = new PASM();
 			$GET = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
 			$this->QURY = null;
 			if ($GET != null) {
