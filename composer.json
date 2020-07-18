@@ -1,21 +1,30 @@
 {
-    "name": "swatchphp/adoms",
-    "description": "Open Source Library for PHP",
-    "type": "Library",
+    "name": "wise-penny/adoms",
+    "description": "The complete Adoms package from the original source (wise-penny/adoms)",
+    "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "ADP",
+            "email": "inland14@live.com"
+        }
+    ],
+    "minimum-stability": "stable",
     "require": {},
-    "classmap": [
-	"config",
-	"oauth2",
-	"src",
-	"wireframe",
-	"crud",
-	"pasm",
-	"creator",
-	"unitTestCreator",
-	"src/icons",
-	"src/lib",
-	"src/routes",
-	"src/chat"
-    ]
+    "autoload": {
+            "classmap": [
+            "adoms",
+            "adoms/src",
+            "adoms/src/lib",
+            "adoms/src/chat",
+            "adoms/src/routes",
+            "adoms/config",
+            "adoms/creator",
+            "adoms/logs",
+            "adoms/oauth2",
+            "adoms/pasm",
+            "adoms/unitTestCreator",
+            "adoms/wireframe"
+            ]
+      }
 }
