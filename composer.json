@@ -24,7 +24,8 @@
             "adoms/oauth2",
             "adoms/pasm",
             "adoms/unitTestCreator",
-            "adoms/wireframe"
+            "adoms/wireframe",
+            "adoms/plugins"
             ]
       }
 }
