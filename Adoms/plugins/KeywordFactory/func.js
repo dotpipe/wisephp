@@ -69,7 +69,7 @@ function keywordLookup(keys, j) {
       document.getElementById("insWrd").value = "";
       return;
     }
-
+  }
 
 function insertTagInput() {
 
