@@ -27,5 +27,8 @@
             "adoms/wireframe",
             "adoms/plugins"
             ]
-      }
+      },
+    "require-dev": {
+        "phpunit/phpunit": "9"
+    }
 }

@@ -3,7 +3,7 @@
 namespace Adoms\src\lib;
 
 
-class Container extends Common {
+class Container  {
     // Type Specifications
     public $typeOf;
     public $rootType;

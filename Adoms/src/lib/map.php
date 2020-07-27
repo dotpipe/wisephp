@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace Adoms\src\lib;
 
-class Map extends Common
+class Map
 {
 
     public $mapTempK;
@@ -65,11 +65,10 @@ class Map extends Common
      * @parameters none
      *
      */
-    public function clear(): bool
+    public function clear(): void
     {
         $this->pt = array();
         $this->dat = array();
-        return true;
     }
 
     /**
@@ -277,7 +276,7 @@ class Map extends Common
     // Remove entry with K & V matching $k and $v
     public function removedat($k, $v): bool
     {
-        $mtdat = array();
+        $mtk = array();
         $tmp = $this->dat;
         end($tmp);
         $i = 0;

@@ -1,6 +1,6 @@
-<?php declare (strict_types = 1);
+<?php
 
-function io_xx($lock_mx, &$i)
+function io_x($lock_mx, &$i)
 {
     $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ' ', ';'];
     $_class = "";
@@ -24,7 +24,7 @@ function io_xx($lock_mx, &$i)
     return trim($_class);
 }
 
-function io_pmx($lock_mx, &$i)
+function io_pm($lock_mx, &$i)
 {
     $_haystack = ['\n', '\r', '\t', ')'];
     $j = 0;
@@ -39,12 +39,12 @@ function io_pmx($lock_mx, &$i)
     return trim($_class);
 }
 
-function io__x($lock_mx, &$i, $lm)
+function io__($lock_mx, &$i, $lm)
 {
-    $cm = $i - ($i % 10000);
+    $cm = $i - ($i % 100000);
     $kp = $i;
     $_class = "";
-    while (++$cm % 10000 < 9999 && $i < strlen($lock_mx) && $lm != substr($lock_mx, $i, strlen($lm))) {
+    while (++$cm % 100000 < 99999 && $i < strlen($lock_mx) && $lm != substr($lock_mx, $i, strlen($lm))) {
         $i++;
     }
     //echo $_class . "-";
@@ -61,12 +61,12 @@ fclose($mp);
 $i = 0;
 $com = "";
 $arr = [];
-$mp = fopen("assertions.html", 'w');
+$mp = fopen("assertions.php", 'w');
 $tmp = '<select id="assertions" onchange="x(this)" style="float:right;width:280">';
 fwrite($mp, $tmp);
 while ($i < strlen($lock_mx)) {
 
-    if (io__x($lock_mx, $i, '"assert') != null) {
+    if (io__($lock_mx, $i, '"assert') != null) {
         $tmp = io_x($lock_mx, $i);
         $tmp = substr($tmp, 1, strlen($tmp) - 2);
         $html = '<option id="' . $tmp . '">' . $tmp . '</option>';
@@ -83,14 +83,14 @@ fclose($mp);
 $mp = fopen("annotations.csv", 'r');
 $lock_mx = fread($mp, filesize("assertions.csv"));
 fclose($mp);
-$mp = fopen("annotations.html", 'w');
+$mp = fopen("annotations.php", 'w');
 $i = 0;
 $tmp = '<select id="annotations" onchange="x(this)" style="float:right;width:280">';
 fwrite($mp, $tmp);
 while ($i < strlen($lock_mx)) {
 
-    if (io__x($lock_mx, $i, '"@') != null) {
-        $tmp = io_xx($lock_mx, $i);
+    if (io__($lock_mx, $i, '"@') != null) {
+        $tmp = io_x($lock_mx, $i);
         $n = 2;
         $tmp1 = substr($tmp, 2, strlen($tmp)-$n);
         $tmp2 = substr($tmp, 1, strlen($tmp)-$n);

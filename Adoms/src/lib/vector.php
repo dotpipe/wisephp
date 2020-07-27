@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace Adoms\src\lib;
 
-class Vector extends Container implements Classes
+class Vector
 {
 
     public $vectorTemp;

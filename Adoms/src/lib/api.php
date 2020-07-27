@@ -2,7 +2,7 @@
 namespace Adoms\src\lib;
 
 
-class api
+class api extends mMap
 {
     public $regex_mapper;
     public $apiMap;
@@ -21,7 +21,7 @@ class api
         return true;
     }
 
-    public function receive($m): mMap
+    public function receive($m)
     {
         // If you don't have one, but need an example,
         // uncomment this line and run it

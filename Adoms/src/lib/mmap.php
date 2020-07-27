@@ -168,7 +168,7 @@ spl_autoload_register(function ($className)
 		// Return Key
 		public function findKey(string $regex): array {
 			$reglist = array();
-			$x = getIndex();
+			$x = $this->getIndex();
 			$this->setIndex(0);
 			while (list($t) = each($this->dat)) {
 				array_push($reglist, $t->findKey($regex));
@@ -307,9 +307,8 @@ spl_autoload_register(function ($className)
 		*
 		*/
 		// Clears all Map entries
-		public function clear(): bool {
+		public function clear(): void {
 			$this->mmap = array();
-			return 1;
 		}
 		/*
 		*
@@ -356,7 +355,7 @@ spl_autoload_register(function ($className)
 				if ($this->strict == 1) throw new IndexException('Empty Map');
 				return 0;
 			}
-			if (!keyIsIn($k))
+			if (!$this->keyIsIn($k))
 				return 0;
 			$i = 0;
 			while (list($key,$val) = each($this->dat)){

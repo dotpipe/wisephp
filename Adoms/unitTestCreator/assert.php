@@ -4,7 +4,7 @@
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
+  <!--<script src="..\..\Adoms\src\routes\pipes.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -12,13 +12,17 @@
 <script>
 var undo_text = [];
 var redo_text = [];
-var index = 0;
+var index = 0; 
 
 function getTests(e,y) {
     if (e.keyCode == 13) {
         console.log(y.value);
-        window.location = "assert.php?io1=" + y + "&x=1";
+        window.location = "assert.php?ioload=" + y + "&x=1";
     }
+}
+
+function getCode(e,y) {
+    window.location = "assert.php?iosave=" + document.getElementById("iosave").value + "&x=1&codes=" + document.getElementById("code").value;
 }
 
 function getSelectionText() {
@@ -68,15 +72,15 @@ function func_change (t) {
     var x = document.getElementById("code").value;
     console.log(x);
     var j = 0, h = "";
-    for (var i =0; i < x.length-1 ; i++) {
+    for (var i =0; i < x.length ; i++) {
         if (j == 0 && x[i+1] == '{') {
             j=1;
-            i+=2;
+            i+=1;
         }
         if (j == 1)
-            h = h + x[i];
+            h = h + x[i]; 
     }
-    document.getElementById("code").value = f + m + "{\n" + scope + func + arg + ":" + type + h + "\n}";
+    document.getElementById("code").value = "\<\?php\n" + f + m + "{\n" + "public function test" + func + "() \n{\n}" + h.substr(1) + "\n";
     console.log(h);
 }
 ['click', 'touch', 'tap'].forEach(function(e) {
@@ -123,7 +127,7 @@ function func_change (t) {
             if (undo_text[0] == "")
                 undo_text.shift();
         } else if (elem.id == "clear" || document.getElementById("code").value == "undefined") {
-            document.getElementById("code").value = "public function function_name(\$arg1, \$arg2) { \n\n\n }";
+            document.getElementById("code").value = "\<\?php";
         }
         index = 1;
         var ty = 0;
@@ -198,263 +202,56 @@ textarea {
 
 <body style="lightgray">
 <?php
-require("strip_csv.php");
-global $i;
-$i = 0;
-function io_x($lock_mx, &$i)
-{
-    $_haystack = ['\n', '\r', '\t', '{', '}', '(', ')', ';', ' '];
-    $_class = "";
-    $j = $i;
+function io_save() {
 
-    do {
-        if ($i == strlen($lock_mx)) {
-            break;
-        }
-        $_class .= $lock_mx[$i];
-        if (in_array($lock_mx[$i], $_haystack)) {
-            $_class = substr($lock_mx, $i, strlen($_class));
-        }
-        $i++;
-    } while ($i < strlen($lock_mx) && !in_array($lock_mx[$i], $_haystack));
-    return trim($_class);
+
+
 }
-
-function io_params($lock_mx, &$i)
+// Discover methods and ClassName of file
+function io_get($pluck)
 {
-    $_haystack = ['\n', '\r', '\t', '{', ';'];
-    $j = 0;
-    $ol = 0;
-    $pl = $i;
-    $_class = "";
-    do {
-        if ($lock_mx[$i] == '(') {
-            $ol++;
-            if ($j == 0) {
-                $pl = $i;
-            }
-            $j++;
-        }
-        if ($lock_mx[$i] == ')') {
-            $j--;
-        }
-        if ($ol > 0) {
-            $ol++;
-            $_class .= $lock_mx[$i];
-        }
-        if ($j == 0 && $ol > 0) {
-            break;
-        }
-        $i++;
-    } while ($i < strlen($lock_mx));
-    //echo $_class . "-".$i."@";
-    return trim($_class);
-}
-
-function io__($lock_mx, &$i, $lm)
-{
-    $cm = $i - ($i % 500);
-    $kp = $i;
-    $_class = "";
-    while (++$cm % 500 < 499 && $i < strlen($lock_mx) && $lm != substr($lock_mx, $i, strlen($lm))) {
-        $i++;
-    }
-    //echo $_class . "-";
-    if (substr($lock_mx, $i, strlen($lm)) == $lm) {
-        return trim(substr($lock_mx, $i, strlen($lm)));
-    }
-    $i = $kp;
-    return null;
-}
-
-function io_class(string $pluck)
-{
-    $mp = fopen("assert.ini", 'r');
-    $lock_mx = fread($mp, filesize("assert.ini"));
-    $ini_i = 0;
-    fclose($mp);
-    $php_errormsg = [];
-
-    $php_exec = io__($lock_mx, $ini_i, 'php_exec="');
-    if ($php_exec == 'php_exec="') {
-        $ini_i += 10;
-        $php_exec = io_x($lock_mx, $ini_i);
-        $php_exec = substr($php_exec, 0, strlen($php_exec) - 1);
-    } else {
-        echo 'Corrupted assert.ini';
-        exit();
-    }
     
-    if (!file_exists($pluck) || filesize($pluck) == 0)
-    {
-        echo '<b>No such file exists</b>';
+    $classes = get_declared_classes();
+    if (!file_exists($pluck))
         return;
-    }
-    
-    // Parse for errors in class
-    passthru($php_exec . " \"" . $pluck . "\"", $php_errormsg);
+    include $pluck;
+    $diff = array_diff(get_declared_classes(), $classes);
+    $class = reset($diff);
 
-    if (0 > strlen($php_errormsg)) {
-        echo '<b>Error Report:</b>  ' . json_encode($php_errormsg);
-    }
+    $_class = get_class_methods($class);
 
-    $mp = fopen($pluck, 'r');
-    $lock_mx = fread($mp, filesize($pluck));
-    fclose($mp);
-    $_class = [];
-    $pool = 0;
-    $i = 0;
-
-    $ipl = io__($lock_mx, $i, 'namespace');
-
-    //while ($i < strlen($lock_mx) && $pool != 3)
-    $ipl = io__($lock_mx, $i, 'spl_autoload_register');
-
-    //while ($i < strlen($lock_mx) && $pool != 3)
-    $ipl = io__($lock_mx, $i, '});');
-
-    $pool = 0;
-    $ipl = "";
-    $j = $i;
-    $ipl = $_class['file_type'] = io__($lock_mx, $i, 'abstract class ');
-
-    if ($ipl != 'abstract class') {
-        $ipl = $_class['file_type'] = io__($lock_mx, $i, 'interface ');
-    }
-    if ($ipl != 'interface') {
-        $ipl = $_class['file_type'] = io__($lock_mx, $i, 'class ');
-        if ($ipl != 'class') {
-            echo "FATAL ERROR: Must be 'abstract class', 'interface', 'class'\nExiting...";
-            exit();
-        }
-    }
-
-    //class
-    while ($i < strlen($lock_mx) && $ipl == $_class['file_type']) {
-        $ipl = $_class['type_name'] = io_x($lock_mx, $i);
-    }
-    $ipl = "";
-    $j = $i;
-    $ipl = $_class['extends'] = io__($lock_mx, $i, 'extends');
-    if ($ipl == 'extends') {
-        while ($i < strlen($lock_mx) && $_class['extends'] == 'extends') {
-            $_class['extends'] = io_x($lock_mx, $i);
-        }
-    }
-    $ipl = $_class['implements'] = io__($lock_mx, $i, 'implements');
-    if ($ipl == 'implements') {
-        while ($i < strlen($lock_mx) && $_class['implements'] == 'implements') {
-            $_class['implements'] = io_x($lock_mx, $i);
-        }
-    }
-    $ipl = io__($lock_mx, $i, ' {');
-
-    $j = sizeof($_class);
-    
-    while ($i < strlen($lock_mx)) {
-        extract_funct($lock_mx, $_class, $i, $j);
-    }
-    
-    $html = $_class['type_name'] . ": ";
-    $html .= '<select id="functions" style="float:right;width:280px" file_type="' . $_class['file_type'] . '" type_name="' . $_class['type_name'] . '" onchange="func_change(this)">\r\n';
-    foreach ($_class as $k => $v) {
-        if (!is_numeric($k)) {
-            continue;
-        }
-
-        $html .= '\t<option ';
-        foreach ($v as $f => $g) {
-            $html .= $f . '="' . $g . '" ';
-        }
-        $html .= '>' . $v['function'] . '</option>\r\n';
+    $html = $class . ": ";
+    $html = '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_change(this)">\r\n';
+    foreach ($_class as $key => $value) {
+        $html .= '<option function="CheckForFunction' . ucfirst($value) . '">' . $value . '</option>';
 
     }
     return $html . "</select>";
-}
 
-function extract_funct(string $lock_mx, array &$appended_json, &$i, &$m)
-{
-    $json = [];
-    $j = 0;
-    $v = 0;
-    $v = $i;
-    $cmt_srch = '';
-    if (($cmt_srch = io__($lock_mx, $v, '/*')) !== null) {
-        $i = $v;
-    }
-    if (($cmt_srch = io__($lock_mx, $v, '*/\r\n')) !== null) {
-        $i = $v;
-    }
-    if (($cmt_srch = io__($lock_mx, $v, '//')) !== null) {
-        $i = $v;
-        io__($lock_mx, $v, '\r\n');
-    }
-    while ($i < strlen($lock_mx)) {
-
-        $ipl = io_x($lock_mx, $i);
-        switch ($ipl) {
-            case 'public':
-                $json['scope'] = 'public function';
-                break;
-            case 'private':
-                $json['scope'] = 'private function';
-                break;
-            case 'function':
-                $json['function'] = io_x($lock_mx, $i);
-                $json['args'] = io_params($lock_mx, $i);
-                if ($i < strlen($lock_mx) && (strlen($json['args']) == 0 || $json['args'][strlen($json['args']) - 1] != ')')) {
-                    $json['args'] .= ' ' . io_params($lock_mx, $i);
-                }
-                $ccc = 0;
-                
-                if ($ccc = strpos($lock_mx, ':', $i)) {
-                    $ccc++;
-                    $json['type'] = "";
-                    while ($lock_mx[$ccc + 1] != '{') {
-                        $json['type'] .= trim($lock_mx[$ccc]);
-                        $ccc++;
-                        if ($ccc > strlen($lock_mx))
-                            break;
-                    }
-                    $i = $ccc;
-                }
-                break;
-            case '{':
-                $j++;
-                break;
-            case '}':
-                $j--;
-                if ($j == 0) {
-                    $json = array_unique($json);
-                    array_push($appended_json, $json);
-                    $m++;
-                    return $json;
-                }
-                break;
-        }
-    }
-    return null;
 }
 $html = "";
-if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
-    $html = io_class($_GET['io1']);
+if (isset($_GET['x']) && isset($_GET['ioload']) && $_GET['x'] == '1') {
+    $html = io_get($_GET['ioload']);
+}
+if (isset($_GET['x']) && isset($_GET['iosave']) && $_GET['x'] == '1') {
+    echo "<script>window.location = \"" . (__DIR__ . "\save.php?x=1&iosave=" . $_GET['iosave'] . "&dataToSave=" . $_GET['codes']) ."\";</script>";
 }
 ?>
 <div class="jumbotron" style="padding-top:40px;vertical-align:center;border:1px solid black;border-top:1px solid darkgray;cell-spacing:0px;background-color:darkgray;border-radius:0px 0px 25px 25px;height:100px !important;">
-    <h3>Runt Class Unit Test Manipulator</h3>
+    <h3>Runt Class Unit Test Manipulator v1.0</h3>
 </div>
 <hr style="background-color:darkgray;width:96.5%;height:1px;margin-left:25px;float:left;margin-top:-25px">
 <div class="jumbotron" style="padding:1px;vertical-align:top;margin-top:-15px;margin-left:25px;width:96.5%;border-radius:0px 0px 25px 25px;height:50px !important;">
     <form action="assert.php" method="GET">
     <block style="display:inline-grid;grid-row-start:1;grid-row-end:1;grid-template-columns:450px 400px 450px;grid-column-start:1;grid-column-end:3;">
-    
-    <quote><label style="margin-top:-5px;margin-left:35px;">> Input File (inc. relative path): <input onkeypress="getTests(event,this.value)" type="text" name="io1" style="height:20px;width:150px"/></label></quote>
+    <quote><label style="margin-top:-5px;margin-left:35px;">> Input File (inc. relative path): <input onsubmit="getTests(event,this.value)" type="text" name="ioload" style="height:20px;width:150px"/></label></quote>
     <quote><hr style="margin-top:9px;background-color:darkgray;width:100%"><input type="hidden" name="x" value="1"/></quote>
-    <quote>
-    <label style="float:right;margin-top:-5px;margin-right:35px;">> Output File (inc. relative path): <input placeholder="Non-functional" type="text" name="io2" style="height:20px;width:150px"/></label>
-    </quote>
-    </block>
+    <span>
     </form>
+    <form action="save.php" method="GET">
+    <label style="float:right;margin-top:-5px;margin-right:35px;">> Output File (inc. relative path): <input name="iosave" type="text"/><button >Save</button></label>
+    </span>
+    </block>
 </div>
 <center>
     <div id="clip" style="visibility:hidden">
@@ -462,7 +259,8 @@ if (isset($_GET['x']) && isset($_GET['io1']) && $_GET['x'] == '1') {
             <strong>Success!</strong> The text was copied to the clipboard
         </p>
     </div>
-    <textarea id="code"><?php echo "public function function_name(\$arg1, \$arg2) { \n\n\n }"; ?></textarea><hr style="width:800">
+    <textarea id="code" name="dataToSave"><?php echo "<?php"; ?></textarea><hr style="width:800">
+    </form>
         <block style="display:inline-grid;grid-template-rows:50px 50px 50x;grid-template-columns:500px 10px 150px 10px 150px 10px 150px;grid-column-start:1;grid-column-end:7;">
             <p class="btn btn-primary">Functions from <?php echo $html; ?></p>
             <p>&nbsp;</p>

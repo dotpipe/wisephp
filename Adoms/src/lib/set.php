@@ -4,7 +4,7 @@ namespace Adoms\src\lib;
 
 
 
-class Set extends Common {
+class Set  {
 
     public $setTemp;
     public $parentType;
