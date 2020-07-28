@@ -67,7 +67,7 @@ function func_find(find)
     var t = document.getElementById("code").value.indexOf(find[find.selectedIndex].getAttribute("function"));
     if (t == -1)
     {
-        func_change(find);
+        func_change(find[find.selectedIndex]);
         return;
     }
     document.getElementById("code").setSelectionRange(
@@ -86,7 +86,7 @@ function surround (t) {
 }
 function func_change (t) {
     
-    g = t[t.selectedIndex];
+    g = t;
     f = document.getElementById("functions").getAttribute("file_type") + " ";
     m = document.getElementById("functions").getAttribute("type_name") + " ";
     //scope = g.getAttribute("scope") + " ";
