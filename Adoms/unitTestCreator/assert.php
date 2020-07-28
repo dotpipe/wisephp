@@ -70,13 +70,14 @@ function surround (t) {
     textareaClicked(t.options[t.selectedIndex].innerText + "( );");
 }
 function func_change (t) {
-    g = t.options[t.selectedIndex];
+    
+    g = t;
     f = document.getElementById("functions").getAttribute("file_type") + " ";
     m = document.getElementById("functions").getAttribute("type_name") + " ";
-    scope = g.getAttribute("scope") + " ";
+    //scope = g.getAttribute("scope") + " ";
     func = g.getAttribute("function") + " ";
-    arg = g.getAttribute("args") + " ";
-    type = g.getAttribute("type") + " {\n}";
+    //arg = g.getAttribute("args") + " ";
+    //type = g.getAttribute("type") + " {\n}";
 
     var x = document.getElementById("code").value;
     console.log(x);
@@ -194,7 +195,14 @@ textareaClicked = function(str1, str2) {
     document.getElementById("code").setSelectionRange(beforeSelection.length + str1.length + Selection.length, beforeSelection.length + str1.length + Selection.length);
     document.getElementById("code").focus();
 };
-
+function moveSelectedTrends() {
+    let arry = document.getElementById('functions').options;
+    
+    for (var i = 0; i < arry.length; i++) {
+        console.log(arry[i].getAttribute("function"));
+        func_change(arry[i]);
+    }
+}
 </script>
 <style>
 .p {
@@ -230,7 +238,7 @@ function io_get($pluck)
     $_class = get_class_methods($class);
 
     $html = $class . ": ";
-    $html = '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_change(this)">\r\n';
+    $html .= '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_change(this)">\r\n';
     foreach ($_class as $key => $value) {
         $html .= '<option ';
         $html .= 'function="CheckForFunction' . ucfirst($value) . '">';
@@ -272,7 +280,7 @@ if (isset($_GET['x']) && isset($_GET['iosave']) && $_GET['x'] == '1') {
     <textarea id="code" onkeydown="tab(event,this)" name="dataToSave"><?php echo "<?php"; ?></textarea><hr style="width:800">
     </form>
         <block style="display:inline-grid;grid-template-rows:50px 50px 50x;grid-template-columns:500px 10px 150px 10px 150px 10px 150px;grid-column-start:1;grid-column-end:7;">
-            <p class="btn btn-primary">Functions from <?php echo $html; ?></p>
+            <p class="btn btn-primary">&nbsp;<?php echo $html; ?></p>
             <p>&nbsp;</p>
             <p class="btn btn-primary" id="parentheses">( )</p>
             <p>&nbsp;</p>
@@ -297,4 +305,4 @@ if (isset($_GET['x']) && isset($_GET['iosave']) && $_GET['x'] == '1') {
 </center>
 
 <input type="text" id="sel" style="height:0px;visibility:hidden"></input>
-
+<p class="btn btn-primary" onclick="javascript:moveSelectedTrends()"> All Functions </p>
