@@ -68,14 +68,24 @@ function func_find(find)
     if (t == -1)
     {
         func_change(find[find.selectedIndex]);
+        getLineNumber();
         return;
     }
     document.getElementById("code").setSelectionRange(
         t,
-        t+find[find.selectedIndex].getAttribute("function").length 
+        t//+find[find.selectedIndex].getAttribute("function").length 
     );
     document.getElementById("code").focus();
+    getLineNumber();
 }
+
+function getLineNumber() {
+
+    lineNumber = document.getElementById("code").value.substr(0, document.getElementById("code").selectionStart).split("\n").length;
+
+    document.getElementById("code").scroll(0,20*(lineNumber-2));      
+}
+
 
 function surround (t) {
 
@@ -234,6 +244,7 @@ textarea {
     width:75%;
     height:150;
     border-radius: 5px 5px 5px 5px;
+    line-height: 20px;
 }</style>
 
 </head>
