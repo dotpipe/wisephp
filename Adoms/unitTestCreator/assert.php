@@ -105,7 +105,6 @@ function func_change (t) {
     //type = g.getAttribute("type") + " {\n}";
 
     var x = document.getElementById("code").value;
-    console.log(x);
     var j = 0, h = "";
     for (var i =0; i < x.length ; i++) {
         if (j == 0 && x[i+1] == '{') {
@@ -116,7 +115,6 @@ function func_change (t) {
             h = h + x[i]; 
     }
     document.getElementById("code").value = "\<\?php\n\nnamespace " + m.substr(0,m.lastIndexOf('\\')) + ";\n\ninclude '\\"+ m + "';\n\n" + f + " " + m + " {\n" + "\tpublic function testCheckForFunction" + func + "() \n\t{\n\t\t\$obj = new " + m + "();\n\t\t\$obj->" + func + "();\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
-    console.log(h);
 }
 ['click', 'touch', 'tap'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
