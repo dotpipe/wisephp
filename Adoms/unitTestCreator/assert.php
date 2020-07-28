@@ -68,7 +68,7 @@ function func_find(find)
     if (t == -1)
     {
         func_change(find[find.selectedIndex]);
-        getLineNumber();
+        //getLineNumber();
         return;
     }
     document.getElementById("code").setSelectionRange(
@@ -83,7 +83,7 @@ function getLineNumber() {
 
     lineNumber = document.getElementById("code").value.substr(0, document.getElementById("code").selectionStart).split("\n").length;
 
-    document.getElementById("code").scroll(0,20*(lineNumber-2));      
+    document.getElementById("code").scroll(0,20*(lineNumber-1));      
 }
 
 
@@ -98,9 +98,9 @@ function func_change (t) {
     
     g = t;
     f = document.getElementById("functions").getAttribute("file_type") + " ";
-    m = document.getElementById("functions").getAttribute("type_name") + " ";
+    m = document.getElementById("functions").getAttribute("type_name");
     //scope = g.getAttribute("scope") + " ";
-    func = g.getAttribute("function") + " ";
+    func = g.getAttribute("function");
     //arg = g.getAttribute("args") + " ";
     //type = g.getAttribute("type") + " {\n}";
 
@@ -115,7 +115,7 @@ function func_change (t) {
         if (j == 1)
             h = h + x[i]; 
     }
-    document.getElementById("code").value = "\<\?php\n" + f + m + "{\n" + "\tpublic function test" + func + "() \n\t{\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
+    document.getElementById("code").value = "\<\?php\n\nnamespace " + m.substr(0,m.lastIndexOf('\\')) + ";\n\ninclude '\\"+ m + "';\n\n" + f + " " + m + " {\n" + "\tpublic function testCheckForFunction" + func + "() \n\t{\n\t\t\$obj = new " + m + "();\n\t\t\$obj->" + func + "();\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
     console.log(h);
 }
 ['click', 'touch', 'tap'].forEach(function(e) {
@@ -267,7 +267,7 @@ function io_get($pluck)
     $html .= '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_find(this)">\r\n';
     foreach ($_class as $key => $value) {
         $html .= '<option ';
-        $html .= 'function="CheckForFunction' . ucfirst($value) . '">';
+        $html .= 'function="' . ($value) . '">';
         $html .= $value . '</option>';
     }
     return $html . "</select>";
