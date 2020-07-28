@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Runt - Build v0.0.1a</title>
+<title>Runt - Build v1.0</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -80,7 +80,7 @@ function func_change (t) {
         if (j == 1)
             h = h + x[i]; 
     }
-    document.getElementById("code").value = "\<\?php\n" + f + m + "{\n" + "public function test" + func + "() \n{\n}" + h.substr(1,h.length-3) + "\n}";
+    document.getElementById("code").value = "\<\?php\n" + f + m + "{\n" + "\tpublic function test" + func + "() \n\t{\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
     console.log(h);
 }
 ['click', 'touch', 'tap'].forEach(function(e) {
