@@ -1,20 +1,7 @@
 <?php
 namespace Adoms\src\lib;
 
-spl_autoload_register(function ($className) {
-    if ($className === "Classes") {
-        return;
-    }
-    foreach ([
-        'Adoms/src/lib/',
-        '',
-    ] as $Path) {
-        if (!file_exists($Path . $className . '.php')) {
-            continue;
-        }
-        include $Path . $className . '.php';
-    }
-});
+require_once '../../vendor/autoload.php';
 
 class css
 {

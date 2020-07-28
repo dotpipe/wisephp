@@ -2,6 +2,7 @@
 namespace Adoms\src\lib;
 
 
+require_once '../../vendor/autoload.php';
 class Dequeue
 {
     public $dqueueTemp;

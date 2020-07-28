@@ -1,19 +1,12 @@
 <?php
 
 namespace Adoms\src\lib;
-spl_autoload_register(function ($className)
-{
-	$path1 = 'Adoms/src/lib/';
-	$path2 = '';
-	if (file_exists($path1.$className.'.php'))
-		include $path1.$className.'.php';
-	else
-		include $path2.$className.'.php';
-});
+
+require_once '../../vendor/autoload.php';
 
 
 	// Pointer in this is $this->mx
-	class Matrix implements Classes {
+	class Matrix {
 		public $parentType;
 		public $childType;
 		// Pointer to current Index

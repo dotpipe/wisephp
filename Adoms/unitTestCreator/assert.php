@@ -53,6 +53,15 @@ function x (t) {
     else
     textareaClicked(t.options[t.selectedIndex].innerText + "( );");
 }
+function tab(t,v) {
+    
+    if (t.keyCode == 9) {
+        t.preventDefault();
+        textareaClicked("\t", "9");
+        v.focus();
+    }
+}
+
 function surround (t) {
 
     if (t.id == "annotations")
@@ -168,6 +177,11 @@ textareaClicked = function(str1, str2) {
     if (str2 == "" || str2 == undefined) {
         var newHTML = beforeSelection + str1 + afterSelection;
         document.getElementById("code").value = newHTML;
+    } else if (str1 === "\t" && str2 === "9") {
+        var newHTML = beforeSelection + "\t" + afterSelection;
+        document.getElementById("code").value = newHTML;
+        document.querySelector("textarea").focus();
+        //return;
     } else if (str2 !== undefined && Selection !== undefined && Selection !== "") {
         var newHTML = beforeSelection + str1 + Selection + str2 + afterSelection;
         document.getElementById("code").value = newHTML;
@@ -175,6 +189,7 @@ textareaClicked = function(str1, str2) {
         var newHTML = beforeSelection + str1 + str2 + afterSelection;
         document.getElementById("code").value = newHTML;
     }
+
 
     document.getElementById("code").setSelectionRange(beforeSelection.length + str1.length + Selection.length, beforeSelection.length + str1.length + Selection.length);
     document.getElementById("code").focus();
@@ -200,13 +215,8 @@ textarea {
 
 </head>
 
-<body style="lightgray">
+<body>
 <?php
-function io_save() {
-
-
-
-}
 // Discover methods and ClassName of file
 function io_get($pluck)
 {
@@ -259,7 +269,7 @@ if (isset($_GET['x']) && isset($_GET['iosave']) && $_GET['x'] == '1') {
             <strong>Success!</strong> The text was copied to the clipboard
         </p>
     </div>
-    <textarea id="code" name="dataToSave"><?php echo "<?php"; ?></textarea><hr style="width:800">
+    <textarea id="code" onkeydown="tab(event,this)" name="dataToSave"><?php echo "<?php"; ?></textarea><hr style="width:800">
     </form>
         <block style="display:inline-grid;grid-template-rows:50px 50px 50x;grid-template-columns:500px 10px 150px 10px 150px 10px 150px;grid-column-start:1;grid-column-end:7;">
             <p class="btn btn-primary">Functions from <?php echo $html; ?></p>

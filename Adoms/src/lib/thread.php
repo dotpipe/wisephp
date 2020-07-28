@@ -2,8 +2,9 @@
 namespace Adoms\src\lib;
 
 
+require_once '../../vendor/autoload.php';
 
-class Thread extends Streams implements Classes {
+class Thread extends Streams {
     // *************
     // BEGIN HERE
     // start new thread for Javascript

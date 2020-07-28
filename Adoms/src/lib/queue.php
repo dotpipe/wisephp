@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace Adoms\src\lib;
 
-
+require_once '../../vendor/autoload.php';
 
 class Queue {
 

@@ -1,8 +1,8 @@
 <?php
 
 namespace Adoms\oauth2;
-include_once("vendor/autoload.php");
 
+require_once '../../vendor/autoload.php';
 $PARAM = ($_SERVER['REQUEST_METHOD'] == "POST") ? $_POST : $_GET;
 
 

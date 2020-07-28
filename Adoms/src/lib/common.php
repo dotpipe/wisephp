@@ -2,7 +2,9 @@
 
 namespace Adoms\src\lib; 
 
-class Common implements Classes {
+require_once '../../vendor/autoload.php';
+
+class Common {
 
 
     public $datCntr = 0;

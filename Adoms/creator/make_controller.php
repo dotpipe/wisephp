@@ -1,7 +1,8 @@
 <?php declare (strict_types = 1);
-namespace Adoms\src\lib;
+namespace Adoms\src\wireframe;
 
 
+require_once '../../vendor/autoload.php';
 
 $view = null;
 if (isset($_GET['s_titlewr']) && isset($_GET['s_directory']) && $_GET['s_name']) {

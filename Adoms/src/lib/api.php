@@ -2,6 +2,8 @@
 namespace Adoms\src\lib;
 
 
+require_once '../../vendor/autoload.php';
+
 class api extends mMap
 {
     public $regex_mapper;

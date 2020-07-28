@@ -1,19 +1,12 @@
 <?php
 namespace Adoms\src\lib;
-spl_autoload_register(function ($className)
-{
-	$path1 = 'Adoms/src/lib/';
-	$path2 = '';
-	if (file_exists($path1.$className.'.php'))
-		include $path1.$className.'.php';
-	else
-		include $path2.$className.'.php';
-});
+
+require_once '../../vendor/autoload.php';
 
 
 	// $this->mmap is the set of Maps
 	//This is the Map-in-Map Extension
-	class mMap extends Map implements Classes {
+	class mMap extends Map {
 		public $val;
 		public $dat;
 		// Maps array()

@@ -1,12 +1,9 @@
 <?php
 namespace Adoms\src\lib;
 
-$my = function ($pClassName) {
-    include("c:\\xampp\\htdocs\\Adoms\\" . strtolower($pClassName) . ".php");
-};
-spl_autoload_register($my, true, 1);
+require_once '../../vendor/autoload.php';
 
-class Streams extends Map implements Classes {
+class Streams extends Map {
 
     public $rootType;
     public $parentType;

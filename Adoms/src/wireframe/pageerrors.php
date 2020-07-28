@@ -2,8 +2,7 @@
 
 namespace Adoms\src\wireframe;
 
-require_once(__DIR__ . "../../../../vendor/autoload.php");
-
+require_once '../../vendor/autoload.php';
 class PageErrors {
 
     public function missingFile($filename) {

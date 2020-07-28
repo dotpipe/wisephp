@@ -2,7 +2,7 @@
 
 namespace Adoms\oauth2;
 
-include_once ("load.php");
+require_once '../../vendor/autoload.php';
 
 class userController extends OAuth2Owner {
 
