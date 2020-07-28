@@ -61,6 +61,21 @@ function tab(t,v) {
         v.focus();
     }
 }
+function func_find(find)
+{
+    document.getElementById("code").focus();
+    var t = document.getElementById("code").value.indexOf(find[find.selectedIndex].getAttribute("function"));
+    if (t == -1)
+    {
+        func_change(find);
+        return;
+    }
+    document.getElementById("code").setSelectionRange(
+        t,
+        t+find[find.selectedIndex].getAttribute("function").length 
+    );
+    document.getElementById("code").focus();
+}
 
 function surround (t) {
 
@@ -71,7 +86,7 @@ function surround (t) {
 }
 function func_change (t) {
     
-    g = t;
+    g = t[t.selectedIndex];
     f = document.getElementById("functions").getAttribute("file_type") + " ";
     m = document.getElementById("functions").getAttribute("type_name") + " ";
     //scope = g.getAttribute("scope") + " ";
@@ -238,7 +253,7 @@ function io_get($pluck)
     $_class = get_class_methods($class);
 
     $html = $class . ": ";
-    $html .= '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_change(this)">\r\n';
+    $html .= '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_find(this)">\r\n';
     foreach ($_class as $key => $value) {
         $html .= '<option ';
         $html .= 'function="CheckForFunction' . ucfirst($value) . '">';
