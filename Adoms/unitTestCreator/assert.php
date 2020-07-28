@@ -114,7 +114,7 @@ function func_change (t) {
         if (j == 1)
             h = h + x[i]; 
     }
-    document.getElementById("code").value = "\<\?php\n\nnamespace " + m.substr(0,m.lastIndexOf('\\')) + ";\n\ninclude '\\"+ m + ".php';\n\n" + f + "" + m.substr(m.lastIndexOf("\\")+1) + "Test extends " + m.substr(m.lastIndexOf("\\")+1) + " {\n\n" + "\tpublic function testCheckForFunction" + func + "() \n\t{\n\t\t\$obj = new " + m.substr(m.lastIndexOf("\\")+1) + "();\n\t\t\$testReturn = \$obj->" + func + "();\n\t}" + h.substr(1,h.length-5) + "\n}?>";
+    document.getElementById("code").value = "\<\?php\n\nnamespace " + m.substr(0,m.lastIndexOf('\\')) + ";\n\ninclude '\\"+ m + ".php';\n\n" + f + "" + m.substr(m.lastIndexOf("\\")+1) + "Test extends " + m.substr(m.lastIndexOf("\\")+1) + " {\n\n" + "\tpublic function testCheckForFunction" + func + "() \n\t{\n\t\t\$obj = new " + m.substr(m.lastIndexOf("\\")+1) + "();\n\t\t\$testReturn = \$obj->" + func + "();\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
 }
 
 ['click', 'touch', 'tap'].forEach(function(e) {
