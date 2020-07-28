@@ -80,7 +80,7 @@ function func_change (t) {
         if (j == 1)
             h = h + x[i]; 
     }
-    document.getElementById("code").value = "\<\?php\n" + f + m + "{\n" + "public function test" + func + "() \n{\n}" + h.substr(1) + "\n";
+    document.getElementById("code").value = "\<\?php\n" + f + m + "{\n" + "public function test" + func + "() \n{\n}" + h.substr(1,h.length-3) + "\n}";
     console.log(h);
 }
 ['click', 'touch', 'tap'].forEach(function(e) {
@@ -210,10 +210,9 @@ function io_save() {
 // Discover methods and ClassName of file
 function io_get($pluck)
 {
-    
-    $classes = get_declared_classes();
     if (!file_exists($pluck))
         return;
+    $classes = get_declared_classes();
     include $pluck;
     $diff = array_diff(get_declared_classes(), $classes);
     $class = reset($diff);
@@ -223,8 +222,9 @@ function io_get($pluck)
     $html = $class . ": ";
     $html = '<select id="functions" style="float:right;width:280px" file_type="class" type_name="' . $class . '" onchange="func_change(this)">\r\n';
     foreach ($_class as $key => $value) {
-        $html .= '<option function="CheckForFunction' . ucfirst($value) . '">' . $value . '</option>';
-
+        $html .= '<option ';
+        $html .= 'function="CheckForFunction' . ucfirst($value) . '">';
+        $html .= $value . '</option>';
     }
     return $html . "</select>";
 

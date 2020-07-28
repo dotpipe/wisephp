@@ -1,5 +1,0 @@
-<?php
-class Adoms\src\lib\Map {
-public function testCheckForFunctionRemovedat () 
-{
-}
