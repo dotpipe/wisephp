@@ -2,11 +2,11 @@
 
 namespace Adoms\src\lib;
 
-require_once '../../vendor/autoload.php';
+require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
 	// Pointer in this is $this->mx
-	class Matrix {
+	class Matrix extends Common {
 		public $parentType;
 		public $childType;
 		// Pointer to current Index

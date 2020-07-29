@@ -2,10 +2,10 @@
 namespace Adoms\src\lib;
 
 
-require_once '../../vendor/autoload.php';
+require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
-class Set  {
+class Set extends Common {
 
     public $setTemp;
     public $parentType;

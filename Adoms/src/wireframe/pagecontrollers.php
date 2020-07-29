@@ -4,7 +4,7 @@ use Adoms\src\wireframe\PageModels;
 use Adoms\src\wireframe\PageViews;
 
 
-require_once '../../vendor/autoload.php';
+require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class PageControllers {
 

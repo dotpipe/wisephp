@@ -1,9 +1,9 @@
 <?php
 namespace Adoms\src\lib;
 
-require_once '../../vendor/autoload.php';
+require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class css
+class css extends Common
 {
     public $filename;
     public $ext_int;

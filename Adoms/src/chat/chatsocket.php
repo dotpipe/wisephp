@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../../vendor/autoload.php';
+require_once __DIR__ . '../../../../vendor/autoload.php';
 // Send appropriate mime type
 header("Content-Type: text/event-stream\n\n");
 

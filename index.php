@@ -36,7 +36,7 @@ for ($i = 0 ; $i < 5 ; $i++) {
     $m->add($n, ":)");
 }
 $v2 = md5("inland14");
-$t->changeDir("./tests/g/h/j/");
+//$t->changeDir("tests/g/h/j");
 $t->addStrm($v2);
 $x = 0;
 
@@ -46,7 +46,7 @@ $t->buf = json_encode($m->dat);
 $t->buffSize = 0;
 $t->writeBuf();
 
-$rrr->changeDir("./tests/g/h/j/");
+//$rrr->changeDir("tests/g/h/j");
 $rrr->addStrm($v2);
 $rrr->buffSize = 0;
 $rrr->readBuf();
@@ -75,8 +75,8 @@ $i = 0;
 // to using do-while & for loops
 $yo = 5;
 $r = 0;
-$s->setIndex(0);
-$s->sync();
+//$s->setIndex(0);
+//$s->sync();
 do {
     $q->add(++$yo);
     $ccc->add($r++);

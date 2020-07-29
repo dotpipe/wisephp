@@ -2,8 +2,8 @@
 
 namespace Adoms\src\lib;
 
-require_once '../../vendor/autoload.php';
-class XML {
+require_once __DIR__ . '../../../../vendor/autoload.php';
+class XML extends Common {
 	// call with just the first parameter, the filename
 	public function newObj($r, $e = "Any") {
 		switch ($r) {
@@ -20,7 +20,7 @@ class XML {
 			case 'Set':
 				return new Set();
 			case 'mSet':
-				return new mSet();
+				return new mSet($e);
 			case 'Matrix':
 				return new Matrix($e);
 			case 'rwStream':
