@@ -4,7 +4,7 @@ use Adoms\src\tables;
 
 use Adoms\src\lib;
 
-require_once(__DIR__ . "../../../../vendor/autoload.php")
+require_once(__DIR__ . "../../vendor/autoload.php");
 
     $y = array("Address" => "BenSt", "Duration" => "fixed");
     $z = array("Address" => "25th", "Duration" => "limited");

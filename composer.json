@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "phpunit/phpunit": "^7"
+    },
     "autoload": {
             "classmap": [
             "adoms",
@@ -18,14 +20,13 @@
             "adoms/src/lib",
             "adoms/src/chat",
             "adoms/src/routes",
-            "adoms/config",
             "adoms/creator",
-            "adoms/logs",
-            "adoms/oauth2",
-            "adoms/pasm",
-            "adoms/unitTestCreator",
-            "adoms/wireframe",
-            "adoms/plugins"
+            "adoms/src/oauth2",
+            "adoms/src/pasm",
+            "adoms/src/runt",
+            "adoms/src/wireframe",
+            "adoms/src/plugins",
+            "adoms/src/plugins/KeywordFactory"
             ]
       },
     "require-dev": {

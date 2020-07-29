@@ -35,7 +35,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string
 		*
 		*/
-		public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null) {
+		public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null): bool {
 			if ($fieldname == null)
 				return false;
 			$this->model['data'] = null;
@@ -52,7 +52,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string, array
 		*
 		*/
-		public function editModelData(string $view_name, array $data) {
+		public function editModelData(string $view_name, array $data): bool {
 			$wrong_ans = [];
 			$this->checkValid($this->valid, $data, $wrong_ans);
 			foreach ($data as $k=>$v) {
@@ -70,7 +70,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string, array
 		*
 		*/
-		public function addModelData(string $view_name, array $data) {
+		public function addModelData(string $view_name, array $data): bool {
 			$wrong_ans = [];
 			$this->checkValid($this->valid, $data, $wrong_ans);
 			foreach ($data as $k=>$v) {
@@ -137,7 +137,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string, string, string
 		*
 		*/
-		public function addModelValid(string $property, string $regex = "/.*/", string $errmsg = "Please check your entry", string $lbl = null) {
+		public function addModelValid(string $property, string $regex = "/.*/", string $errmsg = "Please check your entry", string $lbl = null): bool {
 			$this->valid[$property]['label'] = $lbl;
 			$this->valid[$property]['regex'] = $regex;
 			$this->valid[$property]['errmsg'] = $errmsg;
@@ -150,7 +150,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string, array &
 		*
 		*/
-		private function errorReturn(string $key, array &$errormsgs = array()) {
+		private function errorReturn(string $key, array &$errormsgs = array()): bool {
 			$errormsgs[$key] = $this->valid[$key]['errmsg'];
 			return true;
 		}
@@ -161,7 +161,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters array, array, array &
 		*
 		*/
-		public function checkValid(array $valid, array $data, array &$wrong_ans = array()) {
+		public function checkValid(array $valid, array $data, array &$wrong_ans = array()): bool {
 			$this->errormsgs = [];
 			foreach ($data as $k => $v) {
 				if ($k != "label" && isset($valid[$k]['regex']) && $v != null && !preg_match($valid[$k]['regex'], $v)) {

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../vendor/autoload.php';
+require_once '../../../vendor/autoload.php';
 
 // Sidebar for chat
 $chat = '<javascript src="chat.js"></javascript>';

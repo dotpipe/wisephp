@@ -74,7 +74,7 @@ class PageControllers {
 	* @parameters string, array
 	*
 	*/
-	public function addModelData(string $view_name, array $data) {
+	public function addModelData(string $view_name, array $data): bool {
 		$this->mvc[$view_name]->addModelData($view_name, $data);
 		return true;
 	}
@@ -85,7 +85,7 @@ class PageControllers {
 	* @parameters none
 	*
 	*/
-	public function save() {
+	public function save(): bool {
 		$fp = fopen("$this->token/$this->md/config.json", "w");
 		fwrite($fp, serialize($this));
 		fclose($fp);
@@ -111,7 +111,7 @@ class PageControllers {
 	* @parameters string
 	*
 	*/
-	private function add_view(string $view_name) {
+	private function add_view(string $view_name): bool {
 		if (is_dir("$this->path/$view_name/")) {
 			if (!file_exists("$this->path/$view_name/index.php")) {
 				$fp = fopen("$this->path/$view_name/index.php", "w");
@@ -139,8 +139,9 @@ class PageControllers {
 	* @parameters string
 	*
 	*/
-	public function newView(string $view_name) {
+	public function newView(string $view_name): bool {
 		$this->add_view($view_name);
+		return true;
 	}
 	
 	/*
@@ -190,6 +191,6 @@ class PageControllers {
 	*
 	*/
 	public function addAction(string $token, string $view_name, string $action_name) {
-		return array_push($this->actions[], new PageActions($this->token, $view_name, $action_name));
+		return array_push($this->actions, new PageActions($this->token, $view_name, $action_name));
 	}
 }

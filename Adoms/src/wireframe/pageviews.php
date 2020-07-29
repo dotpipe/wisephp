@@ -36,7 +36,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string, string, string
 		*
 		*/
-		public function addPartial(string $filename, string $view_name = "FALSE", string $res_dir = "FALSE") {
+		public function addPartial(string $filename, string $view_name = "FALSE", string $res_dir = "FALSE"): bool {
 			if ($view_name == "FALSE")
 				$view_name = $this->copy;
 			if ($res_dir == "FALSE")
@@ -75,7 +75,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string
 		*
 		*/
-		public function addShared(string $filename) {
+		public function addShared(string $filename): bool {
 			$bool = 0;
 			if (!is_dir("$this->path/shared"))
 				mkdir("$this->path/shared");
@@ -107,7 +107,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters none
 		*
 		*/
-		public function save() {
+		public function save(): bool {
 			$fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json", "w");
 			fwrite($fp, serialize($this));
 			fclose($fp);
@@ -120,7 +120,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters none
 		*
 		*/
-		public function loadThisJSON() {
+		public function loadThisJSON(): bool {
 			if (file_exists($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") && filesize($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") > 0)
 				$fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json", "r");
 			else
@@ -140,7 +140,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters none
 		*
 		*/
-		private function writeThisIndex() {
+		private function writeThisIndex():void {
 			$buff = "<?php";
 			$fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/index.php", "w");
 			foreach ($this->injections as $k) {
@@ -163,7 +163,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters none
 		*
 		*/
-		private function writeIndex() {
+		private function writeIndex(): void {
 			$buff = "<?php";
 			$fp = fopen("$this->token/index.php", "w");
 			foreach ($this->injections as $k) {
@@ -185,7 +185,7 @@ require_once '../../vendor/autoload.php';
 		* public function is_session_started
 		* @return bool
 		*/
-		function is_session_started() {
+		function is_session_started(): bool {
 			if ( php_sapi_name() !== 'cli' ) {
 				if ( version_compare(phpversion(), '5.4.0', '>=') ) {
 					return session_status() === PHP_SESSION_ACTIVE ? TRUE : FALSE;
@@ -202,7 +202,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string
 		*
 		*/
-		public function configPageWrite(string $view_name = "index") {
+		public function configPageWrite(string $view_name = "index"): bool {
 			$fp = null;
 
 			if (!is_dir($this->token."/view/".$_COOKIE['PHPSESSID']) && !mkdir($this->token."/view/".$_COOKIE['PHPSESSID']))
@@ -241,7 +241,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string
 		*
 		*/
-		public function writePage(string $view_name = "index") {
+		public function writePage(string $view_name = "index"): bool {
 			$fp = null;
 			try {
 				if ($view_name == "index") {
@@ -269,9 +269,10 @@ require_once '../../vendor/autoload.php';
 				\fwrite($fp, $buff);
 				\fclose($fp);
 			}
-			catch(exception $e) {}
+			catch(exception $e) {
 				return true;
 			}
+		}
 
 		/*
 		*
@@ -279,7 +280,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string, string
 		*
 		*/
-		public function removeDependency(string $folder, string $partial) {
+		public function removeDependency(string $folder, string $partial): bool {
 			$bool = 0;
 			$k = [];
 			foreach ($this->injections as $v) {
@@ -300,7 +301,7 @@ require_once '../../vendor/autoload.php';
 		* @parameters string
 		*
 		*/
-		public function createAction(string $action_name) {
+		public function createAction(string $action_name): bool {
 			$this->actions[$this->copy] = new PageViews($this->token, $this->copy);
 			$this->actions[$this->copy]->addPartial("index.php", $this->copy, $action_name);
 			echo "<br><br><br>" . json_encode($this->actions);

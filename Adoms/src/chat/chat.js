@@ -111,7 +111,7 @@ function goCheri(i, j) {
       i.value = "";
       var v = y.value;
       var t = "";
-  
+      // We do not condemn, we only conserve our energy for better things
       t = v.replace(/\b(?:slut|fuck|fucking|fuckin|whore|asshole?|tard|fucker|nigger|blackie|queer|noose|slave|retard|shit|ass|damn?|anal|sex|bitch|twat|cunt|fag|faggot|fags|faggots|dick|dicks|penis|porno?|pussy?|pussies|vagina|crack|cocaine|heroin|motherfucker|bullshit)\b/ig, "CENSORED");
   
       var x = document.getElementById("in-window");
