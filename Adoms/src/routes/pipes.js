@@ -8,7 +8,7 @@
         var redirect_thru = "";
         var refer_thru = "";
         var elem = document.getElementById(ev.target.id);
-        var elem = document.querySelector(ev.target);
+        //var elem = document.querySelector(ev.target.id);
 
         if ((elem.className === null || elem.className === undefined) && (elem.id === null || elem === undefined)) {
             if (ev.target.onclick !== null && ev.target.onclick !== undefined)
@@ -78,8 +78,8 @@
 
         var pipe_back = "";
         // This is where the output will go. Indicates id attribute to aim at
-        if (elem.hasAttribute("insert-in"))
-            target__ = document.getElementById(elem.getAttribute("insert-in"));
+        if (elem.hasAttribute("insert"))
+            target__ = document.getElementById(elem.getAttribute("insert"));
         // This determines if the information will be passed back as a json
         if (elem.hasAttribute("json")) {
             target__ = document.getElementById(elem.getAttribute("json"));
