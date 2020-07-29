@@ -7,7 +7,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 class Version {
     public function about($vbool)  {
         if ($vbool == 0) {
-            echo 'Adoms::Helium v2.0.5<br>';
+            echo 'Adoms::Helium v3.0.0<br>';
             echo 'Adoms Object Oriented Framework / Wireframe Model-View-Controller / Pipes Routing';
         }
         else if ($vbool == 1)
