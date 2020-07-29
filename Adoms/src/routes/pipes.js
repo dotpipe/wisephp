@@ -8,7 +8,6 @@
         var redirect_thru = "";
         var refer_thru = "";
         var elem = document.getElementById(ev.target.id);
-        //var elem = document.querySelector(ev.target.id);
 
         if ((elem.className === null || elem.className === undefined) && (elem.id === null || elem === undefined)) {
             if (ev.target.onclick !== null && ev.target.onclick !== undefined)
@@ -18,6 +17,7 @@
                 window.location.href = ev.target.href;
             return;
         }
+        
 
         //use 'data-pipe' as the classname to include its value
         // specify which pipe with pipe="target.id"
