@@ -1,5 +1,4 @@
 <?php
-require_once '..\..\..\vendor\autoload.php';
 
 function io_cli($pluck): string
 {
@@ -56,5 +55,5 @@ function recurse_dirs($dir, $output_dir) {
         }
     } 
 }
-recurse_dirs($argv[0], $argv[1]);
+recurse_dirs($argv[1], $argv[2]);
 ?>

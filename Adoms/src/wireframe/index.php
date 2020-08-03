@@ -2,10 +2,10 @@
 namespace Adoms\src\wireframe;
 use Adoms\src\lib;
 
-require_once("../../../vendor/autoload.php");
+//require_once("../../../vendor/autoload.php");
 
-    $y = array("Address" => "BenSt", "Duration" => "fixed");
-/*
+//    $y = array("Address" => "BenSt", "Duration" => "fixed");
+/* HACKJOB
     $z = array("Address" => "25th", "Duration" => "limited");
     $x = new PageControllers("adp");
     $x->newView("index");
@@ -20,7 +20,7 @@ require_once("../../../vendor/autoload.php");
     $x->mvc['index']->view->addPartial("index.php");
     $x->mvc['BestPHPEverNow']->view->addPartial("index.php");
     $x->mvc['BestPHPEverNow']->view->addShared("index.php");
-    $x->mvc['BestPHPEverNow']->addModelValid("Address",'/1./', "Please ask the admin to help you!");
+    $x->mvc['BestPHPEverNow']->addModelValid("Address",'/1. /', "Please ask the admin to help you!");
     $x->mvc['BestPHPEverNow']->addModelValid("Duration",'/./');
     $x->mvc['BestPHPEverNow']->addModelData('index', $y);
     $x->mvc['BestPHPEverNow']->addModelData('friends', $z);
