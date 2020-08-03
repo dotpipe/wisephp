@@ -19,7 +19,7 @@
         }
         
 
-        //use 'data-pipe' as the classname to include its value
+        //use 'data-pipe' as the classname to require_once its value
         // specify which pipe with pipe="target.id"
         var elem_values = document.getElementsByClassName("data-pipe");
         var elem_qstring = "";

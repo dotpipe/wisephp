@@ -2,6 +2,7 @@
 
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
+/* HACKJOB
 // Send appropriate mime type
 header("Content-Type: text/event-stream\n\n");
 
@@ -15,5 +16,5 @@ do {
 	if ( connection_aborted() ) break;
 	sleep( rand(7, 13) );
 } while (1);
-
+*/
 ?>

@@ -9,7 +9,9 @@ function updateChatFile($con) {
     $results = $con->query($sql);
 }
 
-$conn = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database'], $_SESSION['port']) or die("Error: Cannot create connection");
+function chatCheck() {
+    
+    $conn = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database'], $_SESSION['port']) or die("Error: Cannot create connection");
 
     $results = $conn->query('SELECT alias FROM ad_revs WHERE username = "' . $_GET['d'] . '"') or die(mysqli_error($conn));
     
@@ -54,5 +56,5 @@ $conn = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['pass
     echo $dom->asXML('../chatxml/' . $filename);
 
    updateChatFile($conn);
-
+}
 ?>

@@ -1,10 +1,11 @@
 <?php
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
-
+/* HACKJOB
 $con = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database'], $_SESSION['port']) or die("Error: Cannot create connection");
 
 $results = $con->query('SELECT id, filename FROM chat WHERE 1');
+
 $var = [];
 $temp = 0;
 
@@ -17,5 +18,5 @@ while ($var = $results->fetch_assoc()) {
         chmod('../chatxml/' . $var['filename'], 0644);
     }
 }
-
+*/
 ?>

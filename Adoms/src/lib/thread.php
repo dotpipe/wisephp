@@ -39,7 +39,7 @@ class Thread extends Streams {
     // Thread pointer
     public $finit;
     // Current local Directory
-    private $dir;
+    public $dir;
 
     public function __construct() {
         $this->rootType = 'DataLayer';
@@ -54,7 +54,7 @@ class Thread extends Streams {
      * @parameters string
      *
      */
-    public function size() {
+    public function size(): int {
         return count($this->size());
     }
 
@@ -83,7 +83,7 @@ class Thread extends Streams {
      * @parameters string
      *
      */
-    public function save(string $json_name) {
+    public function save(string $json_name): bool {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -95,7 +95,7 @@ class Thread extends Streams {
      * @parameters string
      *
      */
-    public function loadJSON(string $json_name) {
+    public function loadJSON(string $json_name): bool {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
@@ -135,8 +135,8 @@ class Thread extends Streams {
      *
      */
     // Current thread
-    public function getIndex() {
-        return $this->getIndex();
+    public function getIndex(): int {
+        return parent::getIndex();
     }
 
     /**
@@ -145,8 +145,8 @@ class Thread extends Streams {
      *
      */
     // Current Thread
-    public function current() {
-        return $this->current();
+    public function current(): int {
+        return parent::current();
     }
 
     /**
@@ -165,8 +165,8 @@ class Thread extends Streams {
      *
      */
     // Previous Iteration
-    public function prev() {
-        return $this->prev();
+    public function prev(): bool {
+        return parent::prev();
     }
 
     /**
@@ -175,7 +175,7 @@ class Thread extends Streams {
      *
      */
     // Forward Iterator
-    public function Iter() {
+    public function Iter(): bool {
         return $this->Iter();
     }
 
@@ -185,7 +185,7 @@ class Thread extends Streams {
      *
      */
     // Forward Cycle Iterator
-    public function Cycle() {
+    public function Cycle(): bool {
         if ($this->size() == $this->getIndex()+1) {
             $this->setIndex(0);
             $this->join();
@@ -200,7 +200,7 @@ class Thread extends Streams {
      *
      */
     // Reverse Iterator
-    public function revIter() {
+    public function revIter(): bool {
         return $this->revIter();
     }
 
@@ -210,7 +210,7 @@ class Thread extends Streams {
      *
      */
     // Reverse Cycle Iterator
-    public function revCycle() {
+    public function revCycle(): bool {
         if (-1 == $this->getIndex()-1) {
             $this->setIndex($this->size()-1);
             $this->join();
@@ -246,7 +246,7 @@ class Thread extends Streams {
      */
     // Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
     public function endThread() {
-        $this->remSeqStream($this->getIndex());
+        parent::removeIndex($this->getIndex());
         $this->Iter();
         $this->seqStrms->setIndex($this->getIndex());
         return true;

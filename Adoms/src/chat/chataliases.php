@@ -118,6 +118,7 @@ function newconduct($cxn) {
     }
 }
 
+/* HACKJOB
 $conn = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database'], $_SESSION['port']) or die("Error: Cannot create connection");
 
 if ($_GET['c'] == 1)
@@ -132,4 +133,5 @@ else if ($_GET['c'] == 5)
     setconduct($conn);
 else if ($_GET['c'] == 6)
     flagComment($conn);
+*/
 ?>

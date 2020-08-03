@@ -4,11 +4,10 @@
 	if (!isset($_SESSION))
 		session_start();
 
-	include_once ("load.php");
-	use Adoms\oauth2\userController;
+	use Adoms\src\oauth2\userController;
 	use Adoms\pasm\PASM;
 
-	class Routes extends oauth2\UserController {
+	class Routes {
 
 		public $QURY;
 		public $resh;

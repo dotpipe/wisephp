@@ -42,7 +42,7 @@ class SortedMap extends Map {
      * @parameters string
      *
      */
-    public function save(string $json_name) {
+    public function save(string $json_name): bool {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -54,7 +54,7 @@ class SortedMap extends Map {
      * @parameters string
      *
      */
-    public function loadJSON(string $json_name) {
+    public function loadJSON(string $json_name): bool {
         if (file_exists("$json_name") && filesize("$json_name") > 0)
             $fp = fopen("$json_name", "r");
         else
