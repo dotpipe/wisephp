@@ -41,7 +41,7 @@ function recurse_dirs($dir, $output_dir) {
     echo $dir;
     foreach (scandir($dir) as $file)
     { 
-        if ($file == "runt" || $file == "assert_cli.php")
+        if ($file == "ditto" || $file == "assert_cli.php")
             continue;
         $c = "";
         if (is_dir($dir . '\\' . $file) && $file != "." && $file != "..")

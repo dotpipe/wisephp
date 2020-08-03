@@ -1,7 +1,5 @@
 <?php
 namespace Adoms\src\wireframe;
-use Adoms\src\wireframe\PageModels;
-use Adoms\src\wireframe\PageViews;
 
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
@@ -171,7 +169,7 @@ class PageControllers {
 	*
 	*/
 	public function addPartial(string $filename) {
-		return $this->view->addPartial($filename);
+		return $this->mvc[$this->token]['view']->addPartial($filename);
 	}
 	
 	/*
@@ -181,16 +179,7 @@ class PageControllers {
 	*
 	*/
 	public function addShared(string $filename) {
-		return $this->view->addShared($filename);
+		return $this->mvc[$this->token]['shared']->addPartial($filename);
 	}
 	
-	/*
-	*
-	* public function addAction
-	* @parameters string, string, string
-	*
-	*/
-	public function addAction(string $token, string $view_name, string $action_name) {
-		return array_push($this->actions, new PageActions($this->token, $view_name, $action_name));
-	}
 }

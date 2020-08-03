@@ -1,11 +1,10 @@
 <?php
 
-	namespace Adoms;
+	namespace Adoms\src\oauth2;
 	if (!isset($_SESSION))
 		session_start();
 
-	use Adoms\src\oauth2\userController;
-	use Adoms\pasm\PASM;
+	use Adoms\src\pasm\PASM;
 
 	class Routes {
 

@@ -20,7 +20,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		function __construct(string $token, string $view_name) {
 			$this->token = $token;
-			$this->path = "$this->token/view";
+			$this->path = "$this->token\/view";
 			$this->md = $_COOKIE['PHPSESSID'];
 			if (!is_dir("$this->path/$view_name") && !mkdir("$this->path/$view_name"))
 				echo "Unable to create needed directories";
@@ -267,7 +267,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 				\fwrite($fp, $buff);
 				\fclose($fp);
 			}
-			catch(exception $e) {
+			catch(\Exception $e) {
 				return true;
 			}
 		}

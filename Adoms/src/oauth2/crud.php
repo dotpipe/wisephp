@@ -1,7 +1,7 @@
 <?php
-namespace Adoms\oauth2;
+namespace Adoms\src\oauth2;
 
-include_once("load.php");
+require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class CRUD
 {

@@ -23,7 +23,7 @@
             "adoms/creator",
             "adoms/src/oauth2",
             "adoms/src/pasm",
-            "adoms/src/runt",
+            "adoms/src/ditto",
             "adoms/src/wireframe",
             "adoms/src/plugins",
             "adoms/src/plugins/KeywordFactory"

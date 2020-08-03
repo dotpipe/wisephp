@@ -43,7 +43,7 @@ function getconduct($cnxn) {
 // This is to flag a comment for moderators
 function flagComment($cn) {
     
-    $results = $cn->query('SELECT filename, conduct_on, id FROM chat WHERE (aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '")') or die(mysqli_error($con));
+    $results = $cn->query('SELECT filename, conduct_on, id FROM chat WHERE (aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '")') or die(mysqli_error($cn));
 
     $row = [];
     $row = [];

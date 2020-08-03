@@ -90,18 +90,18 @@ class SortedMap extends Map {
     // Return Keys before $r
     // $vb == 1 >= $v
     // $vb == 0 < $v
-    public function headMap(string $v, bool $vb, int $r) {
+    public function headMap(string $v, bool $vb) {
         $mapTemp = array();
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
-        }
-        foreach ($this->dat as $k => $v) {
-            if ($st >= $v && $vb == 1) {
-                $mapTemp = array_merge($mapTemp, array($k => $v));
+        } 
+        {
+            if ($vb == 1) {
+                $mapTemp = array_splice($this->dat, $v, count($this->dat));
             }
-            else if ($st < $v && $vb == 0) {
-                $mapTemp = array_merge($mapTemp, array($k => $v));
+            else if ($vb == 0) {
+                $mapTemp = array_splice($this->dat, 0, $v);
             }
             else {
                 throw new SyntaxError('Invalid Syntax');

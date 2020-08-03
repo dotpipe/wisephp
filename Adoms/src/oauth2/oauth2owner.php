@@ -1,9 +1,9 @@
 <?php declare (strict_types = 1);
 
-namespace Adoms\oauth2;
+namespace Adoms\src\oauth2;
 use Adoms\src\lib;
 
-require_once('load.php');
+require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class OAuth2Owner {
 
@@ -30,7 +30,7 @@ class OAuth2Owner {
         $password = $login_info_array['password'];
         $this->hashPassword($password);
         
-        $connection = new crud($config);
+        $connection = new CRUD($config);
         $table = $login_info_array['table'];
         $username = $login_info_array['username'];
         
@@ -44,7 +44,7 @@ class OAuth2Owner {
         return count($read_rows);
     }
 
-    public function checkExpiry(array $login_info_array, resource $connection): bool {
+    public function checkExpiry(array $login_info_array, $connection): bool {
 
         $usern = sprintf("`%1$s`.`username` = %s AND `%1$s`.`realm` = %s", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
@@ -74,11 +74,11 @@ class OAuth2Owner {
         return false;
     }
 
-    public function newUserTokenizer(array $login_info_array, resource $connection):string {
+    public function newUserTokenizer(array $login_info_array, $connection):string {
 
         $this->hashPassword($login_info_array['password']);
         // Create token
-        $token = \createTokenizer();
+        $token = $this->createTokenizer();
         $connection->create([
             "id" => null,
             "password" => $login_info_array['password'],
@@ -113,10 +113,9 @@ class OAuth2Owner {
 
     public function logout($login_info_array) {
 
-        $connection = new crud();
         $usern = sprintf("`%1$s`.`username` = %s AND `%1$s`.`realm` = %s", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
-        $this->delete($login_info_array['table'],$usrn);
+        $this->connection->delete($login_info_array['table'],$usern);
         unset($_COOKIE['TOK']);
     }
 

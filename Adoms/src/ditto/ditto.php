@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Runt - Build v1.0</title>
+<title>Ditto - Build v1.0</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -283,7 +283,7 @@ if (isset($_GET['x']) && isset($_GET['iosave']) && $_GET['x'] == '1') {
 }
 ?>
 <div class="jumbotron" style="padding-top:40px;vertical-align:center;border:1px solid black;border-top:1px solid darkgray;cell-spacing:0px;background-color:darkgray;border-radius:0px 0px 25px 25px;height:100px !important;">
-    <h3>Runt Class Unit Test Manipulator v1.0</h3>
+    <h3>Ditto Class Unit Test Manipulator v1.0</h3>
 </div>
 <hr style="background-color:darkgray;width:96.5%;height:1px;margin-left:25px;float:left;margin-top:-25px">
 <div class="jumbotron" style="padding:1px;vertical-align:top;margin-top:-15px;margin-left:25px;width:96.5%;border-radius:0px 0px 25px 25px;height:50px !important;">

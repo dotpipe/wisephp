@@ -72,10 +72,10 @@ class SortedSet extends Set {
      * @parameters string, int, string, int
      *
      */
-    // Return between $st and $en (This is very functional)
+    // Return between $st and $ven (This is very functional)
     // $Lb == 1 >= $st ; $Lb == 0 < $st
-    // $Hb == 0 >= $en ; $Hb == < $en
-    public function subSet(int $st, int $Lb, string $en, int $Hb) {
+    // $Hb == 0 >= $ven ; $Hb == < $ven
+    public function subSet(int $st, int $Lb, string $ven, int $Hb) {
         $sSetTemp = new Set();
         if (!is_array($this->dat))
             $this->dat = [];

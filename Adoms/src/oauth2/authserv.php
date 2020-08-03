@@ -1,5 +1,5 @@
 <?php
-namespace Adoms\oauth2;
+namespace Adoms\src\oauth2;
 
 
 require_once __DIR__ . '../../../../vendor/autoload.php';

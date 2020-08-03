@@ -1,10 +1,12 @@
 <?php
 
-namespace Adoms;
+namespace Adoms\src\oauth2;
 
-include_once ("load.php");
+use Adoms\src\pasm;
 
-class UserClass {
+require_once __DIR__ . '../../../../vendor/autoload.php';
+
+class UserClass extends CRUD {
 
     /*
      *
@@ -28,8 +30,10 @@ class UserClass {
     public $group_id = 0;
     public $user_id = null;
     public $GET;
+    public $cmd;
 
     function __construct() {
+        $this->pasm = new \Adoms\src\pasm\PASM();
         $this->cmd = (isset($_GET) && isset($_GET['cmd'])) ? $_GET['cmd'] : $_POST['cmd'];
         $this->GET = (isset($_GET) && isset($_GET['cmd'])) ? $_GET : $_POST;
         if (!isset($this->GET['cmd']))
@@ -67,8 +71,8 @@ class UserClass {
     {
         if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 2)
             return $this;
-        //$crud = new crud();
-        $rows = \crud::read($login_arr, $where);
+        $crud = new CRUD();
+        $rows = $crud->read($login_arr, $where);
         if (count($rows) == 1)
         {
             $this->login_cntr = 0;
@@ -84,11 +88,11 @@ class UserClass {
 
     protected function create_new_admin(array $user_settings_for_database, $table_name) 
     {
-        $crud = new crud();
-        $this->addr($user_settings_for_database, $table_name) // describe new array
+        $crud = new CRUD();
+        $this->pasm->addr($user_settings_for_database, $table_name) // describe new array
             ->movr() // push array (r) onto stack and empty
             ->end(); // End line of used functions
-        \crud::create($this->ST0, $table_name);
+        $crud->create($this->ST0, $table_name);
         return $this;
     }
     
@@ -104,12 +108,12 @@ class UserClass {
         $crud = new crud();
         $this->array = ["users" => []];
         if ($this->group_id == 0)
-            $this->addr([$userId, $password, $groupId])->end();
+            $this->pasm->addr([$userId, $password, $groupId]);
         else if (($userId == null || $this->user_id == $userId) && $groupId == $this->group_id)
-            $this->addr([$this->user_id, $password, $this->group_id])->end();
-        $this->movr();
+            $this->pasm->addr([$this->user_id, $password, $this->group_id]);
+        $this->pasm->movr();
+        $crud->create($this->ST0, $this->pasm->arr);
         $this->pasm->end();
-        \crud::create($this->ST0, $table_name);
         return $this;
     }
 }
