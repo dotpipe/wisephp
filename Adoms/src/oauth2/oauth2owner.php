@@ -1,7 +1,6 @@
 <?php declare (strict_types = 1);
 
 namespace Adoms\src\oauth2;
-use Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
@@ -46,7 +45,7 @@ class OAuth2Owner {
 
     public function checkExpiry(array $login_info_array, $connection): bool {
 
-        $usern = sprintf("`%1$s`.`username` = %s AND `%1$s`.`realm` = %s", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
+        $usern = sprintf("`%1`.`username` = %2 AND `%1`.`realm` = %3", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
         $read_rows = $connection->read([
             $login_info_array['table'] => [
@@ -113,7 +112,7 @@ class OAuth2Owner {
 
     public function logout($login_info_array) {
 
-        $usern = sprintf("`%1$s`.`username` = %s AND `%1$s`.`realm` = %s", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
+        $usern = sprintf("`%1`.`username` = %2 AND `%1`.`realm` = %3", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
         $this->connection->delete($login_info_array['table'],$usern);
         unset($_COOKIE['TOK']);

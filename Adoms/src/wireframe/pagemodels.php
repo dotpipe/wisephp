@@ -28,7 +28,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			$this->token = $token;
 			$this->copy = $view_name;
 		}
-
+		
 		/*
 		*
 		* public function addModelField

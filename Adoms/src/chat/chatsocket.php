@@ -1,8 +1,8 @@
 <?php
 
-
+/*
 require_once __DIR__ . '../../../../vendor/autoload.php';
-/* HACKJOB
+
 // Send appropriate mime type
 header("Content-Type: text/event-stream\n\n");
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\pasm;
+namespace Adoms\src\pasm;
 
-require_once '\Adoms\pasm\PASM.php';
+require_once '\Adoms\src\pasm\PASM.php';
 
  class PASMTest extends PASM {
 
@@ -1096,10 +1096,10 @@ require_once '\Adoms\pasm\PASM.php';
 		$obj = new PASM();
 		$testReturn = $obj->setz();
 	}
-	public function testCheckForFunctionstc() 
+	public function testCheckForFunctionsetcf() 
 	{
 		$obj = new PASM();
-		$testReturn = $obj->stc();
+		$testReturn = $obj->setcf();
 	}
 	public function testCheckForFunctionadd_to_buffer() 
 	{
@@ -1180,6 +1180,11 @@ require_once '\Adoms\pasm\PASM.php';
 	{
 		$obj = new PASM();
 		$testReturn = $obj->stack_func_pos();
+	}
+	public function testCheckForFunctioncreate_register() 
+	{
+		$obj = new PASM();
+		$testReturn = $obj->create_register();
 	}
 }
 ?>

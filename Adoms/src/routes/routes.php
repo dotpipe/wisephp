@@ -1,10 +1,10 @@
 <?php
 
 	namespace Adoms\src\oauth2;
+	use Adoms\src\pasm\PASM;
+	
 	if (!isset($_SESSION))
 		session_start();
-
-	use Adoms\src\pasm\PASM;
 
 	class Routes {
 
@@ -194,20 +194,11 @@
 				"user" => $this->QURY['user']
 				
 			];
-			foreach ($this->pasm->stack as $key) {
-				if (($redirect) == ($key) || ($user) == ($key))
-				{
-					return $redirect == $key ? $redirect : $user;
-				}
-				$redirect['allowed'] = 0;
-				$user['allowed'] = 0;
-				if (($redirect) == ($key) || ($user) == ($key))
-				{
-					return $redirect == $key ? $redirect : $user;
-				}
-				$redirect['allowed'] = 1;
-				$user['allowed'] = 1;
-			}
+			$returning = [];
+			if (5 <= count(array_intersect_assoc($redirect,$this->pasm->stack)))
+				return $returning;
+			else if (4 <=count(array_intersect_assoc($user,$this->pasm->stack)))
+				return $user;
 			return -1;
 		}
 		
@@ -259,7 +250,6 @@
 					curl_setopt($handle, CURLOPT_POST, true);
 					curl_setopt($handle, CURLOPT_FOLLOWLOCATION,true);
 					curl_setopt($handle, CURLOPT_POSTFIELDS, http_build_query($this->QURY));
-					curl_setopt($handle, CURLOPT_BINARYTRANSFER, true);
 					//curl_setopt($handle, CURLOPT_ENCODING, "");
 					//curl_setopt($handle, CURLOPT_USERAGENT, $user_agent);
 					$page_contents = curl_exec($handle);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\oauth2;
+namespace Adoms\src\oauth2;
 
-require_once '\Adoms\oauth2\CRUD.php';
+require_once '\Adoms\src\oauth2\CRUD.php';
 
  class CRUDTest extends CRUD {
 

@@ -1,4 +1,5 @@
 <?php
+/*
 if (!isset($_SESSION))
     session_start();
 
@@ -12,7 +13,6 @@ $_SESSION['port'] = (isset($ini->host)) ? $ini->port : "port";
 
 include_once("../../../vendor/autoload.php");
 
-/* HACKJOB
 $results = $cnxn->query('SELECT * FROM tokenName WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' . $_COOKIE['myemail'] . '") LIMIT 1');
 
 if ($results->num_rows == 1) {

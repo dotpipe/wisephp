@@ -19,5 +19,6 @@ class PageErrors {
         $phpmsg .= file_get_contents("$date") . "\r\n";
         file_put_contents("$date", $phpmsg);
     }
+    
 }
 ?>

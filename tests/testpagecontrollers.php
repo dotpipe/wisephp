@@ -41,10 +41,5 @@ require_once '\Adoms\src\wireframe\PageControllers.php';
 		$obj = new PageControllers();
 		$testReturn = $obj->addShared();
 	}
-	public function testCheckForFunctionaddAction() 
-	{
-		$obj = new PageControllers();
-		$testReturn = $obj->addAction();
-	}
 }
 ?>

@@ -24,6 +24,7 @@
             "adoms/src/oauth2",
             "adoms/src/pasm",
             "adoms/src/ditto",
+            "adoms/src/chat",
             "adoms/src/wireframe",
             "adoms/src/plugins",
             "adoms/src/plugins/KeywordFactory"

@@ -52,7 +52,7 @@ class XML extends Common {
 		try {
 			$dom->load($fname);
 		}
-		catch (Exception $e) { return; }
+		catch (\Exception $e) { return; }
 		$obj = $dom->getElementsByTagname("Object");
 		foreach ($obj as $h) {
 			$j = $h->childNodes;
@@ -106,7 +106,7 @@ class XML extends Common {
 								foreach ($r as $pair) {
 									$go = $pair->childNodes;
 									$value = null;
-									$key = null;
+									$key = "";
 									$i = 0;
 									foreach ($go as $dat) {
 										if ($i%2 == 0)
@@ -135,6 +135,7 @@ class XML extends Common {
 					foreach ($a as $d) {
 						$i = 0;
 						$qwerty = $d->childNodes;
+						$phd = "";
 						foreach ($qwerty as $tr) {
 							if ($i%2 == 0)
 								$phd = $tr->nodeValue;
@@ -171,7 +172,7 @@ class XML extends Common {
 				}
 				if ($type->nodeName == "ObjectType" && $type->nodeValue == 'Vectors') {
 					$t = $type->nextSibling;
-					$s = newObj("Vector", $t->nodeValue);
+					$s = $this->newObj("Vector", $t->nodeValue);
 					$go = $t->nextSibling;
 					$g = $go->childNodes;
 					foreach ($g as $svr) {

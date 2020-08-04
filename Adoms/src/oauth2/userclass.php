@@ -54,7 +54,7 @@ class UserClass extends CRUD {
         return $this;
     }
 
-    private function load_user_state($filename) {
+    public function load_user_state($filename) {
         $fx = unserialize(file_get_contents($filename));
         foreach ($fx as $key => $value)
         {

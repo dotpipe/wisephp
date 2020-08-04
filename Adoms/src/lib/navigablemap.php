@@ -58,7 +58,7 @@ class NavigableMap extends SortedMap {
         }
         $handler = $this->dat;
         $bottom = array_search(min($this->dat),$this->dat);
-        return bottom;
+        return $bottom;
     }
 
     /**
@@ -72,7 +72,7 @@ class NavigableMap extends SortedMap {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        return keys($this->dat);
+        return array_keys($this->dat);
     }
 
     /**

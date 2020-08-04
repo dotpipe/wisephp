@@ -3,7 +3,7 @@
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 // Get all names of people who have talked to user
-function getaliases($con) {
+function getConversations($con) {
     $results = $con->query('SELECT username FROM ad_revs, chat WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' .  $_COOKIE['myemail'] . '") && username != "' . $_COOKIE['myemail'] . '" ORDER BY last DESC') or die (mysqli_error($con));
     
     $c = [];

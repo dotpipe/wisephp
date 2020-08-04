@@ -1,6 +1,6 @@
 <?php
 
-namespace Adoms\oauth2;
+namespace Adoms\src\oauth2;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 $PARAM = ($_SERVER['REQUEST_METHOD'] == "POST") ? $_POST : $_GET;
@@ -18,7 +18,7 @@ else {
     if (strtolower($PARAM['REQUEST']) == "oauth2")
         echo "\nREQUEST ACKNOWLEDGED";
     $oauth2 = new OAuth2Owner();
-    $oauth2->login($PARAM);
+    $oauth2->login('../config/config.ini',$PARAM);
 
 }
 

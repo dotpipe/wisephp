@@ -24,8 +24,6 @@
 		margin-top: -7px; border-width: 5px;
         border-style: solid; border-color: transparent transparent transparent white; }
    </style>
-   
-		<script src="gmaps.js"></script>
 		<table style="position:fixed;height:50%">
 			<tr>
 				<td>

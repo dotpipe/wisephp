@@ -1,20 +1,45 @@
 <?php
 
-namespace ;
+namespace Adoms\src\chat;
 
-require_once '\ComposerAutoloaderInit3ed9eb479d75e9d10114e64ba1b7b783.php';
+require_once '\Adoms\src\chat\ChatBox.php';
 
- class ComposerAutoloaderInit3ed9eb479d75e9d10114e64ba1b7b783Test extends ComposerAutoloaderInit3ed9eb479d75e9d10114e64ba1b7b783 {
+ class ChatBoxTest extends ChatBox {
 
-	public function testCheckForFunctionloadClassLoader() 
+	public function testCheckForFunctionupdateChatFile() 
 	{
-		$obj = new ComposerAutoloaderInit3ed9eb479d75e9d10114e64ba1b7b783();
-		$testReturn = $obj->loadClassLoader();
+		$obj = new ChatBox();
+		$testReturn = $obj->updateChatFile();
 	}
-	public function testCheckForFunctiongetLoader() 
+	public function testCheckForFunctionchatCheck() 
 	{
-		$obj = new ComposerAutoloaderInit3ed9eb479d75e9d10114e64ba1b7b783();
-		$testReturn = $obj->getLoader();
+		$obj = new ChatBox();
+		$testReturn = $obj->chatCheck();
+	}
+	public function testCheckForFunctionflagComment() 
+	{
+		$obj = new ChatBox();
+		$testReturn = $obj->flagComment();
+	}
+	public function testCheckForFunctiongetfilename() 
+	{
+		$obj = new ChatBox();
+		$testReturn = $obj->getfilename();
+	}
+	public function testCheckForFunctionsetconduct() 
+	{
+		$obj = new ChatBox();
+		$testReturn = $obj->setconduct();
+	}
+	public function testCheckForFunctionnewconduct() 
+	{
+		$obj = new ChatBox();
+		$testReturn = $obj->newconduct();
+	}
+	public function testCheckForFunctioncreateChat() 
+	{
+		$obj = new ChatBox();
+		$testReturn = $obj->createChat();
 	}
 }
 ?>

@@ -10,7 +10,9 @@ function io_cli($pluck): string
     $diff = array_diff(get_declared_classes(), $classes);
     reset($diff);
     $class = current($diff);
+    echo $class . " ";
     $_class = get_class_methods($class);
+    $args = func_get_args();
     if (!is_array($_class))
         return "";
     
@@ -24,16 +26,21 @@ function io_cli($pluck): string
         foreach (($_class) as $no => $key) {
             if ($key == "__construct")
                 continue;
-            
+            $ref_func = new \ReflectionFunction($out_class . "::" . $key);
+            $args = "";
+            foreach ($ref_func->getParameters() as $param) {
+                $args .= ', $' . $param->name;   
+            }
+            $args = substr($args,2,strlen($args));
             $c .= "\tpublic function testCheckForFunction" . $key . "() \n\t{\n\t\t\$obj = new " . $out_class . "();";
-            $c .= "\n\t\t\$testReturn = \$obj->" . $key . "();\n\t}\n";// + substr($c,1,-6)"
+            $c .= "\n\t\t\$testReturn = \$obj->" . $key . "($args);\n\t}\n";// + substr($c,1,-6)"
         }
         $c .= "}\n?>";
     }
     catch (Exception $e)
     {
-        //echo $e;
-        return null;
+        echo $e;
+        return "";
     }
     return $c;
 }
@@ -56,5 +63,5 @@ function recurse_dirs($dir, $output_dir) {
         }
     } 
 }
-recurse_dirs($argv[0], $argv[1]);
+recurse_dirs($argv[1], $argv[2]);
 ?>

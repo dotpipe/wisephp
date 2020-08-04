@@ -1,6 +1,6 @@
 <?php
 
-namespace Adoms\oauth2;
+namespace Adoms\src\oauth2;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
@@ -46,7 +46,7 @@ class userController extends OAuth2Owner {
 
         $connection = new crud($userdb_ini);
 
-        $this->hashPassword($login_credentials['password']);
+        $this->hashPassword($credentials['password']);
 
         if (!$connection)
             return false;

@@ -10,6 +10,7 @@ function io_cli($pluck): string
     reset($diff);
     $class = current($diff);
     $_class = get_class_methods($class);
+    $args = func_get_args();
     if (!is_array($_class))
         return "";
     
@@ -31,8 +32,8 @@ function io_cli($pluck): string
     }
     catch (Exception $e)
     {
-        //echo $e;
-        return null;
+        echo $e;
+        return "";
     }
     return $c;
 }

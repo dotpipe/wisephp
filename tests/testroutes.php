@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms;
+namespace Adoms\src\oauth2;
 
-require_once '\Adoms\Routes.php';
+require_once '\Adoms\src\oauth2\Routes.php';
 
  class RoutesTest extends Routes {
 

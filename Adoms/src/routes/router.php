@@ -100,7 +100,7 @@ class GroupRouteFactory {
 
     public $router;
 
-    function __construct(string $uri, int $groupid, string $route = ".", string $user = ".", string $final = ".", string $filename) {
+    function __construct(string $uri, int $groupid, string $route = ".", string $user = ".", string $final = ".", string $filename = "index.php") {
         $this->router = array("group" => $groupid, "uri" => $uri, "route" => "{$route}/{$groupid}/{$user}/{$final}", "sub" => $route, "user" => $user, "final" => $final, "type" => "GroupRouteFactory");
         $x = new fileRoute($this, $filename);
     }
