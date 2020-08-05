@@ -1,3 +1,9 @@
+function createMenuItem(name) {
+    let li = document.createElement('li');
+    li.textContent = name;
+    return li;
+}
+
 ['click', 'touch', 'tap'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
         var method_thru = "";
@@ -18,7 +24,6 @@
             return;
         }
         
-
         //use 'data-pipe' as the classname to require_once its value
         // specify which pipe with pipe="target.id"
         var elem_values = document.getElementsByClassName("data-pipe");
@@ -96,8 +101,9 @@
                     return response.text().then(function(text) {
                         // Make sure that the target out-pipe exists still
                         if (target__ != null && pipe_back != "json") {
-                            target__.innerHTML = text;
-                            console.log(target__);
+                            let p = document.createElement("p");
+                            p.innerText = text;
+                            target__.insertBefore(p,target__.firstChild);
                         }
                         else if (target__ != null && pipe_back == "json") {
                             let v = JSON.parse(text);
