@@ -105,11 +105,11 @@ class PageControllers {
 	
 	/*
 	*
-	* private function add_view
+	* public function add_view
 	* @parameters string
 	*
 	*/
-	private function add_view(string $view_name): bool {
+	public function add_view(string $view_name): bool {
 		if (is_dir("$this->path/$view_name/")) {
 			if (!file_exists("$this->path/$view_name/index.php")) {
 				$fp = fopen("$this->path/$view_name/index.php", "w");

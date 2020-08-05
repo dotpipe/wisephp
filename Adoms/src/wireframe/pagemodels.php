@@ -150,7 +150,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		* @parameters string, array &
 		*
 		*/
-		private function errorReturn(string $key, array &$errormsgs = array()): bool {
+		public function errorReturn(string $key, array &$errormsgs = array()): bool {
 			$errormsgs[$key] = $this->valid[$key]['errmsg'];
 			return true;
 		}

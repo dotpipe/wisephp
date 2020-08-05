@@ -138,7 +138,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		* @parameters none
 		*
 		*/
-		private function writeThisIndex():void {
+		public function writeThisIndex():void {
 			$buff = "<?php";
 			$fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/index.php", "w");
 			foreach ($this->injections as $k) {
@@ -161,7 +161,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		* @parameters none
 		*
 		*/
-		private function writeIndex(): void {
+		public function writeIndex(): void {
 			$buff = "<?php";
 			$fp = fopen("$this->token/index.php", "w");
 			foreach ($this->injections as $k) {

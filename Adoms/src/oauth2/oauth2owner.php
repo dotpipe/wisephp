@@ -8,13 +8,13 @@ class OAuth2Owner {
 
     public $user;
     public $password;
-    private $token;
+    public $token;
 
     public $resource;
 
     // The website to grant access
     // tokens to.
-    private $realm;
+    public $realm;
 
     /*
      *   Use Wireframe to pull pages through $resource

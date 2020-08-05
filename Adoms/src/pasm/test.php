@@ -5,28 +5,31 @@ include_once('pasm.php');
 
     $x = new PASM();
 
-    $x->set('ecx',3)    // REGISTER
-        ->set('ldp',2)  // NUMBER OF COMMANDS TO GO BACK
+    $x::set('ecx',10)    // REGISTER
+        ->set('ldp',1)  // NUMBER OF COMMANDS TO GO BACK
         ->set('pdb',1)  // DEBUG FIELD
         ->set('rdx',3)  // REGISTER
         ->set('ah',2)   // REGISTER
         ->end();
-    
     $y = "ecx";
-    //print_r($x);
-    $x->mov_ecx()->decr()->jne()->loope()->end();
-
-    //print_r($x);
-    $x->set('ecx',3)->set('ldp',1)->decr()->jne()->loope()->end();
-
-    $x->set('ecx',3)->set('ldp',2)->decr()->mov_ecx()->decr()->jne()->loop();
+    $v = null;
+    print_r($x, $v);
+    echo $v;
+    $x::mov_ecx()->decr()->loopnz();
+    echo '\n\n\n\n';
+    print_r($x);
+    $x::set('ah',20)->set('ecx',1)->nop()->inc()->jge();
+    print_r($x);
+    $x::set('ah',10)->set('ecx',5)->nop()->inc()->jne();
     
-    $x->set('ecx',3)->set('ldp',1)->decr()->mov_ecx()->decr()->jmp();
     
-    $x->decr()->decr()->jgz()->decr()->set('ldp',7)->loopnz();
+    $x::set('ecx',0)->inc()->inc()->jmp();
+    
+    //print_r($x);  
+    $x::set('ecx',20)->decr()->decr()->jgz()->set('ldp',4)->loopnz();
     
 
-    $x->set('ecx',3)->set('ldp',1)->decr()->mov_ecx()->decr()->jmp()->loop()->create_register("eed", 3);
+    $x::set('ecx',20)->set('ldp',2)->decr()->mov_ecx()->jmp()->create_register("eed", 3);
     
     print_r($x);
 ?> 

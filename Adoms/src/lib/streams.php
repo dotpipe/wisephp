@@ -24,7 +24,7 @@ class Streams extends Map {
     // Temporary buffer
     public $buf;
     // Stop at $delim if before $buffSize OR $buffsize == 0
-    private $delim;
+    public $delim;
     public $dir;
 
     public function __construct() {

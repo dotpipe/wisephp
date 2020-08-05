@@ -6,7 +6,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 class CRUD
 {
 
-    private $ini;
+    public $ini;
     public $db; // handle for database
 
     public function testCRUD()

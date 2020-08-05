@@ -51,7 +51,7 @@ class UserClass extends CRUD {
 
     protected function save_user_state($filename) {
         file_put_contents($filename,serialize($this));
-        return $this;
+        return new static;
     }
 
     public function load_user_state($filename) {
@@ -64,13 +64,13 @@ class UserClass extends CRUD {
                 $this->$key->$value = $val_n;
             }
         }
-        return $this;
+        return new static;
     }
 
     public function login_user(array $login_arr, string $where)
     {
         if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 2)
-            return $this;
+            return new static;
         $crud = new CRUD();
         $rows = $crud->read($login_arr, $where);
         if (count($rows) == 1)
@@ -78,7 +78,7 @@ class UserClass extends CRUD {
             $this->login_cntr = 0;
             $this->group_id = $this->sp[2];
             $this->user_id = $this->sp[0];
-            return $this;
+            return new static;
         }
         if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 0)
         setcookie('logins', $this->login_cntr + 1, time() + (60 * 60 * 24 * 3));
@@ -93,7 +93,7 @@ class UserClass extends CRUD {
             ->movr() // push array (r) onto stack and empty
             ->end(); // End line of used functions
         $crud->create($this->ST0, $table_name);
-        return $this;
+        return new static;
     }
     
     /*
@@ -103,7 +103,7 @@ class UserClass extends CRUD {
      * We just change the password otherwise.
      * 
     */
-    private function new_user(string $userId, string $password, int $groupId = 0)
+    public function new_user(string $userId, string $password, int $groupId = 0)
     {
         $crud = new crud();
         $this->array = ["users" => []];
@@ -114,6 +114,6 @@ class UserClass extends CRUD {
         $this->pasm->movr();
         $crud->create($this->ST0, $this->pasm->arr);
         $this->pasm->end();
-        return $this;
+        return new static;
     }
 }

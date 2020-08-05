@@ -115,7 +115,7 @@ class GroupRouteFactory {
 */
 class fileRoute {
 
-    private $config;
+    public $config;
 
     function __construct(object $lf, string $filename) {
         if (isset($lf->router->type)) {
@@ -129,7 +129,7 @@ class fileRoute {
      * @param string $filename
      * 
     */
-    private function submit(string $filename) {
+    public function submit(string $filename) {
         $json = "";
         $json_decoded = [];
         if (file_exists($filename)) {

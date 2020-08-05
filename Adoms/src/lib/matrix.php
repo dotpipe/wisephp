@@ -12,7 +12,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		// Pointer to current Index
 		public $mx;
 		// $mx[$datCntr] (The index pointed to)
-		private $datCnt = 0;
+		public $datCnt = 0;
 		public $dat = array();
 		public $pv;
 
@@ -486,7 +486,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*
 		*/
 		// Increment datCntr (index)
-		private function cntIncr(): int {
+		public function cntIncr(): int {
 			$this->sync();
 			next($this->dat);
 			return ++$this->datCnt;
@@ -499,7 +499,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*
 		*/
 		// Decrement datCntr (index)
-		private function cntDecr(): int {
+		public function cntDecr(): int {
 			$this->sync();
 			prev($this->dat);
 			return --$this->datCnt;
@@ -619,7 +619,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*
 		*/
 		// Set new Index
-		private function sIndex(int $indx): int {
+		public function sIndex(int $indx): int {
 			if ($this->size() == 0 || $this->size() <= $indx) {
 				$this->datCnt = -1;
 				$this->mx = null;
