@@ -1,7 +1,7 @@
 
 function createBar() {
 
-    if ("" != getCookie('cookies'))
+    if ("1" != getCookie('cookies'))
         return;
     child_of_P = document.getElementsByTagName("body").firstChild;
     div = document.createElement("div");
@@ -43,7 +43,7 @@ function setCookie(cname, cvalue, exdays) {
   }
 
   function removeBar(t) {
-    //setCookie(cookie, "1", 365);
+    setCookie(cookie, "1", 365);
     var x = document.getElementById('checkCookies');
     x.parentNode.removeChild(x);
   }

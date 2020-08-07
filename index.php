@@ -15,7 +15,7 @@ Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> +
 <input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
 <input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
 <input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
-<a pipe="wiki-link" class="data-pipe" name="me" value="mailto:inland14@live.com">Contact</a> +
+<a id="thing" display="red">Contact</a> +
 <a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a>
     
  <b id="red"></b>

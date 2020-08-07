@@ -26,10 +26,9 @@
         for (var i = 0; i < elem_values.length; i++) {
 
             //if this is designated as belonging to another pipe, it won't be passed in the url
-            if (!elem_values[i].hasAttribute("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
+            if (elem_values[i].hasAttribute("pipe") && elem_values[i].getAttribute("pipe") == elem)
                 elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
             // Multi-select box
-            console.log(".");
             if (elem_values[i].hasAttribute("multiple")) {
                 for (var o of elem_values.options) {
                     if (o.selected) {
@@ -45,11 +44,33 @@
 
         // if thru-pipe isn't used, then use to-pipe
         if (!elem.hasAttribute("ajax")) {
-            if (elem.hasAttribute("goto") && elem.getAttribute("goto") !== "")
+            if (elem.hasAttribute("goto") && elem.getAttribute("goto") !== ""){
                 window.location.href = elem.getAttribute("goto") + "?" + elem_qstring;
+                if (elem.hasAttribute("remove"))
+                {
+                    var rem = elem.getAttribute("remove");
+                    if (document.getElementById(rem)) {
+                        doc_set = document.getElementById(rem);
+                        doc_set.remove();
+                    }
+                    doc_set.parentNode.removeChild(doc_set);
+                        
+                }
+                if (elem.hasAttribute("display") && document.getElementById(elem.getAttribute("display")))
+                {
+                    var rem = elem.getAttribute("display");
+                    doc_set = document.getElementById(rem);
+                    if (document.getElementById(rem) && doc_set.style.display !== "none"){
+                        doc_set.style.display = "none";
+                    }
+                    else if (document.getElementById(rem) && doc_set.style.display === "none")
+                    {
+                        doc_set.style.display = "block";
+                    }
+                }
             return;
+            }
         }
-
         document.cookie = document.cookie  + "SameSite=Strict; Max-Age=2600000; Secure";
         // communicate properties of Fetch Request
         (!elem.hasAttribute("method")) ? method_thru = "GET": method_thru = elem.getAttribute("method");
