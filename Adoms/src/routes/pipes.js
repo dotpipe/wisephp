@@ -1,9 +1,3 @@
-function createMenuItem(name) {
-    let li = document.createElement('li');
-    li.textContent = name;
-    return li;
-}
-
 ['click', 'touch', 'tap'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
         var method_thru = "";
@@ -15,7 +9,7 @@ function createMenuItem(name) {
         var refer_thru = "";
         var elem = document.getElementById(ev.target.id);
 
-        if ((elem.className === null || elem.className === undefined) && (elem.id === null || elem === undefined)) {
+        if ((ev.target.className === null || ev.target.className === undefined) && (elem === null || elem === undefined)) {
             if (ev.target.onclick !== null && ev.target.onclick !== undefined)
                 (ev.target.onclick)();
             //does not mix with href (but you can still use <a></a>)
@@ -95,8 +89,8 @@ function createMenuItem(name) {
         });
 
         setTimeout(() => abort_ctrl.abort(), 10 * 1000);
-        const __grab = async (opts_req, opts_) => {
-            return fetch(opts_req, opts_)
+        const __grab = async (opts_req, opts) => {
+            return fetch(opts_req, opts)
                 .then(function(response) {
                     return response.text().then(function(text) {
                         // Make sure that the target out-pipe exists still

@@ -20,7 +20,6 @@
             "adoms/src/lib",
             "adoms/src/chat",
             "adoms/src/routes",
-            "adoms/creator",
             "adoms/src/oauth2",
             "adoms/src/pasm",
             "adoms/src/ditto",
