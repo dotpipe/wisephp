@@ -1,4 +1,36 @@
-['click', 'touch', 'tap'].forEach(function(e) {
+function loadScript(url, callback)
+{
+
+    // adding the script tag to the head as suggested before
+   var head = document.getElementsByTagName('head')[0];
+   var script = document.createElement('script');
+   script.type = 'text/javascript';
+   script.src = url;
+
+   // then bind the event to the callback function 
+   // there are several events for cross browser compatibility
+   script.onreadystatechange = callback;
+   script.onload = callback;
+
+   // fire the loading
+   head.appendChild(script);
+}
+
+/*
+    Tags in script:
+        pipe        = name of id
+        ajax        = calls and returns this file's ouput
+        goto        = follows this uri
+        data-pipe   = name of class for multi-tag data (augment with pipe)
+        multiple    = states that this object has two or more key/value pairs
+        remove      = remove element in tag
+        display     = toggle visible and invisible
+        !!! ALL HEADERS FOR AJAX are available. They will use defaults to
+        !!! go on if there is no input to replace them.
+
+*/
+
+['click', 'touch', 'tap', 'keypress'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
         var method_thru = "";
         var mode_thru = "";
@@ -42,55 +74,58 @@
         if (elem_qstring[elem_qstring.length - 1] === "&")
             elem_qstring = elem_qstring.substring(0, elem_qstring.length - 1);
 
-        // if thru-pipe isn't used, then use to-pipe
+        // if thru-pipe isn't used, then use goto
         if (!elem.hasAttribute("ajax")) {
             if (elem.hasAttribute("goto") && elem.getAttribute("goto") !== ""){
                 window.location.href = elem.getAttribute("goto") + "?" + elem_qstring;
-                if (elem.hasAttribute("remove"))
-                {
-                    var rem = elem.getAttribute("remove");
-                    if (document.getElementById(rem)) {
-                        doc_set = document.getElementById(rem);
-                        doc_set.remove();
-                    }
-                    doc_set.parentNode.removeChild(doc_set);
-                        
-                }
-                if (elem.hasAttribute("display") && document.getElementById(elem.getAttribute("display")))
-                {
-                    var rem = elem.getAttribute("display");
-                    doc_set = document.getElementById(rem);
-                    if (document.getElementById(rem) && doc_set.style.display !== "none"){
-                        doc_set.style.display = "none";
-                    }
-                    else if (document.getElementById(rem) && doc_set.style.display === "none")
-                    {
-                        doc_set.style.display = "block";
-                    }
-                }
-            return;
             }
+            // Remove Object
+            if (elem.hasAttribute("remove"))
+            {
+                var rem = elem.getAttribute("remove");
+                if (document.getElementById(rem)) {
+                    doc_set = document.getElementById(rem);
+                    doc_set.remove();
+                }
+                doc_set.parentNode.removeChild(doc_set);
+                    
+            }
+            // Toggle visibility of CSS display style of object
+            if (elem.hasAttribute("display") && document.getElementById(elem.getAttribute("display")))
+            {
+                var rem = elem.getAttribute("display");
+                doc_set = document.getElementById(rem);
+                if (document.getElementById(rem) && doc_set.style.display !== "none"){
+                    doc_set.style.display = "none";
+                }
+                else if (document.getElementById(rem) && doc_set.style.display === "none")
+                {
+                    doc_set.style.display = "block";
+                }
+            }
+            return;
         }
         document.cookie = document.cookie  + "SameSite=Strict; Max-Age=2600000; Secure";
         // communicate properties of Fetch Request
-        (!elem.hasAttribute("method")) ? method_thru = "GET": method_thru = elem.getAttribute("method");
-        (!elem.hasAttribute("mode")) ? mode_thru = "no-cors": mode_thru = elem.getAttribute("mode");
-        (!elem.hasAttribute("cache")) ? cache_thru = "no-cache": cache_thru = elem.getAttribute("cache");
-        (!elem.hasAttribute("credentials")) ? cred_thru = " ": cred_thru = elem.getAttribute("credentials");
+        
         // updated "headers" attribute to more friendly "content-type" attribute
         (!elem.hasAttribute("content-type")) ? content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}': content_thru = elem.getAttribute("headers");
-        (!elem.hasAttribute("redirect")) ? redirect_thru = "manual": redirect_thru = elem.getAttribute("redirect");
-        (!elem.hasAttribute("referrer")) ? refer_thru = "client": refer_thru = elem.getAttribute("referrer");
-
-        var opts_req = new Request(elem.getAttribute("ajax") + "?" + elem_qstring);
+        
         opts = new Map();
-        opts.set("method", method_thru); // *GET, POST, PUT, DELETE, etc.
-        opts.set("mode", mode_thru); // no-cors, cors, *same-origin
-        opts.set("cache", cache_thru); // *default, no-cache, reload, force-cache, only-if-cached
-        opts.set("credentials", cred_thru); // include, same-origin, *omit
-        opts.set("content-type", content_thru); // content-type UPDATED**
-        opts.set("redirect", redirect_thru); // manual, *follow, error
-        opts.set("referrer", refer_thru); // no-referrer, *client
+        f = 0;
+        
+        ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach(function(e,f) {
+            let header_array = ["GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
+
+            if (elem.hasAttribute(e))
+                opts.set(e, elem.getAttribute(e));
+            else
+                opts.set(e, header_array[f]);
+            
+        });
+        
+        console.log(opts);
+        var opts_req = new Request(elem.getAttribute("ajax") + "?" + elem_qstring);
         opts.set('body', JSON.stringify(content_thru));
         const abort_ctrl = new AbortController();
         const signal = abort_ctrl.signal;
