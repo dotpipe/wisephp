@@ -1,20 +1,3 @@
-function loadScript(url, callback)
-{
-
-    // adding the script tag to the head as suggested before
-   var head = document.getElementsByTagName('head')[0];
-   var script = document.createElement('script');
-   script.type = 'text/javascript';
-   script.src = url;
-
-   // then bind the event to the callback function 
-   // there are several events for cross browser compatibility
-   script.onreadystatechange = callback;
-   script.onload = callback;
-
-   // fire the loading
-   head.appendChild(script);
-}
 
 /*
     Tags in script:
@@ -92,6 +75,18 @@ function loadScript(url, callback)
                     doc_set = document.getElementById(rem);
                     doc_set.remove();
                 }
+                doc_set.parentNode.removeChild(doc_set);
+                    
+            }
+            // Remove Object
+            if (elem.hasAttribute("blinkbox"))
+            {
+                var bbox = elem.getAttribute("blinkbox");
+                if (document.getElementById(bbox)) {
+                    doc_set = document.getElementById(bbox);
+                    doc_set.remove();
+                }
+
                 doc_set.parentNode.removeChild(doc_set);
                     
             }
@@ -173,10 +168,30 @@ function loadScript(url, callback)
                 .then(function(response) {
                     return response.text().then(function(text) {
                         // Make sure that the target out-pipe exists still
+                        var bb = null;
+                        var ppr = null;
                         if (target__ != null && pipe_back != "json") {
-                            let p = document.createElement("p");
-                            p.innerText = text;
-                            target__.insertBefore(p,target__.firstChild);
+                            if (undefined == document.getElementsByTagName("blinkbox")[0]) {
+                                ppr = document.createElement("blinkbox");
+                                ppr.style.position = "absolute";
+                                ppr.style.backgroundColor = "navy";
+                                ppr.style.wordwrap = true;
+                                ppr.style.width = window.innerWidth / 4;
+                                ppr.style.zIndex = 3;
+                                document.body.insertBefore(ppr,document.body.firstChild);
+                            }
+                            else {
+                                ppr = document.getElementsByTagName("blinkbox")[0];
+                                
+                                let p = document.createElement("p");
+                                p.innerText = text;
+                                p.style.position = "relative";
+                                ppr.insertBefore(p,ppr.firstChild);
+                            }
+                            var xy = parseInt(elem.getAttribute("blinkbox"));
+                            setTimeout(function(){
+                                ppr.removeChild(ppr.lastChild);
+                            }, xy);
                         }
                         else if (target__ != null && pipe_back == "json") {
                             let v = JSON.parse(text);
