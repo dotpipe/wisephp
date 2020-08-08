@@ -28,6 +28,8 @@ function loadScript(url, callback)
         remove      = remove element in tag
         display     = toggle visible and invisible
         replace     = insert ajax callback return in this id
+        insert      = same as replace
+        json        = returning a JSON
         !!! ALL HEADERS FOR AJAX are available. They will use defaults to
         !!! go on if there is no input to replace them.
 
@@ -153,7 +155,9 @@ function loadScript(url, callback)
         var pipe_back = "";
         // This is where the output will go. Indicates id attribute to aim at
         if (elem.hasAttribute("replace"))
-            target__ = document.getElementById(elem.getAttribute("replace"));
+        target__ = document.getElementById(elem.getAttribute("replace"));
+        if (elem.hasAttribute("insert"))
+            target__ = document.getElementById(elem.getAttribute("insert"));
         // This determines if the information will be passed back as a json
         if (elem.hasAttribute("json")) {
             target__ = document.getElementById(elem.getAttribute("json"));
