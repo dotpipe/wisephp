@@ -20,6 +20,8 @@ function loadScript(url, callback)
     Tags in script:
         pipe        = name of id
         ajax        = calls and returns this file's ouput
+        file-order  = ajax to these files, iterating [0,1,2,3]%array.length
+        index       = counter of which index to use with file-order to go with ajax
         goto        = follows this uri
         data-pipe   = name of class for multi-tag data (augment with pipe)
         multiple    = states that this object has two or more key/value pairs
@@ -91,7 +93,7 @@ function loadScript(url, callback)
                     
             }
             // Toggle visibility of CSS display style of object
-            if (elem.hasAttribute("display") && document.getElementById(elem.getAttribute("display")))
+            if (elem.hasAttribute("display"))
             {
                 var rem = elem.getAttribute("display");
                 doc_set = document.getElementById(rem);
@@ -103,6 +105,7 @@ function loadScript(url, callback)
                     doc_set.style.display = "block";
                 }
             }
+            // Replace individual elements with others in an array
             return;
         }
         document.cookie = document.cookie  + "SameSite=Strict; Max-Age=2600000; Secure";
@@ -125,6 +128,20 @@ function loadScript(url, callback)
         });
         
         console.log(opts);
+        if (elem.hasAttribute("ajax") && elem.hasAttribute("file-order"))
+        {
+            string_to_array = elem.getAttribute("file-order");
+            let strArray = string_to_array.split(",");
+            integr = 0;
+            if (!elem.hasAttribute("index"))
+                elem.setAttribute("index", integr);
+            else
+            {
+                integr = parseInt(elem.getAttribute("index")) + 1;
+                elem.setAttribute("index", integr%strArray.length);
+            }
+            elem.setAttribute("ajax", strArray[integr%strArray.length].trim());
+        }
         var opts_req = new Request(elem.getAttribute("ajax") + "?" + elem_qstring);
         opts.set('body', JSON.stringify(content_thru));
         const abort_ctrl = new AbortController();
