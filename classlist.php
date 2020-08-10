@@ -23,7 +23,7 @@
                 foreach (get_class_methods($class) as $key){
                     
                     echo '<td width="75px"><h4>' . $key . '</h4></td>';
-                    if ($i%6 == 0)
+                    if ($i%5 == 0)
                         echo '</tr><tr>';
                     $i++;
                 }

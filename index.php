@@ -25,8 +25,6 @@ Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> +
 
 <div id="carousel"></div>
 <blinkbox id="notify" notify-ms="5000" style="position:absolute;z-index:3;width:25%" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
-</span>
-<button redirect="follow" method="POST" goto="https://www.paypal.com/cgi-bin/webscr">Submit</button>
 
 <style>
 div {
@@ -39,11 +37,11 @@ p {
     margin-left: 10;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
+    text-align:justify;
 }
 ul {
     border-bottom: 1px solid black;
     border-radius: 38%;
-    text-align: left;
     margin-left: -3px;
 }
 blinkbox {
@@ -51,8 +49,9 @@ blinkbox {
 }
 </style>
 
-<table><tr><td>
-    <div style="border-right:3px solid silver;vertical-align:top;border-radius:10px;width:200">
+<table width="width:100%"><tr>
+    <td style="vertical-align:super;width:200">
+    <div style="vertical-align:super;border-right:3px solid silver;border-radius:10px;width:200">
         <p>&nbsp;Class Includes</p>
         <hr style="background-color:black" width="10%">
         <p insert="methods" method="GET" id="api" ajax='classlist.php?class=api'>&nbsp;API</p>
@@ -80,15 +79,42 @@ blinkbox {
             <ul insert="methods" method="GET" id="rwstream" ajax='classlist.php?class=RWStream'>Read/Write</ul>
         </div>
         <p insert="methods" method="GET" id="thread" ajax='classlist.php?class=Thread'>&nbsp;Threads</p>
+        
+    </div>
+    </td>
+    <td style="vertical-align:super;width:700">
+    <div style="text-align:justify">
+        <p id="methods" style="text-align:justify">&nbsp;</p>
+    </div>
+    </td>
+    <td style="vertical-align:super;width:200">
+    <div style="border-right:3px solid silver;vertical-align:super;border-radius:10px;width:200">
+        <p>&nbsp;Class Includes</p>
+        <hr style="background-color:black" width="10%">
+        <p insert="methods" method="GET" id="PASM" ajax='classlist.php?class=PASM'>&nbsp;PASM</p>
+        <p insert="methods" method="GET" id="oauth2">&nbsp;OAuth2</p>
+        <div style="border-left:1px dashed black;margin-left:10;text-align:center;width:120">
+            <ul insert="methods" method="GET" id="oauth2owner" ajax='classlist.php?class=OAuth2Owner'>OAuth2Owner</ul>
+            <ul insert="methods" method="GET" id="userclass" ajax='classlist.php?class=UserClass'>UserClass</ul>
+            <ul insert="methods" method="GET" id="usercontrol" ajax='classlist.php?class=UserController'>UserController</ul>
+            <ul insert="methods" method="GET" id="pageviews" ajax='classlist.php?class=CRUD'>CRUD</ul>
+        </div>
+        <p insert="methods" method="GET" id="ditto" ajax='classlist.php?class=ditto'>&nbsp;Ditto</p>
+        <p insert="methods" method="GET" id="wireframe">&nbsp;Wireframe</p>
+        <div style="border-left:1px dashed black;margin-left:10;text-align:center;width:120">
+            <ul insert="methods" method="GET" id="pagecon" ajax='classlist.php?class=PageControllers'>PageControllers</ul>
+            <ul insert="methods" method="GET" id="pageerr" ajax='classlist.php?class=PageErrors'>PageErrors</ul>
+            <ul insert="methods" method="GET" id="pagesmods" ajax='classlist.php?class=PageModels'>PageModels</ul>
+            <ul insert="methods" method="GET" id="pageviews" ajax='classlist.php?class=PageViews'>PageViews</ul>
+        </div>
+        <p insert="methods" method="GET" id="router">&nbsp;CookieCheck</p>
+            <?= str_repeat("&nbsp;", 5); ?> Javascript
+        <p insert="methods" method="GET" id="routes" ajax='classlist.php?class=ChatBox'>&nbsp;ChatBox</p>
+        <p insert="methods" method="GET" id="keys" ajax='classlist.php?class=Keywords'>&nbsp;Keywords</p>
         <p insert="methods" method="GET" id="trees" ajax='classlist.php?class=Trees'>&nbsp;Trees</p>
         <p insert="methods" method="GET" id="vector" ajax='classlist.php?class=Vectors'>&nbsp;Vector</p>
             <?= str_repeat("&nbsp;", 5); ?> Inherits all others
         <p insert="methods" method="GET" id="xml" ajax='classlist.php?class=XML'>&nbsp;XML</p>
-    </div>
-    </td>
-    <td style="vertical-align:text-top">
-    <div>
-        <p id="methods"></p>
     </div>
     </td>
 </tr>
