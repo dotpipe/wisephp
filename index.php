@@ -6,23 +6,93 @@ require "vendor/autoload.php";
 
 session_start();
 file_put_contents("example.txt",":):):):)");
+if (isset($_GET['class']))
+    
 ?>
+<html>
+<head>
 <script src="./adoms/src/routes/pipes.js"></script>
-<span id="hed" style="width:100%"><br>
-Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> +
-<a id="wiki-link" method="GET" blinkbox="3000" replace="red" file-order="example.txt, composer.json" ajax="example.txt">Wiki</a> +
-<i id="donate" redirect="follow" method="POST" goto="https://www.paypal.com/cgi-bin/webscr"> Donate + </i>
+</head>
+<body>
+<span id="hed" style="text-align:right;width:100%"><br>
+Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> + 
+<i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> +
 <input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
 <input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
 <input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
 <a id="thing" display="red">Contact</a> +
 <a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a>
-    
- <b id="red"></b>
-</span>
-<button id="donate" redirect="follow" method="POST" goto="https://www.paypal.com/cgi-bin/webscr">Submit</button>
-</p>
 
+<div id="carousel"></div>
+<blinkbox id="notify" notify-ms="5000" style="position:absolute;z-index:3;width:25%" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
+</span>
+<button redirect="follow" method="POST" goto="https://www.paypal.com/cgi-bin/webscr">Submit</button>
+
+<style>
+div {
+    border-top-left-radius: 30px; 
+    background-color:lightslategray;
+}
+p {
+    background-color: midnightblue;
+    color:silver;
+    margin-left: 10;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+ul {
+    border-bottom: 1px solid black;
+    border-radius: 38%;
+    text-align: left;
+    margin-left: -3px;
+}
+blinkbox {
+    background-color: navy;
+}
+</style>
+
+<table><tr><td>
+    <div style="border-right:3px solid silver;vertical-align:top;border-radius:10px;width:200">
+        <p>&nbsp;Class Includes</p>
+        <hr style="background-color:black" width="10%">
+        <p insert="methods" method="GET" id="api" ajax='classlist.php?class=api'>&nbsp;API</p>
+        <p insert="methods" method="GET" id="css" ajax='classlist.php?class=css'>&nbsp;CSS</p>
+        <p insert="methods" method="GET" id="dequeue" ajax='classlist.php?class=Dequeue'>&nbsp;Dequeue</p>
+        <p insert="methods" method="GET" id="map" ajax='classlist.php?class=Map'>&nbsp;Map</p>
+        <div style="border-left:1px dashed black;margin-left:10;text-align:center;width:120">
+            <ul insert="methods" method="GET" id="mmap" ajax='classlist.php?class=mMap'>mMap</ul>
+            <ul insert="methods" method="GET" id="navmap" ajax='classlist.php?class=NavigableMap'>NavigableMap</ul>
+            <ul insert="methods" method="GET" id="smap" ajax='classlist.php?class=SortedMap'>SortedMap</ul>
+        </div>
+        <p insert="methods" method="GET" id="matrix" ajax='classlist.php?class=Matrix'>&nbsp;Matrix</p>
+        <p insert="methods" method="GET" id="queue" ajax='classlist.php?class=Queue'>&nbsp;Queue</p>
+        <p insert="methods" method="GET" id="set" ajax='classlist.php?class=Set'>&nbsp;Set</p>
+        <div style="border-left:1px dashed black;margin-left:10;text-align:center;width:120">
+            <ul insert="methods" method="GET" id="mset" ajax='classlist.php?class=mSet'>mSet</ul>
+            <ul insert="methods" method="GET" id="navset" ajax='classlist.php?class=NavigableSet'>NavigableSet</ul>
+            <ul insert="methods" method="GET" id="sset" ajax='classlist.php?class=SortedSet'>SortedSet</ul>
+        </div>
+        <p insert="methods" method="GET" id="stack" ajax='classlist.php?class=Stack'>&nbsp;Stack</p>
+        <p insert="methods" method="GET" id="streams" ajax='classlist.php?class=Streams'>&nbsp;Streams</p>
+        <div style="border-left:1px dashed black;margin-left:10;text-align:center;width:120">
+            <ul insert="methods" method="GET" id="read" ajax='classlist.php?class=ReadStream'>Read</ul>
+            <ul insert="methods" method="GET" id="write" ajax='classlist.php?class=WriteStream'>Write</ul>
+            <ul insert="methods" method="GET" id="rwstream" ajax='classlist.php?class=RWStream'>Read/Write</ul>
+        </div>
+        <p insert="methods" method="GET" id="thread" ajax='classlist.php?class=Thread'>&nbsp;Threads</p>
+        <p insert="methods" method="GET" id="trees" ajax='classlist.php?class=Trees'>&nbsp;Trees</p>
+        <p insert="methods" method="GET" id="vector" ajax='classlist.php?class=Vectors'>&nbsp;Vector</p>
+            <?= str_repeat("&nbsp;", 5); ?> Inherits all others
+        <p insert="methods" method="GET" id="xml" ajax='classlist.php?class=XML'>&nbsp;XML</p>
+    </div>
+    </td>
+    <td style="vertical-align:text-top">
+    <div>
+        <p id="methods"></p>
+    </div>
+    </td>
+</tr>
+</table>
 <?php
 
 $t = new writeStream();
@@ -267,3 +337,9 @@ echo "<b style='color:green;font-size:25'>&check;</b> <b>Check</b>";
 
 echo "</div>";
 echo "</body></html>";
+?>
+<script> 
+makeCarousel('example.txt');
+carouselInsert();
+carouselInsert();
+</script>

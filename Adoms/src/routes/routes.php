@@ -226,9 +226,9 @@ class DirectRoute {
      * 
     */
     public function flipTemporary(TemporaryRouteFactory $find) {
-        foreach($config as $keys) {
+        foreach($this->config as $keys) {
             if ($keys->uri == $find->router->route) {
-                $config->$keys->$keys->router->temporary = 1 ^ $keys->router->temporary;
+                $this->config->$keys->$keys->router->temporary = 1 ^ $keys->router->temporary;
                 return;
             }
         }
@@ -240,9 +240,9 @@ class DirectRoute {
      * 
     */
     public function remPermanent(PermanentRouteFactory $find) {
-        foreach($config as $keys) {
+        foreach($this->config as $keys) {
             if ($keys->uri == $find->router->route) {
-                unset($config->$keys);
+                unset($this->config->$keys);
                 return;
             }
         }
