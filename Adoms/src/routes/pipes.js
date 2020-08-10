@@ -51,9 +51,11 @@ function remove(elem)
 function goto(elem) {
 
     elem = document.getElementById(elem.id);
-    if (elem.hasOwnProperty("insert"))
-    {return -1;}// && elem.getAttribute("redirect") == "follow"){}
-    if (elem.id.indexOf("carousel-table",0))
+    if (!elem || elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
+    {
+        return -1;
+    }
+    else    if (elem.id.indexOf("carousel-table",0))
         return -1;
     
     elem = document.getElementById(elem.id);
@@ -128,10 +130,6 @@ function carouselInsert() {
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
 
-    fetch(opts_req, {
-        signal
-    });
-    
     setTimeout(() => abort_ctrl.abort(), 10 * 1000);
     const __grab = async (opts_req, opts) => {
         return fetch(opts_req, opts)
@@ -181,10 +179,6 @@ function notify() {
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
 
-    fetch(opts_req, {
-        signal
-    });
-
     target__ = "blinkbox";
     
     setTimeout(() => abort_ctrl.abort(), 10 * 1000);
@@ -203,8 +197,6 @@ function notify() {
                             ppr.style.wordwrap = true;
                             ppr.style.width = window.innerWidth / 4;
                             ppr.style.zIndex = 3;
-                            p.innerText = text;
-                            p.style.position = "relative";
                             ppr.setAttribute("notify-ms",3000);
                             document.body.insertBefore(ppr,document.body.firstChild);
                         }
@@ -214,10 +206,12 @@ function notify() {
                             let p = document.createElement("p");
                             p.innerText = text;
                             p.style.position = "relative";
+                            p.setAttribute("onclick", "this.remove()");
                             ppr.insertBefore(p,ppr.firstChild);
                         var xy = parseInt(elem.getAttribute("notify-ms"));
-                        setTimeout(function(){
-                            ppr.removeChild(ppr.lastChild);
+                        setTimeout(function() {
+                            if (ppr.childElementCount > 0)
+                                ppr.removeChild(ppr.lastChild);
                         }, xy);
                     return;
                 });
@@ -247,10 +241,6 @@ function classToAJAX(elem) {
     opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
-    
-    fetch(opts_req, {
-        signal
-    });
     
     setTimeout(() => abort_ctrl.abort(), 10 * 1000);
     const __grab =  (opts_req, opts) => {
