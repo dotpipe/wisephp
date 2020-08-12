@@ -20,9 +20,6 @@ p {
     border-top-left-radius: 5px;
     text-align:justify;
 }
-#function-names {
-
-}
 #carousel, table {
 
     border-radius: 30px;
