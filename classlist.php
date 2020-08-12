@@ -19,15 +19,15 @@
                 $diff = array_diff(get_declared_classes(), $classes);
                 $class = reset($diff);
                 $i = 1;
-                echo '<table style="color:silver"><tr>';
+                echo '<center><div style="text-align:center">';
                 foreach (get_class_methods($class) as $key){
-                    
-                    echo '<td width="75px"><h4>' . $key . '</h4></td>';
-                    if ($i%5 == 0)
-                        echo '</tr><tr>';
+                    $cnt_space = 25-strlen($key);
+                    echo '<b>' . $key . '</b>' . str_repeat("&nbsp;",$cnt_space);
+                    if ($i%4 == 0)
+                        echo '</div><br><br><br><div>';
                     $i++;
                 }
-                echo '</tr></table>';
+                echo '</div></center>';
                 break;
             }
         }

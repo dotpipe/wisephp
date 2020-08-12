@@ -17,13 +17,28 @@ class api extends mMap
         $this->indent = "<img src=\".\\src\\icons\\code.gif\">";
     }
 
+    /*
+     * setIndent(string)
+     * @parameters string
+     * @return bool
+     * Set as spaces, or as a picture with html
+     * 
+    */
     public function setIndent(string $ind): bool
     {
         $this->indent = $ind;
         return true;
     }
 
-    public function receive($m)
+    
+    /*
+     * receive(mixed)
+     * @parameters mixed
+     * 
+     * turn a JSON or object into a Vector
+     * 
+    */
+    public function receive($m): Vector
     {
         // If you don't have one, but need an example,
         // uncomment this line and run it
@@ -72,6 +87,13 @@ class api extends mMap
         return $this->apiMap;
     }
 
+    /*
+     * json2map()
+     * @parameters string
+     * @return Map
+     * turn associative string array into a map
+     * 
+    */
     public function json2map(string $m): Map
     {
         $map = new Map();
@@ -82,6 +104,14 @@ class api extends mMap
         return $map;
     }
 
+    
+    /*
+     * display()
+     * @parameters string
+     * @return string
+     * Show off your Map
+     * 
+    */
     public function display($m): string
     {
         // If you don't have one, but need an example,
@@ -134,13 +164,26 @@ class api extends mMap
         return $output;
     }
 
+    /*
+     * clear()
+     * @parameters string
+     * @return void
+     * Clear out $this->apiMap
+     * 
+    */
     public function clear(): void
     {
         $this->apiMap = new Vector("Any");
     }
 
-    // Insert Vector("Any") with simple array(a,b) pairs
-    // and to end sections use array("]")
+    
+    /*
+     * convert()
+     * @parameters mixed
+     * @return string
+     * Insert Vector("Any") with simple array(a,b) pairs
+     * and to end sections use array("]")
+    */
     public function convert($va = 0): string
     {
         $outstring = "";

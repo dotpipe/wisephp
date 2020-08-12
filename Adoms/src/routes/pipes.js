@@ -19,6 +19,7 @@
 function display(elem)
 {
             // Toggle visibility of CSS display style of object
+    
     if (elem.hasOwnProperty("display"))
     {
         var rem = elem.getAttribute("display");
@@ -35,6 +36,8 @@ function display(elem)
 
 function remove(elem)
 {
+    if (!document.body.contains(elem))
+        return;
     // Remove Object
     if (elem.hasOwnProperty("remove"))
     {
@@ -50,8 +53,13 @@ function remove(elem)
 
 function goto(elem) {
 
+    if (!document.body.contains(elem))
+        return;
     elem = document.getElementById(elem.id);
-    if (!elem || elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
+
+    if (!document.body.contains(elem))
+        return;
+    if (elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
     {
         return -1;
     }
@@ -94,148 +102,12 @@ function goto(elem) {
         notify();
     }, false);
     
-});
-
-function makeCarousel (file)
-{
-    // give the current elem a chance to figure its link
-    var carousl = document.getElementById("carousel");
-    
-    if (carousl == undefined)
-        return;
-    
-    var carousel = document.getElementById("carousel");
-
-    carousel.innerHTML = '<table style="width:500;height:150;background-color:black;color:white;" id="carousel-table" ajax="' + file + '"><tr></tr></table>';
-    return;
-}
-
-function carouselInsert() {
-
-    elem = document.getElementById("carousel-table");
-
-    opts = new Map();
-    f = 0;
-
-    ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
-        let header_array = ["GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
-
-        opts.set(e, header_array[f]);
-        
-    });
-
-    content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax"));
-    opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
-    const abort_ctrl = new AbortController();
-    const signal = abort_ctrl.signal;
-
-    setTimeout(() => abort_ctrl.abort(), 10 * 1000);
-    const __grab = async (opts_req, opts) => {
-        return fetch(opts_req, opts)
-            .then(function(response) {
-                return response.text().then(function(text) {
-                    if (response.status == 404)
-                        return;
-                    if (elem.firstChild.childElementCount == 2)
-                    {
-                        let td = document.createElement("td");
-                        td.innerHTML = '<p>' + text + '</p>';
-                        td.style.position = "relative";
-                        elem.firstChild.appendChild(td);
-                    }
-                    else
-                    {
-                        let td = document.createElement("td");
-                        td.innerHTML = '<p>' + text + '</p>';
-                        td.style.position = "relative";
-                        elem.firstChild.insertBefore(td,elem.firstChild.lastChild);
-                    }
-                    return;
-                });
-            });
-    }
-    __grab(opts_req, opts);
-}
-
-function notify() {
-
-    elem = document.getElementsByTagName("blinkbox")[0];
-
-    opts = new Map();
-    f = 0;
-
-    ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
-        let header_array = ["GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
-
-        opts.set(e, header_array[f]);
-        
-    });
-
-    
-    if (!elem.hasOwnProperty("index") && !elem.hasAttribute("index"))
-        elem.setAttribute("index","0");
-
-    var x = parseInt(elem.getAttribute("index"));
-    var f = elem.getAttribute("file-order");
-    var strArray = f.split(",");
-    console.log(strArray);
-    elem.setAttribute("ajax", strArray[x%strArray.length].trim());
-    x++;
-    elem.setAttribute("index", x.toString(10));
-    console.log(x);
-    
-    content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax"));
-    opts.set('body',  JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
-    const abort_ctrl = new AbortController();
-    const signal = abort_ctrl.signal;
-
-    target__ = "blinkbox";
-    
-    setTimeout(() => abort_ctrl.abort(), 10 * 1000);
-    const __grab = async (opts_req, opts) => {
-        return fetch(opts_req, opts)
-            .then(function(response) {
-                if (response.status == 404)
-                        return;
-                return response.text().then(function(text) {
-                
-                    if (undefined == document.getElementsByTagName("blinkbox")[0]) {
-
-                        ppr = document.createElement("blinkbox");
-                        ppr.style.position = "absolute";
-                        ppr.style.backgroundColor = "navy";
-                        ppr.style.wordwrap = true;
-                        ppr.style.width = window.innerWidth / 4;
-                        ppr.style.zIndex = 3;
-                        ppr.setAttribute("notify-ms",3000);
-                        document.body.insertBefore(ppr,document.body.firstChild);
-                    }
-                    else {
-                        ppr = document.getElementsByTagName("blinkbox")[0];
-                    }
-                        let p = document.createElement("p");
-                        p.innerText = text;
-                        p.style.position = "relative";
-                        p.setAttribute("onclick", "this.remove()");
-                        ppr.insertBefore(p,ppr.firstChild);
-                    var xy = parseInt(elem.getAttribute("notify-ms"));
-                    setTimeout(function() {
-                        if (ppr.childElementCount > 0)
-                            ppr.removeChild(ppr.lastChild);
-                    }, xy);
-                    return;
-                });
-            });
-    }
-    __grab(opts_req, opts);
-}
+}); 
 
 function classToAJAX(elem) {
 
     
-    if (!elem)
+    if (!document.body.contains(elem))
         return;
 
     opts = new Map();
@@ -279,16 +151,16 @@ function rem(elem)
 
 function carouselScrollLeft(elem) {
 
-    elem.scrollX -= 150;
+    elem.parentNode.scrollX -= 150;
 
 }
 
 function carouselScrollRight(elem) {
 
-    elem.scrollX += 150;
+    elem.parentNode.scrollX += 150;
 
 }
 
 function carouselXPos(elem) {
-    return elem.offsetLeft;
+    return elem.parentNode.offsetLeft;
 }

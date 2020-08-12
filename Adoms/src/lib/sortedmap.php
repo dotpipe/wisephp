@@ -63,7 +63,7 @@ class SortedMap extends Map {
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
+            $this->$key = $b->$key;
         }
         return true;
     }
@@ -79,12 +79,12 @@ class SortedMap extends Map {
             if ($this->strict == 1) throw new IndexException('Empty Map');
             return false;
         }
-        return array_keys($this->dat)[count($this->dat)];
+        return array_keys($this->dat)[count(array_keys($this->dat))-1];
     }
 
     /**
-     * public function loadJSON
-     * @parameters string, int, int
+     * public function headMap
+     * @parameters string, bool
      *
      */
     // Return Keys before $r

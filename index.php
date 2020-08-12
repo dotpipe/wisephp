@@ -6,26 +6,7 @@ require "vendor/autoload.php";
 
 session_start();
 file_put_contents("example.txt",":):):):)");
-if (isset($_GET['class']))
-    
 ?>
-<html>
-<head>
-<script src="./adoms/src/routes/pipes.js"></script>
-</head>
-<body>
-<span id="hed" style="text-align:right;width:100%"><br>
-Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> + 
-<i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> +
-<input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
-<input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
-<input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
-<a id="thing" display="red">Contact</a> +
-<a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a>
-
-<div id="carousel"></div>
-<blinkbox id="notify" notify-ms="5000" style="position:absolute;z-index:3;width:25%" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
-
 <style>
 div {
     border-top-left-radius: 30px; 
@@ -34,10 +15,62 @@ div {
 p {
     background-color: midnightblue;
     color:silver;
-    margin-left: 10;
+    margin:0px;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
     text-align:justify;
+}
+#function-names {
+
+}
+#carousel, table {
+
+    border-radius: 30px;
+    width:900px;
+    margin-left:auto;
+    margin-right:auto;
+    overflow: clip;
+    overflow-x: clip;
+}
+#carousel-house
+{
+    border-radius: 30px;
+    overflow: clip;
+    overflow-x: clip;
+    width:400px;
+    display:table;
+    z-index:5;
+}
+#carousel-button-left {
+    z-index: 4;
+    display:none;
+    position: fixed;
+    left:10px;
+    top:45px;
+}
+#carousel-button-right {
+    z-index: 4;
+    display:none;
+    position: fixed;
+    left:770px;
+    top:45px;
+}
+#carousel-window {
+    overflow-wrap:break-word;
+    overflow-x: scroll;
+    display:table-row;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+.carousel-cell {
+    border-radius: 5px;
+    overflow: hidden hidden;
+    text-align:justify;
+    height:50px;
+    width:150px;
+    z-index: 3;
 }
 ul {
     border-bottom: 1px solid black;
@@ -49,9 +82,34 @@ blinkbox {
 }
 </style>
 
-<table width="width:100%"><tr>
-    <td style="vertical-align:super;width:200">
-    <div style="vertical-align:super;border-right:3px solid silver;border-radius:10px;width:200">
+<html>
+<head>
+<script src="./adoms/src/routes/pipes.js"></script>
+<script src="./adoms/src/plugins/carousel.js"></script>
+<script src="./adoms/src/plugins/notified.js"></script>
+</head>
+<body>
+<span id="hed" style="text-align:right;width:100%"><br>
+Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> + 
+<i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> +
+<input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
+<input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
+<input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
+<a id="thing" display="red">Contact</a> +
+<a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a>
+
+<div id="carousel" style="height:175;background-color:silver;color:black;z-index:5;overflow-y:hidden">
+</div>
+<blinkbox id="notify" notify-ms="5000" style="position:absolute;z-index:3;width:25%" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
+</span>
+<style>
+
+</style>
+
+<table width="width:100%;height:101%;margin-right:10;z-index:3;background-color:lightgray"><tr>
+    <td style="vertical-align:super;width:200;">
+    <div style="vertical-align:super;height:850;border-right:3px solid silver;border-radius:10px;width:200">
+        <br>
         <p>&nbsp;Class Includes</p>
         <hr style="background-color:black" width="10%">
         <p insert="methods" method="GET" id="api" ajax='classlist.php?class=api'>&nbsp;API</p>
@@ -79,16 +137,19 @@ blinkbox {
             <ul insert="methods" method="GET" id="rwstream" ajax='classlist.php?class=RWStream'>Read/Write</ul>
         </div>
         <p insert="methods" method="GET" id="thread" ajax='classlist.php?class=Thread'>&nbsp;Threads</p>
-        
+        <p insert="methods" method="GET" id="xml" ajax='classlist.php?class=XML'>&nbsp;XML</p>
+        <br>
+        &nbsp;
     </div>
     </td>
-    <td style="vertical-align:super;width:700">
-    <div style="text-align:justify">
-        <p id="methods" style="text-align:justify">&nbsp;</p>
-    </div>
+    <td style="vertical-align:super;width:300">
+    <section style="display:table;text-align:justify;width:500;">
+        <block id="methods" style="display:table-row;text-align:justify">&nbsp;</block>
+    </section>
     </td>
-    <td style="vertical-align:super;width:200">
-    <div style="border-right:3px solid silver;vertical-align:super;border-radius:10px;width:200">
+    <td style="vertical-align:super;width:200;">
+    <div style="border-right:3px solid silver;height:850;vertical-align:super;border-radius:10px;width:200">
+         <br>
         <p>&nbsp;Class Includes</p>
         <hr style="background-color:black" width="10%">
         <p insert="methods" method="GET" id="PASM" ajax='classlist.php?class=PASM'>&nbsp;PASM</p>
@@ -99,7 +160,8 @@ blinkbox {
             <ul insert="methods" method="GET" id="usercontrol" ajax='classlist.php?class=UserController'>UserController</ul>
             <ul insert="methods" method="GET" id="pageviews" ajax='classlist.php?class=CRUD'>CRUD</ul>
         </div>
-        <p insert="methods" method="GET" id="ditto" ajax='classlist.php?class=ditto'>&nbsp;Ditto</p>
+        <p insert="methods" method="GET" id="ditto">&nbsp;Ditto</p>
+        <?= str_repeat("&nbsp;", 5); ?> Unit Test Creator
         <p insert="methods" method="GET" id="wireframe">&nbsp;Wireframe</p>
         <div style="border-left:1px dashed black;margin-left:10;text-align:center;width:120">
             <ul insert="methods" method="GET" id="pagecon" ajax='classlist.php?class=PageControllers'>PageControllers</ul>
@@ -114,12 +176,17 @@ blinkbox {
         <p insert="methods" method="GET" id="trees" ajax='classlist.php?class=Trees'>&nbsp;Trees</p>
         <p insert="methods" method="GET" id="vector" ajax='classlist.php?class=Vectors'>&nbsp;Vector</p>
             <?= str_repeat("&nbsp;", 5); ?> Inherits all others
-        <p insert="methods" method="GET" id="xml" ajax='classlist.php?class=XML'>&nbsp;XML</p>
+        <br>&nbsp;
     </div>
     </td>
 </tr>
 </table>
 <?php
+
+$map = new SortedMap();
+$map->add("hey","world!");
+$map->add("they","wont!");
+$map->lastKey();
 
 $t = new writeStream();
 $rrr =  new readStream();
@@ -365,7 +432,6 @@ echo "</div>";
 echo "</body></html>";
 ?>
 <script> 
-makeCarousel('example.txt');
-carouselInsert();
-carouselInsert();
+makeCarousel(["example.txt", "composer.json"], "adoms/src/icons/omniscroll.png", "adoms/src/icons/omniscroll.png");
+fillCarousel("example.txt, composer.json");
 </script>

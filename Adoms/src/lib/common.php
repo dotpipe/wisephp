@@ -10,6 +10,7 @@ class Common {
     public $datCntr = 0;
     public $dat = array();
     public $pt = array();
+
     /**
      * public function save
      * @parameters string
@@ -61,8 +62,8 @@ class Common {
      * public function current
      * @parameters none
      *
+     * Retrieve current Index of Vector Pointer
      */
-    // Retrieve current Index of Vector Pointer
     public function current(): int
     {
         return $this->getIndex();
@@ -72,8 +73,8 @@ class Common {
      * public function getIndex
      * @parameters int
      *
+     * Sets and Joins Map Index
      */
-    // Sets and Joins Map Index
     public function getIndex(): int
     {
         if ($this->size() == 0) {
@@ -89,8 +90,8 @@ class Common {
      * public function setIndex
      * @parameters int
      *
+     * Sets and Joins Map Index
      */
-    // Sets and Joins Map Index
     public function setIndex(int $indx) {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Vector');
@@ -111,6 +112,7 @@ class Common {
      * public function Iter
      * @parameters none
      *
+     * Goto next $dat member
      */
     public function Iter(): bool
     {
@@ -139,6 +141,7 @@ class Common {
      * public function revIter
      * @parameters none
      *
+     * Goto previous $dat member
      */
     public function revIter(): bool
     {
@@ -157,14 +160,16 @@ class Common {
     }
 
     /**
-     * public function Iter
+     * public function Cycle
      * @parameters none
      *
+     * Goto next $dat member
+     * Return once finished to the beginning
      */
     public function Cycle(): bool
     {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
-            $this->next($this->dat);
+            next($this->dat);
             $this->pt = current($this->dat);
             $this->datCntr++;
             $this->sync();
@@ -180,9 +185,10 @@ class Common {
     }
 
     /**
-     * public function revIter
+     * public function revCycle
      * @parameters none
-     *
+     * Goto previous $dat member
+     * Return to end aft reaching beginning
      */
     public function revCycle(): bool
     {
@@ -207,6 +213,7 @@ class Common {
      * public function sync
      * @parameters none
      *
+     * 
      */
     public function sync(): bool {
         $i = 0;
