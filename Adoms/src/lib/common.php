@@ -18,9 +18,7 @@ class Common {
      */
     public function save(string $file_name): bool
     {
-        $fp = fopen("$file_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
+        file_put_contents($file_name, serialize(($this)));
         return true;
     }
 
@@ -43,17 +41,17 @@ class Common {
      */
     public function loadJSON(string $file_name): bool
     {
-        if (file_exists("$file_name") && filesize("$file_name") > 0) {
-            $fp = fopen("$file_name", "r");
-        } else {
+        if (file_exists("$file_name") && filesize("$file_name") > 0)
+        {}
+        else {
             return false;
         }
 
-        $json_context = fread($fp, filesize("$file_name"));
+        $json_context = file_get_contents($file_name);
         $old = unserialize($json_context);
         $b = $old;
         foreach ($b as $key => $val) {
-            $this->$key = $b->$key;
+            $this->$key = $val;
         }
         return true;
     }

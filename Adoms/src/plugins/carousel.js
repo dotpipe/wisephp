@@ -13,7 +13,7 @@ function makeCarousel (files, leftScrollButtonImg, rightScrollButtonImg)
     <td style="vertical-align:super;width:70;z-index:5"> \
     <img id="carousel-button-left" src="' + leftScrollButtonImg + '" onclick="carouselScrollLeft(this)"></td> \
     <td> \
-    <p id="carousel-house" style="width:400px;display:table-layout;"> \
+    <p id="carousel-house" style="max-height:150px;width:400px;display:table-layout;"> \
     <div id="carousel-window" style="display:table-row;"></div> \
     </p> \
     </td> \
@@ -65,9 +65,6 @@ function fillCarousel(file = null)
         var f = e;
         console.log(f.toString().trim());
         carouselInsert(f);
-        carouselInsert(f);
-        carouselInsert(f);
-        carouselInsert(f);
 
     });
 
@@ -80,9 +77,6 @@ function carouselInsert(file) {
 
     opts = new Map();
     f = 0;
-
-    //button.scrollY = elem.scrollY;
-    ;
 
     ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
         let header_array = ["GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];

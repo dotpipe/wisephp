@@ -37,6 +37,7 @@ p {
     width:400px;
     display:table;
     z-index:5;
+    max-height: 100px;
 }
 #carousel-button-left {
     z-index: 4;
@@ -56,17 +57,26 @@ p {
     overflow-wrap:break-word;
     overflow-x: scroll;
     display:table-row;
+    height:150px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 ::-webkit-scrollbar {
     width: 0px;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
 }
 .carousel-cell {
-    border-radius: 5px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     overflow: hidden hidden;
     text-align:justify;
-    height:50px;
-    width:150px;
+    max-height:50%;
+    min-width:150px;
+    max-width: 150px;
     z-index: 3;
 }
 ul {
@@ -76,33 +86,37 @@ ul {
 }
 blinkbox {
     background-color: navy;
+    border-radius: 5px;
+    text-align:justify;
+    height:50px;
+    width:300px;
+    position:absolute;
+    top:100;
 }
 </style>
-
 <html>
 <head>
 <script src="./adoms/src/routes/pipes.js"></script>
 <script src="./adoms/src/plugins/carousel.js"></script>
 <script src="./adoms/src/plugins/notified.js"></script>
+<script src="./adoms/src/plugins/filler.js"></script>
 </head>
+
 <body>
 <span id="hed" style="text-align:right;width:100%"><br>
 Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> + 
-<i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> +
+<i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> + 
 <input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
 <input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
 <input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
-<a id="thing" display="red">Contact</a> +
-<a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a>
-
-<div id="carousel" style="height:175;background-color:silver;color:black;z-index:5;overflow-y:hidden">
-</div>
-<blinkbox id="notify" notify-ms="5000" style="position:absolute;z-index:3;width:25%" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
+<a id="thing" display="red">Contact</a> + 
+<a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a> + 
 </span>
-<style>
-
-</style>
-
+<div id="carousel" style="height:150;background-color:silver;color:black;z-index:5;overflow-y:hidden">
+</div>
+<blinkbox id="notify" notify-ms="5000" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
+<span>Vistors Since 8/14/2020: <b class="content-fill" inject="./adoms/src/plugins/counter/counter.php"></b></span>
+<script>filler();</script>
 <table width="width:100%;height:101%;margin-right:10;z-index:3;background-color:lightgray"><tr>
     <td style="vertical-align:super;width:200;">
     <div style="vertical-align:super;height:850;border-right:3px solid silver;border-radius:10px;width:200">

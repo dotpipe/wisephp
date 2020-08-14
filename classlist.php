@@ -1,21 +1,20 @@
 <?php
     namespace Adoms\src;
-
     if (!isset($_GET['class']))
         echo "@#@#@";
 
 
-    function scanEachDir ($dir = ".\\") {
-        foreach (scandir($dir) as $value) {
+    function scanEachDir ($dir = "./") {
+        foreach (scandir(strtolower($dir)) as $value) {
             if ($value == '..' || $value ==  '.')
                 continue;
                 
-            if (is_dir($dir . '\\' . $value))
-                scanEachDir($dir . '\\' . $value);
+            if (is_dir(strtolower($dir . '/' . $value)))
+                scanEachDir(strtolower($dir .  "/" . $value));
             if (strtolower($_GET['class']) . ".php" == $value)
             {
                 $classes = get_declared_classes();
-                require_once $dir . '\\' . $_GET['class'] . '.php';
+                require_once strtolower($dir . '/' . $_GET['class']) . '.php';
                 $diff = array_diff(get_declared_classes(), $classes);
                 $class = reset($diff);
                 $i = 1;
@@ -33,5 +32,5 @@
         }
         return;
     }
-    scanEachDir(__NAMESPACE__);
+    scanEachDir('./adoms');
 ?>

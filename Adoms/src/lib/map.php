@@ -166,19 +166,7 @@ class Map extends Common
             }
             return false;
         }
-        $t = $this->dat;
-        reset($t);
-        if ($this->keyIsIn($k)) {
-            for ($j = 0; $j < count($t); $j++) {
-                if (key($t) != $k) {
-                    next($t);
-                } else {
-                    break;
-                }
-            }
-        }
-        else return false;
-        return current($t);
+        return array_keys($this->dat);
     }
 
     /**
@@ -314,23 +302,7 @@ class Map extends Common
     public function add(string $key, $val): bool
     {
         $t = array();
-        if ($this->dat == null || (is_array($this->dat) && sizeof($this->dat) == 0)) {
-            $this->dat = array_merge($t, array($key =>  ($val)));
-            $this->datCntr = 0;
-        }
-        foreach ($this->dat as $x => $y) {
-            if (isset($x) && isset($y)) {
-                $t = array_merge($t, array($x => $y));
-            }
-        } 
-        if (isset($key) && isset($val)) {
-            $t = array_merge($t, array((string) $key => $val));
-        }
-        reset($t);
-        for ($i = 0; $i < $this->datCntr; $i++) {
-            next($t);
-        }
-        $this->dat = $t;
+        $this->dat[$key] = $val;
         return true;
     }
 

@@ -10,26 +10,20 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {
-        "phpunit/phpunit": "^7"
-    },
     "autoload": {
-            "classmap": [
-            "adoms",
-            "adoms/src",
-            "adoms/src/lib",
-            "adoms/src/chat",
-            "adoms/src/routes",
-            "adoms/src/oauth2",
-            "adoms/src/pasm",
-            "adoms/src/ditto",
-            "adoms/src/chat",
-            "adoms/src/wireframe",
-            "adoms/src/plugins",
-            "adoms/src/plugins/KeywordFactory"
-            ]
-      },
-    "require-dev": {
-        "phpunit/phpunit": "9"
+        "classmap": [
+        "adoms",
+        "adoms/src",
+        "adoms/src/lib",
+        "adoms/src/chat",
+        "adoms/src/routes",
+        "adoms/src/oauth2",
+        "adoms/src/pasm",
+        "adoms/src/ditto",
+        "adoms/src/chat",
+        "adoms/src/wireframe",
+        "adoms/src/plugins",
+        "adoms/src/plugins/KeywordFactory"
+        ]
     }
 }
