@@ -186,7 +186,7 @@ class Map extends Common
      */
     public function mergeAll(array $r): bool
     {
-        if ($this->typeOf != $r->typeOf) {
+        if ((string)$this->typeOf != (string)($r->typeOf)) {
             throw new Type_Error('Mismatched Types');
             return false;
         }

@@ -98,7 +98,7 @@ class Common {
         if ($indx < $this->size()) {
             reset($this->dat);
             for($i = 0 ; $i < $indx ; $i++)
-                $this->next($this->dat);
+                next($this->dat);
             $this->datCntr = $indx;
             $this->sync();
             return true;

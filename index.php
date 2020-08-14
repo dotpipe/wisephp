@@ -104,19 +104,19 @@ blinkbox {
 
 <body>
 <span id="hed" style="text-align:right;width:100%"><br>
-Adoms::Helium v4.0.0 - <a href="http://www.github.com/swatchphp">GitHub</a> + 
+Adoms::Helium v4.0.0 - <a href="http://www.github.com/wise-penny/adoms">GitHub</a> + 
 <i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> + 
 <input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
 <input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
 <input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
 <a id="thing" display="red">Contact</a> + 
 <a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a> + 
-</span>
+Visitors Since 8/14/2020: <b class="content-fill" inject="./adoms/src/plugins/counter/counter.php"></b></span>
+<script>filler();</script>
 <div id="carousel" style="height:150;background-color:silver;color:black;z-index:5;overflow-y:hidden">
 </div>
 <blinkbox id="notify" notify-ms="5000" file-order="example.txt, composer.json" ajax="example.txt"></blinkbox>
-<span>Vistors Since 8/14/2020: <b class="content-fill" inject="./adoms/src/plugins/counter/counter.php"></b></span>
-<script>filler();</script>
+
 <table width="width:100%;height:101%;margin-right:10;z-index:3;background-color:lightgray"><tr>
     <td style="vertical-align:super;width:200;">
     <div style="vertical-align:super;height:850;border-right:3px solid silver;border-radius:10px;width:200">

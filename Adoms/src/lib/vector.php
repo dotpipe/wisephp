@@ -1,6 +1,6 @@
 <?php declare (strict_types = 1);
 namespace Adoms\src\lib;
-
+use Adoms\src\lib\Map;
 require_once __DIR__ . '../../../../vendor/autoload.php';
 class Vector extends Common
 {
@@ -79,7 +79,7 @@ class Vector extends Common
         $this->dat = null;
     }
 
-    public function conv2vector($m): Map
+    public function conv2vector($m): Vector
     {
         if (is_object($m) && $m->parentType == "Set") {
             $vect = new Vector("String");
@@ -177,34 +177,35 @@ class Vector extends Common
         if ($this->childType == "Any" || $r->childType == $this->childType) {
             switch ($this->childType) {
                 case 'Any':{
-                        $obj = $this->childType . "('Any')";
+                        $obj = new $this->childType . "('Any')";
                         array_push($this->dat, new $obj());
                         return;
                     }
                 default:{
-                        $obj = $this->childType . "('String')";
+                        $obj = new $this->childType . "('String')";
                         array_push($this->dat, new $obj());
                         return;
                     }
             }
             switch ($this->childType) {
                 case 'mMap':{
-                        $obj = $this->childType . "('Any')";
-                        $t->newMap($r);
+                        $obj = new mMap('Any');
+                        $obj->newMap("first", $r);
+                        array_push($this->dat, new $obj());
                         return;
                     }
                 case 'String':{
-                        $obj = $this->childType . "('String')";
+                        $obj = new $this->childType . "('String')";
                         array_push($this->dat, new $obj());
                         return;
                     }
                 case 'Array':{
-                        $obj = $this->childType . "('Any')";
+                        $obj = new $this->childType . "('Any')";
                         array_push($this->dat, new $obj());
                         return;
                     }
                 default:{
-                        $t->add($r);
+                        $this->add($r);
                     }
             }
             $this->pt = current($this->dat);
