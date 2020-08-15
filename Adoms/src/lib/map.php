@@ -195,7 +195,7 @@ class Map extends Common
             $this->Sorter();
         }
         if ($this->size() == 1) {
-            $this->Iter();
+            $this->Cycle();
         }
         return true;
     }
@@ -208,25 +208,14 @@ class Map extends Common
     // Remove Key with name $k
     public function remove(string $k): bool
     {
-        $temp = [];
         if ($this->size() == 0) {
             if ($this->strict == 1) {
                 throw new IndexException('Empty Map');
             }
             return false;
         }
-        $tmp = $this->dat;
-        reset($tmp);
-        $i = 0;
-        while ($i < count($tmp)) {
-            if (key($tmp) != $k) {
-                $temp = array_merge($temp, array(key($tmp) => current($tmp)));
-            }
-            next($tmp);
-            $i++;
-        }
-        $this->dat = $temp;
-        reset($this->dat);
+        $rem = array_search($k,$this->dat);
+        unset($this->dat[$rem]);
         return true;
     }
 
@@ -238,24 +227,11 @@ class Map extends Common
     // Return Key
 
     // Return keys fitting $regex
-    public function findKey(string $regex): array
+    public function findKey(string $r)
     {
-        $reglist = array();
-        $tmp = $this->dat;
-        reset($tmp);
-        $i = 0;
-        while ($i < count($tmp)) {
-            if (preg_match_all($regex, key($tmp))) {
-                array_push($reglist, array(key($tmp) => current($tmp)));
-            }
-            next($tmp);
-            $i++;
-        }
-        $regs = [];
-        foreach ($reglist as $t) {
-            $regs = array_merge($regs, $t);
-        }
-        return $regs;
+        if (($y = array_search($r,array_keys($this->dat))) != false);
+            return $y;
+        return false;
     }
 
     /**
@@ -266,19 +242,16 @@ class Map extends Common
     // Remove entry with K & V matching $k and $v
     public function removedat($k, $v): bool
     {
-        $mtk = array();
-        $tmp = $this->dat;
-        end($tmp);
-        $i = 0;
-        while ($i < count($tmp)) {
-            if (key($tmp) != $k && current($tmp) != $v) {
-                $mtk = array_merge($mtk, array(key($tmp) => current($tmp)));
-            }
-            next($tmp);
-            $i++;
+        if (($y = array_search($k,$this->dat)) != false)
+        {
+            if ($this->dat[$k] == $v)
+                unset($this->dat[$k]);
+            else
+                return false;
+            return true;
         }
-        $this->dat = $mtk;
-        return true;
+        else
+            return false;
     }
 
     /**

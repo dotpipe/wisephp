@@ -6,7 +6,6 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class Common {
 
-
     public $datCntr = 0;
     public $dat = array();
     public $pt = array();
@@ -81,7 +80,7 @@ class Common {
             }
             return 0;
         }
-        return $this->datCntr;
+        return current($this->dat);
     }
 
     /**
@@ -95,7 +94,7 @@ class Common {
             if ($this->strict == 1) throw new IndexException('Empty Vector');
             return false;
         }
-        if ($indx < $this->size()) {
+        if ($indx <= $this->size()) {
             reset($this->dat);
             for($i = 0 ; $i < $indx ; $i++)
                 next($this->dat);

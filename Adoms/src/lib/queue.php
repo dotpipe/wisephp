@@ -3,7 +3,7 @@ namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class Queue {
+class Queue extends Common {
 
     public $queueTemp;
     public $parentType;
@@ -17,49 +17,6 @@ class Queue {
 
     public function destroy() {
         $this->dat = null;
-    }
-
-    /**
-     * public function size
-     * @parameters none
-     *
-     */
-    // Report Size of Container
-    public function size() {
-        if (sizeof($this->dat) >= 0)
-            return sizeof($this->dat);
-        else return -1;
-    }
-
-    /**
-     * public function save
-     * @parameters string
-     *
-     */
-    public function save(string $json_name) {
-        $fp = fopen("$json_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
-        return true;
-    }
-
-    /**
-     * public function loadJSON
-     * @parameters string
-     *
-     */
-    public function loadJSON(string $json_name) {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
-            $fp = fopen("$json_name", "r");
-        else
-            return false;
-        $json_context = fread($fp, filesize("$json_name"));
-        $old = unserialize($json_context);
-        $b = $old;
-        foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
-        }
-        return true;
     }
 
     /**
@@ -101,7 +58,6 @@ class Queue {
             return false;
         }
         array_pop($this->dat);
-        $this->dat = $queueTemp;
         return true;
     }
 

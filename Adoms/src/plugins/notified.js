@@ -50,7 +50,7 @@ function notify() {
                         ppr.style.position = "absolute";
                         ppr.style.backgroundColor = "navy";
                         ppr.style.wordwrap = true;
-                        ppr.style.width = window.innerWidth / 4;
+                        ppr.style.width = 250;
                         ppr.style.zIndex = 3;
                         ppr.setAttribute("notify-ms",3000);
                         document.body.insertBefore(ppr,document.body.firstChild);

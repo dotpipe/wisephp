@@ -28,9 +28,8 @@ class Streams extends Map {
     public $dir;
 
     public function __construct() {
-        $this->dat = new Map();
+        $this->dat = [];
         $this->datCntr = 0;
-        reset($this->dat);
         $this->dir = "./";
     }
 
@@ -139,7 +138,7 @@ class Streams extends Map {
     // Iterate Forward through Streams
     public function Iter(): bool {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
-            if (key($this->dat) != null && current($this->dat) != null)
+            if (!empty($this->dat) != null && current($this->dat) != null)
                 $this->add(key($this->dat), current($this->dat));
             $this->datCntr++;
             next($this->dat);
@@ -320,7 +319,7 @@ class Streams extends Map {
      *
      */
     // Empty Buffer
-    public function clearBuf(): bool {
+    public function clearBuf() {
         return $this->buffData = null;
     }
 
@@ -419,8 +418,8 @@ class Streams extends Map {
      */
     // Close File
     public function close(): bool {
-        fclose(current($this->dat));
-        $this->remSeqStrm($this->getIndex());
+        $o = array_search(current($this->dat),$this->dat);
+        unset($this->dat[$o]);
         $this->setIndex($this->getIndex());
         return 1;
     }

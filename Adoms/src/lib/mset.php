@@ -93,25 +93,11 @@ class mSet extends Set {
         if (!is_array($this->dat))
             $this->dat = [];
         $keys = array_keys($this->dat);
-        if (\in_array($k,$keys))
+        if ($indx <= $this->size())
             unset($this->dat[$indx]);
         else
             return 0;
         $this->sync();
         return true;
     }
-/*
-    /**
-     * public function sync
-     * @parameters none
-     *
-     
-    public function sync() {
-        if (!is_array($this->dat))
-            $this->dat = [];
-        $this-> = current($this->dat);
-        $this->pt = $this->datCntr;
-        return true;
-    }
-    */
 }

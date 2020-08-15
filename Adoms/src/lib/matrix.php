@@ -101,37 +101,86 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			return 1;
 		}
 
-		/*
-		*
-		* public function save
-		* @parameters string
-		*
-		*/
-		public function save(string $json_name): bool {
-			$fp = fopen("$json_name", "w");
-			fwrite($fp, serialize($this));
-			fclose($fp);
-			return 1;
-		}
-
-		/*
-		*
-		* public function loadJSON
-		* @parameters string
-		*
-		*/
-		public function loadJSON(string $json_name): bool {
-			if (file_exists("$json_name") && filesize("$json_name") > 0)
-				$fp = fopen("$json_name", "r");
-			else
-				return 0;
-			$json_context = fread($fp, filesize("$json_name"));
-			$old = unserialize($json_context);
-			$b = $old;
-			foreach ($b as $key => $val) {
-				$this->$key = $b->$key; //addModelData($old->view, array($key, $val));
+		function newObj($type, $childType)
+		{
+			
+			if ($type == 'Dequeue') {
+				array_push($this->dat, new Dequeue());
+				$this->childType = 'Dequeue';
+				$this->parentType = 'Matrix';
 			}
-			return 1;
+			else if ($type == 'Queue') {
+				array_push($this->dat, new Queue());
+				$this->childType = 'Queue';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Set') {
+				array_push($this->dat, new Set());
+				$this->childType = 'Set';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'SortedSet') {
+				array_push($this->dat, new SortedSet());
+				$this->childType = 'SortedSet';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'NavigableSet') {
+				array_push($this->dat, new NavigableSet());
+				$this->childType = 'NavigableSet';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Map') {
+				array_push($this->dat, new Map());
+				$this->childType = 'Map';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'SortedMap') {
+				array_push($this->dat, new SortedMap());
+				$this->childType = 'SortedMap';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'NavigableMap') {
+				array_push($this->dat, new Navigablemap());
+				$this->childType = 'NavigableMap';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'mMap') {
+				array_push($this->dat, new mMap());
+				$this->childType = 'mMap';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Stack') {
+				array_push($this->dat, new Stack());
+				$this->childType = 'Stack';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Thread') {
+				array_push($this->dat, new Thread());
+				$this->childType = 'Thread';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Any') {
+				$this->childType = 'Any';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Array') {
+				$this->childType = 'Array';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'String') {
+				$this->childType = 'String';
+				$this->parentType = 'Matrix';
+			}
+			else if ($type == 'Vector') {
+				array_push($this->dat, new Vector($childType));
+				$this->childType = $childType;
+				$this->parentType = 'Vector';
+			}
+			else {
+				throw new Type_Error('Invalid Type');
+				return 0;
+			}
+			$this->typeOf = $type;
 		}
 
 		/*
@@ -184,6 +233,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 				$y = '';
 				$k = 0;
 				$y = $table[$i];
+				$m = '';
 				if (is_object($y))
 					$y = $y->dat[$i];
 				if (is_object($y)) {
@@ -270,18 +320,10 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Remove $r from Matrix
 		public function rem(int $r): bool {
-			if ($this->size() == 1) {
-				$this->dat = null;
-				$this->setIndex($this->getIndex());
-				return 1;
-			}
-			if ($this->size() == 0 || $this->size() <= $r || $r < 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
-			$temp = array_merge(\array_splice($this->dat, 0, $r+1), \array_splice($this->dat, $r+1));
-			$this->setIndex($this->getIndex());
-			return $this->dat = $temp;
+			if ($r >= $this->size)
+				throw new Overflow("Requested Bucket $r with only " . $this->size());
+			unset($this->dat[$r]);
+			return true;
 		}
 
 		/*
@@ -292,10 +334,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Returns true if Matrix has next Element
 		public function hasNext(): bool {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+			if (0 == $this->size)
+				throw new Overflow("Requested next Bucket with only " . $this->size());
 			if ($this->getIndex()+1 < $this->size())
 				return 1;
 			return 0;
@@ -319,8 +359,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 				$this->join();
 				return 0;
 			}
-			else if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+			else if (0 == $this->size()) {
+				throw new Overflow("Requested next Bucket with only " . $this->size());
 				$this->setIndex(0);
 				$this->mx = null;
 				return 0;
@@ -335,10 +375,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Iterate Forward through Vector
 		public function Iter(): bool {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+			if (0 == $this->size())
+				throw new Overflow("Requested next Bucket with only " . $this->size());
 			if ($this->hasNext() == 1) {
 				$this->next();
 				$this->join();
@@ -359,10 +397,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Cycle Forward through Vector
 		public function Cycle(): bool {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+			if (0 == $this->size())
+				throw new Overflow("Requested next Bucket with only " . $this->size());
 			if ($this->hasNext() == 1) {
 				$this->next();
 				$this->join();
@@ -384,10 +420,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Iterate Forward through Vector
 		public function revIter(): bool {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+			if (0 == $this->size())
+				throw new Overflow("Requested Bucket -1 with only " . $this->size());
 			if ($this->hasPrev() == 1) {
 				$this->prev();
 				$this->join();
@@ -407,10 +441,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*
 		*/
 		public function revCycle(): bool {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+			if (0 == $this->size())
+				throw new Overflow("Requested Bucket -1 with only " . $this->size());
 			if ($this->hasPrev() == 1) {
 				$this->prev();
 				$this->join();
@@ -432,8 +464,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Return true if Previous Vector exists
 		public function hasPrev(): bool {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+			if (0 == $this->size()) {
+				throw new Overflow("Requested Bucket -1 with only " . $this->size());
 				return 0;
 			}
 			if ($this->getIndex() - 1 > 0)
@@ -460,8 +492,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 				$this->join();
 				return 0;
 			}
-			else if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
+			else if (0 == $this->size()) {
+				throw new Overflow("Requested Bucket with only " . $this->size());
 				$this->setIndex(0);
 				$this->mx = null;
 				return 0;
@@ -586,8 +618,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			else if ($this->childType == 'Any' || $this->childType == $r->childType
 				|| ($this->childType == 'Array' && is_array($r)))
 				array_push($this->dat, $r);
-			else {
-				throw new Type_Error('Invalid Type');
+			else if (0 == $this->size()) {
+				throw new Overflow("Requested Bucket $r with only " . $this->size());
 				return 0;
 			}
 			if ($this->size() == 1)
@@ -602,13 +634,9 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*
 		*/
 		// Remove $r from Vector
-		public function pop(): mixed {
-			if ($this->size() == 1)
-				$this->dat = null;
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+		public function pop() {
+			if (0 == $this->size())
+				throw new Overflow("Requested Bucket with only " . $this->size());
 			return array_pop($this->dat);
 		}
 
@@ -623,7 +651,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			if ($this->size() == 0 || $this->size() <= $indx) {
 				$this->datCnt = -1;
 				$this->mx = null;
-				throw new IndexException('Invalid Index');
+				throw new Overflow("Requested Bucket $indx with only " . $this->size());
 				return 0;
 			}
 			if ($indx < $this->size() && $indx >= 0) {
@@ -642,10 +670,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Return Vector at $indx
 		public function at(int $indx) {
-			if ($this->size() == 0) {
-				if ($this->strict == 1) throw new IndexException('Empty Vector Array');
-				return 0;
-			}
+			if (0 == $this->size())
+				throw new Overflow("Requested Bucket $indx with only " . $this->size());
 			$temp = array();
 			if ($indx < $this->size() && $indx >= 0) {
 				$temp = $this->dat[$indx];
@@ -688,11 +714,8 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		*/
 		// Point Vector to getIndex()
 		public function join(): bool {
-			if ($this->size() == 0) {
-				$this->mx = null;
-				if ($this->strict == 1) throw new IndexException('Empty Matrix Array');
-				return 0;
-			}
+			if (0 == $this->size())
+				throw new Overflow("Requested Bucket with only " . $this->size());
 			if ($this->size() == 1)
 				$this->setIndex(0);
 			else if ($this->getIndex() == 0 || $this->getIndex() >= $this->size())
@@ -711,24 +734,12 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 		// $indx = row
 		public function add($r, int $indx = -1, int $col = -1): bool {
 			$this->sync();
-			if ($indx == -1 || $indx > $this->size()-1)
-				$indx = $this->size()-1;
-			if ($col == -1 || $col > sizeof($this->dat))
-				$col = sizeof($this->dat)-1;
-			$setTemp = '';
-			if ($this->size() == 0) {
-				array_push($this->dat, $r);
-				return 1;
-			}
-			if ($indx < 0) {
-				throw new IndexException('Invalid Index');
-				return 0;
-			}
+			if (0 == $this->size() || $indx >= $this->size())
+			throw new Overflow("Requested Bucket $indx (row) with only " . $this->size());
+			if ($col >= count($this->dat[$indx]))
+				throw new Overflow("Requested Bucket $col (column) with only " . count($this->dat[$indx]));
 			if (!is_object($r) && !is_array($r) || $r->childType == $this->typeOf) {
-				$t = array();
-				$mtx_row_tmp = &$this->dat[$row];
-				$mtx_col_temp = array_splice($mtx_row_tmp, $col, 0, $r);
-				$this->dat = $this->dat[$row][$col];
+				$this->dat[$indx][$col] = $r; 
 			}
 			else return 0;
 			
@@ -745,7 +756,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			if ($r < 1)
 				return 0;
 			for ($x = 0 ; $x < $r ; $x++)
-                array_push($this->dat, newObj($this->childType, 'String'));
+                array_push($this->dat, $this->newObj($this->childType, 'String'));
             $this->pt = current($this->dat);
 			return 1;
 		}

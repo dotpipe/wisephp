@@ -26,7 +26,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			$this->rootType = 'Container';
 			$this->cache = new Vector('Map');
 			$this->datCntr = 0;
-			$this->mname = null;
+			$this->mname = '';
 			$this->pm = -1;
 			$this->cnt = -1;
 			$this->typeOf = 'mMap';
@@ -332,7 +332,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			}
 			if ($r->size() != $this->size())
 				return 0;
-			if (count(array_intersect_assoc($this->dat,$r) == $r->size()))
+			if (count(array_intersect_assoc($this->dat,$r->dat) == $r->size()))
 				return 1;
 			return 0;
 		}
@@ -350,15 +350,9 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			}
 			if (!$this->keyIsIn($k))
 				return 0;
-			$i = 0;
-			while (list($key,$val) = each($this->dat)){
-				if ($key == $k)
-					return array_slice($this->dat,$i);
-				$i++;
-			}
-			$x = $this->getIndex();
-			$this->setIndex($x);
-			return 0;
+			
+			$h = array_search($k,$this->dat);
+			return $h;
 		}
 		/*
 		*
@@ -404,7 +398,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 			}
 			$keys = array_keys($this->dat);
 			if (\in_array($k,$keys))
-				unset($this->dat["$k"]);
+				unset($this->dat[$k]);
 			else
 				return 0;
 			return 1;

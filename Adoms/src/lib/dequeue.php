@@ -3,7 +3,7 @@ namespace Adoms\src\lib;
 
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
-class Dequeue
+class Dequeue extends Common
 {
     public $dqueueTemp;
     public $parentType;
@@ -47,12 +47,12 @@ class Dequeue
             if ($this->strict == 1) throw new IndexException('Empty Dequeue');
             return false;
         }
-        $hold = $this->dat->pop();
+        $hold = array_pop($this->dat);
         return $hold;
     }
 
     // Add entry
-    public function push($r)
+    public function push($r): int
     {
         return array_push($this->dat, $r);
     }
@@ -85,7 +85,7 @@ class Dequeue
             }
             return false;
         }
-        return $this->dat[$this->size()-1];
+        return $this->dat[array_key_last($this->dat)];
     }
 
     // Empty Dequeue
@@ -98,7 +98,6 @@ class Dequeue
     // Remove first entry
     public function removeFirst(): bool
     {
-        $dqueueTemp = '';
         if ($this->size() == 0) {
             if ($this->strict == 1) {
                 throw new IndexException('Empty Dequeue');
@@ -122,7 +121,6 @@ class Dequeue
         $p = 0;
         $r = array_search($r, $this->dat, false);
         unset($this->dat[$r]);
-        $this->dat = $dequeueTemp;
         return true;
     }
 

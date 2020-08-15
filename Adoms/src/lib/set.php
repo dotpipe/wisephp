@@ -24,53 +24,6 @@ class Set extends Common {
     }
 
     /**
-     * public function save
-     * @parameters string
-     *
-     */
-    public function save(string $file_name): bool {
-        $fp = fopen("$file_name", "w");
-        fwrite($fp, serialize($this));
-        fclose($fp);
-        return true;
-    }
-
-    /**
-     * public function loadJSON
-     * @parameters string
-     *
-     */
-    public function loadJSON(string $json_name): bool {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
-            $fp = fopen("$json_name", "r");
-        else
-            return false;
-        $json_context = fread($fp, filesize("$json_name"));
-        $old = unserialize($json_context);
-        $b = $old;
-        foreach ($b as $key => $val) {
-            $this->$key = $b->$key; //addModelData($old->view, array($key, $val));
-        }
-        return true;
-    }
-
-    /**
-     * public function size
-     * @parameters none
-     *
-     */
-    // Report Size of Container
-    public function size(): int {
-        if (($this->typeOf == 'SortedSet' || $this->typeOf == 'NavigableSet') && $this->parentType == 'Set') {
-
-            sort($this->dat);
-        }
-        if (sizeof($this->dat) >= 0)
-            return sizeof($this->dat);
-        else return -1;
-    }
-
-    /**
      * public function addAll
      * @parameters string
      *
@@ -84,7 +37,7 @@ class Set extends Common {
 
         $s = $this->dat;
         $this->clear();
-        array_merge($this->dat,$r);
+        $this->dat = array_merge($s,$r);
         $this->pt = current($this->dat);
         return true;
     }
@@ -120,8 +73,7 @@ class Set extends Common {
      *
      */
     // Return if Value exists
-    public function valIsIn(string $v):array {
-        $temp = array();
+    public function valIsIn(string $v) {
         return array_search($v, $this->dat);
     }
 

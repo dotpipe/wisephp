@@ -20,7 +20,6 @@ class Stack {
         $this->typeOf = 'Stack';
         $this->ADDRESS_STACK_COUNT = 10;
         $this->calipers = 30000;
-        $this->thrdMngr();
         $this->stack = new Queue();
     }
 
