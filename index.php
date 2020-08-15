@@ -104,7 +104,7 @@ blinkbox {
 
 <body>
 <span id="hed" style="text-align:right;width:100%"><br>
-Adoms::Helium v4.0.0 - <a href="http://www.github.com/wise-penny/adoms">GitHub</a> + 
+Adoms::Helium v4.1.3 - <a href="http://www.github.com/wise-penny/adoms">GitHub</a> + 
 <i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> + 
 <input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
 <input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
