@@ -101,14 +101,12 @@ blinkbox {
 <script src="./adoms/src/plugins/notified.js"></script>
 <script src="./adoms/src/plugins/filler.js"></script>
 </head>
-
+https://www.paypal.com/biz/fund?id=NYFAJYS9VXD42
 <body>
 <span id="hed" style="text-align:right;width:100%"><br>
 Adoms::Helium v4.1.3 - <a href="http://www.github.com/wise-penny/adoms">GitHub</a> + 
-<i id="donate" redirect="follow" method="GET" ajax="https://www.paypal.com/cgi-bin/webscr"> Donate </i> + 
-<input type="hidden" pipe="donate" class="data-pipe" name="cmd" value="_s-xclick" />
-<input type="hidden" pipe="donate" class="data-pipe" name="hosted_button_id" value="TMZJ4ZGG84ACL" />
-<input type="hidden" pipe="donate" class="data-pipe" name="source" value="url" />
+<i id="donate" follow="https://www.paypal.com/biz/fund"> Donate </i> + 
+<input type="hidden" pipe="donate" class="data-pipe" name="id" value="NYFAJYS9VXD42" />
 <a id="thing" display="red">Contact</a> + 
 <a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a> + 
 Visitors Since 8/14/2020: <b class="content-fill" inject="./adoms/src/plugins/counter/counter.php"></b></span>

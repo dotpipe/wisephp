@@ -14,6 +14,41 @@ class ChatBox {
         $this->crud = new CRUD("chat.ini");
     }
 
+    function getConversations($con) {
+        $results = $con->query('SELECT username FROM ad_revs, chat WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' .  $_COOKIE['myemail'] . '") && username != "' . $_COOKIE['myemail'] . '" ORDER BY last DESC') or die (mysqli_error($con));
+        
+        $c = [];
+        
+        if ($results->num_rows > 0) {
+            while ($row = $results->fetch_assoc()) {
+                array_push($c, $row['username']);
+            }
+        }
+        
+        $f = [];
+        foreach ($c as $v)
+        array_push($f,$v);
+        
+        $f = array_unique($f);
+        echo json_encode($f);
+        
+    }
+    
+    // Have Column Created for conduct, being swearing or cussing "on/off"
+    function getconduct($cnxn) {
+        $results = $cnxn->query('SELECT conduct_on FROM chat WHERE filename = "' . $_COOKIE['chatfile'] . '"') or die(mysqli_error($cnxn));
+
+    // Check if the store has conduct flag on/off
+        //if ($results->num_rows == 1)
+        {
+            $row = $results->fetch_assoc();
+            $d = $row['conduct_on'];
+            echo $row['conduct_on'];
+            setcookie("conductOn", $d);
+        }
+        //else echo 1;
+    }
+
     // Update Command for chat
     // Run getFileName() to get the cookie
     public function updateChatFile() {

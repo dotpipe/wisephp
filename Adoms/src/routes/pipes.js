@@ -53,20 +53,18 @@ function remove(elem)
 
 function goto(elem) {
 
-    if (!document.body.contains(elem))
-        return;
     elem = document.getElementById(elem.id);
 
     if (!document.body.contains(elem))
         return;
-    if (elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
+    if (elem.hasOwnProperty("follow"))
+    {}
+    else if (elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
     {
         return -1;
     }
-    else    if (elem.id.indexOf("carousel-table",0))
-        return -1;
     
-    elem = document.getElementById(elem.id);
+    console.log(elem);
     //use 'data-pipe' as the classname to include its value
     // specify which pipe with pipe="target.id"
     var elem_values = document.getElementsByClassName("data-pipe");
@@ -75,8 +73,8 @@ function goto(elem) {
     // No 'pipe' means it is generic. This means it is open season for all with this class
     for (var i = 0; i < elem_values.length; i++) {
         //if this is designated as belonging to another pipe, it won't be passed in the url
-        if (elem_values && !elem_values[i].hasOwnProperty("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
-            elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
+        if (elem_values[i] && elem_values[i].getAttribute("pipe") == elem.id)
+            elem_qstring = elem_qstring + "&" + elem_values[i].name + "=" + elem_values[i].value;
         // Multi-select box
         console.log(".");
         if (elem_values[i].hasOwnProperty("multiple")) {
@@ -88,8 +86,8 @@ function goto(elem) {
         }
     }
 
-    console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
-    elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
+    console.log(elem.getAttribute("follow") + "?" + elem_qstring.substr(1,elem_qstring.length-1));
+    elem_qstring = elem.getAttribute("follow") + "?" + elem_qstring.substr(1,elem_qstring.length-1);
     window.location.href = elem_qstring;
 }
 
@@ -114,15 +112,15 @@ function classToAJAX(elem) {
     f = 0;
 
     ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
-        let header_array = ["GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
+        let header_array = ["POST","no-cors","no-cache"," ",'{"Access-Control-Request-Method": "POST","Access-Control-Allow-Headers": "Content-Type, Authorization","Content-Type":"text/html"}', "manual", "client"];
 
         opts.set(e, header_array[f]);
         
     });
 
-    content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax"));
-    opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
+    content_thru = '{"Access-Control-Request-Method": "POST","Access-Control-Allow-Headers": "Content-Type, Authorization","Content-Type":"text/html"}';
+    var opts_req = new Request(elem.getAttribute("ajax"),opts);
+    opts.set('body', JSON.stringify({"Content-Type":"text/html"}));
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
     
