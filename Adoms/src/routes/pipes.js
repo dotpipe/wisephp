@@ -59,12 +59,11 @@ function goto(elem) {
         return;
     if (elem.hasOwnProperty("follow"))
     {}
-    else if (elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
+    else if (elem.hasAttribute("ajax") || elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
     {
         return -1;
     }
     
-    console.log(elem);
     //use 'data-pipe' as the classname to include its value
     // specify which pipe with pipe="target.id"
     var elem_values = document.getElementsByClassName("data-pipe");
@@ -76,7 +75,6 @@ function goto(elem) {
         if (elem_values[i] && elem_values[i].getAttribute("pipe") == elem.id)
             elem_qstring = elem_qstring + "&" + elem_values[i].name + "=" + elem_values[i].value;
         // Multi-select box
-        console.log(".");
         if (elem_values[i].hasOwnProperty("multiple")) {
             for (var o of elem_values.options) {
                 if (o.selected) {
@@ -85,7 +83,6 @@ function goto(elem) {
             }
         }
     }
-
     console.log(elem.getAttribute("follow") + "?" + elem_qstring.substr(1,elem_qstring.length-1));
     elem_qstring = elem.getAttribute("follow") + "?" + elem_qstring.substr(1,elem_qstring.length-1);
     window.location.href = elem_qstring;
@@ -96,18 +93,18 @@ function goto(elem) {
 
         const elem = ev.target;
         if (-1 == goto(elem))
-            classToAJAX(elem);
+            AJAX(elem);
         notify();
     }, false);
     
 }); 
 
-function classToAJAX(elem) {
+function AJAX(elem) {
 
     
     if (!document.body.contains(elem))
         return;
-
+    console.log(elem);
     opts = new Map();
     f = 0;
 

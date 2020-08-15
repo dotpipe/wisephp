@@ -101,7 +101,6 @@ blinkbox {
 <script src="./adoms/src/plugins/notified.js"></script>
 <script src="./adoms/src/plugins/filler.js"></script>
 </head>
-https://www.paypal.com/biz/fund?id=NYFAJYS9VXD42
 <body>
 <span id="hed" style="text-align:right;width:100%"><br>
 Adoms::Helium v4.1.3 - <a href="http://www.github.com/wise-penny/adoms">GitHub</a> + 
