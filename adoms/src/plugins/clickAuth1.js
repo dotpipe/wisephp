@@ -9,7 +9,7 @@ var myNotification = new Notification("clickAuth1 Verification",
 
 btn.addEventListener('click', function() {
   let promise = Notification.requestPermission();
-})
+});
 
 function logTabs(tabs) {
     for (let tab of tabs) {
