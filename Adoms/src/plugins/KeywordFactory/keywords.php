@@ -30,7 +30,10 @@ class KeywordFactory {
         $form = "";
         while ($i < 2 && $row = $results->fetch_assoc()) {
             $form .= '<div onclick="choseKeyword(\'' . $row['keyword'] . '\');this.parentNode.removeChild(this);" style="width:130px;display:table-cell;padding:10px;margin:10px;border-radius:25px;border:2px dashes white;background:black;">';
-            $form .= '<b style="font-size:14px">' . $row['keyword'] . '</b><br>';
+            $form .= '<b style="
+            
+            
+            font-size:14px">' . $row['keyword'] . '</b><br>';
             $form .= '<i><font style="width:90px;font-size:11px">' . $row['definition'] . '</font></i>';
             $form .= '</div>';
             $i++;
