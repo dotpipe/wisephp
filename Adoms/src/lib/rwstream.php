@@ -1,15 +1,15 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
-
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class rwStream extends Streams {
-
+class rwStream extends Streams
+{
     public $stream;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
         $this->typeOf = 'rwStream';

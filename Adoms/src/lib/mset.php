@@ -1,11 +1,11 @@
-<?php declare (strict_types = 1); declare (strict_types = 1);
+<?php declare(strict_types = 1); declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
-class mSet extends Set {
-
+class mSet extends Set
+{
     public $setTemp;
     public $parentType;
     public $childType;
@@ -14,7 +14,8 @@ class mSet extends Set {
     public $set;
     public $dat;
 
-    public function __construct(string $type) {
+    public function __construct(string $type)
+    {
         $this->cache = array();
         $this->rootType = 'Container';
         $this->parentType = 'mSet';
@@ -30,8 +31,8 @@ class mSet extends Set {
      * @parameters none
      *
      */
-    public function clear(): void {
-
+    public function clear(): void
+    {
         $this->dat = null;
         return;
     }
@@ -41,11 +42,13 @@ class mSet extends Set {
      * @parameters int
      *
      */
-    public function get(int $indx) {
-        if (!is_array($this->dat))
+    public function get(int $indx)
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
 
-        return array_search($indx,$this->dat, 1);
+        return array_search($indx, $this->dat, 1);
     }
 
     /**
@@ -53,15 +56,19 @@ class mSet extends Set {
      * @parameters Set
      *
      */
-    public function addSet(Set $r): bool {
-        if (!is_array($this->dat))
+    public function addSet(Set $r): bool
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         if ($r->typeOf != $this->childType) {
-            if ($this->strict == 1) throw new Type_Error('Incorrect Type');
+            if ($this->strict == 1) {
+                throw new Type_Error('Incorrect Type');
+            }
             return false;
         }
         $handler = $this->setExists($r);
-        if ($handler == FALSE) {
+        if ($handler == false) {
             array_push($this->dat, $r);
             $this->sync();
             return true;
@@ -74,12 +81,15 @@ class mSet extends Set {
      * @parameters Set
      *
      */
-    public function setExists(Set $read_in): bool {
-        if (!is_array($this->dat))
+    public function setExists(Set $read_in): bool
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         foreach ($this->dat as $t => $val0) {
-            if (isset($val0->dat) && array_diff_assoc($val0->dat,$read_in->dat) == array())
+            if (isset($val0->dat) && array_diff_assoc($val0->dat, $read_in->dat) == array()) {
                 return true;
+            }
         }
         return false;
     }
@@ -89,14 +99,17 @@ class mSet extends Set {
      * @parameters int
      *
      */
-    public function remIndex(int $indx):bool {
-        if (!is_array($this->dat))
+    public function remIndex(int $indx):bool
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         $keys = array_keys($this->dat);
-        if ($indx <= $this->size())
+        if ($indx <= $this->size()) {
             unset($this->dat[$indx]);
-        else
+        } else {
             return 0;
+        }
         $this->sync();
         return true;
     }

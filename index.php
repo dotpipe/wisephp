@@ -5,7 +5,7 @@ namespace Adoms\src\lib;
 require "vendor/autoload.php";
 
 session_start();
-file_put_contents("example.txt",":):):):)");
+file_put_contents("example.txt", ":):):):)");
 ?>
 <style>
 div {
@@ -192,8 +192,8 @@ Visitors Since 8/14/2020: <b class="content-fill" inject="./adoms/src/plugins/co
 <?php
 
 $map = new SortedMap();
-$map->add("hey","world!");
-$map->add("they","wont!");
+$map->add("hey", "world!");
+$map->add("they", "wont!");
 $map->lastKey();
 
 $t = new writeStream();
@@ -265,17 +265,19 @@ do {
     echo $s->vect->dat[$i]++ . "<br>";
     $i--;
 } while ($s->revIter());
-if (strlen(json_encode($s)) < 250)
+if (strlen(json_encode($s)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b class=\"box\">Line 213 <b>This is a Vector(\"Set\")<br></b>" . json_encode($s) . " (I added another 4 here)<br>";
 $s->vect->add(4);
 echo json_encode($s);
-if (strlen(json_encode($s->vect)) < 250)
+if (strlen(json_encode($s->vect)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b class=\"box\">This is the pointed to Vector held in ->pt<br></b>" . json_encode($s->vect) . "<br>";
 $vs = new mSet("Set");
 $vs->addSet($ccc);
@@ -286,18 +288,20 @@ $vs->addSet($ccc);
 // No joke! Multi-Sets are here!
 $sss = $vs->setExists($ccc);
 echo json_encode($vs);
-if (strlen(json_encode($sss)) + strlen(json_encode($vs)) < 250)
+if (strlen(json_encode($sss)) + strlen(json_encode($vs)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b class=\"box\">Inserted Set is in MultiSet: " . json_encode($sss) . "!</b><br>";
 echo "<br><b>What? Oh my god.. MultiSets!</b><br>";
 echo "<br><br>" . json_encode($vs) . "<br><br>";
 
-if (strlen(json_encode($vs)) < 250)
+if (strlen(json_encode($vs)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 
 $s->clear();
 $ms = new Map();
@@ -308,12 +312,13 @@ $ms->setIndex(0);
 do {
     echo "<b>This is ->pt at Index:</b>" . json_encode($ms->pt) . "<br>";
     $ms->replace("yay", "Value");
-    $ms->add("yay","no");
+    $ms->add("yay", "no");
 } while ($ms->Iter());
-if (strlen(json_encode($ms)) < 250)
+if (strlen(json_encode($ms)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b>This is \$ms output to a JSON:</b>";
 echo "<br><br>" . json_encode($ms) . "<br>";
 // Above I changed the KV pairs to "New/Value"
@@ -327,27 +332,28 @@ do {
 } while ($ms->revIter());
 
 $mm = new mMap();
-$mm->newMap("MS",$ms);
-$mm->newMap("M1",$ms);
-$mm->newMap("M2",$ms);
+$mm->newMap("MS", $ms);
+$mm->newMap("M1", $ms);
+$mm->newMap("M2", $ms);
 
-$ms->replace("yay1",":P");
+$ms->replace("yay1", ":P");
 
 $mn = new Map();
 $mn->add("ay", "me!");
 $mn->add("ay1", "me!");
 
-$mm->replace("MS",$mn);
+$mm->replace("MS", $mn);
 
 $mm->setIndex(0);
 $mt = new Map();
 $mt->add("ya", "me!");
 $mt->add("ya1", "me!");
 
-if (strlen(json_encode($mm)) < 250)
+if (strlen(json_encode($mm)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b>Here's a mMap returned from a XML File!</b>";
 echo json_encode($mm);
 $mm->setIndex(0);
@@ -361,10 +367,11 @@ $mm->mmap = $mt;
 
 $temp = $mm->mapSearch("/S/");
 $e = $mm->mmap->findKey("/ya/");
-if (strlen(json_encode($temp)) + strlen(json_encode($mm)) < 250)
+if (strlen(json_encode($temp)) + strlen(json_encode($mm)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b>Guess what *I* Found \$mm->mmap->findKey(\"/ya/\"); !</b><br>" . json_encode($e) . "<br><br>";
 echo "<b>Did you notice that? Map don't overwrite with changes to ->pt if it ignores the rule of multiple keys :)</b><br>";
 echo json_encode($mm);
@@ -374,11 +381,12 @@ echo json_encode($temp);
 $s = "'<a href=\"#\">testing</a>','asdj',['adk',['adfd']],'cnaa',['sdasa']";
 //use Adoms\src\lib\trees;
 $treevar = new Trees();
-$g = $treevar->mockTree($s,1);
-if (strlen(json_encode($g)) < 250)
+$g = $treevar->mockTree($s, 1);
+if (strlen(json_encode($g)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 
 echo "<b>Use the trees() class to make link trees</b><br>";
 echo "<b>This is a proper tree. Single quotes for values, deepen as you wish</b><br>";
@@ -388,10 +396,11 @@ $sd = "[\"oids\":[\".class,#cssId\":\"a\/?@ soda\",\"ask\":\"9_3.12\",\"ajds\":[
 
 $y = new api();
 $m = $y->display($sd);
-if (strlen(json_encode($sd)) < 250)
+if (strlen(json_encode($sd)) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo '<b>This is what the Vector<"Any"> looks like from $sd</b><br><br>';
 echo "$sd";
 
@@ -401,10 +410,11 @@ echo "$sd";
 // $this->apiRecv()
 // For API Handling
 // JSON from wherever
-if (strlen($n) < 250)
+if (strlen($n) < 250) {
     echo "</p><p class=\"cols\">";
-else
+} else {
     echo "</p><p id=\"sbox\">";
+}
 echo "<b>Oh, like you didn't want CSS included ;)</b>";
 $ts = "@import url(\"dss.css\"); #id .classname p b { property:value; property-1: value; } .classname p b { property:value; property-1: value; }";
 

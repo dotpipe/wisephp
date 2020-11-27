@@ -1,10 +1,11 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
+
 use Adoms\src\lib\Map;
+
 require_once __DIR__ . '../../../../vendor/autoload.php';
 class Vector extends Common
 {
-
     public $vectorTemp;
     public $parentType;
     public $childType;
@@ -16,43 +17,43 @@ class Vector extends Common
         if ($type == 'Dequeue') {
             $this->childType = 'Dequeue';
             $this->parentType = 'Vector';
-        } else if ($type == 'Queue') {
+        } elseif ($type == 'Queue') {
             $this->childType = 'Queue';
             $this->parentType = 'Vector';
-        } else if ($type == 'Set') {
+        } elseif ($type == 'Set') {
             $this->childType = 'Set';
             $this->parentType = 'Vector';
-        } else if ($type == 'SortedSet') {
+        } elseif ($type == 'SortedSet') {
             $this->childType = 'SortedSet';
             $this->parentType = 'Vector';
-        } else if ($type == 'NavigableSet') {
+        } elseif ($type == 'NavigableSet') {
             $this->childType = 'NavigableSet';
             $this->parentType = 'Vector';
-        } else if ($type == 'Map') {
+        } elseif ($type == 'Map') {
             $this->childType = 'Map';
             $this->parentType = 'Vector';
-        } else if ($type == 'SortedMap') {
+        } elseif ($type == 'SortedMap') {
             $this->childType = 'SortedMap';
             $this->parentType = 'Vector';
-        } else if ($type == 'NavigableMap') {
+        } elseif ($type == 'NavigableMap') {
             $this->childType = 'NavigableMap';
             $this->parentType = 'Vector';
-        } else if ($type == 'mMap') {
+        } elseif ($type == 'mMap') {
             $this->childType = 'mMap';
             $this->parentType = 'Vector';
-        } else if ($type == 'Stack') {
+        } elseif ($type == 'Stack') {
             $this->childType = 'Stack';
             $this->parentType = 'Vector';
-        } else if ($type == 'Thread') {
+        } elseif ($type == 'Thread') {
             $this->childType = 'Thread';
             $this->parentType = 'Vector';
-        } else if ($type == 'String') {
+        } elseif ($type == 'String') {
             $this->childType = 'String';
             $this->parentType = 'Vector';
-        } else if ($type == 'Any') {
+        } elseif ($type == 'Any') {
             $this->childType = 'Any';
             $this->parentType = 'Vector';
-        } else if ($type == 'Array') {
+        } elseif ($type == 'Array') {
             $this->childType = 'Array';
             $this->parentType = 'Vector';
         } else {
@@ -83,11 +84,11 @@ class Vector extends Common
     {
         if (is_object($m) && $m->parentType == "Set") {
             $vect = new Vector("String");
-        } else if (is_object($m) && $m->parentType == "mSet") {
+        } elseif (is_object($m) && $m->parentType == "mSet") {
             $vect = new Vector("Set");
-        } else if (is_object($m) && $m->parentType == "mMap") {
+        } elseif (is_object($m) && $m->parentType == "mMap") {
             $vect = new Vector("Map");
-        } else if (is_object($m) && $m->parentType == "Matrix") {
+        } elseif (is_object($m) && $m->parentType == "Matrix") {
             $vect = new Vector("Any");
         } else {
             $vect = new Vector("String");
@@ -121,11 +122,11 @@ class Vector extends Common
     {
         if ($r == null) {
             return false;
-        } else if ($this->childType == 'String' && !is_object($r) && !is_array($r)) {
+        } elseif ($this->childType == 'String' && !is_object($r) && !is_array($r)) {
             array_push($this->dat, $r);
-        } else if ($this->childType == 'Any' || ($this->childType == 'Array' && is_array($r)) || $this->childType == $r->childType) {
+        } elseif ($this->childType == 'Any' || ($this->childType == 'Array' && is_array($r)) || $this->childType == $r->childType) {
             array_push($this->dat, $r);
-        } else if (!is_object($r) && !is_array($r)) {
+        } elseif (!is_object($r) && !is_array($r)) {
             return false;
         } else {
             throw new Type_Error('Invalid Type');
@@ -169,7 +170,7 @@ class Vector extends Common
         if ($this->size() == 0) {
             array_push($this->dat, $r);
             return true;
-        } else if ($indx < 0 || $indx >= $this->size()) {
+        } elseif ($indx < 0 || $indx >= $this->size()) {
             throw new IndexException('Invalid Index');
             return false;
         }
@@ -245,41 +246,40 @@ class Vector extends Common
     // Insert new Vector<T> (Element<T>)
     public function insVect($ins)
     {
-
         if ($this->childType == 'Dequeue') {
             $r = new Dequeue();
-        } else if ($this->childType == 'Queue') {
+        } elseif ($this->childType == 'Queue') {
             $r = new Queue();
-        } else if ($this->childType == 'Set') {
+        } elseif ($this->childType == 'Set') {
             $r = new Set();
-        } else if ($this->childType == 'SortedSet') {
+        } elseif ($this->childType == 'SortedSet') {
             $r = new SortedSet();
-        } else if ($this->childType == 'NavigableSet') {
+        } elseif ($this->childType == 'NavigableSet') {
             $r = new NavigableSet();
-        } else if ($this->childType == 'Map') {
+        } elseif ($this->childType == 'Map') {
             $r = new Map();
-        } else if ($this->childType == 'SortedMap') {
+        } elseif ($this->childType == 'SortedMap') {
             $r = new SortedMap();
-        } else if ($this->childType == 'NavigableMap') {
+        } elseif ($this->childType == 'NavigableMap') {
             $r = new NavigableMap();
-        } else if ($this->childType == 'mMap') {
+        } elseif ($this->childType == 'mMap') {
             $r = new mMap();
-        } else if ($this->childType == 'Stack') {
+        } elseif ($this->childType == 'Stack') {
             $r = new Stack();
-        } else if ($this->childType == 'Thread') {
+        } elseif ($this->childType == 'Thread') {
             $r = new Thread();
-        } else if ($this->childType == 'String') {
+        } elseif ($this->childType == 'String') {
             $r = new Vector("String");
-        } else if ($this->childType == 'Any') {
+        } elseif ($this->childType == 'Any') {
             $r = new Vector("Any");
-        } else if ($this->childType == 'Array') {
+        } elseif ($this->childType == 'Array') {
             $r = new Vector("Array");
         } else {
             throw new Type_Error('Invalid Type');
             return false;
         }
 
-        array_splice($this->dat,$ins,0,$r);
+        array_splice($this->dat, $ins, 0, $r);
         return true;
     }
 
@@ -301,29 +301,29 @@ class Vector extends Common
         
         return array_splice($this->dat, $r, 1);
     }
-/*
-/**
- * public function sync
- * @parameters none
- *
- *
-public function sync(): bool {
-if (is_object($this->pt) && $this->childType == "Set" && $this->pt->dat != null) {
-$t = $this->pt;
-$t->dat = array_unique($t->dat);
-$this->pt->dat = $t->dat;
-}
-if ($this->pv < $this->size()) {
-if ($this->pt != null)
-$this->dat[$this->pv] = $this->pt;
-}
-if ($this->datCntr >= $this->size()) {
-$this->datCntr = $this->size() - 1;
-end($this->dat);
-}
-$this->pt = current($this->dat);
-$this->pv = $this->datCntr;
-return true;
-}
- */
+    /*
+    /**
+     * public function sync
+     * @parameters none
+     *
+     *
+    public function sync(): bool {
+    if (is_object($this->pt) && $this->childType == "Set" && $this->pt->dat != null) {
+    $t = $this->pt;
+    $t->dat = array_unique($t->dat);
+    $this->pt->dat = $t->dat;
+    }
+    if ($this->pv < $this->size()) {
+    if ($this->pt != null)
+    $this->dat[$this->pv] = $this->pt;
+    }
+    if ($this->datCntr >= $this->size()) {
+    $this->datCntr = $this->size() - 1;
+    end($this->dat);
+    }
+    $this->pt = current($this->dat);
+    $this->pv = $this->datCntr;
+    return true;
+    }
+     */
 }

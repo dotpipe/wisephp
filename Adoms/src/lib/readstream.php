@@ -1,17 +1,17 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
-
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class readStream extends Streams {
-
+class readStream extends Streams
+{
     public $stream;
     public $strmkey;
     public $parentType;
     public $delim;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
         $this->typeOf = 'readStream';
@@ -21,13 +21,14 @@ class readStream extends Streams {
         $this->dir = "./";
     }
 
-    public function addStream(string $r, bool $bool = FALSE) {
-        if (!\file_exists($this->dir . $r))
+    public function addStream(string $r, bool $bool = false)
+    {
+        if (!\file_exists($this->dir . $r)) {
             return false;
+        }
         $ed = fopen($this->dir . $r, 'r');
-        $this->add($this->dir . $r,$ed);
+        $this->add($this->dir . $r, $ed);
         $this->sync();
         return true;
-
     }
 }

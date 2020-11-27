@@ -1,21 +1,23 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class Queue extends Common {
-
+class Queue extends Common
+{
     public $queueTemp;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'Container';
         $this->parentType = 'Queue';
         $this->childType = 'Queue';
         $this->typeOf = 'Queue';
     }
 
-    public function destroy() {
+    public function destroy()
+    {
         $this->dat = null;
     }
 
@@ -25,9 +27,12 @@ class Queue extends Common {
      *
      */
     // Remove while Retrieving entry 1
-    public function poll() {
+    public function poll()
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Queue');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Queue');
+            }
             return false;
         }
         $j = $this->dat[0];
@@ -42,7 +47,8 @@ class Queue extends Common {
      *
      */
     // Push on to Queue
-    public function push($r) {
+    public function push($r)
+    {
         return array_push($this->dat, $r);
     }
 
@@ -52,9 +58,12 @@ class Queue extends Common {
      *
      */
     // Retrieve first Queue and pop
-    public function pop() {
+    public function pop()
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Queue');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Queue');
+            }
             return false;
         }
         array_pop($this->dat);
@@ -67,9 +76,12 @@ class Queue extends Common {
      *
      */
     // Return first Queue
-    public function getElement() {
+    public function getElement()
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Queue');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Queue');
+            }
             return false;
         }
         return $this->dat[0];
@@ -81,7 +93,8 @@ class Queue extends Common {
      *
      */
     // Empty Queue
-    public function clear() {
+    public function clear()
+    {
         $this->dat = array();
         return true;
     }

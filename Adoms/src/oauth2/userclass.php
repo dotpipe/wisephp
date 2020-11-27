@@ -6,7 +6,8 @@ use Adoms\src\pasm;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class UserClass extends CRUD {
+class UserClass extends CRUD
+{
 
     /*
      *
@@ -22,7 +23,7 @@ class UserClass extends CRUD {
      * to have administrative, group, and user identifying characteristics.
      * So we'll see what we can come up with here in this PASM coded router.
      * What don't you think I'll come upon?
-     * 
+     *
     */
 
     public $login_cntr = 0;
@@ -32,35 +33,36 @@ class UserClass extends CRUD {
     public $GET;
     public $cmd;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->pasm = new \Adoms\src\pasm\PASM();
         $this->cmd = (isset($_GET) && isset($_GET['cmd'])) ? $_GET['cmd'] : $_POST['cmd'];
         $this->GET = (isset($_GET) && isset($_GET['cmd'])) ? $_GET : $_POST;
-        if (!isset($this->GET['cmd']))
-        {}
-        else if ($this->cmd == 'save_user_state'
-            || $this->cmd == 'load_user_state')
+        if (!isset($this->GET['cmd'])) {
+        } elseif ($this->cmd == 'save_user_state'
+            || $this->cmd == 'load_user_state') {
             $this->cmd($this->GET['file']);
-        else if ($this->cmd == 'login_user')
+        } elseif ($this->cmd == 'login_user') {
             $this->cmd([$this->GET['user_id'],$this->GET['password']]);
-        else if ($this->cmd == 'create_new_admin')
+        } elseif ($this->cmd == 'create_new_admin') {
             $this->cmd([$this->GET['user_id'],$this->GET['password']]);
-        else if ($this->cmd == 'new_user')
+        } elseif ($this->cmd == 'new_user') {
             $this->cmd([$this->GET['user_id'],$this->GET['password'],$this->GET['group_id']]);
+        }
     }
 
-    protected function save_user_state($filename) {
-        file_put_contents($filename,serialize($this));
+    protected function save_user_state($filename)
+    {
+        file_put_contents($filename, serialize($this));
         return new static;
     }
 
-    public function load_user_state($filename) {
+    public function load_user_state($filename)
+    {
         $fx = unserialize(file_get_contents($filename));
-        foreach ($fx as $key => $value)
-        {
+        foreach ($fx as $key => $value) {
             $this->$key = $value;
-            foreach ($value as $val_n)
-            {
+            foreach ($value as $val_n) {
                 $this->$key->$value = $val_n;
             }
         }
@@ -69,24 +71,25 @@ class UserClass extends CRUD {
 
     public function login_user(array $login_arr, string $where)
     {
-        if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 2)
+        if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 2) {
             return new static;
+        }
         $crud = new CRUD();
         $rows = $crud->read($login_arr, $where);
-        if (count($rows) == 1)
-        {
+        if (count($rows) == 1) {
             $this->login_cntr = 0;
             $this->group_id = $this->sp[2];
             $this->user_id = $this->sp[0];
             return new static;
         }
-        if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 0)
-        setcookie('logins', $this->login_cntr + 1, time() + (60 * 60 * 24 * 3));
+        if (isset($_COOKIE['logins']) && $_COOKIE['logins'] > 0) {
+            setcookie('logins', $this->login_cntr + 1, time() + (60 * 60 * 24 * 3));
+        }
 
         return false;
     }
 
-    protected function create_new_admin(array $user_settings_for_database, $table_name) 
+    protected function create_new_admin(array $user_settings_for_database, $table_name)
     {
         $crud = new CRUD();
         $this->pasm->addr($user_settings_for_database, $table_name) // describe new array
@@ -101,16 +104,17 @@ class UserClass extends CRUD {
      * Input NULL for current user to change password.
      * Creates new users. If accessor's GUID is 0, it'll work anyway
      * We just change the password otherwise.
-     * 
+     *
     */
     public function new_user(string $userId, string $password, int $groupId = 0)
     {
         $crud = new crud();
         $this->array = ["users" => []];
-        if ($this->group_id == 0)
+        if ($this->group_id == 0) {
             $this->pasm->addr([$userId, $password, $groupId]);
-        else if (($userId == null || $this->user_id == $userId) && $groupId == $this->group_id)
+        } elseif (($userId == null || $this->user_id == $userId) && $groupId == $this->group_id) {
             $this->pasm->addr([$this->user_id, $password, $this->group_id]);
+        }
         $this->pasm->movr();
         $crud->create($this->ST0, $this->pasm->arr);
         $this->pasm->end();

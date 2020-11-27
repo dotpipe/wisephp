@@ -1,10 +1,11 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
-class Stack {
+class Stack
+{
 
     // Wait in milliseconds for wait()
     public $calipers;
@@ -14,7 +15,8 @@ class Stack {
     public $ADDRS_STK_CNT;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'DataLayer';
         $this->parentType = 'Thread';
         $this->typeOf = 'Stack';
@@ -28,7 +30,8 @@ class Stack {
      * @parameters string
      *
      */
-    public function save(string $json_name) {
+    public function save(string $json_name)
+    {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -40,11 +43,13 @@ class Stack {
      * @parameters string
      *
      */
-    public function loadJSON(string $json_name) {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
+    public function loadJSON(string $json_name)
+    {
+        if (file_exists("$json_name") && filesize("$json_name") > 0) {
             $fp = fopen("$json_name", "r");
-        else
+        } else {
             return false;
+        }
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
@@ -60,10 +65,13 @@ class Stack {
      *
      */
     // Report size of stack
-    public function size() {
-        if (sizeof($this->stack) >= 0)
+    public function size()
+    {
+        if (sizeof($this->stack) >= 0) {
             return sizeof($this->stack);
-        else return -1;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -72,7 +80,8 @@ class Stack {
      *
      */
     // Add all elements of Stack to page
-    public function unstack() {
+    public function unstack()
+    {
         //tell each session ID to update..
         while ($this->size() > 0) {
             include_once($this->stack->poll());
@@ -86,9 +95,11 @@ class Stack {
      */
     // ADDRS_STK_CNT is a variable of MAX Stack height
     // When surpassed, it calls unstack (careful to not set too high)
-    public function threadManager() {
-        if ($this->size() > $this->ADDRESS_STACK_COUNT)
+    public function threadManager()
+    {
+        if ($this->size() > $this->ADDRESS_STACK_COUNT) {
             $this->unstack();
+        }
     }
 
     /**
@@ -97,7 +108,8 @@ class Stack {
      *
      */
     // Add stack URL
-    public function insert(string $stackurl) {
+    public function insert(string $stackurl)
+    {
         array_push($this->stack, $stackurl);
     }
 
@@ -107,7 +119,8 @@ class Stack {
      *
      */
     // Empty Stack
-    public function clear() {
+    public function clear()
+    {
         $this->stack = array();
     }
 }

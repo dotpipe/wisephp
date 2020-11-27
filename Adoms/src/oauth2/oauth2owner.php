@@ -1,11 +1,11 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace Adoms\src\oauth2;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class OAuth2Owner {
-
+class OAuth2Owner
+{
     public $user;
     public $password;
     public $token;
@@ -25,7 +25,8 @@ class OAuth2Owner {
      *   parameters per site necessities.
     */
 
-    public function login(string $config, array $login_info_array, string $home_dir = "/", string $home_page = "index.php"): int {
+    public function login(string $config, array $login_info_array, string $home_dir = "/", string $home_page = "index.php"): int
+    {
         $password = $login_info_array['password'];
         $this->hashPassword($password);
         
@@ -43,8 +44,8 @@ class OAuth2Owner {
         return count($read_rows);
     }
 
-    public function checkExpiry(array $login_info_array, $connection): bool {
-
+    public function checkExpiry(array $login_info_array, $connection): bool
+    {
         $usern = sprintf("`%1`.`username` = %2 AND `%1`.`realm` = %3", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
         $read_rows = $connection->read([
@@ -57,24 +58,22 @@ class OAuth2Owner {
             $cookie = mysqli_fetch_assoc($read_rows);
             if (time() - $cookie['expiry'] > -600) {
                 $connection = new crud();
-                $connection->delete($login_info_array['request'],$usern);
+                $connection->delete($login_info_array['request'], $usern);
                 $this->newUserTokenizer($login_info_array, $connection);
             }
             $read_rows->close();
             return true;
-        }
-        else if ($read_rows->num_rows > 1) {
+        } elseif ($read_rows->num_rows > 1) {
             echo "\nPlease contact admin with error code: 3x04f";
-        }
-        else {
+        } else {
             echo "\nLogin issue: Did you forget your password?";
         }
         $read_rows->close();
         return false;
     }
 
-    public function newUserTokenizer(array $login_info_array, $connection):string {
-
+    public function newUserTokenizer(array $login_info_array, $connection):string
+    {
         $this->hashPassword($login_info_array['password']);
         // Create token
         $token = $this->createTokenizer();
@@ -94,28 +93,28 @@ class OAuth2Owner {
 
     public function hashPassword(string &$v)
     {
-        $v = \password_hash($v,PASSWORD_DEFAULT);
-        $v = \password_hash($v,PASSWORD_DEFAULT);
-        $v = \password_hash($v,PASSWORD_DEFAULT);
+        $v = \password_hash($v, PASSWORD_DEFAULT);
+        $v = \password_hash($v, PASSWORD_DEFAULT);
+        $v = \password_hash($v, PASSWORD_DEFAULT);
         return $v;
     }
 
-    public function createTokenizer() {
+    public function createTokenizer()
+    {
         $bin = "";
         srand(time());
         for ($i = 0; $i < 128 ; $i++) {
             $bin <<= 1;
-            $bin += \rand(0,5)%2;
+            $bin += \rand(0, 5)%2;
         }
         return \bin2hex((string)$bin);
     }
 
-    public function logout($login_info_array) {
-
+    public function logout($login_info_array)
+    {
         $usern = sprintf("`%1`.`username` = %2 AND `%1`.`realm` = %3", $login_info_array['table'], $login_info_array['username'], $login_info_array['realm']);
         
-        $this->connection->delete($login_info_array['table'],$usern);
+        $this->connection->delete($login_info_array['table'], $usern);
         unset($_COOKIE['TOK']);
     }
-
 }

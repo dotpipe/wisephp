@@ -1,6 +1,5 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
-
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 class Dequeue extends Common
@@ -24,16 +23,20 @@ class Dequeue extends Common
     // Report Size of Container
     public function size(): int
     {
-        if (count($this->dat) >= 0)
+        if (count($this->dat) >= 0) {
             return count($this->dat);
-        else return false;
+        } else {
+            return false;
+        }
     }
 
     // Retrieve and Remove first Entry
     public function pollFront(): string
     {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Dequeue');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Dequeue');
+            }
             return false;
         }
         $hold = array_shift($this->dat);
@@ -44,7 +47,9 @@ class Dequeue extends Common
     public function pollBack(): string
     {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Dequeue');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Dequeue');
+            }
             return false;
         }
         $hold = array_pop($this->dat);
@@ -136,7 +141,7 @@ class Dequeue extends Common
         }
         $m = $this->size();
         array_reverse($this->dat);
-        $t = array_search($r, $this->dat,false);
+        $t = array_search($r, $this->dat, false);
         unset($this->dat[$t]);
         array_reverse($this->dat);
         $this->setIndex($this->getIndex());
