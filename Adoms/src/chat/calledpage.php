@@ -23,4 +23,3 @@ else {
     print_r("Error: Record not found");
 }
 */
-?>

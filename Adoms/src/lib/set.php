@@ -1,16 +1,16 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
-
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
-class Set extends Common {
-
+class Set extends Common
+{
     public $setTemp;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->cache = array();
         $this->rootType = 'Container';
         $this->parentType = 'Set';
@@ -19,7 +19,8 @@ class Set extends Common {
         $this->dat = array();
     }
 
-    public function destroy() {
+    public function destroy()
+    {
         $this->dat = null;
     }
 
@@ -29,7 +30,8 @@ class Set extends Common {
      *
      */
     // Merge sets
-    public function addAll(Set $r): bool {
+    public function addAll(Set $r): bool
+    {
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
             return false;
@@ -37,7 +39,7 @@ class Set extends Common {
 
         $s = $this->dat;
         $this->clear();
-        $this->dat = array_merge($s,$r);
+        $this->dat = array_merge($s, $r);
         $this->pt = current($this->dat);
         return true;
     }
@@ -48,8 +50,8 @@ class Set extends Common {
      *
      */
     // Empty Set
-    public function clear(): void {
-
+    public function clear(): void
+    {
         $this->dat = array();
         $this->pt = "";
         return;
@@ -61,7 +63,8 @@ class Set extends Common {
      *
      */
     // Splice $r into $indx point
-    public function add($r): bool {
+    public function add($r): bool
+    {
         $bool = true;
         (in_array($r, $this->dat)) ? $bool = false : array_push($this->dat, $r);
         return $bool;
@@ -73,7 +76,8 @@ class Set extends Common {
      *
      */
     // Return if Value exists
-    public function valIsIn(string $v) {
+    public function valIsIn(string $v)
+    {
         return array_search($v, $this->dat);
     }
 
@@ -83,14 +87,16 @@ class Set extends Common {
      *
      */
     // Compare $this with $r
-    public function compare(Set $r): bool {
+    public function compare(Set $r): bool
+    {
         $temp = array();
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
             return false;
         }
-        if ($r->size() != $this->size() || $r->dat != $this->dat)
+        if ($r->size() != $this->size() || $r->dat != $this->dat) {
             return false;
+        }
         return true;
     }
 
@@ -100,9 +106,12 @@ class Set extends Common {
      *
      */
     // Return entry at $indx
-    public function get(int $indx) {
+    public function get(int $indx)
+    {
         if ($this->size() == 0 || $indx >= $this->size()) {
-            if ($this->strict == 1) throw new IndexException('Empty Set');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Set');
+            }
             return false;
         }
         return $this->dat[$indx];
@@ -114,12 +123,15 @@ class Set extends Common {
      *
      */
     // Return Index of Entry
-    public function exists(string $r) {
+    public function exists(string $r)
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Set');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Set');
+            }
             return false;
         }
-        return array_search($r,$this->dat);
+        return array_search($r, $this->dat);
     }
 
     /**
@@ -128,13 +140,16 @@ class Set extends Common {
      *
      */
     // Remove Entry at $indx
-    public function remIndex(int $indx):bool {
+    public function remIndex(int $indx):bool
+    {
         $setTemp = [];
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Set');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Set');
+            }
             return false;
         }
-        array_splice($this->dat,$indx,1);
+        array_splice($this->dat, $indx, 1);
         return true;
     }
 
@@ -144,15 +159,17 @@ class Set extends Common {
      *
      */
     // Remove Value if exists (otherwise 0)
-    public function remValue(string $val):bool {
+    public function remValue(string $val):bool
+    {
         $setTemp = [];
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Set');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Set');
+            }
             return false;
         }
-        array_splice($this->dat,array_search($val,$this->dat),1);
+        array_splice($this->dat, array_search($val, $this->dat), 1);
         $this->pt = current($this->dat);
         return true;
     }
-
 }

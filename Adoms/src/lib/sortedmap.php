@@ -1,14 +1,15 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
-class SortedMap extends Map {
-
+class SortedMap extends Map
+{
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'Container';
         $this->parentType = 'Map';
         $this->typeOf = 'SortedMap';
@@ -19,7 +20,8 @@ class SortedMap extends Map {
      * @parameters none
      *
      */
-    public function destroy() {
+    public function destroy()
+    {
         $this->pt = null;
     }
 
@@ -29,9 +31,12 @@ class SortedMap extends Map {
      *
      */
     // Return first KV
-    public function firstKey() {
+    public function firstKey()
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return false;
         }
         return array_keys($this->dat)[0];
@@ -42,7 +47,8 @@ class SortedMap extends Map {
      * @parameters string
      *
      */
-    public function save(string $json_name): bool {
+    public function save(string $json_name): bool
+    {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -54,11 +60,13 @@ class SortedMap extends Map {
      * @parameters string
      *
      */
-    public function loadJSON(string $json_name): bool {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
+    public function loadJSON(string $json_name): bool
+    {
+        if (file_exists("$json_name") && filesize("$json_name") > 0) {
             $fp = fopen("$json_name", "r");
-        else
+        } else {
             return false;
+        }
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
@@ -74,9 +82,12 @@ class SortedMap extends Map {
      *
      */
     // Return last KV
-    public function lastKey() {
+    public function lastKey()
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return false;
         }
         return array_keys($this->dat)[count(array_keys($this->dat))-1];
@@ -90,27 +101,29 @@ class SortedMap extends Map {
     // Return Keys before $r
     // $vb == 1 >= $v
     // $vb == 0 < $v
-    public function headMap(string $v, bool $vb) {
+    public function headMap(string $v, bool $vb)
+    {
         $mapTemp = array();
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return false;
-        } 
+        }
         {
             if ($vb == 1) {
                 $mapTemp = array_splice($this->dat, $v, count($this->dat));
-            }
-            else if ($vb == 0) {
+            } elseif ($vb == 0) {
                 $mapTemp = array_splice($this->dat, 0, $v);
-            }
-            else {
+            } else {
                 throw new SyntaxError('Invalid Syntax');
                 return false;
             }
         }
         $vMap = new Map();
-        foreach ($mapTemp as $k => $v)
+        foreach ($mapTemp as $k => $v) {
             $vMap->add($k, $v);
+        }
         return $vMap;
     }
 
@@ -122,10 +135,13 @@ class SortedMap extends Map {
     // Return KVs between $vst and $ven (This is very functional)
     // $Lb == 0 : >= $vst ; $Lb == 1 : < $vst
     // $Hb == 0 : >= $ven ; $Hb == 1 : < $ven
-    public function subMap(string $vst, bool $Lb, string $ven, bool $Hb) {
+    public function subMap(string $vst, bool $Lb, string $ven, bool $Hb)
+    {
         $mapTemp = array();
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return false;
         }
         // let's go the right way thru
@@ -140,8 +156,7 @@ class SortedMap extends Map {
                     $mapTemp = array_merge($mapTemp, array($k => $v));
                 }
             }
-        }
-        else if ($Lb == 0) {
+        } elseif ($Lb == 0) {
             foreach ($this->dat as $k => $v) {
                 if ($v > $ven) {
                     $mapTemp = array_merge($mapTemp, array($k => $v));
@@ -154,21 +169,20 @@ class SortedMap extends Map {
                     $mapTemp = array_merge($mapTemp, array($k => $v));
                 }
             }
-        }
-        else if ($Hb == 0) {
+        } elseif ($Hb == 0) {
             foreach ($this->dat as $k => $v) {
                 if ($v < $ven) {
                     $mapTemp = array_merge($mapTemp, array($k => $v));
                 }
             }
-        }
-        else {
+        } else {
             throw new SyntaxError('Invalid Syntax');
             return false;
         }
         $vMap = new Map();
-        foreach ($mapTemp as $k => $v)
+        foreach ($mapTemp as $k => $v) {
             $vMap->add($k, $v);
+        }
         return $vMap;
     }
 
@@ -178,23 +192,26 @@ class SortedMap extends Map {
      *
      */
     // Return Tail end of Map at $st
-    public function tailMap(int $st, bool $vb) {
+    public function tailMap(int $st, bool $vb)
+    {
         $mapTemp = array();
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Map');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Map');
+            }
             return false;
         }
         foreach ($this->dat as $k => $v) {
             if ($st >= $v && $vb == 1) {
                 $mapTemp = array_merge($mapTemp, array($k => $v));
-            }
-            else if ($st > $v && $vb == 0) {
+            } elseif ($st > $v && $vb == 0) {
                 $mapTemp = array_merge($mapTemp, array($k => $v));
             }
         }
         $vMap = new Map();
-        foreach ($mapTemp as $k => $v)
+        foreach ($mapTemp as $k => $v) {
             $vMap->add($k, $v);
+        }
         return $vMap;
     }
 }

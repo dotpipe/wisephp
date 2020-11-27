@@ -1,11 +1,11 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 
-namespace Adoms\src\lib; 
+namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class Common {
-
+class Common
+{
     public $datCntr = 0;
     public $dat = array();
     public $pt = array();
@@ -27,10 +27,13 @@ class Common {
      *
      */
     // Report Size of Container
-    public function size(): int {
-        if (sizeof($this->dat) >= 0)
+    public function size(): int
+    {
+        if (sizeof($this->dat) >= 0) {
             return sizeof($this->dat);
-        else return -1;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -40,9 +43,8 @@ class Common {
      */
     public function loadJSON(string $file_name): bool
     {
-        if (file_exists("$file_name") && filesize("$file_name") > 0)
-        {}
-        else {
+        if (file_exists("$file_name") && filesize("$file_name") > 0) {
+        } else {
             return false;
         }
 
@@ -89,15 +91,19 @@ class Common {
      *
      * Sets and Joins Map Index
      */
-    public function setIndex(int $indx) {
+    public function setIndex(int $indx)
+    {
         if ($this->size() == 0) {
-            if ($this->strict == 1) throw new IndexException('Empty Vector');
+            if ($this->strict == 1) {
+                throw new IndexException('Empty Vector');
+            }
             return false;
         }
         if ($indx <= $this->size()) {
             reset($this->dat);
-            for($i = 0 ; $i < $indx ; $i++)
+            for ($i = 0 ; $i < $indx ; $i++) {
                 next($this->dat);
+            }
             $this->datCntr = $indx;
             $this->sync();
             return true;
@@ -117,8 +123,7 @@ class Common {
         if ($this->datCntr >= 0 && $this->datCntr + 1 < count($this->dat)) {
             if (is_array($this->pt) && sizeof($this->pt) == 2 && 1 == count(array_intersect($typeArray, array($this->parentType)))) {
                 $this->add($this->pt[0], $this->pt[1]);
-            }
-            else if (1 == count(array_intersect($typeArray, array($this->parentType)))) {
+            } elseif (1 == count(array_intersect($typeArray, array($this->parentType)))) {
                 next($this->dat);
                 $this->pt = current($this->dat);
                 $this->sync();
@@ -171,8 +176,7 @@ class Common {
             $this->datCntr++;
             $this->sync();
             return true;
-        } 
-        else {
+        } else {
             reset($this->dat);
             $this->pt = current($this->dat);
             $this->datCntr = 0;
@@ -195,8 +199,7 @@ class Common {
             $this->datCntr--;
             $this->sync();
             return true;
-        } 
-        else {
+        } else {
             end($this->dat);
             $this->pt = current($this->dat);
             $this->datCntr = sizeof($this->dat) - 1;
@@ -210,9 +213,10 @@ class Common {
      * public function sync
      * @parameters none
      *
-     * 
+     *
      */
-    public function sync(): bool {
+    public function sync(): bool
+    {
         $i = 0;
         reset($this->dat);
         while ($i < $this->datCntr) {
@@ -223,5 +227,3 @@ class Common {
         return true;
     }
 }
-
-?>

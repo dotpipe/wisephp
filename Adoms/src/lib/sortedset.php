@@ -1,14 +1,15 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class SortedSet extends Set {
-
+class SortedSet extends Set
+{
     public $sSetTemp;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->cache = array();
         $this->rootType = 'Container';
         $this->parentType = 'Set';
@@ -22,7 +23,8 @@ class SortedSet extends Set {
      * @parameters none
      *
      */
-    public function destroy() {
+    public function destroy()
+    {
         $this->dat = null;
     }
 
@@ -32,9 +34,11 @@ class SortedSet extends Set {
      *
      */
     // Return entries before $indx
-    public function headSet(int $indx) {
-        if (!is_array($this->dat))
+    public function headSet(int $indx)
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         $j = array_slice($this->dat, 0, $indx);
         return $j;
     }
@@ -45,9 +49,11 @@ class SortedSet extends Set {
      *
      */
     // Returns first Entry
-    public function first() {
-        if (!is_array($this->dat))
+    public function first()
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         $t = $this->dat;
         reset($t);
         return current($t);
@@ -59,9 +65,11 @@ class SortedSet extends Set {
      *
      */
     // Returns last Entry
-    public function last() {
-        if (!is_array($this->dat))
+    public function last()
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         $t = $this->dat;
         end($t);
         return current($t);
@@ -75,10 +83,12 @@ class SortedSet extends Set {
     // Return between $st and $ven (This is very functional)
     // $Lb == 1 >= $st ; $Lb == 0 < $st
     // $Hb == 0 >= $ven ; $Hb == < $ven
-    public function subSet(int $st, int $Lb, string $ven, int $Hb) {
+    public function subSet(int $st, int $Lb, string $ven, int $Hb)
+    {
         $sSetTemp = new Set();
-        if (!is_array($this->dat))
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
             
         if ($Lb == 1) {
             foreach ($this->dat as $v) {
@@ -86,8 +96,7 @@ class SortedSet extends Set {
                     $sSetTemp = $sSetTemp->add($v);
                 }
             }
-        }
-        else if ($Lb == 0) {
+        } elseif ($Lb == 0) {
             foreach ($this->dat as $v) {
                 if ($v > $ven) {
                     $sSetTemp = $sSetTemp->add($v);
@@ -100,15 +109,13 @@ class SortedSet extends Set {
                     $sSetTemp = $sSetTemp->add($v);
                 }
             }
-        }
-        else if ($Hb == 0) {
+        } elseif ($Hb == 0) {
             foreach ($this->dat as $k => $v) {
                 if ($v < $ven) {
                     $sSetTemp = $sSetTemp->add($v);
                 }
             }
-        }
-        else {
+        } else {
             throw new SyntaxError('Invalid Syntax');
             return false;
         }

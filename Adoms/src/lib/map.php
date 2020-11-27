@@ -1,11 +1,10 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class Map extends Common
 {
-
     public $mapTempK;
     public $mapTempV;
     public $vMap;
@@ -214,7 +213,7 @@ class Map extends Common
             }
             return false;
         }
-        $rem = array_search($k,$this->dat);
+        $rem = array_search($k, $this->dat);
         unset($this->dat[$rem]);
         return true;
     }
@@ -229,8 +228,8 @@ class Map extends Common
     // Return keys fitting $regex
     public function findKey(string $r)
     {
-        if (($y = array_search($r,array_keys($this->dat))) != false);
-            return $y;
+        if (($y = array_search($r, array_keys($this->dat))) != false);
+        return $y;
         return false;
     }
 
@@ -242,16 +241,16 @@ class Map extends Common
     // Remove entry with K & V matching $k and $v
     public function removedat($k, $v): bool
     {
-        if (($y = array_search($k,$this->dat)) != false)
-        {
-            if ($this->dat[$k] == $v)
+        if (($y = array_search($k, $this->dat)) != false) {
+            if ($this->dat[$k] == $v) {
                 unset($this->dat[$k]);
-            else
+            } else {
                 return false;
+            }
             return true;
-        }
-        else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -278,5 +277,4 @@ class Map extends Common
         $this->dat[$key] = $val;
         return true;
     }
-
 }

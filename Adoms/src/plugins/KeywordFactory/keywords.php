@@ -1,22 +1,22 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../../vendor/autoload.php';
-class KeywordFactory {
-
-    public function insertKeyDef() {
+class KeywordFactory
+{
+    public function insertKeyDef()
+    {
         $ini = json_decode(file_get_contents("../../config.ini"));
         $conn = mysqli_connect($ini->host, $ini->username, $ini->password, $ini->database, $ini->port);
         
         $sql = 'INSERT INTO keywords(id,keyword,definition,username) VALUES(null,"' . $_GET['a'] . '", "' . $_GET['c']. '","' . $_COOKIE['myemail'] . '")';
 
         $results = $conn->query($sql) or die(mysqli_error($conn));
-        
     }
 
-    public function lookupKeyword() {
-
+    public function lookupKeyword()
+    {
         $ini = json_decode(file_get_contents("../../config.ini"));
         $conn = mysqli_connect($ini->host, $ini->username, $ini->password, $ini->database, $ini->port);
         
@@ -25,8 +25,9 @@ class KeywordFactory {
         $results = $conn->query($sql) or die(mysqli_error($conn));
         
         $i = 0;
-        if ($results->num_rows === 0)
+        if ($results->num_rows === 0) {
             return;
+        }
         $form = "";
         while ($i < 2 && $row = $results->fetch_assoc()) {
             $form .= '<div onclick="choseKeyword(\'' . $row['keyword'] . '\');this.parentNode.removeChild(this);" style="width:130px;display:table-cell;padding:10px;margin:10px;border-radius:25px;border:2px dashes white;background:black;">';
@@ -42,4 +43,3 @@ class KeywordFactory {
         echo $form;
     }
 }
-?>

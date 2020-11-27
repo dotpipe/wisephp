@@ -1,15 +1,16 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
-class NavigableSet extends SortedSet {
-
+class NavigableSet extends SortedSet
+{
     public $navTemp;
     public $parentType;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'Container';
         $this->parentType = 'Set';
         $this->childType = 'Set';
@@ -17,7 +18,8 @@ class NavigableSet extends SortedSet {
         $this->dat = array();
     }
 
-    public function destroy() {
+    public function destroy()
+    {
         $this->dat = null;
     }
 
@@ -27,15 +29,17 @@ class NavigableSet extends SortedSet {
      *
      */
     // Retrieves first entry <= $r
-    public function ceiling(string $r) {
+    public function ceiling(string $r)
+    {
         $handler = $this->dat;
         $ceil = null;
         foreach ($handler as $k => $v) {
-            if ($v >= $r && $ceil >= $v)
+            if ($v >= $r && $ceil >= $v) {
                 $ceil = $v;
+            }
         }
 
-        return array_search($ceil, $handler,true);
+        return array_search($ceil, $handler, true);
     }
 
     /**
@@ -44,15 +48,17 @@ class NavigableSet extends SortedSet {
      *
      */
     // Retrieves first entry < $r
-    public function floor(string $r) {
+    public function floor(string $r)
+    {
         $handler = $this->dat;
         $floor = null;
         foreach ($handler as $k => $v) {
-            if ($v <= $r && $floor <= $v)
+            if ($v <= $r && $floor <= $v) {
                 $floor = $v;
+            }
         }
 
-        return array_search($floor, $handler,true);
+        return array_search($floor, $handler, true);
     }
 
     /**
@@ -61,9 +67,11 @@ class NavigableSet extends SortedSet {
      *
      */
     // Retrieves and removes First Entry
-    public function pollFirst() {
-        if (!is_array($this->dat))
+    public function pollFirst()
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         reset($this->dat);
         $j = current($this->dat);
         array_shift($this->dat);
@@ -76,12 +84,13 @@ class NavigableSet extends SortedSet {
      *
      */
     // Retrieves and erases last entry
-    public function pollLast() {
-        if (!is_array($this->dat))
+    public function pollLast()
+    {
+        if (!is_array($this->dat)) {
             $this->dat = [];
+        }
         $j = end($this->dat);
         array_pop($this->dat);
         return $j;
     }
-
 }

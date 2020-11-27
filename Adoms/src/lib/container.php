@@ -1,10 +1,11 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace Adoms\src\lib;
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class Container   {
+class Container
+{
     // Type Specifications
     public $typeOf;
     public $rootType;
@@ -12,17 +13,19 @@ class Container   {
     // in Containers (use_strict($bool))
     public $strict;
 
-    public function __construct() {
-        $this->strict = FALSE;
+    public function __construct()
+    {
+        $this->strict = false;
     }
 
     // Strict IndexException Error Calling
-    public function use_strict(bool $bool = FALSE) {
-        if ($bool != 0)
+    public function use_strict(bool $bool = false)
+    {
+        if ($bool != 0) {
             $this->strict = true;
-        else $this->strict = 0;
+        } else {
+            $this->strict = 0;
+        }
         return $this->strict;
     }
 }
-
-?>

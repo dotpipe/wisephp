@@ -1,10 +1,10 @@
-<?php declare (strict_types = 1);
+<?php declare(strict_types = 1);
 namespace Adoms\src\lib;
-
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
-class Thread extends Streams {
+class Thread extends Streams
+{
     // *************
     // BEGIN HERE
     // start new thread for Javascript
@@ -41,7 +41,8 @@ class Thread extends Streams {
     // Current local Directory
     public $dir;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->rootType = 'DataLayer';
         $this->parentType = 'DataLayer';
         $this->typeOf = 'Thread';
@@ -54,7 +55,8 @@ class Thread extends Streams {
      * @parameters string
      *
      */
-    public function size(): int {
+    public function size(): int
+    {
         return count($this->size());
     }
 
@@ -68,12 +70,14 @@ class Thread extends Streams {
     // Each is seemingly randomly named.
     // (Hold sequential $handles in $origin files)
     // Use JSON if CSV is not to your liking.
-    public function startThread(string $origin) {
+    public function startThread(string $origin)
+    {
         $handle = md5($origin);
-        if ($this->touch($this->dir . $handle) == 1)
+        if ($this->touch($this->dir . $handle) == 1) {
             $this->add($this->dir . $handle, 1);
-        else
+        } else {
             return false;
+        }
         $this->Iter();
         return true;
     }
@@ -83,7 +87,8 @@ class Thread extends Streams {
      * @parameters string
      *
      */
-    public function save(string $json_name): bool {
+    public function save(string $json_name): bool
+    {
         $fp = fopen("$json_name", "w");
         fwrite($fp, serialize($this));
         fclose($fp);
@@ -95,11 +100,13 @@ class Thread extends Streams {
      * @parameters string
      *
      */
-    public function loadJSON(string $json_name): bool {
-        if (file_exists("$json_name") && filesize("$json_name") > 0)
+    public function loadJSON(string $json_name): bool
+    {
+        if (file_exists("$json_name") && filesize("$json_name") > 0) {
             $fp = fopen("$json_name", "r");
-        else
+        } else {
             return false;
+        }
         $json_context = fread($fp, filesize("$json_name"));
         $old = unserialize($json_context);
         $b = $old;
@@ -115,7 +122,8 @@ class Thread extends Streams {
      *
      */
     // Like all joins
-    public function join() {
+    public function join()
+    {
         return $this->sync();
     }
 
@@ -125,7 +133,8 @@ class Thread extends Streams {
      *
      */
     // Set Index
-    public function setIndex(int $index) {
+    public function setIndex(int $index)
+    {
         return $this->setIndex($index);
     }
 
@@ -135,7 +144,8 @@ class Thread extends Streams {
      *
      */
     // Current thread
-    public function getIndex(): int {
+    public function getIndex(): int
+    {
         return parent::getIndex();
     }
 
@@ -145,7 +155,8 @@ class Thread extends Streams {
      *
      */
     // Current Thread
-    public function current(): int {
+    public function current(): int
+    {
         return parent::current();
     }
 
@@ -155,7 +166,8 @@ class Thread extends Streams {
      *
      */
     // Forward Iteration
-    public function next() {
+    public function next()
+    {
         return $this->next();
     }
 
@@ -165,7 +177,8 @@ class Thread extends Streams {
      *
      */
     // Previous Iteration
-    public function prev(): bool {
+    public function prev(): bool
+    {
         return parent::prev();
     }
 
@@ -175,7 +188,8 @@ class Thread extends Streams {
      *
      */
     // Forward Iterator
-    public function Iter(): bool {
+    public function Iter(): bool
+    {
         return $this->Iter();
     }
 
@@ -185,7 +199,8 @@ class Thread extends Streams {
      *
      */
     // Forward Cycle Iterator
-    public function Cycle(): bool {
+    public function Cycle(): bool
+    {
         if ($this->size() == $this->getIndex()+1) {
             $this->setIndex(0);
             $this->join();
@@ -200,7 +215,8 @@ class Thread extends Streams {
      *
      */
     // Reverse Iterator
-    public function revIter(): bool {
+    public function revIter(): bool
+    {
         return $this->revIter();
     }
 
@@ -210,7 +226,8 @@ class Thread extends Streams {
      *
      */
     // Reverse Cycle Iterator
-    public function revCycle(): bool {
+    public function revCycle(): bool
+    {
         if (-1 == $this->getIndex()-1) {
             $this->setIndex($this->size()-1);
             $this->join();
@@ -225,17 +242,19 @@ class Thread extends Streams {
      *
      */
     // Empty Thread file
-    public function clearThread(string $origin) {
+    public function clearThread(string $origin)
+    {
         $handle = md5($origin);
         if (file_exists($this->dir . $handle) == 1) {
             fopen($this->dir . $handle, 'w');
-            if (filesize($this->dir . $handle) == 0)
+            if (filesize($this->dir . $handle) == 0) {
                 return true;
-            else
+            } else {
                 return false;
-        }
-        else
+            }
+        } else {
             return false;
+        }
         return true;
     }
 
@@ -245,7 +264,8 @@ class Thread extends Streams {
      *
      */
     // Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
-    public function endThread() {
+    public function endThread()
+    {
         parent::removeIndex($this->getIndex());
         $this->Iter();
         $this->seqStrms->setIndex($this->getIndex());
@@ -258,7 +278,8 @@ class Thread extends Streams {
      *
      */
     // Read from Thread file
-    public function readThread() {
+    public function readThread()
+    {
         $this->setDelim("}");
         $this->resize(0);
         while (! $this->eof()) {
@@ -275,10 +296,12 @@ class Thread extends Streams {
      *
      */
     // Write to Thread file
-    public function writeThread($obj_array) {
+    public function writeThread($obj_array)
+    {
         $x = json_encode($obj_array);
-        if ($this->stream == null || $this->streamName == null)
+        if ($this->stream == null || $this->streamName == null) {
             return false;
+        }
         fwrite($this->stream, $x);
         return true;
     }
