@@ -1,6 +1,6 @@
 <?php //declare (strict_types = 1);
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
 require "vendor/autoload.php";
 
@@ -96,19 +96,19 @@ blinkbox {
 </style>
 <html>
 <head>
-<script src="./adoms/src/routes/pipes.js"></script>
-<script src="./adoms/src/plugins/carousel.js"></script>
-<script src="./adoms/src/plugins/notified.js"></script>
-<script src="./adoms/src/plugins/filler.js"></script>
+<script src="./wise/src/routes/pipes.js"></script>
+<script src="./wise/src/plugins/carousel.js"></script>
+<script src="./wise/src/plugins/notified.js"></script>
+<script src="./wise/src/plugins/filler.js"></script>
 </head>
 <body>
 <span id="hed" style="text-align:right;width:100%"><br>
-Adoms::Helium v4.1.3 - <a href="http://www.github.com/wise-penny/adoms">GitHub</a> + 
+wise::Helium v4.1.3 - <a href="http://www.github.com/wise-penny/wise">GitHub</a> + 
 <i id="donate" follow="https://www.paypal.com/biz/fund"> Donate </i> + 
 <input type="hidden" pipe="donate" class="data-pipe" name="id" value="NYFAJYS9VXD42" />
 <a id="thing" display="red">Contact</a> + 
 <a pipe="wiki-link" class="data-pipe" name="ops" value="hey" href="mailto:inland14@live.com">Bug Report</a> + 
-Visitors Since 8/14/2020: <b class="content-fill" inject="./adoms/src/plugins/counter/counter.php"></b></span>
+Visitors Since 8/14/2020: <b class="content-fill" inject="./wise/src/plugins/counter/counter.php"></b></span>
 <script>filler();</script>
 <div id="carousel" style="height:150;background-color:silver;color:black;z-index:5;overflow-y:hidden">
 </div>
@@ -372,7 +372,7 @@ echo "<br><br><b>I also found this mMap ->mname! with mapSearch(\"/S/\")</b><br>
 echo json_encode($temp);
 
 $s = "'<a href=\"#\">testing</a>','asdj',['adk',['adfd']],'cnaa',['sdasa']";
-//use Adoms\src\lib\trees;
+//use wise\src\lib\trees;
 $treevar = new Trees();
 $g = $treevar->mockTree($s,1);
 if (strlen(json_encode($g)) < 250)
@@ -440,6 +440,6 @@ echo "</div>";
 echo "</body></html>";
 ?>
 <script> 
-makeCarousel(["example.txt", "composer.json"], "adoms/src/icons/omniscroll.png", "adoms/src/icons/omniscroll.png");
+makeCarousel(["example.txt", "composer.json"], "wise/src/icons/omniscroll.png", "wise/src/icons/omniscroll.png");
 fillCarousel("example.txt, composer.json");
 </script>

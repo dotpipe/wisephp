@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\css.php';
+require_once '\wise\src\lib\css.php';
 
  class cssTest extends css {
 

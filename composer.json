@@ -1,6 +1,6 @@
 {
-    "name": "wise-penny/adoms",
-    "description": "The complete Adoms package from the original source (wise-penny/adoms)",
+    "name": "wise-penny/wise",
+    "description": "The complete wise package from the original source (wise-penny/wise)",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -12,18 +12,18 @@
     "minimum-stability": "stable",
     "autoload": {
         "classmap": [
-        "adoms",
-        "adoms/src",
-        "adoms/src/lib",
-        "adoms/src/chat",
-        "adoms/src/routes",
-        "adoms/src/oauth2",
-        "adoms/src/pasm",
-        "adoms/src/ditto",
-        "adoms/src/chat",
-        "adoms/src/wireframe",
-        "adoms/src/plugins",
-        "adoms/src/plugins/KeywordFactory"
+        "wise",
+        "wise/src",
+        "wise/src/lib",
+        "wise/src/chat",
+        "wise/src/routes",
+        "wise/src/oauth2",
+        "wise/src/pasm",
+        "wise/src/ditto",
+        "wise/src/chat",
+        "wise/src/wireframe",
+        "wise/src/plugins",
+        "wise/src/plugins/KeywordFactory"
         ]
     }
 }

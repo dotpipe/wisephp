@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Matrix.php';
+require_once '\wise\src\lib\Matrix.php';
 
  class MatrixTest extends Matrix {
 

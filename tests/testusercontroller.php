@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\oauth2;
+namespace wise\src\oauth2;
 
-require_once '\Adoms\src\oauth2\userController.php';
+require_once '\wise\src\oauth2\userController.php';
 
  class userControllerTest extends userController {
 

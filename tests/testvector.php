@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Vector.php';
+require_once '\wise\src\lib\Vector.php';
 
  class VectorTest extends Vector {
 

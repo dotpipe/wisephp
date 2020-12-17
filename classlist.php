@@ -1,5 +1,5 @@
 <?php
-    namespace Adoms\src;
+    namespace wise\src;
     if (!isset($_GET['class']))
         echo "@#@#@";
 
@@ -32,5 +32,5 @@
         }
         return;
     }
-    scanEachDir('./adoms');
+    scanEachDir('./wise');
 ?>

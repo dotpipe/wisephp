@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\chat;
+namespace wise\src\chat;
 
-require_once '\Adoms\src\chat\ChatBox.php';
+require_once '\wise\src\chat\ChatBox.php';
 
  class ChatBoxTest extends ChatBox {
 

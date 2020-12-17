@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Queue.php';
+require_once '\wise\src\lib\Queue.php';
 
  class QueueTest extends Queue {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\api.php';
+require_once '\wise\src\lib\api.php';
 
  class apiTest extends api {
 

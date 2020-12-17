@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\wireframe;
+namespace wise\src\wireframe;
 
-require_once '\Adoms\src\wireframe\PageViews.php';
+require_once '\wise\src\wireframe\PageViews.php';
 
  class PageViewsTest extends PageViews {
 

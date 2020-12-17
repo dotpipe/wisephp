@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\writeStream.php';
+require_once '\wise\src\lib\writeStream.php';
 
  class writeStreamTest extends writeStream {
 

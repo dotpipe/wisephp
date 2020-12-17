@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\NavigableSet.php';
+require_once '\wise\src\lib\NavigableSet.php';
 
  class NavigableSetTest extends NavigableSet {
 

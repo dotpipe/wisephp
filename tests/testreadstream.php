@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\readStream.php';
+require_once '\wise\src\lib\readStream.php';
 
  class readStreamTest extends readStream {
 

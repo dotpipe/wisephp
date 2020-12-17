@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Error_call.php';
+require_once '\wise\src\lib\Error_call.php';
 
  class Error_callTest extends Error_call {
 

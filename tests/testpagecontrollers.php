@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\wireframe;
+namespace wise\src\wireframe;
 
-require_once '\Adoms\src\wireframe\PageControllers.php';
+require_once '\wise\src\wireframe\PageControllers.php';
 
  class PageControllersTest extends PageControllers {
 

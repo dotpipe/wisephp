@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\wireframe;
+namespace wise\src\wireframe;
 
-require_once '\Adoms\src\wireframe\PageModels.php';
+require_once '\wise\src\wireframe\PageModels.php';
 
  class PageModelsTest extends PageModels {
 

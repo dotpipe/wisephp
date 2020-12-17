@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Stack.php';
+require_once '\wise\src\lib\Stack.php';
 
  class StackTest extends Stack {
 

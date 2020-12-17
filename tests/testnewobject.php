@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\newObject.php';
+require_once '\wise\src\lib\newObject.php';
 
  class newObjectTest extends newObject {
 

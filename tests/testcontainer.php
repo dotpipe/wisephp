@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Container.php';
+require_once '\wise\src\lib\Container.php';
 
  class ContainerTest extends Container {
 

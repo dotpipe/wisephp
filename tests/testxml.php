@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\XML.php';
+require_once '\wise\src\lib\XML.php';
 
  class XMLTest extends XML {
 

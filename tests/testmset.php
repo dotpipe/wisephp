@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\mSet.php';
+require_once '\wise\src\lib\mSet.php';
 
  class mSetTest extends mSet {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\pasm;
+namespace wise\src\pasm;
 
-require_once '\Adoms\src\pasm\PASM.php';
+require_once '\wise\src\pasm\PASM.php';
 
  class PASMTest extends PASM {
 

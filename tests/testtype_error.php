@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Type_Error.php';
+require_once '\wise\src\lib\Type_Error.php';
 
  class Type_ErrorTest extends Type_Error {
 

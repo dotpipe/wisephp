@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\wireframe;
+namespace wise\src\wireframe;
 
-require_once '\Adoms\src\wireframe\PageErrors.php';
+require_once '\wise\src\wireframe\PageErrors.php';
 
  class PageErrorsTest extends PageErrors {
 

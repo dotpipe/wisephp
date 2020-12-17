@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\Trees.php';
+require_once '\wise\src\lib\Trees.php';
 
  class TreesTest extends Trees {
 

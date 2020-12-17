@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\lib;
+namespace wise\src\lib;
 
-require_once '\Adoms\src\lib\IndexException.php';
+require_once '\wise\src\lib\IndexException.php';
 
  class IndexExceptionTest extends IndexException {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Adoms\src\oauth2;
+namespace wise\src\oauth2;
 
-require_once '\Adoms\src\oauth2\Routes.php';
+require_once '\wise\src\oauth2\Routes.php';
 
  class RoutesTest extends Routes {
 
