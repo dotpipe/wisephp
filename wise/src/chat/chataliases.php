@@ -3,8 +3,9 @@
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
 // Get all names of people who have talked to user
-function getConversations($con) {
-    $results = $con->query('SELECT username FROM ad_revs, chat WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' .  $_COOKIE['myemail'] . '") && username != "' . $_COOKIE['myemail'] . '" ORDER BY last DESC') or die (mysqli_error($con));
+function getConversations($con)
+{
+    $results = $con->query('SELECT username FROM ad_revs, chat WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' .  $_COOKIE['myemail'] . '") && username != "' . $_COOKIE['myemail'] . '" ORDER BY last DESC') or die(mysqli_error($con));
     
     $c = [];
     
@@ -15,20 +16,21 @@ function getConversations($con) {
     }
     
     $f = [];
-    foreach ($c as $v)
-    array_push($f,$v);
+    foreach ($c as $v) {
+        array_push($f, $v);
+    }
     
     $f = array_unique($f);
     echo json_encode($f);
-    
 }
 
 
 // Have Column Created for conduct, being swearing or cussing "on/off"
-function getconduct($cnxn) {
+function getconduct($cnxn)
+{
     $results = $cnxn->query('SELECT conduct_on FROM chat WHERE filename = "' . $_COOKIE['chatfile'] . '"') or die(mysqli_error($cnxn));
 
-// Check if the store has conduct flag on/off
+    // Check if the store has conduct flag on/off
     //if ($results->num_rows == 1)
     {
         $row = $results->fetch_assoc();
@@ -41,8 +43,8 @@ function getconduct($cnxn) {
 
 
 // This is to flag a comment for moderators
-function flagComment($cn) {
-    
+function flagComment($cn)
+{
     $results = $cn->query('SELECT filename, conduct_on, id FROM chat WHERE (aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '")') or die(mysqli_error($cn));
 
     $row = [];
@@ -53,8 +55,8 @@ function flagComment($cn) {
         $d[0] = $row['id'];
         echo json_encode($d[0]);
         setcookie("chatfile", $row['filename']);
-    // Insert new record of banned language
-        $time = date("Y-m-d H:i:s",$_GET['time']);
+        // Insert new record of banned language
+        $time = date("Y-m-d H:i:s", $_GET['time']);
         echo "\n" . $row['id'] . "\n";
         $id = $d[0];
         $d[1] = $row['conduct_on'];
@@ -65,7 +67,8 @@ function flagComment($cn) {
 }
 
 // Retrieves Filename
-function getfilename($con) {
+function getfilename($con)
+{
 
 // Retrieve filename of chat
     $results = $con->query('SELECT filename, id FROM chat WHERE (aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '")') or die(mysqli_error($con));
@@ -78,8 +81,8 @@ function getfilename($con) {
 }
 
 // Reverse decision on Conduct "on/off"
-function setconduct($con) {
-
+function setconduct($con)
+{
     $results = $con->query('SELECT aim, conduct_on FROM chat WHERE filename = "'. $_COOKIE['chatfile'] . '"') or die(mysqli_error($con));
     //if ($results->num_rows == 1)
     {
@@ -99,8 +102,8 @@ function setconduct($con) {
 // For new listings in conduct table
 
 // Columns: serial_id, chat_id, conduct_on, message, data, flagged, username
-function newconduct($cxn) {
-    
+function newconduct($cxn)
+{
     $results = $cxn->query('SELECT conduct_on, id FROM chat WHERE (aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '")') or die(mysqli_error($cxn));
 
     $row = [];
@@ -111,7 +114,7 @@ function newconduct($cxn) {
         echo json_encode($d[0]);
         setcookie("chatfile", $d[0]);
         $d[1] = $row['id'];
-    // Insert new record of banned language
+        // Insert new record of banned language
         $sql = 'INSERT INTO conduct(serial_id,chat_id,conduct_on,message,date,flagged,username)
             VALUES (null,' . (int)$d[1] . ',' . (int)$d[0] . ',"' . $_GET['a'] . '",CURRENT_TIMESTAMP,0,"' . $_COOKIE['myemail'] . '")';
         $results = $cxn->query($sql) or die(mysqli_error($cxn));
@@ -134,4 +137,3 @@ else if ($_GET['c'] == 5)
 else if ($_GET['c'] == 6)
     flagComment($conn);
 */
-?>

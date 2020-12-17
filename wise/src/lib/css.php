@@ -142,7 +142,6 @@ class css extends Common
                     if ($tm == null) {
                         break;
                     }
-
                 }
                 $this->fwriter->buf .= "}";
                 $k++;
@@ -170,7 +169,6 @@ class css extends Common
      */
     public function cssMap(string $s, bool $bool): mMap
     {
-
         preg_match_all("/[\{\}]|[0-9\.]+[;$]|[\"'#@\(\)>\-A-z0-9\s\.]+[\{:;$]{1}/", $s, $tok);
 
         $lvl = 0;
@@ -199,7 +197,7 @@ class css extends Common
                 if (preg_match("/[\{]/", $temp, $tk)) {
                     $output = $output . $t[0] . ' {<br>';
                     $mapname = $t[0];
-                } else if (preg_match("/[@]/", $temp)) {
+                } elseif (preg_match("/[@]/", $temp)) {
                     preg_match_all("/[\@impor]+[t\s$]{1,2}|[url\(][\"'$]{1}+|[_\/\-A-z0-9\s\.]+|['\"\)$]{2}+|[;$]/", $temp, $tk);
                     $this->imps->add($tk[0][3]);
                     $output = $output . '@import url("' . $tk[0][3] . '");<br>';
@@ -209,7 +207,7 @@ class css extends Common
                     $smallMap->add($t[0], $tm[0]);
                     $output = $output . $t[0] . ': ' . $tm[0] . ';<br>';
                 }
-            } else if (preg_match_all("/[\}]{1}/", $temp)) {
+            } elseif (preg_match_all("/[\}]{1}/", $temp)) {
                 $apiMap->newMap($mapname, $smallMap);
                 $smallMap->clear();
                 $mapname = "";
@@ -245,7 +243,6 @@ class css extends Common
             $i++;
         }
         foreach ($va->dat as $ky => $val) {
-            
             if (preg_match("/[\{]/", $ky)) {
                 $outstring = ($outstring . $ky);//->mname);
             } else {

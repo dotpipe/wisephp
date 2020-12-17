@@ -15,5 +15,3 @@ echo ++$cnt;
 $cntMap->add($_SERVER['REQUEST_URI'], $cnt);
 
 $cntMap->save("counter.json");
-
-?>

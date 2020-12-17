@@ -5,13 +5,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class CRUD
 {
-
     public $ini;
     public $db; // handle for database
 
     public function testCRUD()
     {
-
         $vals = array(
             "store_name" => "big j\'s",
             "slogan" => "much ado",
@@ -41,7 +39,6 @@ class CRUD
         $this->update("advs", array("slogan" => "heyhey!"), 1);
 
         $this->delete("advs", 1);
-
     }
 
     public function __construct(string $config = "/wise/config/config.json")
@@ -53,7 +50,6 @@ class CRUD
         $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->db->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, "true");
         $this->ini->password = null;
-
     }
 
     /*
@@ -65,27 +61,25 @@ class CRUD
      */
     public function create(array $values, string $table)
     {
-
         $db_msg = "INSERT INTO `$table` (";
         //oreach ($values as $key => $val) {
-            foreach ($values as $k => $v) {
-                $db_msg .= $k . ",";
-            }
+        foreach ($values as $k => $v) {
+            $db_msg .= $k . ",";
+        }
         //}
 
         $db_msg = substr($db_msg, 0, strlen($db_msg) - 1) . ") VALUES(";
 
         //foreach ($values as $key => $val) {
-            foreach ($values as $k => $v) {
-                if (!is_string($v) && !\is_numeric($v)) {
-                    $db_msg .= "NULL,";
-                } else if (is_string($v)){
-                    $db_msg .= "'" . $v . "',";
-                } else {
-                    $db_msg .= $v . ",";
-                }
-
+        foreach ($values as $k => $v) {
+            if (!is_string($v) && !\is_numeric($v)) {
+                $db_msg .= "NULL,";
+            } elseif (is_string($v)) {
+                $db_msg .= "'" . $v . "',";
+            } else {
+                $db_msg .= $v . ",";
             }
+        }
         //}
         $db_msg = substr($db_msg, 0, strlen($db_msg) - 1) . ")";
         $db_ = $this->db->prepare($db_msg);
@@ -110,7 +104,6 @@ class CRUD
 
     public function read(array $ta_ky, string $where)
     {
-
         $db_msg = "SELECT ";
 
         foreach ($ta_ky as $ta => $ky) {
@@ -148,15 +141,13 @@ class CRUD
      */
     public function update(string $table, array $key_value, string $where)
     {
-
         $db_msg = "UPDATE $table SET ";
         foreach ($key_value as $ky => $val) {
             if (is_numeric($val)) {
                 $db_msg .= "`$table`.`$ky` = $val, ";
-            } else if (!is_numeric($val)) {
+            } elseif (!is_numeric($val)) {
                 $db_msg .= "`$table`.`$ky` = \"$val\", ";
             }
-
         }
         $db_msg = substr($db_msg, 0, strlen($db_msg) - 2);
         $db_msg .= " WHERE $where";
@@ -171,7 +162,6 @@ class CRUD
      */
     public function delete(string $table, string $where)
     {
-
         $db_msg = "DELETE FROM $table WHERE $where";
 
         $db_ = $this->db->prepare($db_msg);
