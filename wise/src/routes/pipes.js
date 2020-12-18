@@ -1,5 +1,4 @@
-/*
-    Tags in script:
+/**    Tags in script:
         pipe        = name of id
         ajax        = calls and returns this file's ouput
         file-order  = ajax to these files, iterating [0,1,2,3]%array.length

@@ -1,0 +1,51 @@
+Dux Documentation for api
+<pre id='api'>
+     * @method setIndent(string)
+     * @param string
+     * @return bool
+     * Set as spaces, or as a picture with html
+     * 
+    public function setIndent(string $ind): bool
+</pre>
+<pre id='api'>
+     * @method receive(mixed)
+     * @param mixed
+     * @return Vector
+     * turn a JSON or object into a Vector
+     * 
+    public function receive($m): Vector
+</pre>
+<pre id='api'>
+     * @method json2map()
+     * @param string
+     * @return Map
+     * turn associative string array into a map
+     * 
+    public function json2map(string $m): Map
+</pre>
+<pre id='api'>
+     * @method display()
+     * @param string
+     * @return string
+     * Show off your Map
+     * 
+    public function display($m): string
+</pre>
+<pre id='api'>
+     * @method clear()
+     * @param string
+     * @return void
+     * Clear out $this->apiMap
+     * 
+    public function clear(): void
+</pre>
+<pre id='api'>
+     * @method convert()
+     * @param mixed
+     * @return string
+     * Insert Vector("Any") with simple array(a,b) pairs
+     * and to end sections use array("]")
+    public function convert($va = 0): string
+</pre>
+<pre id='api'>
+</pre>

@@ -1,0 +1,78 @@
+Dux Documentation for chat
+<pre id='chat'>
+     * @method __construct
+     * @param none
+     * 
+     * New object/Load INI file
+     * 
+    public function __construct(string $ini = "chat.ini")
+</pre>
+<pre id='chat'>
+     * @method getConversations
+     * @param MySQL connection
+     * 
+     * Load old conversations
+     * 
+    public function getConversations($con)
+</pre>
+<pre id='chat'>
+     * @method getconduct
+     * @param MySQL connection
+     * 
+     * Have Column Created for conduct, being swearing or cussing "on/off"
+    public function getconduct($cnxn)
+</pre>
+<pre id='chat'>
+     * @method updateChatFile
+     * @param none
+     * 
+     * Update Command for chat
+     * Run getFileName() to get the cookie
+    public function updateChatFile()
+</pre>
+<pre id='chat'>
+     * @method chatCheck
+     * @param none
+     * 
+     * List all chats prior
+     * works within chat.js
+    public function chatCheck()
+</pre>
+<pre id='chat'>
+     * @method flagComment
+     * @param none
+     * 
+     * Flag user for comment
+    public function flagComment()
+</pre>
+<pre id='chat'>
+     * @method getfilename
+     * @param none
+     *  
+     * This is used to create a COOKIE with
+     * the name of the XSLT file.
+    public function getfilename()
+</pre>
+<pre id='chat'>
+     * @method setConduct
+     * @param none
+     * 
+     * Turn swearing on and off
+    public function setconduct()
+</pre>
+<pre id='chat'>
+     * @method newconduct
+     * @param none
+     * 
+     * Conduct DB Columns: serial_id, chat_id, conduct_on, message, data, flagged, username
+    public function newconduct()
+</pre>
+<pre id='chat'>
+     * @method createChat
+     * @param none
+     * 
+     * New chat creation
+    public function createChat()
+</pre>
+<pre id='chat'>
+</pre>

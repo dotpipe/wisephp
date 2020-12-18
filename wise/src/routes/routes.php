@@ -13,10 +13,9 @@
 		public $pasm;
 		public $uri;
 
-		/*
-		*
+		/**		*
 		* public function __construct
-		* @parameters none
+		* @param none
 		*
 		*/
 		function __construct() {
@@ -38,10 +37,9 @@
 
 		}
 		
-		/*
-		*
+		/**		*
 		* public function addContract
-		* @parameters recv, from, target, port, user
+		* @param recv, from, target, port, user
 		*
 		*/
 		public function addContract() {
@@ -74,10 +72,9 @@
 			return $this;
 		}
 		
-		/*
-		*
+		/**		*
 		* public function addContract
-		* @parameters recv, from, target, port, user
+		* @param recv, from, target, port, user
 		*
 		*/
 		public function addUserToContract() {
@@ -109,10 +106,9 @@
 			return $this;
 		}
 		
-		/*
-		*
+		/**		*
 		* public function remContract
-		* @parameters none
+		* @param none
 		*
 		*/
 		public function remContract() {
@@ -140,10 +136,9 @@
 			return $this;
 		}
 		
-		/*
-		*
+		/**		*
 		* public function remContract
-		* @parameters none
+		* @param none
 		*
 		*/
 		public function remUserFromContract() {
@@ -170,10 +165,9 @@
 			return $this;
 		}
 		
-		/*
-		*
+		/**		*
 		* public function getContract
-		* @parameters none
+		* @param none
 		*
 		*/
 		public function getContract() {
@@ -199,10 +193,9 @@
 			return -1;
 		}
 		
-		/*
-		*
+		/**		*
 		* public function getContract
-		* @parameters string
+		* @param string
 		*
 		*/
 		public function http_parse_query(string $query) {
@@ -268,10 +261,9 @@
 			}
 		}
 	
-		/*
-		*
+		/**		*
 		* public function reqHeaders
-		* @parameters none
+		* @param none
 		*
 		*/
 		public function reqHeaders() {
@@ -279,10 +271,9 @@
 			return $this;
 		}
 
-		/*
-		*
+		/**		*
 		* public function resHeaders
-		* @parameters none
+		* @param none
 		*
 		*/
 		public function resHeaders() {
@@ -290,10 +281,9 @@
 			return $this;
 		}
 
-		/*
-		*
+		/**		*
 		* public function save
-		* @parameters string
+		* @param string
 		*
 		*/
 		public function save(string $filename = "") {
@@ -309,10 +299,9 @@
 			return $this;
 		}
 		
-		/*
-		*
+		/**		*
 		* public function load
-		* @parameters string
+		* @param string
 		*
 		*/
 		public function load(string $filename= "") {

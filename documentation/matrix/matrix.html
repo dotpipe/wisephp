@@ -1,0 +1,206 @@
+Dux Documentation for matrix
+<pre id='matrix'>
+     * @method table
+     * @param string, array, string
+     *
+    public function table(string $classId = "", array $tdId, string $thId = ""): string
+</pre>
+<pre id='matrix'>
+     * @method rem
+     * @param int
+     *
+     *
+     * Remove $r from Matrix
+    public function rem(int $r): bool
+</pre>
+<pre id='matrix'>
+     * @method hasNext
+     * @param none
+     *
+     *
+     * Returns true if Matrix has next Element
+    public function hasNext(): bool
+</pre>
+<pre id='matrix'>
+     * @method next
+     * @param none
+     *
+     *
+     * Iterate once forward through Vector
+    public function next(): bool
+</pre>
+<pre id='matrix'>
+     * @method Iter
+     * @param none
+     *
+     *
+     * Iterate Forward through Vector
+    public function Iter(): bool
+</pre>
+<pre id='matrix'>
+     * @method Cycle
+     * @param none
+     *
+     *
+     * Cycle Forward through Vector
+    public function Cycle(): bool
+</pre>
+<pre id='matrix'>
+     * @method revIter
+     * @param none
+     *
+     *
+     * Iterate Forward through Vector
+    public function revIter(): bool
+</pre>
+<pre id='matrix'>
+     * @method revCycle
+     * @param none
+     *
+    public function revCycle(): bool
+</pre>
+<pre id='matrix'>
+     * @method hasPrev
+     * @param none
+     *
+     *
+     * Return true if Previous Vector exists
+    public function hasPrev(): bool
+</pre>
+<pre id='matrix'>
+     * @method prev8
+     * @param none
+     *
+     *
+     * Iterate to Previous Vector if $bool = 1;
+    // Setup $cntDecr (index) for Prev. Vector if $bool = 0;
+    public function prev(): bool
+</pre>
+<pre id='matrix'>
+     * @method current8
+     * @param none
+     *
+     *
+     * Retrieve current Index of Vector Pointer
+    public function current(): int
+</pre>
+<pre id='matrix'>
+     * @method cntIncr
+     * @param none
+     *
+     *
+     * Increment datCntr (index)
+    public function cntIncr(): int
+</pre>
+<pre id='matrix'>
+     * @method cntDecr
+     * @param none
+     *
+     *
+     * Decrement datCntr (index)
+    public function cntDecr(): int
+</pre>
+<pre id='matrix'>
+     * @method getIndex
+     * @param none
+     *
+     *
+     * Get Index
+    public function getIndex(): int
+</pre>
+<pre id='matrix'>
+     * @method setIndex
+      * @param int
+      *
+     *
+     * Sets and Joins Map Index
+    public function setIndex(int $indx): bool
+</pre>
+<pre id='matrix'>
+     * @method destroy
+      * @param none
+     *
+    public function destroy(): bool
+</pre>
+<pre id='matrix'>
+     * @method clear
+     * @param none
+     *
+    public function clear(): bool
+</pre>
+<pre id='matrix'>
+     * @method size
+     * @param none
+     *
+     *
+     * Report Size of Container
+    public function size(): int
+</pre>
+<pre id='matrix'>
+     * @method push
+     * @param mixed
+     *
+     *
+     * Add Vector with $r and Join if $bool == 1
+    public function push($r): bool
+</pre>
+<pre id='matrix'>
+     * @method pop
+     * @param none
+     *
+     *
+     * Remove $r from Vector
+    public function pop()
+</pre>
+<pre id='matrix'>
+     * @method sIndex
+     * @param int
+     *
+     *
+     * Set new Index
+    public function sIndex(int $indx): int
+</pre>
+<pre id='matrix'>
+     * @method at
+     * @param int
+     *
+     *
+     * Return Vector at $indx
+    public function at(int $indx)
+</pre>
+<pre id='matrix'>
+     * @method sync
+     * @param none
+     *
+    public function sync(): bool
+</pre>
+<pre id='matrix'>
+     * @method join
+     * @param none
+     *
+     *
+     * Point Vector to getIndex()
+    public function join(): bool
+</pre>
+<pre id='matrix'>
+     * @method add
+     * @param mixed, int, int
+     *
+     *
+     * $indx = row
+    public function add($r, int $indx = -1, int $col = -1): bool
+</pre>
+<pre id='matrix'>
+     * @method grow
+     * @param int
+     *
+    public function grow(int $r): bool
+</pre>
+<pre id='matrix'>
+     * @method shrink
+     * @param int
+     *
+    public function shrink(int $r): bool
+</pre>
+<pre id='matrix'>
+</pre>

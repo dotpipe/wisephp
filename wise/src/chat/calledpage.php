@@ -1,5 +1,4 @@
 <?php
-/*
 if (!isset($_SESSION))
     session_start();
 
@@ -22,4 +21,4 @@ if ($results->num_rows == 1) {
 else {
     print_r("Error: Record not found");
 }
-*/
+

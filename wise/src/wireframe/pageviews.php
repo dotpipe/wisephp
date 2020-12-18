@@ -12,12 +12,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         public $injections = array();
         public $selector;
         public $md;
-        /*
-        *
+        /**        *
         * public function __construct
-        * @parameters string, string, string
+        * @param string, string, string
         *
-        */
+       */
         public function __construct(string $token, string $view_name)
         {
             $this->token = $token;
@@ -30,12 +29,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             $this->injections = [];
         }
         
-        /*
-        *
+        /**        *
         * public function addPartial
-        * @parameters string, string, string
+        * @param string, string, string
         *
-        */
+       */
         public function addPartial(string $filename, string $view_name = "FALSE", string $res_dir = "FALSE"): bool
         {
             if ($view_name == "FALSE") {
@@ -75,12 +73,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
         
-        /*
-        *
+        /**        *
         * public function addShared
-        * @parameters string
+        * @param string
         *
-        */
+       */
         public function addShared(string $filename): bool
         {
             $bool = 0;
@@ -111,12 +108,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
 
-        /*
-        *
+        /**        *
         * public function save
-        * @parameters none
+        * @param none
         *
-        */
+       */
         public function save(): bool
         {
             $fp = fopen($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json", "w");
@@ -125,12 +121,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
         
-        /*
-        *
+        /**        *
         * public function loadJSON
-        * @parameters none
+        * @param none
         *
-        */
+       */
         public function loadThisJSON(): bool
         {
             if (file_exists($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") && filesize($this->token."/view/".$_COOKIE['PHPSESSID']."/config.json") > 0) {
@@ -147,12 +142,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
 
-        /*
-        * For user usage;
+        /**        * For user usage;
         * public function writeIndex
-        * @parameters none
+        * @param none
         *
-        */
+       */
         public function writeThisIndex():void
         {
             $buff = "<?php";
@@ -170,12 +164,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             fclose($fp);
         }
 
-        /*
-        * For domain usage;
+        /**        * For domain usage;
         * public function writeIndex
-        * @parameters none
+        * @param none
         *
-        */
+       */
         public function writeIndex(): void
         {
             $buff = "<?php";
@@ -197,7 +190,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         /**
         * public function is_session_started
         * @return bool
-        */
+       */
         public function is_session_started(): bool
         {
             if (php_sapi_name() !== 'cli') {
@@ -210,12 +203,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return false;
         }
 
-        /*
-        * For user usage;
+        /**        * For user usage;
         * public function configJSON
-        * @parameters string
+        * @param string
         *
-        */
+       */
         public function configPageWrite(string $view_name = "index"): bool
         {
             $fp = null;
@@ -251,12 +243,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
 
-        /*
-        * For domain usage;
+        /**        * For domain usage;
         * public function writePage
-        * @parameters string
+        * @param string
         *
-        */
+       */
         public function writePage(string $view_name = "index"): bool
         {
             $fp = null;
@@ -293,12 +284,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             }
         }
         
-        /*
-        *
+        /**        *
         * public function removeDependency
-        * @parameters string, string
+        * @param string, string
         *
-        */
+       */
         public function removeDependency(string $folder, string $partial): bool
         {
             $bool = 0;
@@ -317,12 +307,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return false;
         }
 
-        /*
-        *
+        /**        *
         * public function createAction
-        * @parameters string
+        * @param string
         *
-        */
+       */
         public function createAction(string $action_name): bool
         {
             $this->actions[$this->copy] = new PageViews($this->token, $this->copy);

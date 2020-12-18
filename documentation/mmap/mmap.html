@@ -1,0 +1,166 @@
+Dux Documentation for mmap
+<pre id='mmap'>
+	 * @method save
+	 * @param string
+	 *
+	public function save(string $json_name): bool {
+</pre>
+<pre id='mmap'>
+	 * @method loadJSON
+	 * @param string
+	 *
+	public function loadJSON(string $json_name): bool {
+</pre>
+<pre id='mmap'>
+	 * @method destroy
+	 * @param none
+	 *
+	public function destroy(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method size
+	 * @param none
+	 *
+	public function size(): int {
+</pre>
+<pre id='mmap'>
+	 * @method mapSearch
+	 * @param string
+	 * 
+	 * Return Map fitting $regex
+	public function mapSearch(string $regex): array {
+</pre>
+<pre id='mmap'>
+	 * @method newMap
+	 * @param string, mixed
+	 *
+	 * Add Map
+	public function newMap(string $key, $r): bool {
+</pre>
+<pre id='mmap'>
+	 * @method hasNext
+	 * @param none
+	 *
+	 * Return true if next Map exists
+	public function hasNext(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method nextMap
+	 * @param none
+	 *
+	 * Iterate once forward through Maps
+	public function next(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method findKey
+	 * @param string
+	 *
+	 * Return Key
+	public function findKey(string $regex): array {
+</pre>
+<pre id='mmap'>
+	 * @method Iter
+	 * @param none
+	 *
+	 * Turns to next Map entry
+	public function Iter(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method revIter
+	 * @param none
+	 *
+	 * Turns to next Map entry in reverse
+	public function revIter(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method Cycle
+	 * @param none
+	 *
+	 * Turns to next Map entry, or starts over
+	public function Cycle(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method revCycle
+	 * @param none
+	 *
+	 * Iterates backwards through map
+	public function revCycle(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method setIndex
+	 * @param int
+	 *
+	 * Sets and Joins Map Index
+	public function setIndex(int $indx): bool {
+</pre>
+<pre id='mmap'>
+	 * @method getIndex
+	 * @param none
+	 *
+	 * Returns Map Index
+	public function getIndex(): int {
+</pre>
+<pre id='mmap'>
+	 * @method clear
+	 * @param none
+	 *
+	 * Clears all Map entries
+	public function clear(): void {
+</pre>
+<pre id='mmap'>
+	 * @method keyIsIn
+	 * @param string
+	 *
+	 * Returns true if Key is in Map
+	public function keyIsIn(string $k): bool {
+</pre>
+<pre id='mmap'>
+	 * @method equals
+	 * @param Map
+	 *
+	 * Compare Map to $r and Return false if not equal
+	public function equals(Map $r): bool {
+</pre>
+<pre id='mmap'>
+	 * @method get
+	 * @param string
+	 * 
+	 * Return Value at Key $k
+	public function get(string $k) {
+</pre>
+<pre id='mmap'>
+	 * @method isEmpty
+	 * @param none
+	 *
+	 * Checks for Empty map
+	public function isEmpty(): bool {
+</pre>
+<pre id='mmap'>
+	 * @method addAll
+	 * @param string
+	 *
+	 * Add Map of $r dats to current map
+	public function addAll(mMap $r): bool {
+</pre>
+<pre id='mmap'>
+	 * @method remove
+	 * @param string
+	 *
+	 * Remove Key of $k
+	public function remove(string $k): bool {
+</pre>
+<pre id='mmap'>
+	 * public function replace
+	 * @param string, string
+	 *
+	 * Replace Key of $k with Value of $v
+	public function replaceMap(string $k, Map $v): bool {
+</pre>
+<pre id='mmap'>
+	 * @method sync
+	 * @param none
+	 *
+	public function sync(): bool {
+</pre>
+<pre id='mmap'>
+</pre>

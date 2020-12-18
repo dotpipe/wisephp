@@ -26,8 +26,8 @@ class mSet extends Set {
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
      */
     public function clear(): void {
@@ -37,8 +37,8 @@ class mSet extends Set {
     }
 
     /**
-     * public function get
-     * @parameters int
+     * @method get
+     * @param int
      *
      */
     public function get(int $indx) {
@@ -49,8 +49,8 @@ class mSet extends Set {
     }
 
     /**
-     * public function addSet
-     * @parameters Set
+     * @method addSet
+     * @param Set
      *
      */
     public function addSet(Set $r): bool {
@@ -70,8 +70,8 @@ class mSet extends Set {
     }
 
     /**
-     * public function exists
-     * @parameters Set
+     * @method exists
+     * @param Set
      *
      */
     public function setExists(Set $read_in): bool {
@@ -85,8 +85,8 @@ class mSet extends Set {
     }
 
     /**
-     * public function remIndex
-     * @parameters int
+     * @method remIndex
+     * @param int
      *
      */
     public function remIndex(int $indx):bool {

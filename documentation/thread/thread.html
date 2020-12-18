@@ -1,0 +1,145 @@
+Dux Documentation for thread
+<pre id='thread'>
+     * @method size
+     * @param string
+     *
+    public function size(): int {
+</pre>
+<pre id='thread'>
+     * @method startThread
+     * @param string
+     *
+     *
+     * $origin mut be Unique to each user.
+    // This creates a database of CSV files
+    // Each is seemingly randomly named.
+    // (Hold sequential $handles in $origin files)
+    // Use JSON if CSV is not to your liking.
+    public function startThread(string $origin) {
+</pre>
+<pre id='thread'>
+     * @method save
+     * @param string
+     *
+    public function save(string $json_name): bool {
+</pre>
+<pre id='thread'>
+     * @method loadJSON
+     * @param string
+     *
+    public function loadJSON(string $json_name): bool {
+</pre>
+<pre id='thread'>
+     * @method joinThread
+     * @param none
+     *
+     *
+     * Like all joins
+    public function join() {
+</pre>
+<pre id='thread'>
+     * @method setIndex
+     * @param int
+     *
+     *
+     * Set Index
+    public function setIndex(int $index) {
+</pre>
+<pre id='thread'>
+     * @method getIndex
+     * @param none
+     *
+     *
+     * Current thread
+    public function getIndex(): int {
+</pre>
+<pre id='thread'>
+     * @method current
+     * @param none
+     *
+     *
+     * Current Thread
+    public function current(): int {
+</pre>
+<pre id='thread'>
+     * @method nextThread
+     * @param none
+     *
+     *
+     * Forward Iteration
+    public function next() {
+</pre>
+<pre id='thread'>
+     * @method prevThread
+     * @param none
+     *
+     *
+     * Previous Iteration
+    public function prev(): bool {
+</pre>
+<pre id='thread'>
+     * @method Iter
+     * @param none
+     *
+     *
+     * Forward Iterator
+    public function Iter(): bool {
+</pre>
+<pre id='thread'>
+     * @method Cycle
+     * @param none
+     *
+     *
+     * Forward Cycle Iterator
+    public function Cycle(): bool {
+</pre>
+<pre id='thread'>
+     * @method revIter
+     * @param none
+     *
+     *
+     * Reverse Iterator
+    public function revIter(): bool {
+</pre>
+<pre id='thread'>
+     * @method revCycle
+     * @param none
+     *
+     *
+     * Reverse Cycle Iterator
+    public function revCycle(): bool {
+</pre>
+<pre id='thread'>
+     * @method clearThread
+     * @param string
+     *
+     *
+     * Empty Thread file
+    public function clearThread(string $origin) {
+</pre>
+<pre id='thread'>
+     * @method endThread
+     * @param none
+     *
+     *
+     * Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
+    public function endThread() {
+</pre>
+<pre id='thread'>
+     * @method readThread
+     * @param none
+     *
+     *
+     * Read from Thread file
+    public function readThread() {
+</pre>
+<pre id='thread'>
+     * @method writeThread
+     * @param mixed
+     *
+     *
+     * Write to Thread file
+    public function writeThread($obj_array) {
+</pre>
+<pre id='thread'>
+</pre>

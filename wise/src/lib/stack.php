@@ -24,8 +24,8 @@ class Stack {
     }
 
     /**
-     * public function save
-     * @parameters string
+     * @method save
+     * @param string
      *
      */
     public function save(string $json_name) {
@@ -36,8 +36,8 @@ class Stack {
     }
 
     /**
-     * public function loadJSON
-     * @parameters string
+     * @method loadJSON
+     * @param string
      *
      */
     public function loadJSON(string $json_name) {
@@ -55,11 +55,12 @@ class Stack {
     }
 
     /**
-     * public function size
-     * @parameters none
+     * @method size
+     * @param none
      *
+     *
+     * Report size of stack
      */
-    // Report size of stack
     public function size() {
         if (sizeof($this->stack) >= 0)
             return sizeof($this->stack);
@@ -67,11 +68,12 @@ class Stack {
     }
 
     /**
-     * public function unstack
-     * @parameters none
+     * @method unstack
+     * @param none
      *
+     *
+     * Add all elements of Stack to page
      */
-    // Add all elements of Stack to page
     public function unstack() {
         //tell each session ID to update..
         while ($this->size() > 0) {
@@ -80,33 +82,36 @@ class Stack {
     }
 
     /**
-     * public function threadManager
-     * @parameters none
+     * @method threadManager
+     * @param none
      *
-     */
-    // ADDRS_STK_CNT is a variable of MAX Stack height
+     *
+     * ADDRS_STK_CNT is a variable of MAX Stack height
     // When surpassed, it calls unstack (careful to not set too high)
+     */
     public function threadManager() {
         if ($this->size() > $this->ADDRESS_STACK_COUNT)
             $this->unstack();
     }
 
     /**
-     * public function insert
-     * @parameters string
+     * @method insert
+     * @param string
      *
+     *
+     * Add stack URL
      */
-    // Add stack URL
     public function insert(string $stackurl) {
         array_push($this->stack, $stackurl);
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
+     *
+     * Empty Stack
      */
-    // Empty Stack
     public function clear() {
         $this->stack = array();
     }

@@ -15,8 +15,8 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function destroy
-     * @parameters none
+     * @method destroy
+     * @param none
      *
      */
     public function destroy() {
@@ -24,11 +24,12 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function firstKey
-     * @parameters none
+     * @method firstKey
+     * @param none
      *
+     *
+     * Return first KV
      */
-    // Return first KV
     public function firstKey() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -38,8 +39,8 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function save
-     * @parameters string
+     * @method save
+     * @param string
      *
      */
     public function save(string $json_name): bool {
@@ -50,8 +51,8 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function loadJSON
-     * @parameters string
+     * @method loadJSON
+     * @param string
      *
      */
     public function loadJSON(string $json_name): bool {
@@ -69,11 +70,12 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function lastKey
-     * @parameters none
+     * @method lastKey
+     * @param none
      *
+     *
+     * Return last KV
      */
-    // Return last KV
     public function lastKey() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -83,13 +85,14 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function headMap
-     * @parameters string, bool
+     * @method headMap
+     * @param string, bool
      *
-     */
-    // Return Keys before $r
+     *
+     * Return Keys before $r
     // $vb == 1 >= $v
     // $vb == 0 < $v
+     */
     public function headMap(string $v, bool $vb) {
         $mapTemp = array();
         if ($this->size() == 0) {
@@ -115,13 +118,14 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function subMap
-     * @parameters string, int, string, int
+     * @method subMap
+     * @param string, int, string, int
      *
-     */
-    // Return KVs between $vst and $ven (This is very functional)
+     *
+     * Return KVs between $vst and $ven (This is very functional)
     // $Lb == 0 : >= $vst ; $Lb == 1 : < $vst
     // $Hb == 0 : >= $ven ; $Hb == 1 : < $ven
+     */
     public function subMap(string $vst, bool $Lb, string $ven, bool $Hb) {
         $mapTemp = array();
         if ($this->size() == 0) {
@@ -173,11 +177,12 @@ class SortedMap extends Map {
     }
 
     /**
-     * public function loadJSON
-     * @parameters string, int
+     * @method loadJSON
+     * @param string, int
      *
+     *
+     * Return Tail end of Map at $st
      */
-    // Return Tail end of Map at $st
     public function tailMap(int $st, bool $vb) {
         $mapTemp = array();
         if ($this->size() == 0) {

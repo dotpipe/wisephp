@@ -1,0 +1,65 @@
+Dux Documentation for sortedmap
+<pre id='sortedmap'>
+     * @method destroy
+     * @param none
+     *
+    public function destroy() {
+</pre>
+<pre id='sortedmap'>
+     * @method firstKey
+     * @param none
+     *
+     *
+     * Return first KV
+    public function firstKey() {
+</pre>
+<pre id='sortedmap'>
+     * @method save
+     * @param string
+     *
+    public function save(string $json_name): bool {
+</pre>
+<pre id='sortedmap'>
+     * @method loadJSON
+     * @param string
+     *
+    public function loadJSON(string $json_name): bool {
+</pre>
+<pre id='sortedmap'>
+     * @method lastKey
+     * @param none
+     *
+     *
+     * Return last KV
+    public function lastKey() {
+</pre>
+<pre id='sortedmap'>
+     * @method headMap
+     * @param string, bool
+     *
+     *
+     * Return Keys before $r
+    // $vb == 1 >= $v
+    // $vb == 0 < $v
+    public function headMap(string $v, bool $vb) {
+</pre>
+<pre id='sortedmap'>
+     * @method subMap
+     * @param string, int, string, int
+     *
+     *
+     * Return KVs between $vst and $ven (This is very functional)
+    // $Lb == 0 : >= $vst ; $Lb == 1 : < $vst
+    // $Hb == 0 : >= $ven ; $Hb == 1 : < $ven
+    public function subMap(string $vst, bool $Lb, string $ven, bool $Hb) {
+</pre>
+<pre id='sortedmap'>
+     * @method loadJSON
+     * @param string, int
+     *
+     *
+     * Return Tail end of Map at $st
+    public function tailMap(int $st, bool $vb) {
+</pre>
+<pre id='sortedmap'>
+</pre>

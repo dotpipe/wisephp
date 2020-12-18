@@ -40,12 +40,11 @@ class XML extends Common
         }
     }
 
-    /*
-    *
-    * public function xmlIn
-    * @parameters string
-    *
-    */
+    /**    *
+     * public function xmlIn
+     * @param string
+     *
+     */
     public function xmlIn($fname)
     {
         if ($fname == "" || strlen($fname) == 0) {
@@ -261,12 +260,11 @@ class XML extends Common
         }
     }
 
-    /*
-    *
-    * public function xmlOut
-    * @parameters mixed, DOM, int, mixed
-    *
-    */
+    /**    *
+     * public function xmlOut
+     * @param mixed, DOM, int, mixed
+     *
+     */
     public function xmlOut($obj, $dom, bool $bool = false, $trm = null)
     {
         $tier = null;

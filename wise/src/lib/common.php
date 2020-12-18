@@ -11,8 +11,8 @@ class Common {
     public $pt = array();
 
     /**
-     * public function save
-     * @parameters string
+     * @method save
+     * @param string
      *
      */
     public function save(string $file_name): bool
@@ -22,11 +22,11 @@ class Common {
     }
 
     /**
-     * public function size
-     * @parameters none
+     * @method size
+     * @param none
      *
+     * Get size of container
      */
-    // Report Size of Container
     public function size(): int {
         if (sizeof($this->dat) >= 0)
             return sizeof($this->dat);
@@ -34,8 +34,8 @@ class Common {
     }
 
     /**
-     * public function loadJSON
-     * @parameters string
+     * @method loadJSON
+     * @param string
      *
      */
     public function loadJSON(string $file_name): bool
@@ -56,8 +56,8 @@ class Common {
     }
 
     /**
-     * public function current
-     * @parameters none
+     * @method current
+     * @param none
      *
      * Retrieve current Index of Vector Pointer
      */
@@ -67,8 +67,8 @@ class Common {
     }
 
     /**
-     * public function getIndex
-     * @parameters int
+     * @method getIndex
+     * @param int
      *
      * Sets and Joins Map Index
      */
@@ -84,8 +84,8 @@ class Common {
     }
 
     /**
-     * public function setIndex
-     * @parameters int
+     * @method setIndex
+     * @param int
      *
      * Sets and Joins Map Index
      */
@@ -106,8 +106,8 @@ class Common {
     }
 
     /**
-     * public function Iter
-     * @parameters none
+     * @method Iter
+     * @param none
      *
      * Goto next $dat member
      */
@@ -135,8 +135,8 @@ class Common {
     }
 
     /**
-     * public function revIter
-     * @parameters none
+     * @method revIter
+     * @param none
      *
      * Goto previous $dat member
      */
@@ -157,8 +157,8 @@ class Common {
     }
 
     /**
-     * public function Cycle
-     * @parameters none
+     * @method Cycle
+     * @param none
      *
      * Goto next $dat member
      * Return once finished to the beginning
@@ -182,8 +182,8 @@ class Common {
     }
 
     /**
-     * public function revCycle
-     * @parameters none
+     * @method revCycle
+     * @param none
      * Goto previous $dat member
      * Return to end aft reaching beginning
      */
@@ -207,8 +207,8 @@ class Common {
     }
     
     /**
-     * public function sync
-     * @parameters none
+     * @method sync
+     * @param none
      *
      * 
      */

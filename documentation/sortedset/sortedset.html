@@ -1,0 +1,43 @@
+Dux Documentation for sortedset
+<pre id='sortedset'>
+     * @method destroy
+     * @param none
+     *
+    public function destroy() {
+</pre>
+<pre id='sortedset'>
+     * @method headSet
+     * @param int
+     *
+     *
+     * Return entries before $indx
+    public function headSet(int $indx) {
+</pre>
+<pre id='sortedset'>
+     * @method first
+     * @param none
+     *
+     *
+     * Returns first Entry
+    public function first() {
+</pre>
+<pre id='sortedset'>
+     * @method last
+     * @param none
+     *
+     *
+     * Returns last Entry
+    public function last() {
+</pre>
+<pre id='sortedset'>
+     * @method loadJSON
+     * @param string, int, string, int
+     *
+     *
+     * Return between $st and $ven (This is very functional)
+    // $Lb == 1 >= $st ; $Lb == 0 < $st
+    // $Hb == 0 >= $ven ; $Hb == < $ven
+    public function subSet(int $st, int $Lb, string $ven, int $Hb) {
+</pre>
+<pre id='sortedset'>
+</pre>

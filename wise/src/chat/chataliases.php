@@ -2,6 +2,7 @@
 
 
 require_once __DIR__ . '../../../../vendor/autoload.php';
+
 // Get all names of people who have talked to user
 function getConversations($con)
 {

@@ -1,7 +1,6 @@
 <?php
 
-/*
- *
+/** *
  * @package FasterRoute - A razz
  * @version v1.0
  * @category Router
@@ -10,8 +9,7 @@
  *
 */
 
-/*
- *
+/** *
  * @category Multi-Insertions
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -39,8 +37,7 @@ class RouteFactory
     }
 }
 
-/*
- *
+/** *
  * @category Route based on Permanent Basis
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -57,8 +54,7 @@ class PermanentRouteFactory
     }
 }
 
-/*
- *
+/** *
  * @category Route based on Temporary Status
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -75,8 +71,7 @@ class TemporaryRouteFactory
     }
 }
 
-/*
- *
+/** *
  * @category Route based on Username
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -93,8 +88,7 @@ class UserRouteFactory
     }
 }
 
-/*
- *
+/** *
  * @category Route based on Groups
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -111,8 +105,7 @@ class GroupRouteFactory
     }
 }
 
-/*
- *
+/** *
  * @category File Output
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -130,11 +123,11 @@ class fileRoute
         }
     }
 
-    /*
-     * @method submit
+    /** 
+     * @method @method submit
      * @param string $filename
      *
-    */
+     */
     public function submit(string $filename)
     {
         $json = "";
@@ -149,8 +142,7 @@ class fileRoute
     }
 }
 
-/*
- *
+/** *
  * @category Trafficking
  * @author Anthony David Pulse, Jr. <inland14@live.com>
  * @copyright Copyright (c) 2020, Author
@@ -166,11 +158,11 @@ class DirectRoute
         $this->this->config = json_decode($json);
     }
     
-    /*
-     * @method findRoute
+    /** 
+     * @method @method findRoute
      * @param string $user, string $UGID
      *
-    */
+     */
     public function findRoute(string $user = "", string $UGID = "")
     {
         foreach ($this->config as $key) {
@@ -180,11 +172,11 @@ class DirectRoute
         return;
     }
 
-    /*
-     * @method hashRoute
+    /** 
+     * @method @method hashRoute
      * @param object $keys, string $ID, string $GUID
      * @name $_SERVER['REQUEST_URI']
-    */
+     */
     public function hashRoute(object $keys, string $ID, string $GUID)
     {
         foreach ($keys as $key => $val) {
@@ -201,11 +193,11 @@ class DirectRoute
         }
     }
     
-    /*
-     * @method flipTemporary
+    /** 
+     * @method @method flipTemporary
      * @param TemporaryRouteFactory $find
      *
-    */
+     */
     public function flipTemporary(TemporaryRouteFactory $find)
     {
         foreach ($this->config as $keys) {
@@ -216,11 +208,11 @@ class DirectRoute
         }
     }
     
-    /*
-     * @method remPermanent
+    /** 
+     * @method @method remPermanent
      * @param PermanentRouteFactory $find
      *
-    */
+     */
     public function remPermanent(PermanentRouteFactory $find)
     {
         foreach ($this->config as $keys) {

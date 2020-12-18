@@ -16,8 +16,7 @@ class writeStream extends Streams {
         $this->datCntr = 0;
         $this->dir = "./";
     }
-/*
-    public function addStrm(string $r, bool $bool = FALSE): bool {
+/**    public function addStrm(string $r, bool $bool = FALSE): bool {
         if (!\file_exists($this->dir . $r))
             return false;
         $ed = fopen($this->dir . $r, 'w');

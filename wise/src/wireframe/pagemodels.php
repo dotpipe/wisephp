@@ -14,12 +14,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         public $token;
         public $label;
         
-        /*
-        *
+        /**        *
         * public function __construct
-        * @parameters string, string
+        * @param string, string
         *
-        */
+       */
         public function ___construct(string $token, string $view_name)
         {
             $this->valid = [];
@@ -29,12 +28,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             $this->copy = $view_name;
         }
         
-        /*
-        *
+        /**        *
         * public function addModelField
-        * @parameters string
+        * @param string
         *
-        */
+       */
         public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null): bool
         {
             if ($fieldname == null) {
@@ -48,12 +46,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         
-        /*
-        *
+        /**        *
         * public function editModelData
-        * @parameters string, array
+        * @param string, array
         *
-        */
+       */
         public function editModelData(string $view_name, array $data): bool
         {
             $wrong_ans = [];
@@ -68,12 +65,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
 
-        /*
-        *
+        /**        *
         * public function addModelData
-        * @parameters string, array
+        * @param string, array
         *
-        */
+       */
         public function addModelData(string $view_name, array $data): bool
         {
             $wrong_ans = [];
@@ -88,12 +84,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
         
-        /*
-        *
+        /**        *
         * public function paginateModels
-        * @parameters string, string, string, int, int
+        * @param string, string, string, int, int
         *
-        */
+       */
         public function paginateModels(string $token, string $view_name, string $filename, int $begin = 0, int $end = 0)
         {
             $int_cnt = 0;
@@ -141,12 +136,11 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return $buf;
         }
         
-        /*
-        *
+        /**        *
         * public function addModelValid
-        * @parameters string, string, string
+        * @param string, string, string
         *
-        */
+       */
         public function addModelValid(string $property, string $regex = "/.*/", string $errmsg = "Please check your entry", string $lbl = null): bool
         {
             $this->valid[$property]['label'] = $lbl;
@@ -155,24 +149,22 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
             return true;
         }
         
-        /*
-        *
+        /**        *
         * public function errorReturn
-        * @parameters string, array &
+        * @param string, array &
         *
-        */
+       */
         public function errorReturn(string $key, array &$errormsgs = array()): bool
         {
             $errormsgs[$key] = $this->valid[$key]['errmsg'];
             return true;
         }
 
-        /*
-        *
+        /**        *
         * public function checkValid
-        * @parameters array, array, array &
+        * @param array, array, array &
         *
-        */
+       */
         public function checkValid(array $valid, array $data, array &$wrong_ans = array()): bool
         {
             $this->errormsgs = [];

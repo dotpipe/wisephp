@@ -16,6 +16,7 @@
         "wise/src",
         "wise/src/lib",
         "wise/src/chat",
+        "wise/src/dux",
         "wise/src/routes",
         "wise/src/oauth2",
         "wise/src/pasm",

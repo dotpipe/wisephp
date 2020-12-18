@@ -35,8 +35,8 @@ class Map extends Common
     }
 
     /**
-     * public function destroy
-     * @parameters none
+     * @method destroy
+     * @param none
      *
      */
     public function destroy()
@@ -47,9 +47,10 @@ class Map extends Common
     }
 
     /**
-     * public function size
-     * @parameters none
+     * @method size
+     * @param none
      *
+     * return count of elements
      */
     public function size(): int
     {
@@ -63,9 +64,10 @@ class Map extends Common
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
+     * empty map
      */
     public function clear(): void
     {
@@ -74,9 +76,10 @@ class Map extends Common
     }
 
     /**
-     * public function at
-     * @parameters int
+     * @method at
+     * @param int
      *
+     * get element at $indx
      */
     public function at(int $indx)
     {
@@ -95,9 +98,10 @@ class Map extends Common
     }
 
     /**
-     * public function Sorter
-     * @parameters none
+     * @method Sorter
+     * @param none
      *
+     * sort map
      */
     public function Sorter(): bool
     {
@@ -110,9 +114,11 @@ class Map extends Common
     }
 
     /**
-     * public function keyIsIn
-     * @parameters string
+     * @method keyIsIn
+     * @param string
      *
+     * Return true if key exists
+     * return false if key does not exist
      */
     public function keyIsIn(string $k)
     {
@@ -120,9 +126,11 @@ class Map extends Common
     }
 
     /**
-     * public function valisIn
-     * @parameters string
+     * @method valisIn
+     * @param string
      *
+     * Return true if value exists
+     * return false if value does not exist
      */
     public function valIsIn(string $v)
     {
@@ -141,9 +149,10 @@ class Map extends Common
     }
 
     /**
-     * public function equals
-     * @parameters Map
+     * @method equals
+     * @param Map
      *
+     * compare maps
      */
     public function equals(Map $r): bool
     {
@@ -154,11 +163,12 @@ class Map extends Common
     }
 
     /**
-     * public function get
-     * @parameters string
+     * @method getKeys
+     * @param string
      *
+     * Get all keys from map 
      */
-    public function get(string $k)
+    public function getKeys()
     {
         if ($this->size() == 0) {
             if ($this->strict == 1) {
@@ -170,9 +180,10 @@ class Map extends Common
     }
 
     /**
-     * public function isEmpty
-     * @parameters none
+     * @method isEmpty
+     * @param none
      *
+     * Returns true if map is empty
      */
     public function isEmpty(): bool
     {
@@ -180,9 +191,11 @@ class Map extends Common
     }
 
     /**
-     * public function mergeAll
-     * @parameters array
-     * Merge maps -returns number inserted
+     * @method mergeAll
+     * @param array
+     * @return bool
+     * 
+     * Merge maps
      */
     public function mergeAll(array $r): bool
     {
@@ -201,11 +214,11 @@ class Map extends Common
     }
 
     /**
-     * public function remove
-     * @parameters string
+     * @method remove
+     * @param string
      *
+     * Remove Key with name $k
      */
-    // Remove Key with name $k
     public function remove(string $k): bool
     {
         if ($this->size() == 0) {
@@ -220,13 +233,11 @@ class Map extends Common
     }
 
     /**
-     * public function findKey
-     * @parameters string
+     * @method findKey
+     * @param string
      *
+     * Return keys fitting $regex
      */
-    // Return Key
-
-    // Return keys fitting $regex
     public function findKey(string $r)
     {
         if (($y = array_search($r,array_keys($this->dat))) != false);
@@ -235,11 +246,11 @@ class Map extends Common
     }
 
     /**
-     * public function removedat
-     * @parameters string, string
+     * @method removedat
+     * @param string, string
      *
+     * Remove entry with K & V matching $k and $v
      */
-    // Remove entry with K & V matching $k and $v
     public function removedat($k, $v): bool
     {
         if (($y = array_search($k,$this->dat)) != false)
@@ -255,11 +266,11 @@ class Map extends Common
     }
 
     /**
-     * public function replace
-     * @parameters string, string
+     * @method replace
+     * @param string, string
      *
+     * Replace dat
      */
-    // Replace dat
     public function replace(string $k, $v): bool
     {
         $this->add($k, $v);
@@ -267,11 +278,11 @@ class Map extends Common
     }
 
     /**
-     * public function add
-     * @parameters string, mixed
+     * @method add
+     * @param string, mixed
      *
+     * Add entry
      */
-    // Add entry
     public function add(string $key, $val): bool
     {
         $t = array();

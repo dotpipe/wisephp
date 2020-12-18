@@ -1,0 +1,35 @@
+Dux Documentation for dux
+<pre id='dux'>
+     * @method list_classes
+     * @param $start_dir
+     * 
+     * go through all classes loaded
+     * 
+    public function start(string $start_dir)
+</pre>
+<pre id='dux'>
+     * @method list_methods
+     * @param $start_dir, $class
+     * 
+     * proxy to get_dox in aft of getting file contents
+     * 
+    public function list_methods(string $start_dir, $file)
+</pre>
+<pre id='dux'>
+     * @method get_dox
+     * @param $guts, $class
+     * 
+     * get all strings of comments from each function
+     * 
+    public function get_dox($guts, string $file)
+</pre>
+<pre id='dux'>
+     * @method output_methods
+     * @param $class
+     * 
+     * turn into directory/class files for dox
+     * 
+    public function output_methods(string $class, array $aray)
+</pre>
+<pre id='dux'>
+</pre>

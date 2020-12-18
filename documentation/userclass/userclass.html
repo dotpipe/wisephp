@@ -1,0 +1,68 @@
+Dux Documentation for userclass
+<pre id='userclass'>
+     * The art of routing is comparative to its own state of functioning.
+     * There is a surrogate connection. It quietly chooses the direct path.
+     * It does also create the inside walls of a copacetic network. One which
+     * is offset from a larger web. These internal gadgets are what we get
+     * from holding connections in their surrogate form. We are berthing
+     * the state of an annal concluding to the cache. Here and therein, we
+     * setup a great choosing from the forms of loadtimes, concurrency, threading
+     * and other essential states of meta in the system. To break it down,
+     * we need to make a network that consists of many channels. And it needs
+     * to have administrative, group, and user identifying characteristics.
+     * So we'll see what we can come up with here in this PASM coded router.
+     * What don't you think I'll come upon?
+     * 
+
+</pre>
+<pre id='userclass'>
+     * @method __construct
+     * @param none
+     * 
+     * Start up new user class
+    function __construct() {
+</pre>
+<pre id='userclass'>
+     * @method save_user_state
+     * @param filename
+     * 
+     * I/O
+    protected function save_user_state($filename) {
+</pre>
+<pre id='userclass'>
+     * @method load_user_state
+     * @param filename
+     * 
+     * I/O
+    public function load_user_state($filename) {
+</pre>
+<pre id='userclass'>
+     * @method login_user
+     * @param values
+     * @param WHERE_CLAUSE
+     * 
+     * I/O
+    public function login_user(array $login_arr, string $where)
+</pre>
+<pre id='userclass'>
+     * @method create_new_admin
+     * @param values
+     * @param tablename
+     * 
+     * Start with new admin
+    protected function create_new_admin(array $user_settings_for_database, $table_name) 
+</pre>
+<pre id='userclass'>
+     * @method new_user
+     * @param userID
+     * @param password
+     * @param groupID
+     * 
+     * Input NULL for current user to change password.
+     * Creates new users. If accessor's GUID is 0, it'll work anyway
+     * We just change the password otherwise.
+     * 
+    public function new_user(string $userId, string $password, int $groupId = 0)
+</pre>
+<pre id='userclass'>
+</pre>

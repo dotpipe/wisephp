@@ -8,39 +8,6 @@ class CRUD
     public $ini;
     public $db; // handle for database
 
-    public function testCRUD()
-    {
-        $vals = array(
-            "store_name" => "big j\'s",
-            "slogan" => "much ado",
-            "description" => "no",
-            "img" => "tester",
-            "total_paid" => 0,
-            "last_paid_on" => "02/18/2020",
-            "flags" => 0,
-            "start" => 10,
-            "end" => 20,
-            "serial" => null,
-            "url" => null,
-            "seen" => 0,
-            "zip" => 48507,
-            "nums" => 1,
-        );
-
-        $database = "adrs";
-
-        $this->create($vals, "advs", $database);
-
-        $data_test = array(
-            "advs" => array("store_name", "slogan"));
-
-        $this->read($data_test, "`slogan` = 'much ado'");
-
-        $this->update("advs", array("slogan" => "heyhey!"), 1);
-
-        $this->delete("advs", 1);
-    }
-
     public function __construct(string $config = "/wise/config/config.json")
     {
         $this->ini = json_decode(\file_get_contents($config));
@@ -52,12 +19,16 @@ class CRUD
         $this->ini->password = null;
     }
 
-    /*
-    $create([
-    col1 => value,
-    col2 => value,
-    col3 => value
-    ], $table)
+    /**
+     * @method create
+     * @param values
+     * @param tablename
+     *     
+     * $create([
+     *   col1 => value,
+     *   col2 => value,
+     *   col3 => value
+     *   ], $table)
      */
     public function create(array $values, string $table)
     {
@@ -89,17 +60,21 @@ class CRUD
         return 1;
     }
 
-    /*
-    Use instruction:
-    $read([
-    $table1 => [
-    col1,
-    col2,
-    col3,
-    ...,
-    coln
-    ]
-    ], $where)
+    /**
+     * @method read
+     * @param values
+     * @param WHERE_clause
+     * 
+     * Use instruction:
+     * $read([
+     *  $table1 => [
+     *      col1,
+     *      col2,
+     *      col3,
+     *      ...,
+     *      coln
+     *      ]
+     *  ], $where)
      */
 
     public function read(array $ta_ky, string $where)
@@ -128,16 +103,21 @@ class CRUD
         return $this->rows;
     }
 
-    /*
-    Use:
-    $update(
-    $table,
-    [
-    key1 => value,
-    key2 => value
-    ],
-    $where
-    )
+    /**
+     * @method update
+     * @param table
+     * @param values
+     * @param WHERE_CLAUSE
+     * 
+     * Use:
+     *  $update(
+     *      $table,
+     *      [
+     *      key1 => value,
+     *      key2 => value
+     *      ],
+     *      $where
+     *  )
      */
     public function update(string $table, array $key_value, string $where)
     {
@@ -157,8 +137,12 @@ class CRUD
         return 1;
     }
 
-    /*
-    $delete($table,$where)
+    /**
+     * @method delete
+     * @param table
+     * @param WHERE_CLAUSE
+     * 
+     * $delete($table,$where)
      */
     public function delete(string $table, string $where)
     {
@@ -170,5 +154,4 @@ class CRUD
         return 1;
     }
 }
-
-//$db = new crud();
+?>

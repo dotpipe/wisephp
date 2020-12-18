@@ -40,11 +40,11 @@ class css extends Common
     }
 
     /**
-     * public function size
-     * @parameters
+     * @method size
+     * @param
      *
+     * Report how many CSS Elements in Container
      */
-    // Report how many CSS Elements in Container
     public function size(): int
     {
         if (is_array($this->mCSS->dat) && count($this->mCSS->dat) > 0) {
@@ -54,9 +54,10 @@ class css extends Common
     }
 
     /**
-     * public function setIndent
-     * @parameters string
+     * @method setIndent
+     * @param string
      *
+     * setup indentation mark
      */
     public function setIndent(string $ind): bool
     {
@@ -65,9 +66,10 @@ class css extends Common
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
+     * clear all
      */
     public function clear(): bool
     {
@@ -79,9 +81,11 @@ class css extends Common
     }
 
     /**
-     * public function add
-     * @parameters string, mixed
+     * @method add
+     * @param string
+     * @param Map
      *
+     * insert new css rule
      */
     public function add(string $selector, Map $map): bool
     {
@@ -90,9 +94,10 @@ class css extends Common
     }
 
     /**
-     * public function write
-     * @parameters none
+     * @method write
+     * @param none
      *
+     * write to buffer or file
      */
     public function write(): bool
     {
@@ -163,9 +168,10 @@ class css extends Common
     }
 
     /**
-     * public function cssMap
-     * @parameters string, bool
+     * @method cssMap
+     * @param string, bool
      *
+     * Create Map from CSS string
      */
     public function cssMap(string $s, bool $bool): mMap
     {
@@ -222,9 +228,10 @@ class css extends Common
     }
 
     /**
-     * public function convert
-     * @parameters mMap
+     * @method convert
+     * @param mMap
      *
+     * Convert to string
      */
     public function convert(mMap $va): ?string
     {

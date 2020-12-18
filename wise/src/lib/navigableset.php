@@ -22,11 +22,12 @@ class NavigableSet extends SortedSet {
     }
 
     /**
-     * public function ceiling
-     * @parameters string
+     * @method ceiling
+     * @param string
      *
+     *
+     * Retrieves first entry <= $r
      */
-    // Retrieves first entry <= $r
     public function ceiling(string $r) {
         $handler = $this->dat;
         $ceil = null;
@@ -39,11 +40,12 @@ class NavigableSet extends SortedSet {
     }
 
     /**
-     * public function floor
-     * @parameters string
+     * @method floor
+     * @param string
      *
+     *
+     * Retrieves first entry < $r
      */
-    // Retrieves first entry < $r
     public function floor(string $r) {
         $handler = $this->dat;
         $floor = null;
@@ -56,11 +58,12 @@ class NavigableSet extends SortedSet {
     }
 
     /**
-     * public function pollFirst
-     * @parameters none
+     * @method pollFirst
+     * @param none
      *
+     *
+     * Retrieves and removes First Entry
      */
-    // Retrieves and removes First Entry
     public function pollFirst() {
         if (!is_array($this->dat))
             $this->dat = [];
@@ -71,11 +74,12 @@ class NavigableSet extends SortedSet {
     }
 
     /**
-     * public function pollLast
-     * @parameters none
+     * @method pollLast
+     * @param none
      *
+     *
+     * Retrieves and erases last entry
      */
-    // Retrieves and erases last entry
     public function pollLast() {
         if (!is_array($this->dat))
             $this->dat = [];

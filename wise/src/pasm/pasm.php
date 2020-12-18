@@ -3479,11 +3479,11 @@ class PASM
         PASM::$counter = 0;
     }
 
-    /*
-     * This function requires that PASM::$ecx
+    /** 
+     * @method This function requires that PASM::$ecx
      * be filled with a value > counter. Otherwise
      * it will not work out.
-    */
+     */
     public static function loop()      // loop til $counter == $ecx
     {
         $method_del = explode("::", __METHOD__);
@@ -3517,12 +3517,12 @@ class PASM
         return new static;
     }
 
-    /*
-     * This function requires that PASM::$ecx
+    /** 
+     * @method This function requires that PASM::$ecx
      * be filled with a value == PASM::$ah. Otherwise
      * it will not work out. Change PASM::$ecx
      * in the previous function
-    */
+     */
     public static function loope()     // loop while ah == ecx
     {
         $method_del = explode("::", __METHOD__);

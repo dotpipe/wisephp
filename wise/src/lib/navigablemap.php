@@ -18,11 +18,12 @@ class NavigableMap extends SortedMap {
     }
 
     /**
-     * public function ceilKey
-     * @parameters string
+     * @method ceilKey
+     * @param string
      *
+     *
+     * Return Values <= $r
      */
-    // Return Values <= $r
     public function ceilKey(string $r) {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -34,22 +35,24 @@ class NavigableMap extends SortedMap {
     }
 
     /**
-     * public function descMap
-     * @parameters none
+     * @method descMap
+     * @param none
      *
+     *
+     * Reverse order of Map
      */
-    // Reverse order of Map
     public function revMap(): bool {
         array_reverse($this->dat,TRUE);
         return true;
     }
 
     /**
-     * public function floorEntry
-     * @parameters string
+     * @method floorEntry
+     * @param string
      *
+     *
+     * Get all Values >= $v
      */
-    // Get all Values >= $v
     public function floorEntry(string $v) {
         $vMap = '';
         if ($this->size() == 0) {
@@ -62,11 +65,12 @@ class NavigableMap extends SortedMap {
     }
 
     /**
-     * public function navigableKeySet
-     * @parameters string
+     * @method navigableKeySet
+     * @param string
      *
+     *
+     * Return all Keys
      */
-    // Return all Keys
     public function navigableKeySet() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -76,11 +80,12 @@ class NavigableMap extends SortedMap {
     }
 
     /**
-     * public function pollFirst
-     * @parameters none
+     * @method pollFirst
+     * @param none
      *
+     *
+     * Get first entry in Map and remove
      */
-    // Get first entry in Map and remove
     public function pollFirst() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');
@@ -90,11 +95,12 @@ class NavigableMap extends SortedMap {
     }
 
     /**
-     * public function pollLast
-     * @parameters none
+     * @method pollLast
+     * @param none
      *
+     *
+     * Get last entry in Map and Remove
      */
-    // Get last entry in Map and Remove
     public function pollLast() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Map');

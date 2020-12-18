@@ -1,6 +1,5 @@
 <?php
 
-/*
 require_once __DIR__ . '../../../../vendor/autoload.php';
 
 // Send appropriate mime type
@@ -16,4 +15,4 @@ do {
     if ( connection_aborted() ) break;
     sleep( rand(7, 13) );
 } while (1);
-*/
+

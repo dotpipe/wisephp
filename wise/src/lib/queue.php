@@ -20,11 +20,12 @@ class Queue extends Common {
     }
 
     /**
-     * public function poll
-     * @parameters none
+     * @method poll
+     * @param none
      *
+     *
+     * Remove while Retrieving entry 1
      */
-    // Remove while Retrieving entry 1
     public function poll() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Queue');
@@ -37,21 +38,23 @@ class Queue extends Common {
     }
 
     /**
-     * public function push
-     * @parameters mixed
+     * @method push
+     * @param mixed
      *
+     *
+     * Push on to Queue
      */
-    // Push on to Queue
     public function push($r) {
         return array_push($this->dat, $r);
     }
 
     /**
-     * public function pop
-     * @parameters none
+     * @method pop
+     * @param none
      *
+     *
+     * Retrieve first Queue and pop
      */
-    // Retrieve first Queue and pop
     public function pop() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Queue');
@@ -62,11 +65,12 @@ class Queue extends Common {
     }
 
     /**
-     * public function getElement
-     * @parameters none
+     * @method getElement
+     * @param none
      *
+     *
+     * Return first Queue
      */
-    // Return first Queue
     public function getElement() {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Queue');
@@ -76,11 +80,12 @@ class Queue extends Common {
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
+     *
+     * Empty Queue
      */
-    // Empty Queue
     public function clear() {
         $this->dat = array();
         return true;

@@ -1,0 +1,206 @@
+Dux Documentation for streams
+<pre id='streams'>
+     * @method destroy
+     * @param none
+     *
+    public function destroy() {
+</pre>
+<pre id='streams'>
+     * @method getIndex
+     * @param none
+     *
+     *
+     * Retrieve Index
+    public function getIndex(): int {
+</pre>
+<pre id='streams'>
+     * @method erase
+     * @param string
+     *
+     *
+     * Erase file
+    public function erase(string $filename): bool {
+</pre>
+<pre id='streams'>
+     * @method delete
+     * @param string
+     *
+     *
+     * Delete file
+    public function delete(string $filename): bool {
+</pre>
+<pre id='streams'>
+     * @method touch
+     * @param string
+     *
+     *
+     * Create new File Or check if exists
+    public function touch(string $filename): bool {
+</pre>
+<pre id='streams'>
+     * @method addStrm
+     * @param string
+     *
+     *
+     * Add to Stream array()
+    public function addStrm(string $r, bool $bool = FALSE): bool {
+</pre>
+<pre id='streams'>
+     * @method size
+     * @param string
+     *
+     *
+     * Report how many streams in Object
+    public function size(): int {
+</pre>
+<pre id='streams'>
+     * @method Iter
+     * @param none
+     *
+     *
+     * Iterate Forward through Streams
+    public function Iter(): bool {
+</pre>
+<pre id='streams'>
+     * @method Cycle
+     * @param none
+     *
+     *
+     * Cycle Forward through Vector
+    public function Cycle(): bool {
+</pre>
+<pre id='streams'>
+     * @method revIter
+     * @param none
+     *
+     *
+     * Iterate Forward through Streams
+    public function revIter(): bool {
+</pre>
+<pre id='streams'>
+     * @method revCycle
+     * @param none
+     *
+    public function revCycle(): bool {
+</pre>
+<pre id='streams'>
+     * @method prevStrm
+     * @param none
+     *
+     *
+     * Iterate to Previous Streams if $bool = 1;
+    // Setup $cntDecr (index) for Prev. Streams if $bool = 0;
+    public function prev(): bool {
+</pre>
+<pre id='streams'>
+     * @method currStrm
+     * @param none
+     *
+     *
+     * Retrieve current Index of Vector Pointer
+    public function current(): int {
+</pre>
+<pre id='streams'>
+     * @method remove
+     * @param string
+     *
+     *
+     * Remove Stream at index $r
+    public function removeIndex(int $r): bool {
+</pre>
+<pre id='streams'>
+     * @method fileSize
+     * @param none
+     *
+     *
+     * Get FileSize
+    public function fileSize(): int {
+</pre>
+<pre id='streams'>
+     * @method sync
+     * @param none
+     *
+    public function sync(): bool {
+</pre>
+<pre id='streams'>
+     * @method resize
+     * @param int
+     *
+     *
+     * Resize reading Buffer
+    public function resize(int $s): bool {
+</pre>
+<pre id='streams'>
+     * @method setDelim
+     * @param string
+     *
+     *
+     * Set Delimiter
+    public function setDelim(string $d): bool {
+</pre>
+<pre id='streams'>
+     * @method resetDelimm
+     * @param none
+     *
+     *
+     * Eliminate Delimiter
+    public function resetDelim(): bool {
+</pre>
+<pre id='streams'>
+     * @method clearBuf
+     * @param none
+     *
+     *
+     * Empty Buffer
+    public function clearBuf() {
+</pre>
+<pre id='streams'>
+     * @method seek
+     * @param int, int
+     *
+     *
+     * Seek to point in file
+    public function seek(int $pos, int $flag): bool {
+</pre>
+<pre id='streams'>
+     * @method eof
+     * @param none
+     *
+     *
+     * Check for End of File
+    public function eof(): bool {
+</pre>
+<pre id='streams'>
+     * @method readBuf
+     * @param none
+     *
+     *
+     * Read from File
+    public function readBuf(): string {
+</pre>
+<pre id='streams'>
+     * @method writeBuf
+     * @param none
+     *
+     *
+     * Write to Buffer File
+    public function writeBuf(): int {
+</pre>
+<pre id='streams'>
+     * @method close
+     * @param none
+     *
+     *
+     * Close File
+    public function close(): bool {
+</pre>
+<pre id='streams'>
+     * @method changeDir
+     * @param string
+     *
+     *
+     * Change local directory
+    public function changeDir(string $directory): string {
+</pre>
+<pre id='streams'>
+</pre>

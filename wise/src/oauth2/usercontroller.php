@@ -33,17 +33,23 @@ class userController extends OAuth2Owner
         return true;
     }
 
-    /*
-        Use:
-        $update(
-            $table,
-            [
-                key1 => value,
-                key2 => value
-            ],
-            $where
-        );
-    */
+    /**
+     * @method newUserPass
+     * @param inifile
+     * @param credentials
+     * @param table
+     * @param whereclause
+     * 
+     * Use:
+     * $update(
+     *      $table,
+     *      [
+     *          key1 => value,
+     *          key2 => value
+     *      ],
+     *      $where
+     *  );
+     */
     public function newUserPass(string $userdb_ini, array $credentials, string $table, string $where)
     {
         $connection = new crud($userdb_ini);

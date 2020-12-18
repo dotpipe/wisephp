@@ -18,8 +18,8 @@ class SortedSet extends Set {
     }
 
     /**
-     * public function destroy
-     * @parameters none
+     * @method destroy
+     * @param none
      *
      */
     public function destroy() {
@@ -27,11 +27,12 @@ class SortedSet extends Set {
     }
 
     /**
-     * public function headSet
-     * @parameters int
+     * @method headSet
+     * @param int
      *
+     *
+     * Return entries before $indx
      */
-    // Return entries before $indx
     public function headSet(int $indx) {
         if (!is_array($this->dat))
             $this->dat = [];
@@ -40,11 +41,12 @@ class SortedSet extends Set {
     }
 
     /**
-     * public function first
-     * @parameters none
+     * @method first
+     * @param none
      *
+     *
+     * Returns first Entry
      */
-    // Returns first Entry
     public function first() {
         if (!is_array($this->dat))
             $this->dat = [];
@@ -54,11 +56,12 @@ class SortedSet extends Set {
     }
 
     /**
-     * public function last
-     * @parameters none
+     * @method last
+     * @param none
      *
+     *
+     * Returns last Entry
      */
-    // Returns last Entry
     public function last() {
         if (!is_array($this->dat))
             $this->dat = [];
@@ -68,13 +71,14 @@ class SortedSet extends Set {
     }
 
     /**
-     * public function loadJSON
-     * @parameters string, int, string, int
+     * @method loadJSON
+     * @param string, int, string, int
      *
-     */
-    // Return between $st and $ven (This is very functional)
+     *
+     * Return between $st and $ven (This is very functional)
     // $Lb == 1 >= $st ; $Lb == 0 < $st
     // $Hb == 0 >= $ven ; $Hb == < $ven
+     */
     public function subSet(int $st, int $Lb, string $ven, int $Hb) {
         $sSetTemp = new Set();
         if (!is_array($this->dat))

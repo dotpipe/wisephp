@@ -19,8 +19,8 @@ class Trees extends Common {
     }
 
     /**
-     * public function linkTree
-     * @parameters mixed
+     * @method linkTree
+     * @param mixed
      *
      */
     public function linkTree($m) {
@@ -89,8 +89,8 @@ class Trees extends Common {
     }
 
     /**
-     * public function create
-     * @parameters mixed
+     * @method create
+     * @param mixed
      *
      */
     public function create($va = 0) {
@@ -135,8 +135,8 @@ class Trees extends Common {
     }
 
     /**
-     * public function mockTree
-     * @parameters mixed
+     * @method mockTree
+     * @param mixed
      *
      */
     public function mockTree($m) {

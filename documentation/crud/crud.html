@@ -1,0 +1,57 @@
+Dux Documentation for crud
+<pre id='crud'>
+     * @method create
+     * @param values
+     * @param tablename
+     *     
+     * $create([
+     *   col1 => value,
+     *   col2 => value,
+     *   col3 => value
+     *   ], $table)
+    public function create(array $values, string $table)
+</pre>
+<pre id='crud'>
+     * @method read
+     * @param values
+     * @param WHERE_clause
+     * 
+     * Use instruction:
+     * $read([
+     *  $table1 => [
+     *      col1,
+     *      col2,
+     *      col3,
+     *      ...,
+     *      coln
+     *      ]
+     *  ], $where)
+
+</pre>
+<pre id='crud'>
+     * @method update
+     * @param table
+     * @param values
+     * @param WHERE_CLAUSE
+     * 
+     * Use:
+     *  $update(
+     *      $table,
+     *      [
+     *      key1 => value,
+     *      key2 => value
+     *      ],
+     *      $where
+     *  )
+    public function update(string $table, array $key_value, string $where)
+</pre>
+<pre id='crud'>
+     * @method delete
+     * @param table
+     * @param WHERE_CLAUSE
+     * 
+     * $delete($table,$where)
+    public function delete(string $table, string $where)
+</pre>
+<pre id='crud'>
+</pre>

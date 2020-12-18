@@ -2,5 +2,13 @@
     "files.associations": {
         "xstring": "cpp",
         "vector": "cpp"
-    }
+    },
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ]
 }

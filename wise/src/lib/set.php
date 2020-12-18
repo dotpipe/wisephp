@@ -24,11 +24,12 @@ class Set extends Common {
     }
 
     /**
-     * public function addAll
-     * @parameters string
+     * @method addAll
+     * @param string
      *
+     *
+     * Merge sets
      */
-    // Merge sets
     public function addAll(Set $r): bool {
         if ($this->typeOf != $r->typeOf) {
             throw new Type_Error('Mismatched Types');
@@ -43,11 +44,12 @@ class Set extends Common {
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
+     *
+     * Empty Set
      */
-    // Empty Set
     public function clear(): void {
 
         $this->dat = array();
@@ -56,11 +58,12 @@ class Set extends Common {
     }
 
     /**
-     * public function add
-     * @parameters none
+     * @method add
+     * @param none
      *
+     *
+     * Splice $r into $indx point
      */
-    // Splice $r into $indx point
     public function add($r): bool {
         $bool = true;
         (in_array($r, $this->dat)) ? $bool = false : array_push($this->dat, $r);
@@ -68,21 +71,23 @@ class Set extends Common {
     }
 
     /**
-     * public function valIsIn
-     * @parameters string
+     * @method valIsIn
+     * @param string
      *
+     *
+     * Return if Value exists
      */
-    // Return if Value exists
     public function valIsIn(string $v) {
         return array_search($v, $this->dat);
     }
 
     /**
-     * public function compare
-     * @parameters Set
+     * @method compare
+     * @param Set
      *
+     *
+     * Compare $this with $r
      */
-    // Compare $this with $r
     public function compare(Set $r): bool {
         $temp = array();
         if ($this->typeOf != $r->typeOf) {
@@ -95,11 +100,12 @@ class Set extends Common {
     }
 
     /**
-     * public function get
-     * @parameters int
+     * @method get
+     * @param int
      *
+     *
+     * Return entry at $indx
      */
-    // Return entry at $indx
     public function get(int $indx) {
         if ($this->size() == 0 || $indx >= $this->size()) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
@@ -109,11 +115,12 @@ class Set extends Common {
     }
 
     /**
-     * public function exists
-     * @parameters string
+     * @method exists
+     * @param string
      *
+     *
+     * Return Index of Entry
      */
-    // Return Index of Entry
     public function exists(string $r) {
         if ($this->size() == 0) {
             if ($this->strict == 1) throw new IndexException('Empty Set');
@@ -123,11 +130,12 @@ class Set extends Common {
     }
 
     /**
-     * public function remIndex
-     * @parameters int
+     * @method remIndex
+     * @param int
      *
+     *
+     * Remove Entry at $indx
      */
-    // Remove Entry at $indx
     public function remIndex(int $indx):bool {
         $setTemp = [];
         if ($this->size() == 0) {
@@ -139,11 +147,12 @@ class Set extends Common {
     }
 
     /**
-     * public function remValue
-     * @parameters string
+     * @method remValue
+     * @param string
      *
+     *
+     * Remove Value if exists (otherwise 0)
      */
-    // Remove Value if exists (otherwise 0)
     public function remValue(string $val):bool {
         $setTemp = [];
         if ($this->size() == 0) {

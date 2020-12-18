@@ -17,13 +17,13 @@ class api extends mMap
         $this->indent = "<img src=\".\\src\\icons\\code.gif\">";
     }
 
-    /*
-     * setIndent(string)
-     * @parameters string
+    /**
+     * @method setIndent(string)
+     * @param string
      * @return bool
      * Set as spaces, or as a picture with html
      * 
-    */
+     */
     public function setIndent(string $ind): bool
     {
         $this->indent = $ind;
@@ -31,13 +31,13 @@ class api extends mMap
     }
 
     
-    /*
-     * receive(mixed)
-     * @parameters mixed
-     * 
+    /**
+     * @method receive(mixed)
+     * @param mixed
+     * @return Vector
      * turn a JSON or object into a Vector
      * 
-    */
+     */
     public function receive($m): Vector
     {
         // If you don't have one, but need an example,
@@ -87,13 +87,13 @@ class api extends mMap
         return $this->apiMap;
     }
 
-    /*
-     * json2map()
-     * @parameters string
+    /** 
+     * @method json2map()
+     * @param string
      * @return Map
      * turn associative string array into a map
      * 
-    */
+     */
     public function json2map(string $m): Map
     {
         $map = new Map();
@@ -105,13 +105,13 @@ class api extends mMap
     }
 
     
-    /*
-     * display()
-     * @parameters string
+    /** 
+     * @method display()
+     * @param string
      * @return string
      * Show off your Map
      * 
-    */
+     */
     public function display($m): string
     {
         // If you don't have one, but need an example,
@@ -164,26 +164,26 @@ class api extends mMap
         return $output;
     }
 
-    /*
-     * clear()
-     * @parameters string
+    /** 
+     * @method clear()
+     * @param string
      * @return void
      * Clear out $this->apiMap
      * 
-    */
+     */
     public function clear(): void
     {
         $this->apiMap = new Vector("Any");
     }
 
     
-    /*
-     * convert()
-     * @parameters mixed
+    /** 
+     * @method convert()
+     * @param mixed
      * @return string
      * Insert Vector("Any") with simple array(a,b) pairs
      * and to end sections use array("]")
-    */
+     */
     public function convert($va = 0): string
     {
         $outstring = "";

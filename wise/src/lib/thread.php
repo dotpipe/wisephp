@@ -50,8 +50,8 @@ class Thread extends Streams {
     }
 
     /**
-     * public function size
-     * @parameters string
+     * @method size
+     * @param string
      *
      */
     public function size(): int {
@@ -59,15 +59,16 @@ class Thread extends Streams {
     }
 
     /**
-     * public function startThread
-     * @parameters string
+     * @method startThread
+     * @param string
      *
-     */
-    // $origin mut be Unique to each user.
+     *
+     * $origin mut be Unique to each user.
     // This creates a database of CSV files
     // Each is seemingly randomly named.
     // (Hold sequential $handles in $origin files)
     // Use JSON if CSV is not to your liking.
+     */
     public function startThread(string $origin) {
         $handle = md5($origin);
         if ($this->touch($this->dir . $handle) == 1)
@@ -79,8 +80,8 @@ class Thread extends Streams {
     }
 
     /**
-     * public function save
-     * @parameters string
+     * @method save
+     * @param string
      *
      */
     public function save(string $json_name): bool {
@@ -91,8 +92,8 @@ class Thread extends Streams {
     }
 
     /**
-     * public function loadJSON
-     * @parameters string
+     * @method loadJSON
+     * @param string
      *
      */
     public function loadJSON(string $json_name): bool {
@@ -110,81 +111,89 @@ class Thread extends Streams {
     }
 
     /**
-     * public function joinThread
-     * @parameters none
+     * @method joinThread
+     * @param none
      *
+     *
+     * Like all joins
      */
-    // Like all joins
     public function join() {
         return $this->sync();
     }
 
     /**
-     * public function setIndex
-     * @parameters int
+     * @method setIndex
+     * @param int
      *
+     *
+     * Set Index
      */
-    // Set Index
     public function setIndex(int $index) {
         return $this->setIndex($index);
     }
 
     /**
-     * public function getIndex
-     * @parameters none
+     * @method getIndex
+     * @param none
      *
+     *
+     * Current thread
      */
-    // Current thread
     public function getIndex(): int {
         return parent::getIndex();
     }
 
     /**
-     * public function current
-     * @parameters none
+     * @method current
+     * @param none
      *
+     *
+     * Current Thread
      */
-    // Current Thread
     public function current(): int {
         return parent::current();
     }
 
     /**
-     * public function nextThread
-     * @parameters none
+     * @method nextThread
+     * @param none
      *
+     *
+     * Forward Iteration
      */
-    // Forward Iteration
     public function next() {
         return $this->next();
     }
 
     /**
-     * public function prevThread
-     * @parameters none
+     * @method prevThread
+     * @param none
      *
+     *
+     * Previous Iteration
      */
-    // Previous Iteration
     public function prev(): bool {
         return parent::prev();
     }
 
     /**
-     * public function Iter
-     * @parameters none
+     * @method Iter
+     * @param none
      *
+     *
+     * Forward Iterator
      */
-    // Forward Iterator
     public function Iter(): bool {
         return $this->Iter();
     }
 
     /**
-     * public function Cycle
-     * @parameters none
+     * @method Cycle
+     * @param none
      *
+     *
+     * Forward Cycle Iterator
      */
-    // Forward Cycle Iterator
     public function Cycle(): bool {
         if ($this->size() == $this->getIndex()+1) {
             $this->setIndex(0);
@@ -195,21 +204,23 @@ class Thread extends Streams {
     }
 
     /**
-     * public function revIter
-     * @parameters none
+     * @method revIter
+     * @param none
      *
+     *
+     * Reverse Iterator
      */
-    // Reverse Iterator
     public function revIter(): bool {
         return $this->revIter();
     }
 
     /**
-     * public function revCycle
-     * @parameters none
+     * @method revCycle
+     * @param none
      *
+     *
+     * Reverse Cycle Iterator
      */
-    // Reverse Cycle Iterator
     public function revCycle(): bool {
         if (-1 == $this->getIndex()-1) {
             $this->setIndex($this->size()-1);
@@ -220,11 +231,12 @@ class Thread extends Streams {
     }
 
     /**
-     * public function clearThread
-     * @parameters string
+     * @method clearThread
+     * @param string
      *
+     *
+     * Empty Thread file
      */
-    // Empty Thread file
     public function clearThread(string $origin) {
         $handle = md5($origin);
         if (file_exists($this->dir . $handle) == 1) {
@@ -240,11 +252,12 @@ class Thread extends Streams {
     }
 
     /**
-     * public function endThread
-     * @parameters none
+     * @method endThread
+     * @param none
      *
+     *
+     * Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
      */
-    // Detach Thread (Its a file, its not going anywhere *hint, hint* other languages)
     public function endThread() {
         parent::removeIndex($this->getIndex());
         $this->Iter();
@@ -253,11 +266,12 @@ class Thread extends Streams {
     }
 
     /**
-     * public function readThread
-     * @parameters none
+     * @method readThread
+     * @param none
      *
+     *
+     * Read from Thread file
      */
-    // Read from Thread file
     public function readThread() {
         $this->setDelim("}");
         $this->resize(0);
@@ -270,11 +284,12 @@ class Thread extends Streams {
     }
 
     /**
-     * public function writeThread
-     * @parameters mixed
+     * @method writeThread
+     * @param mixed
      *
+     *
+     * Write to Thread file
      */
-    // Write to Thread file
     public function writeThread($obj_array) {
         $x = json_encode($obj_array);
         if ($this->stream == null || $this->streamName == null)

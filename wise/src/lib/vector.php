@@ -67,8 +67,8 @@ class Vector extends Common
     }
 
     /**
-     * public function destroy
-     * @parameters none
+     * @method destroy
+     * @param none
      *
      */
     public function destroy()
@@ -102,8 +102,8 @@ class Vector extends Common
     }
 
     /**
-     * public function clear
-     * @parameters none
+     * @method clear
+     * @param none
      *
      */
     public function clear()
@@ -112,11 +112,12 @@ class Vector extends Common
     }
 
     /**
-     * public function push
-     * @parameters mixed
+     * @method push
+     * @param mixed
      *
+     *
+     * Add Vector with $r
      */
-    // Add Vector with $r
     public function push($r): bool
     {
         if ($r == null) {
@@ -135,11 +136,12 @@ class Vector extends Common
     }
 
     /**
-     * public function pop
-     * @parameters none
+     * @method pop
+     * @param none
      *
+     *
+     * Remove $r from Vector
      */
-    // Remove $r from Vector
     public function pop(): void
     {
         if ($this->size() == 1) {
@@ -159,8 +161,8 @@ class Vector extends Common
     }
 
     /**
-     * public function add
-     * @parameters mixed, int
+     * @method add
+     * @param mixed, int
      *
      */
     public function add($r, int $indx = 0)
@@ -219,11 +221,12 @@ class Vector extends Common
     }
 
     /**
-     * public function at
-     * @parameters int
+     * @method at
+     * @param int
      *
+     *
+     * Return Vector at $indx
      */
-    // Return Vector at $indx
     public function at(int $indx)
     {
         if ($this->size() == 0) {
@@ -238,11 +241,12 @@ class Vector extends Common
     }
 
     /**
-     * public function loadJSON
-     * @parameters none
+     * @method loadJSON
+     * @param none
      *
+     *
+     * Insert new Vector<T> (Element<T>)
      */
-    // Insert new Vector<T> (Element<T>)
     public function insVect($ins)
     {
 
@@ -284,11 +288,12 @@ class Vector extends Common
     }
 
     /**
-     * public function remVect
-     * @parameters int
+     * @method remVect
+     * @param int
      *
+     *
+     * Remove $r from Vector
      */
-    // Remove $r from Vector
     public function remVect(int $r)
     {
         if ($this->size() == 0 || $this->size() <= $r || $r < 0) {
@@ -301,29 +306,4 @@ class Vector extends Common
         
         return array_splice($this->dat, $r, 1);
     }
-/*
-/**
- * public function sync
- * @parameters none
- *
- *
-public function sync(): bool {
-if (is_object($this->pt) && $this->childType == "Set" && $this->pt->dat != null) {
-$t = $this->pt;
-$t->dat = array_unique($t->dat);
-$this->pt->dat = $t->dat;
-}
-if ($this->pv < $this->size()) {
-if ($this->pt != null)
-$this->dat[$this->pv] = $this->pt;
-}
-if ($this->datCntr >= $this->size()) {
-$this->datCntr = $this->size() - 1;
-end($this->dat);
-}
-$this->pt = current($this->dat);
-$this->pv = $this->datCntr;
-return true;
-}
- */
 }

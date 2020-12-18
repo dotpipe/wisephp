@@ -10,12 +10,11 @@ class PageControllers
     public $mvc = array();
     public $md;
     public $sid = array();
-    /*
-    *
-    * public function __construct
-    * @parameters string, string
-    *
-    */
+    /**    *
+     * public function __construct
+     * @param string, string
+     *
+     */
     public function __construct(string $tok, string $view = 'index')
     {
         $this->mvc = null;
@@ -73,24 +72,22 @@ class PageControllers
         $this->mvc[$tok]->sid['view'] = new PageViews($tok, $_COOKIE['PHPSESSID']);
     }
 
-    /*
-    *
-    * public function addModelData
-    * @parameters string, array
-    *
-    */
+    /**    *
+     * public function addModelData
+     * @param string, array
+     *
+     */
     public function addModelData(string $view_name, array $data): bool
     {
         $this->mvc[$view_name]->addModelData($view_name, $data);
         return true;
     }
 
-    /*
-    *
-    * public function save
-    * @parameters none
-    *
-    */
+    /**    *
+     * public function save
+     * @param none
+     *
+     */
     public function save(): bool
     {
         $fp = fopen("$this->token/$this->md/config.json", "w");
@@ -100,24 +97,22 @@ class PageControllers
     }
     
     
-    /*
-    *
-    * public function paginateModels
-    * @parameters string, string, int, int
-    *
-    */
+    /**    *
+     * public function paginateModels
+     * @param string, string, int, int
+     *
+     */
     public function paginateModels(string $view_name, string $filename, int $begin = 0, int $end = 0)
     {
         $x = $this->mvc[$this->token]->paginateModels($this->token, $view_name, $filename, $begin, $end);
         return $x;
     }
     
-    /*
-    *
-    * public function add_view
-    * @parameters string
-    *
-    */
+    /**    *
+     * public function add_view
+     * @param string
+     *
+     */
     public function add_view(string $view_name): bool
     {
         if (is_dir("$this->path/$view_name/")) {
@@ -139,24 +134,22 @@ class PageControllers
         return true;
     }
     
-    /*
-    *
-    * public function newView
-    * @parameters string
-    *
-    */
+    /**    *
+     * public function newView
+     * @param string
+     *
+     */
     public function newView(string $view_name): bool
     {
         $this->add_view($view_name);
         return true;
     }
     
-    /*
-    *
-    * public function loadJSON
-    * @parameters none
-    *
-    */
+    /**    *
+     * public function loadJSON
+     * @param none
+     *
+     */
     public function loadJSON()
     {
         if (file_exists("$this->token/config.json") && filesize("$this->token/config.json") > 0) {
@@ -173,23 +166,21 @@ class PageControllers
         return $old;
     }
     
-    /*
-    *
-    * public function addPartial
-    * @parameters string
-    *
-    */
+    /**    *
+     * public function addPartial
+     * @param string
+     *
+     */
     public function addPartial(string $filename)
     {
         return $this->mvc[$this->token]['view']->addPartial($filename);
     }
     
-    /*
-    *
-    * public function addShared
-    * @parameters string
-    *
-    */
+    /**    *
+     * public function addShared
+     * @param string
+     *
+     */
     public function addShared(string $filename)
     {
         return $this->mvc[$this->token]['shared']->addPartial($filename);

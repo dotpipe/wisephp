@@ -9,11 +9,25 @@ class ChatBox
 {
     public $crud;
 
-    public function __construct()
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * New object/Load INI file
+     * 
+     */
+    public function __construct(string $ini = "chat.ini")
     {
-        $this->crud = new CRUD("chat.ini");
+        $this->crud = new CRUD($ini);
     }
 
+    /**
+     * @method getConversations
+     * @param MySQL connection
+     * 
+     * Load old conversations
+     * 
+     */
     public function getConversations($con)
     {
         $results = $con->query('SELECT username FROM ad_revs, chat WHERE (aim = "' . $_COOKIE['myemail'] . '" || start = "' .  $_COOKIE['myemail'] . '") && username != "' . $_COOKIE['myemail'] . '" ORDER BY last DESC') or die(mysqli_error($con));
@@ -35,7 +49,12 @@ class ChatBox
         echo json_encode($f);
     }
     
-    // Have Column Created for conduct, being swearing or cussing "on/off"
+    /**
+     * @method getconduct
+     * @param MySQL connection
+     * 
+     * Have Column Created for conduct, being swearing or cussing "on/off"
+     */
     public function getconduct($cnxn)
     {
         $results = $cnxn->query('SELECT conduct_on FROM chat WHERE filename = "' . $_COOKIE['chatfile'] . '"') or die(mysqli_error($cnxn));
@@ -51,15 +70,27 @@ class ChatBox
         //else echo 1;
     }
 
-    // Update Command for chat
-    // Run getFileName() to get the cookie
+    /**
+     * @method updateChatFile
+     * @param none
+     * 
+     * Update Command for chat
+     * Run getFileName() to get the cookie
+     */
     public function updateChatFile()
     {
         $filename = $_COOKIE['chatfile'];
         //$sql = 'UPDATE chat SET chat.altered = chat.last, chat.checked = 0, last = CURRENT_TIMESTAMP WHERE filename = "' . $filename . '"';
         $this->crud->update("chat", ["altered" => "last","checked" => 0,"last" => "CURRENT_TIMESTAMP"], "filename = \" . $filename . \"");
     }
-
+    
+    /**
+     * @method chatCheck
+     * @param none
+     * 
+     * List all chats prior
+     * works within chat.js
+     */
     public function chatCheck()
     {
         $conn = mysqli_connect($_SESSION['host'], $_SESSION['username'], $_SESSION['password'], $_SESSION['database'], $_SESSION['port']) or die("Error: Cannot create connection");
@@ -108,6 +139,12 @@ class ChatBox
         $this->updateChatFile();
     }
 
+    /**
+     * @method flagComment
+     * @param none
+     * 
+     * Flag user for comment
+     */
     public function flagComment()
     {
         $results = $this->crud->read(["chat" => ["filename","conduct_on","id"]], '(aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '")');
@@ -136,9 +173,13 @@ class ChatBox
             $results = $this->crud->create($sql, "conduct");
         }
     }
-
-    // This is used to create a COOKIE with
-    // the name of the XSLT file.
+    /**
+     * @method getfilename
+     * @param none
+     *  
+     * This is used to create a COOKIE with
+     * the name of the XSLT file.
+     */
     public function getfilename()
     {
     
@@ -152,7 +193,13 @@ class ChatBox
         }
     }
     
-    // Reverse decision on Conduct "on/off"
+    
+    /**
+     * @method setConduct
+     * @param none
+     * 
+     * Turn swearing on and off
+     */
     public function setconduct()
     {
         $results = $this->crud->read(["crud" => ["aim","conduct_on"]], 'filename = "'. $_COOKIE['chatfile'] . '"');
@@ -170,7 +217,12 @@ class ChatBox
     }
 
     
-    // Conduct DB Columns: serial_id, chat_id, conduct_on, message, data, flagged, username
+    /**
+     * @method newconduct
+     * @param none
+     * 
+     * Conduct DB Columns: serial_id, chat_id, conduct_on, message, data, flagged, username
+     */
     public function newconduct()
     {
         $results = $this->crud->read(["chat" => ["conduct_on", "id"]], 'aim = "' . $_COOKIE['myemail'] . '" && start = "' .  $_GET['d'] . '") || (aim = "' . $_GET['d'] . '" && start = "' .  $_COOKIE['myemail'] . '"');
@@ -200,6 +252,12 @@ class ChatBox
         }
     }
     
+    /**
+     * @method createChat
+     * @param none
+     * 
+     * New chat creation
+     */
     public function createChat()
     {
         $results = $this->crud->read(["chat" => ["id","filename"]], 1);
