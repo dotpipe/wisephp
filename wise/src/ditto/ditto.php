@@ -51,7 +51,7 @@ function x (t) {
     if (t.id == "annotations")
     textareaClicked(t.options[t.selectedIndex].innerText);
     else
-    textareaClicked(t.options[t.selectedIndex].innerText + "( );");
+    textareaClicked(t.options[t.selectedIndex].innerText + t.options[t.selectedIndex].getAttribute("params") + ");");
 }
 function tab(t,v) {
     
@@ -288,7 +288,7 @@ if (isset($_GET['x']) && isset($_GET['iosave']) && $_GET['x'] == '1') {
 </div>
 <hr style="background-color:darkgray;width:96.5%;height:1px;margin-left:25px;float:left;margin-top:-25px">
 <div class="jumbotron" style="padding:1px;vertical-align:top;margin-top:-15px;margin-left:25px;width:96.5%;border-radius:0px 0px 25px 25px;height:50px !important;">
-    <form action="assert.php" method="GET">
+    <form action="ditto.php" method="GET">
     <block style="display:inline-grid;grid-row-start:1;grid-row-end:1;grid-template-columns:450px 400px 450px;grid-column-start:1;grid-column-end:3;">
     <quote><label style="margin-top:-5px;margin-left:35px;">> Input File (inc. relative path): <input onsubmit="getTests(event,this.value)" type="text" name="ioload" style="height:20px;width:150px"/></label></quote>
     <quote><hr style="margin-top:9px;background-color:darkgray;width:100%"><input type="hidden" name="x" value="1"/></quote>

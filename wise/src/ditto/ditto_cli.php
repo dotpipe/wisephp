@@ -1,5 +1,8 @@
 <?php
-require_once '..\..\..\vendor\autoload.php';
+
+namespace wise\src\ditto;
+
+require_once "../../../vendor/autoload.php";
 
 function io_cli($pluck): string
 {
@@ -31,7 +34,9 @@ function io_cli($pluck): string
             }
             $ref_func = new \ReflectionFunction($out_class . "::" . $key);
             $args = "";
+            
             foreach ($ref_func->getParameters() as $param) {
+                
                 $args .= ', $' . $param->name;
             }
             $args = substr($args, 2, strlen($args));
@@ -39,7 +44,7 @@ function io_cli($pluck): string
             $c .= "\n\t\t\$testReturn = \$obj->" . $key . "($args);\n\t}\n";// + substr($c,1,-6)"
         }
         $c .= "}\n?>";
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         echo $e;
         return "";
     }
