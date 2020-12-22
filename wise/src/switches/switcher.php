@@ -2,10 +2,12 @@
 
 namespace wise\src\pasm;
 
+require "../../../vendor/autoload.php";
+
 if (!isset($_SESSION))
 	session_start();
 
-class Routes extends PASM {
+class switcher extends PASM {
 
 	public $QURY;
 	public $resh;

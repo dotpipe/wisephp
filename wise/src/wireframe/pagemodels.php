@@ -15,7 +15,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         public $label;
         
         /**        *
-        * public function __construct
+        * @method __construct
         * @param string, string
         *
        */
@@ -29,7 +29,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function addModelField
+        * @method addModelField
         * @param string
         *
        */
@@ -47,7 +47,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         
         
         /**        *
-        * public function editModelData
+        * @method editModelData
         * @param string, array
         *
        */
@@ -66,7 +66,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        *
-        * public function addModelData
+        * @method addModelData
         * @param string, array
         *
        */
@@ -85,7 +85,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function paginateModels
+        * @method paginateModels
         * @param string, string, string, int, int
         *
        */
@@ -137,7 +137,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function addModelValid
+        * @method addModelValid
         * @param string, string, string
         *
        */
@@ -150,7 +150,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function errorReturn
+        * @method errorReturn
         * @param string, array &
         *
        */
@@ -161,7 +161,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        *
-        * public function checkValid
+        * @method checkValid
         * @param array, array, array &
         *
        */

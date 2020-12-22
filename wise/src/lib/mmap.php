@@ -385,7 +385,7 @@ class mMap extends Map {
 		return 1;
 	}
 	/**
-	 * public function replace
+	 * @method replace
 	 * @param string, string
 	 *
 	 * Replace Key of $k with Value of $v

@@ -13,7 +13,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         public $selector;
         public $md;
         /**        *
-        * public function __construct
+        * @method __construct
         * @param string, string, string
         *
        */
@@ -30,7 +30,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function addPartial
+        * @method addPartial
         * @param string, string, string
         *
        */
@@ -74,7 +74,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function addShared
+        * @method addShared
         * @param string
         *
        */
@@ -109,7 +109,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        *
-        * public function save
+        * @method save
         * @param none
         *
        */
@@ -122,7 +122,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function loadJSON
+        * @method loadJSON
         * @param none
         *
        */
@@ -143,7 +143,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        * For user usage;
-        * public function writeIndex
+        * @method writeIndex
         * @param none
         *
        */
@@ -165,7 +165,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        * For domain usage;
-        * public function writeIndex
+        * @method writeIndex
         * @param none
         *
        */
@@ -188,7 +188,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**
-        * public function is_session_started
+        * @method is_session_started
         * @return bool
        */
         public function is_session_started(): bool
@@ -204,7 +204,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        * For user usage;
-        * public function configJSON
+        * @method configJSON
         * @param string
         *
        */
@@ -244,7 +244,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 
 
         /**        * For domain usage;
-        * public function writePage
+        * @method writePage
         * @param string
         *
        */
@@ -285,7 +285,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
         
         /**        *
-        * public function removeDependency
+        * @method removeDependency
         * @param string, string
         *
        */
@@ -308,7 +308,7 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
         }
 
         /**        *
-        * public function createAction
+        * @method createAction
         * @param string
         *
        */

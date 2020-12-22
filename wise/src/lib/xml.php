@@ -41,7 +41,7 @@ class XML extends Common
     }
 
     /**    *
-     * public function xmlIn
+     * @method xmlIn
      * @param string
      *
      */
@@ -261,7 +261,7 @@ class XML extends Common
     }
 
     /**    *
-     * public function xmlOut
+     * @method xmlOut
      * @param mixed, DOM, int, mixed
      *
      */

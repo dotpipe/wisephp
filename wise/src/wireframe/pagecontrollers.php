@@ -11,7 +11,7 @@ class PageControllers
     public $md;
     public $sid = array();
     /**    *
-     * public function __construct
+     * @method __construct
      * @param string, string
      *
      */
@@ -73,7 +73,7 @@ class PageControllers
     }
 
     /**    *
-     * public function addModelData
+     * @method addModelData
      * @param string, array
      *
      */
@@ -84,7 +84,7 @@ class PageControllers
     }
 
     /**    *
-     * public function save
+     * @method save
      * @param none
      *
      */
@@ -98,7 +98,7 @@ class PageControllers
     
     
     /**    *
-     * public function paginateModels
+     * @method paginateModels
      * @param string, string, int, int
      *
      */
@@ -109,7 +109,7 @@ class PageControllers
     }
     
     /**    *
-     * public function add_view
+     * @method add_view
      * @param string
      *
      */
@@ -135,7 +135,7 @@ class PageControllers
     }
     
     /**    *
-     * public function newView
+     * @method newView
      * @param string
      *
      */
@@ -146,7 +146,7 @@ class PageControllers
     }
     
     /**    *
-     * public function loadJSON
+     * @method loadJSON
      * @param none
      *
      */
@@ -167,7 +167,7 @@ class PageControllers
     }
     
     /**    *
-     * public function addPartial
+     * @method addPartial
      * @param string
      *
      */
@@ -177,7 +177,7 @@ class PageControllers
     }
     
     /**    *
-     * public function addShared
+     * @method addShared
      * @param string
      *
      */
