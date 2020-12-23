@@ -7,6 +7,7 @@ use wise\src\switches\TemporaryRouteFactory;
 use wise\src\switches\PermanentRouteFactory;
 
 require "../../../vendor/autoload.php";
+
 /** *
  * @category Trafficking
  * @author Anthony David Pulse, Jr. <inland14@live.com>
