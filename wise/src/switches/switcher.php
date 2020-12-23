@@ -40,10 +40,11 @@ class switcher extends PASM {
 	}
 	
 	/**
-	* @method addContract
-	* @param recv, from, target, port, user
-	*
-	*/
+	 * @method addContract
+	 *
+	 * With $QURY, create switch route
+	 * 
+	 */
 	public function addContract() {
 		if ($this->group_id > 0)
 			return false;
@@ -75,10 +76,11 @@ class switcher extends PASM {
 	}
 	
 	/**
-	* @method addContract
-	* @param recv, from, target, port, user
-	*
-	*/
+	 * @method addContract
+	 * 
+	 * Add user from $QURY
+	 *
+	 */
 	public function addUserToContract() {
 		if ($this->group_id > 0)
 			return false;
@@ -109,9 +111,10 @@ class switcher extends PASM {
 	}
 	
 	/**
-	* @method remContract
-	* @param none
-	*
+	 * @method remContract
+	 *
+	 * Remove switch route 
+	 *
 	*/
 	public function remContract() {
 		if ($this->group_id > 0)
@@ -139,9 +142,10 @@ class switcher extends PASM {
 	}
 	
 	/**
-	* @method remContract
-	* @param none
-	*
+	 * @method remUserFromContract
+	 *
+	 * Remove specific user from switch route 
+	 *
 	*/
 	public function remUserFromContract() {
 		if ($this->group_id > 0)
@@ -167,11 +171,13 @@ class switcher extends PASM {
 		return $this;
 	}
 	
+
 	/**
-	* @method getContract
-	* @param none
-	*
-	*/
+	 * @method getContract
+	 *
+	 * Extract contract for redirection
+	 *
+	*/	
 	public function getContract() {
 		$user = [
 			"from" => $this->QURY['from'],
@@ -196,9 +202,10 @@ class switcher extends PASM {
 	}
 	
 	/**
-	* @method getContract
-	* @param string
-	*
+	 * @method http_parse_query
+	 *
+	 * Look through url and exapnd on details
+	 *
 	*/
 	public function http_parse_query(string $query) {
 		$parameters = array();
@@ -215,7 +222,13 @@ class switcher extends PASM {
 		}
 		return $parameters;
 	}
-	
+
+	/**
+	 * @method route
+	 *
+	 * Redirect to proper route
+	 *
+	*/
 	public function route(){
 		$config = json_decode(file_get_contents("config.json"));
 		if (($sp = $this->getContract()) != -1)
@@ -264,9 +277,10 @@ class switcher extends PASM {
 	}
 
 	/**
-	* @method reqHeaders
-	* @param none
-	*
+	 * @method reqHeaders
+	 *
+	 * get request headers
+	 *
 	*/
 	public function reqHeaders() {
 		$this->reqh = apache_request_headers();
@@ -274,9 +288,10 @@ class switcher extends PASM {
 	}
 
 	/**
-	* @method resHeaders
-	* @param none
-	*
+	 * @method resHeaders
+	 *
+	 * get response headers
+	 *
 	*/
 	public function resHeaders() {
 		$this->resh = apache_response_headers();
@@ -284,9 +299,11 @@ class switcher extends PASM {
 	}
 
 	/**
-	* @method save
-	* @param string
-	*
+	 * @method save
+	 * @param $filename
+	 * 
+	 * save routing information
+	 *
 	*/
 	public function save(string $filename = "") {
 		
@@ -302,9 +319,11 @@ class switcher extends PASM {
 	}
 	
 	/**
-	* @method load
-	* @param string
-	*
+	 * @method load
+	 * @param $filename
+	 * 
+	 * Remove specific user from switch route 
+	 *
 	*/
 	public function load(string $filename= "") {
 		$this->pasm::$stack = [];

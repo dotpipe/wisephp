@@ -1,5 +1,5 @@
 Dux Documentation for oauth2owner
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
      * @method login
      * @param ini_for_crud
      * @param login_api_array
@@ -12,7 +12,7 @@ Dux Documentation for oauth2owner
      *   parameters per site necessities.
 
 </pre>
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
      * @method checkExpiry
      * @param values
      * @param MySQL connection
@@ -20,7 +20,7 @@ Dux Documentation for oauth2owner
      * has authorization come to end
     public function checkExpiry(array $login_info_array, $connection): bool
 </pre>
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
      * @method newUserTokenizer
      * @param values
      * @param MySQL connection
@@ -28,26 +28,26 @@ Dux Documentation for oauth2owner
      * New OAuth2.0 user
     public function newUserTokenizer(array $login_info_array, $connection):string
 </pre>
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
      * @method hashPassword
      * @param password
      * 
      * Hash password
     public function hashPassword(string &$v)
 </pre>
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
      * @method createTokenizer
      * @param none
      * 
      * create hex token for user
     public function createTokenizer()
 </pre>
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
      * @method logout
      * @param values
      * 
      * 
     public function logout($login_info_array)
 </pre>
-<pre id='oauth2owner'>
+<pre class='oauth2owner'>
 </pre>

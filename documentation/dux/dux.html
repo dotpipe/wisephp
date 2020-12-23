@@ -1,5 +1,5 @@
 Dux Documentation for dux
-<pre id='dux'>
+<pre class='dux'>
      * @method list_classes
      * @param $start_dir
      * 
@@ -7,7 +7,15 @@ Dux Documentation for dux
      * 
     public function start(string $start_dir)
 </pre>
-<pre id='dux'>
+<pre class='dux'>
+     * @method is_class
+     * @param $start_dir, $class
+     * 
+     * proxy to get_dox in aft of getting file contents
+     * 
+    public function is_class(string $start_dir, $file)
+</pre>
+<pre class='dux'>
      * @method list_methods
      * @param $start_dir, $class
      * 
@@ -15,7 +23,7 @@ Dux Documentation for dux
      * 
     public function list_methods(string $start_dir, $file)
 </pre>
-<pre id='dux'>
+<pre class='dux'>
      * @method get_dox
      * @param $guts, $class
      * 
@@ -23,7 +31,7 @@ Dux Documentation for dux
      * 
     public function get_dox($guts, string $file)
 </pre>
-<pre id='dux'>
+<pre class='dux'>
      * @method output_methods
      * @param $class
      * 
@@ -31,5 +39,5 @@ Dux Documentation for dux
      * 
     public function output_methods(string $class, array $aray)
 </pre>
-<pre id='dux'>
+<pre class='dux'>
 </pre>

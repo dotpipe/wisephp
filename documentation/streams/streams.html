@@ -1,11 +1,11 @@
 Dux Documentation for streams
-<pre id='streams'>
+<pre class='streams'>
      * @method destroy
      * @param none
      *
     public function destroy() {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method getIndex
      * @param none
      *
@@ -13,7 +13,7 @@ Dux Documentation for streams
      * Retrieve Index
     public function getIndex(): int {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method erase
      * @param string
      *
@@ -21,7 +21,7 @@ Dux Documentation for streams
      * Erase file
     public function erase(string $filename): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method delete
      * @param string
      *
@@ -29,7 +29,7 @@ Dux Documentation for streams
      * Delete file
     public function delete(string $filename): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method touch
      * @param string
      *
@@ -37,7 +37,7 @@ Dux Documentation for streams
      * Create new File Or check if exists
     public function touch(string $filename): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method addStrm
      * @param string
      *
@@ -45,7 +45,7 @@ Dux Documentation for streams
      * Add to Stream array()
     public function addStrm(string $r, bool $bool = FALSE): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method size
      * @param string
      *
@@ -53,7 +53,7 @@ Dux Documentation for streams
      * Report how many streams in Object
     public function size(): int {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method Iter
      * @param none
      *
@@ -61,7 +61,7 @@ Dux Documentation for streams
      * Iterate Forward through Streams
     public function Iter(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method Cycle
      * @param none
      *
@@ -69,7 +69,7 @@ Dux Documentation for streams
      * Cycle Forward through Vector
     public function Cycle(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method revIter
      * @param none
      *
@@ -77,13 +77,13 @@ Dux Documentation for streams
      * Iterate Forward through Streams
     public function revIter(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method revCycle
      * @param none
      *
     public function revCycle(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method prevStrm
      * @param none
      *
@@ -92,7 +92,7 @@ Dux Documentation for streams
     // Setup $cntDecr (index) for Prev. Streams if $bool = 0;
     public function prev(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method currStrm
      * @param none
      *
@@ -100,7 +100,7 @@ Dux Documentation for streams
      * Retrieve current Index of Vector Pointer
     public function current(): int {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method remove
      * @param string
      *
@@ -108,7 +108,7 @@ Dux Documentation for streams
      * Remove Stream at index $r
     public function removeIndex(int $r): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method fileSize
      * @param none
      *
@@ -116,13 +116,13 @@ Dux Documentation for streams
      * Get FileSize
     public function fileSize(): int {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method sync
      * @param none
      *
     public function sync(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method resize
      * @param int
      *
@@ -130,7 +130,7 @@ Dux Documentation for streams
      * Resize reading Buffer
     public function resize(int $s): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method setDelim
      * @param string
      *
@@ -138,7 +138,7 @@ Dux Documentation for streams
      * Set Delimiter
     public function setDelim(string $d): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method resetDelimm
      * @param none
      *
@@ -146,7 +146,7 @@ Dux Documentation for streams
      * Eliminate Delimiter
     public function resetDelim(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method clearBuf
      * @param none
      *
@@ -154,7 +154,7 @@ Dux Documentation for streams
      * Empty Buffer
     public function clearBuf() {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method seek
      * @param int, int
      *
@@ -162,7 +162,7 @@ Dux Documentation for streams
      * Seek to point in file
     public function seek(int $pos, int $flag): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method eof
      * @param none
      *
@@ -170,7 +170,7 @@ Dux Documentation for streams
      * Check for End of File
     public function eof(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method readBuf
      * @param none
      *
@@ -178,7 +178,7 @@ Dux Documentation for streams
      * Read from File
     public function readBuf(): string {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method writeBuf
      * @param none
      *
@@ -186,7 +186,7 @@ Dux Documentation for streams
      * Write to Buffer File
     public function writeBuf(): int {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method close
      * @param none
      *
@@ -194,7 +194,7 @@ Dux Documentation for streams
      * Close File
     public function close(): bool {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
      * @method changeDir
      * @param string
      *
@@ -202,5 +202,5 @@ Dux Documentation for streams
      * Change local directory
     public function changeDir(string $directory): string {
 </pre>
-<pre id='streams'>
+<pre class='streams'>
 </pre>

@@ -6,7 +6,6 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 class dux {
 
     private $dux = "";
-    private $duxdir = "";
 
     /**
      * @method list_classes
@@ -26,11 +25,42 @@ class dux {
                 continue;
             if (substr($dir,-4) == ".php" && !is_dir("$path/$dir"))
             {
-                $this->list_methods("$path/$dir", $dir);
+                if ($this->is_class("$path/$dir", $dir))
+                    $this->list_methods("$path/$dir", $dir);
             }
             else if (strpos($dir,"vendor") == false && is_dir("$path/$dir"))
                 $this->start("$path/$dir");
         }
+    }
+
+    /**
+     * @method is_class
+     * @param $start_dir, $class
+     * 
+     * proxy to get_dox in aft of getting file contents
+     * 
+     */
+    public function is_class(string $start_dir, $file)
+    {
+        $guts = fopen("$start_dir",'r');
+        $str = "";
+        $name = strtolower(substr($file,0,-4));
+        do
+        {
+            $str = fgets($guts);
+            if (!is_bool($str))
+                $str = strtolower($str);
+            else if ($str == false) {
+                fclose($guts); 
+                return false;
+            }
+            if (strpos($str,"class $name") !== false)
+            {  
+                fclose($guts);
+                return true;
+            }
+        } while ((strpos($str,"class $name") === false));
+        return false;
     }
 
     /**
@@ -42,14 +72,8 @@ class dux {
      */
     public function list_methods(string $start_dir, $file)
     {
-        // foreach (dir($start_dir) as $dir => $filedir)
-        {
-            // if (is_file($start_dir . "\\$filedir"))
-            {
-                $guts = fopen("$start_dir",'r');
-                $this->get_dox($guts, $file);
-            }
-        }
+        $guts = fopen("$start_dir",'r');
+        $this->get_dox($guts, $file);
     }
 
     /**
@@ -68,7 +92,7 @@ class dux {
         $aray = [];
         while (!is_bool($str))
         {
-            $aray[] = "<pre id='" . substr($file,0,-4) ."'>\n";
+            $aray[] = "<pre class='" . substr($file,0,-4) ."'>\n";
             while (!is_bool($str) && substr(rtrim($str," \r\n\t\0"),-3) != "/**")
                 $str = (fgets($guts));
             
@@ -78,7 +102,6 @@ class dux {
             } while (!is_bool(end($aray)) && substr(rtrim(end($aray)," \r\n\t\0"),-2) != "*/");
             array_pop($aray);
             
-            // while (!is_bool(end($aray)) && substr(end($aray),-1) != ")")
             {
                 $aray[] = (fgets($guts));
             }
@@ -86,7 +109,6 @@ class dux {
             
             $aray[] = "</pre>\n";
         }
-        echo ".";
         $this->output_methods($file, $aray);
     }
 
