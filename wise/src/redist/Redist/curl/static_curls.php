@@ -7,8 +7,8 @@ include 'curl.php';
 
 class static_curls extends curl implements pCurls {
 
-	public static function execute_multiple_curl_handles($handles) {
-        return parent::execute_multiple_curl_handles($handles);
+	public static function execute_multiple_curl_handles() {
+        return parent::execute_multiple_curl_handles();
     }
     
 	public static function perform_curl_close($curl_multi_handler, $handles) {
@@ -19,8 +19,8 @@ class static_curls extends curl implements pCurls {
         return parent::perform_multi_exec($curl_multi_handler);
     }
 
-	public static function add_handles($curl_multi_handler, $handles) {
-        return parent::add_handles($curl_multi_handler, $handles);
+	public static function add_handles() {
+        return parent::add_handles();
     }
 	// This is where we translate our user files into the curl call
 	public static function prepare_curl_handle($server_url, $fields, $token) {

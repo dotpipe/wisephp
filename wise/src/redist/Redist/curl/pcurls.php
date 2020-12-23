@@ -44,12 +44,12 @@ interface pCurls {
 	// Close off all cURL requests
 	public static function perform_curl_close($curl_multi_handler, $handles);
 	// Disperse SaaS function
-	public static function execute_multiple_curl_handles($handles);
+	public static function execute_multiple_curl_handles();
 	// Begin cURL actions
 	public static function run();
 	// Returns curl_multi_init() object
 	public static function create_multi_handler();
 	// Create multi cURL 
-	public static function add_handles($curl_multi_handler, $handles);
+	public static function add_handles();
 
 }

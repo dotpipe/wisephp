@@ -21,7 +21,7 @@ class DirectRoute
     public function __construct(string $filename)
     {
         $json = file_get_contents($filename);
-        $this->this->config = json_decode($json);
+        $this->config = json_decode($json);
     }
     
     /** 

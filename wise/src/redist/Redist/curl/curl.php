@@ -11,11 +11,10 @@ class curl extends Redist implements pCURLs {
 
 	static $content_type;
 	static $handles = [];
+	static $mh;
 
 	public static function run() {
 
-		// begin
-		$ch = self::create_multi_handler();
 		// aggregate data
 		foreach (purl::$users->cookie_sheet as $value) {
 			$user_vars = [];
@@ -32,8 +31,9 @@ class curl extends Redist implements pCURLs {
 			self::$handles[] = self::prepare_curl_handle($servers, $user_vars, $token);
 		}
 
+		self::create_multi_handler();
 		// swarm!
-		self::execute_multiple_curl_handles(self::$handles);
+		self::execute_multiple_curl_handles();
 		file_put_contents("users.conf", "");
 	}
 
@@ -43,11 +43,11 @@ class curl extends Redist implements pCURLs {
 	}
 
 	public static function create_multi_handler() {
-		return curl_multi_exec();
+		return self::add_handles();
 	}
 
 	public static function prepare_curl_handles($server, $fields, $token) {
-		   
+
 		$h = [];
 		if ($server == null)
 			return $h;
@@ -73,7 +73,6 @@ class curl extends Redist implements pCURLs {
 		curl_setopt($handle, CURLOPT_POST, 1);
 		curl_setopt($handle, CURLOPT_FOLLOWLOCATION,true);
 		curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($field));
-		curl_setopt($handle, CURLOPT_BINARYTRANSFER, true);
 		curl_setopt($handle, CURLOPT_ENCODING, "");
 		curl_setopt($handle, CURLOPT_USERAGENT, $user_agent);
 
@@ -88,9 +87,16 @@ class curl extends Redist implements pCURLs {
 		return $handle;
 	}
 
-	public static function add_handles($curl_multi_handler, $handles) {
-		foreach($handles as $handle)
-			curl_multi_add_handle($curl_multi_handler, $handle);
+	public static function add_handles() {
+		$mh = curl_multi_init();
+        $curl_array = [];
+        foreach(self::$handles as $i => $url)
+        {
+            $curl_array[$i] = curl_init($url);
+            curl_setopt($curl_array[$i], CURLOPT_RETURNTRANSFER, true);
+            curl_multi_add_handle($mh, $curl_array[$i]);
+		}
+		return $mh;
 	}
    
 	public static function perform_multi_exec($curl_multi_handler) {
@@ -114,14 +120,14 @@ class curl extends Redist implements pCURLs {
 		foreach($handles as $handle){
 			curl_multi_remove_handle($curl_multi_handler, $handle);
 		}
-	 
+	
 		curl_multi_close($curl_multi_handler);
 	}
    
-	public static function execute_multiple_curl_handles($handles) {
+	public static function execute_multiple_curl_handles() {
 		$curl_multi_handler = self::create_multi_handler();
-		self::add_handles($curl_multi_handler, $handles);
+		self::add_handles($curl_multi_handler, self::$handles);
 		self::perform_multi_exec($curl_multi_handler);
-		self::perform_curl_close($curl_multi_handler, $handles);
+		self::perform_curl_close($curl_multi_handler, self::$handles);
 	}
 }
