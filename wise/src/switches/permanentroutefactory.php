@@ -13,7 +13,7 @@ class PermanentRouteFactory
 {
     public $router;
 
-    public function __construct(string $uri, string $route, string $filename)
+    function __construct(string $uri, string $route, string $filename)
     {
         $this->router = array("uri" => $uri, "route" => $route, "type" => "PermanentRouteFactory");
         $x = new fileRoute($this, $filename);

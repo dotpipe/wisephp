@@ -6,7 +6,10 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 class dux {
 
     private $dux = "";
-
+    public $methods_docd = 0;
+    public $classes_undocd = 0;
+    public $methods_total = 0;
+    public $classes_total = 0;
     /**
      * @method list_classes
      * @param $start_dir
@@ -56,6 +59,7 @@ class dux {
             }
             if (strpos($str,"class $name") !== false)
             {  
+                $this->classes_total++;
                 fclose($guts);
                 return true;
             }
@@ -85,17 +89,24 @@ class dux {
      */
     public function get_dox($guts, string $file)
     {
-        $x = 0;
         $this->dux = "Dux Documentation for " . substr($file,0,-4) . "\n";
-        $w = 1;
+        $docd = 0;
+        $total = 0;
         $str = "";
         $aray = [];
-        while (!is_bool($str))
+        do
         {
             $aray[] = "<pre class='" . substr($file,0,-4) ."'>\n";
-            while (!is_bool($str) && substr(rtrim($str," \r\n\t\0"),-3) != "/**")
+            while (!is_bool($str) && substr(rtrim($str," \r\n\t\0"),-3) != "/**") {
                 $str = (fgets($guts));
-            
+                if (!is_bool($str) && strpos($str,"function") !== false)
+                    $total++;
+            }
+            if (is_bool($str)) {
+                array_pop($aray);
+                break;
+            }
+            $docd++;
             do
             {
                 $aray[] = (fgets($guts));
@@ -104,12 +115,15 @@ class dux {
             
             {
                 $aray[] = (fgets($guts));
+                $total++;
             }
-            $str = fgets($guts);
             
             $aray[] = "</pre>\n";
-        }
-        $this->output_methods($file, $aray);
+            
+            $str = fgets($guts);
+            
+        } while (!is_bool($str));
+        $this->output_methods($file, $aray, $docd, $total);
     }
 
     /**
@@ -119,13 +133,15 @@ class dux {
      * turn into directory/class files for dox
      * 
      */
-    public function output_methods(string $class, array $aray)
+    public function output_methods(string $class, array $aray, int $docd, int $total)
     {
+        $this->methods_total += $total;
         if ($class == "")
             return;
         if (count($aray) <= 3)
         {
-            echo "Error: $class is not documented\n";
+            $this->classes_undocd++;
+            echo "\033[31mError: $class is not documented ($this->classes_undocd)\033[39m\n";
             return;
         }
         $class = substr($class,0,-4);
@@ -141,6 +157,11 @@ class dux {
         {
             $this->dux .= $a;
         }
+        if ($docd != $total)
+            echo "\033[33mNot all functions in $class are documented ($docd/$total)\033[39m\n";
+        else
+            echo "\033[32mFunctions in $class are documented ($docd/$total)\033[39m\n";
+        $this->methods_docd += $docd;
         file_put_contents("documentation/$class/$class.html", $this->dux);
         $this->dux = "";
     }

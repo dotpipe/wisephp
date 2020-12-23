@@ -14,7 +14,7 @@ class fileRoute
 {
     public $config;
 
-    public function __construct(object $lf, string $filename)
+    function __construct(object $lf, string $filename)
     {
         if (isset($lf->router->type)) {
             $this->this->config = $lf;

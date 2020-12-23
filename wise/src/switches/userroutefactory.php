@@ -14,7 +14,7 @@ class UserRouteFactory
 {
     public $router;
 
-    public function __construct(string $user, string $uri, string $route = ".", string $final =".", string $filename)
+    function __construct(string $user, string $uri, string $route = ".", string $final =".", string $filename)
     {
         $this->router = array("user" => $user, "uri" => $uri, "route" => "{$route}/{$user}/{$final}", "sub" => $route, "final" => $final, "type" => "UserRouteFactory");
         $x = new fileRoute($this, $filename);

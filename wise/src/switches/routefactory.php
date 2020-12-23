@@ -12,7 +12,7 @@ require "../../../vendor/autoload.php";
 */
 class RouteFactory
 {
-    public function __construct(string $filename, array $objects)
+    function __construct(string $filename, array $objects)
     {
         foreach ($objects as $obj) {
             if (isset($obj->router->type)) {
