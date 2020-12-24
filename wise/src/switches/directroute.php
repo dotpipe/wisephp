@@ -18,6 +18,11 @@ class DirectRoute
 {
     public $config;
 
+    /**
+     * @method __construct($filename)
+     * @param $filename -> ini.json file name
+     * 
+     */
     function __construct(string $filename)
     {
         $json = file_get_contents($filename);

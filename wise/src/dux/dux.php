@@ -10,6 +10,7 @@ class dux {
     public $classes_undocd = 0;
     public $methods_total = 0;
     public $classes_total = 0;
+
     /**
      * @method list_classes
      * @param $start_dir
@@ -22,7 +23,7 @@ class dux {
         $path = realpath($start_dir);
         if ($path == null || $path == "")
             $path = $start_dir;
-        foreach (scandir(($path)) as $ext => $dir)
+        foreach (scandir($path) as $ext => $dir)
         {
             if ($dir == "." || $dir == ".." || $dir[0] == ".")
                 continue;
@@ -99,7 +100,9 @@ class dux {
             $aray[] = "<pre class='" . substr($file,0,-4) ."'>\n";
             while (!is_bool($str) && substr(rtrim($str," \r\n\t\0"),-3) != "/**") {
                 $str = (fgets($guts));
-                if (!is_bool($str) && strpos($str,"function") !== false)
+                $func = "func";
+                $func .= "tion";
+                if (!is_bool($str) && strpos($str," $func ") !== false)
                     $total++;
             }
             if (is_bool($str)) {
