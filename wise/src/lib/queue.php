@@ -8,6 +8,13 @@ class Queue extends Common {
     public $queueTemp;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * @return void
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'Container';
         $this->parentType = 'Queue';
@@ -15,6 +22,12 @@ class Queue extends Common {
         $this->typeOf = 'Queue';
     }
 
+    /**
+     * @method destroy
+     * @param none
+     * 
+     * destroy information
+     */
     public function destroy() {
         $this->dat = null;
     }

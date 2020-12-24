@@ -44,6 +44,12 @@ class pURL implements pUser {
 	static $hash;
 	static $temp;
 
+    /**
+     * @method create
+     * 
+	 * Create new User reference
+	 * 
+     */
 	public static function create() {
 		
 		self::$files = new filemngr();
@@ -95,12 +101,24 @@ class pURL implements pUser {
 		self::$content_type = 'application/x-www-form-urlencoded';
 	}
 
+    /**
+     * @method trace
+	 * @param var
+     * 
+	 * print out variable value
+	 * 
+     */
 	public static function trace($var) {
 		echo '<pre>';
 		print_r($var);
 	}
 
-	// input the query string
+    /**
+     * @method get_servers
+     * 
+	 * used in a couple constructors
+	 * 
+     */
 	public static function get_servers() {
 		if (!isset($_SERVER['HTTP_REFERER']) || !isset(self::$request['session'][$_SERVER['HTTP_REFERER']]['server']))
 			return null;
@@ -108,15 +126,25 @@ class pURL implements pUser {
 		return self::$request['session'][$_SERVER['HTTP_REFERER']]['server'];
 	}
 
-	// input the query string
+    /**
+     * @method get_sessions
+     * 
+	 * used in a couple constructors
+	 * 
+     */
 	public static function get_sessions() {
 		if (!isset(self::$request['session'][$_SERVER['HTTP_REFERER']]))
 			return null;
 		return self::$request['session'][$_SERVER['HTTP_REFERER']];
 	}
 
-	// return the number of users present
-	// and committed to sending info of.
+    /**
+     * @method send_request
+     * 
+	 * 
+	 * return the number of users present
+	 * and committed to sending info of.
+     */
 	public static function user_count() {
 		if (is_array(self::$users))
 			return sizeof(self::$users);
@@ -124,7 +152,12 @@ class pURL implements pUser {
 		return 0;
 	}
 
-	// make sure there was a request
+    /**
+     * @method validate request
+	 *  
+	 * make sure users gone through system
+	 * 
+     */
 	public static function validate_request() {
 		
 		if (self::$request != null && sizeof(self::$request) != 1)
@@ -132,18 +165,24 @@ class pURL implements pUser {
 		return false;
 	}
 
+    /**
+     * @method send_request
+     * 
+	 * initialize connection to foreign server
+	 * 
+     */
 	public static function send_request() {
 		if (self::$files->find_user_queue(self::$users[0]) == false)
 			return false;
 		$req = [];
 		self::$files->get_user_log(self::$users[0]);
-		$options = array(
-		  'http' => array(
-			'header'  => array("Content-type: self::content_type"),
-		        $_SERVER['HTTP_REFERER']  => 'POST',
-		        'content' => http_build_query((array)self::$user)
-		        )
-		);
+		$options = [
+			"http" => [
+				"header" => "Content-type: " . self::$content_type,
+				"method" => 'POST',
+				"content" => http_build_query((array)self::$user)
+			]
+		];
 		array_shift(self::$users);
 		file_put_contents(self::$setup->path_server . "/users.conf", json_encode(self::$users));
 		$context = stream_context_create($options);
@@ -152,12 +191,25 @@ class pURL implements pUser {
 		return true;
 	}
 
+    /**
+     * @method update queue
+     * 
+	 * reinitialize data
+	 * 
+     */
 	public static function update_queue() {
 		
 		self::$files->save_user_log(self::$request['session'][$_SERVER['HTTP_REFERER']]);
 		file_put_contents(self::$setup->path_server . "/users.conf", json_encode(self::$users));
 	}
 
+    /**
+     * @method disassemble_IP
+	 * @param host
+     * 
+	 * create backfire to stop overtly multiple hits from one connection
+	 * 
+     */
 	public static function disassemble_IP($host) {
 		
 		if ($host == "::1")
@@ -178,6 +230,12 @@ class pURL implements pUser {
 		self::make_relationships();
 	}
 
+    /**
+     * @method make_relationships
+     * 
+	 * look at network traffic from above
+	 * 
+     */
 	public static function make_relationships() {
 		
 		$new_relations = [];
@@ -189,9 +247,15 @@ class pURL implements pUser {
 				$new_relations[] = $v1->cookie_sheet->session;
 		}
 		$unique = array_unique($new_relations);
-		self::$request['session'][$_SERVER['HTTP_REFERER']]['relative'] = $new_relations;
+		self::$request['session'][$_SERVER['HTTP_REFERER']]['relative'] = $unique;
 	}
 
+    /**
+     * @method add_referer
+     * 
+	 * add refering page
+	 * 
+     */
 	public static function add_referer () {
 		
 		if (isset(self::$request['session'][$_SERVER['HTTP_REFERER']]['target_pg'])
@@ -206,6 +270,12 @@ class pURL implements pUser {
 		return true;
 	}
 
+    /**
+     * @method remove_referer
+     * 
+	 * remove refering page
+	 * 
+     */
 	public static function remove_referer() {
 		
 		if (isset(self::$request['session'][$_SERVER['HTTP_REFERER']]['refer_by']) && sizeof(self::$request['session'][$_SERVER['HTTP_REFERER']]['refer_by']) == self::$max_history)
@@ -215,7 +285,12 @@ class pURL implements pUser {
 		return sizeof(self::$request['session'][$_SERVER['HTTP_REFERER']]['refer_by']);
 	}
 
-	//***
+    /**
+     * @method relative_count
+     * 
+	 * manifest a slow tap of users incoming
+	 * 
+     */
 	public static function relative_count() {
 		if (self::$users == null)
 			self::$users = [];
@@ -229,8 +304,12 @@ class pURL implements pUser {
 		return false;
 	}
 
-	// This is the only call you need
-	// ***
+    /**
+     * @method parse_call
+     * 
+	 * run through call
+	 * 
+     */
 	public static function parse_call() {
 		
 		self::spoof_check();
@@ -252,7 +331,12 @@ class pURL implements pUser {
 		self::patch_connection();
 	}
 
-	// ***
+    /**
+     * @method spoof_check
+     * 
+	 * deny access and check forlisted nad new spoof addresses
+	 * 
+     */
 	public static function spoof_check() {
 		
 		if (file_exists("spoof_list"))
@@ -266,7 +350,12 @@ class pURL implements pUser {
 			exit();
 	}
 
-	//***
+    /**
+     * @method match_remote_server
+     * 
+	 * sync with incoming server
+	 * 
+     */
 	public static function match_remote_server() {
 		if (isset($_SERVER['HTTP_REFERER']) && (isset(self::$request['session'][$_SERVER['HTTP_REFERER']]['user_addr'])))
 			$host = self::$request['session'][$_SERVER['HTTP_REFERER']]['user_addr'];
@@ -290,7 +379,12 @@ class pURL implements pUser {
 		return true;
 	}
 
-	//***
+    /**
+     * @method match_target_server
+     * 
+	 * find link and sync with target server
+	 * 
+     */
 	public static function match_target_server() {
 		if (isset($_SERVER['HTTP_REFERER']) && (isset(self::$request['session'][$_SERVER['HTTP_REFERER']]['data']['target_pg'])))
 			$host = self::$request['session'][$_SERVER['HTTP_REFERER']]['data']['target_pg'];
@@ -313,7 +407,12 @@ class pURL implements pUser {
 		return true;
 	}
 
-	// ***
+    /**
+     * @method return_relatives
+     * 
+	 * Compare and find relative network traces
+	 * 
+     */
 	public static function return_relatives($addr) {
 		
 		file_class::get_user_log($addr);
@@ -329,7 +428,12 @@ class pURL implements pUser {
 		return $x;
 	}
 
-	// ***
+    /**
+     * @method delay_connection
+     * 
+	 * wait for more users to come
+	 * 
+     */
 	public static function delay_connection() {
 		
 		$x = [];
@@ -356,7 +460,12 @@ class pURL implements pUser {
 		return true;
 	}
 
-	//***
+    /**
+     * @method patch_connection
+     * 
+	 * connect user to site
+	 * 
+     */
 	public static function patch_connection() {
 		
 		if (sizeof(self::$users) > 0) {
@@ -377,6 +486,13 @@ class pURL implements pUser {
 
 	}
 
+    /**
+     * @method check_addr
+     * 
+	 * check address for spoofers
+	 * look at address for relations
+	 * 
+     */
 	public static function check_addr() {
 		
 		self::spoof_check();
@@ -404,12 +520,24 @@ class pURL implements pUser {
 		}
 		return true;
 	}
-	//***
+	
+    /**
+     * @method run_queue
+     * 
+	 * connect everyone to destination
+	 * 
+     */
 	public static function run_queue() {
 		if (self::$files->find_user_queue(self::$request['session'][$_SERVER['HTTP_REFERER']]) != false)
 			self::send_request();
 	}
 
+    /**
+     * @method send_request
+     * 
+	 * use detected HTTP or HTTPS protocol
+	 * 
+     */
 	public static function option_ssl($bool) {
 		self::$opt_ssl = "https://";
 		if ($bool == false)
@@ -417,6 +545,12 @@ class pURL implements pUser {
 		return $bool;
 	}
 
+    /**
+     * @method print_page
+     * 
+	 * Print page in context stream
+	 * 
+     */
 	public static function print_page() {
 		echo self::$page_contents;
 	}

@@ -22,7 +22,14 @@ class css extends Common
     public $imps;
     public $indent;
 
-    public function __construct($fname = "")
+    /**
+     * @method _construct
+     * @param filename
+     * @param ind
+     *
+     * Setup all necessary forms of info for CSS deployment
+     */
+    public function __construct($fname = "", $ind = false)
     {
         $this->filename = $fname;
         $this->ext_int = 0;
@@ -36,7 +43,7 @@ class css extends Common
         if ($this->filename != "") {
             $this->fwriter->addStrm($this->filename, $this->ext_int);
         }
-        $this->indent = "<img src=\".\\src\\icons\\design.gif\">";
+        $this->indent = $ind ? : "<img src=\".\\src\\icons\\design.gif\">";
     }
 
     /**

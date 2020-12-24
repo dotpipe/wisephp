@@ -14,7 +14,13 @@ class mSet extends Set {
     public $set;
     public $dat;
 
-    public function __construct(string $type) {
+    /**
+     * @method __construct
+     * @param type
+     * 
+     * Initialize according to type
+     */
+    public function __construct(string $type = "String") {
         $this->cache = array();
         $this->rootType = 'Container';
         $this->parentType = 'mSet';

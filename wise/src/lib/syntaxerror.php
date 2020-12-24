@@ -6,6 +6,12 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class SyntaxError
 {
+    /**
+     * @method __construct
+     * @param $message
+     * 
+     * echo error message
+     */
     public function __construct($message)
     {
         echo $message;

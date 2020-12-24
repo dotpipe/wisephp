@@ -6,7 +6,7 @@ use wise\src\redist\Redist\setup\pConfig;
 use wise\src\redist\Redist\search_methods;
 use wise\src\redist\Redist\files\filemngr;
 use wise\src\redist\Redist\url\pURL;
-
+use wise\src\redist\Redist\curl\curl;
 require '../../../vendor/autoload.php';
 
 class Redist {
@@ -18,25 +18,29 @@ class Redist {
 	static $request;
 	static $setup;
 
-// Create an instance with this function
+	/**
+	 * @method instance
+	 * @param none
+	 * 
+	 * Run this to start the ball rolling
+	 * 
+	 */
     public static function instance() {
 		self::$setup = new pConfig();
-	// The static functions for the search object
-	// are in abssearch.phpc
 		self::$search = new search_methods();
-	// The static functions for the file_class object
-	// are in absfiles.php
 		self::$files = new filemngr();
-	// The static functions for the cURL object
-	// are in abscurl.php
-		//self::$curl = new \Redist\curl\curl();
 		self::$url = new pURL();
+		self::$curl = new cURL();
 		self::$url->create();
 		self::parse_call();
     }
 
-	// Everything Begins Here
-	// ***
+	/**
+	 * @method parse_call
+	 * @param none
+	 * 
+	 * Create connection or disconnect
+	 */
 	public static function parse_call() {
 
 		self::$url->check_addr();
@@ -52,11 +56,17 @@ class Redist {
 
 	}
 
-	// This scrapes for information from all users at once
-	// If self::$percent_diff == 0.75 && a user is that close
-	// to the user being scraped for, then that user will
-	// be used, along any others that meet the description
-	// compared to self::$percent_diff
+	/**
+	 * @method detail_scrape
+	 * @param none
+	 * 
+	 * 
+	 * This scrapes for information from all users at once
+	 * If self::$percent_diff == 0.75 && a user is that close
+	 * to the user being scraped for, then that user will
+	 * be used, along any others that meet the description
+	 * compared to self::$percent_diff
+ 	 */
 	public static function detail_scrape() {
 		$search = [];
 		foreach (self::$url->users->cookie_sheet as $value) {

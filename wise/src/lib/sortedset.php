@@ -8,6 +8,12 @@ class SortedSet extends Set {
     public $sSetTemp;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->cache = array();
         $this->rootType = 'Container';

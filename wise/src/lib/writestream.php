@@ -9,6 +9,12 @@ class writeStream extends Streams {
     public $stream;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
@@ -16,7 +22,14 @@ class writeStream extends Streams {
         $this->datCntr = 0;
         $this->dir = "./";
     }
-/**    public function addStrm(string $r, bool $bool = FALSE): bool {
+
+    /**
+     * @method addStrm
+     * @param filenam
+     * 
+     * common init
+     */
+    public function addStrm(string $r): bool {
         if (!\file_exists($this->dir . $r))
             return false;
         $ed = fopen($this->dir . $r, 'w');
@@ -25,5 +38,5 @@ class writeStream extends Streams {
         return true;
 
     }
-*/
+
 }

@@ -11,6 +11,13 @@ class readStream extends Streams {
     public $parentType;
     public $delim;
 
+    /**
+     * @method __construct
+     * @param none
+     * @return void
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'Streams';
         $this->parentType = 'Streams';
@@ -21,6 +28,13 @@ class readStream extends Streams {
         $this->dir = "./";
     }
 
+    /**
+     * @method addStream
+     * @param none
+     * @return void
+     * 
+     * Add file to Stream array in Read-Only mode
+     */
     public function addStream(string $r, bool $bool = FALSE) {
         if (!\file_exists($this->dir . $r))
             return false;

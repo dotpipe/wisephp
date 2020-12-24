@@ -11,6 +11,12 @@ class Trees extends Common {
     public $indent;
     public $apiMap;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->tree = new Vector("Any");
         $this->regex_mapper = "/[\[\{]|[\]\}]|[\"'][^']+[\"'][\,$]{0}|[['\"<]{2}[^>]+[>\"']{2}[^<'\"]+[\"'<]{2}[^>\"']+[>'\"]{2}[\,$]{0,1}]+/";

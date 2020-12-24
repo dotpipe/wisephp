@@ -11,6 +11,12 @@ class Vector extends Common
     // $vect[$datCntr] (The index pointed to)
     public $datCntr;
 
+    /**
+     * @method __construct
+     * @param $type - type of Vector to be created
+     * 
+     * Holds everytype of container available in src\lib
+     */
     public function __construct($type)
     {
         if ($type == 'Dequeue') {
@@ -79,6 +85,14 @@ class Vector extends Common
         $this->dat = null;
     }
 
+    /**
+     * @method conv2vector
+     * @param mixed
+     *
+     *
+     * take any object and convert to vector container
+     * 
+     */
     public function conv2vector($m): Vector
     {
         if (is_object($m) && $m->parentType == "Set") {

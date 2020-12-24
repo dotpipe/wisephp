@@ -8,6 +8,12 @@ class SortedMap extends Map {
 
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'Container';
         $this->parentType = 'Map';

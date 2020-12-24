@@ -43,7 +43,13 @@ class pConfig {
 
 	static $path_user;
 	static $path_server;
-
+	
+    /**
+     * @method __construct
+     * 
+	 * common init
+	 * 
+     */
 	function __construct() {
 	// Default Directories and files for configuation in pUrl	//
 		self::$path_user = "user_logs";			//

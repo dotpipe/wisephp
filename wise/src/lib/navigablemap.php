@@ -7,12 +7,25 @@ class NavigableMap extends SortedMap {
 
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'Container';
         $this->parentType = 'Map';
         $this->typeOf = 'NavigableMap';
     }
 
+    /**
+     * @method destroy
+     * @param none
+     * @return void
+     * 
+     * destroy information
+     */
     public function destroy() {
         $this->pt = null;
     }

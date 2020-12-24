@@ -17,6 +17,15 @@ class Matrix extends Common
     public $dat = array();
     public $pv;
 
+    /**
+     * @method __construct
+     * @param type
+     * @param child
+     * @return bool
+     * 
+     * initialize Matrix entry
+     * 
+     */
     public function __construct($type, $child = "String")
     {
         $this->rootType = 'Container';
@@ -88,6 +97,14 @@ class Matrix extends Common
         return 1;
     }
 
+    /**
+     * @method newObj
+     * @param type
+     * @param childType
+     * @return bool
+     * 
+     * Create dynamic container object to insert in Matrix
+     */
     public function newObj($type, $childType)
     {
         if ($type == 'Dequeue') {

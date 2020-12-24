@@ -2,6 +2,24 @@ Dux Documentation for usercontroller
 <pre class='usercontroller'>
      * @method newUserPass
      * @param inifile
+     * @param credentials array
+     * @param table
+     * 
+     * Create user in database
+    public function newUser(string $userdb_ini, array $login_credentials, string $table)
+</pre>
+<pre class='usercontroller'>
+     * @method deleteUser
+     * @param inifile
+     * @param table
+     * @param whereclause
+     * 
+     * Deletes row from from User database
+    public function deleteUser(string $userdb_ini, string $table, string $where)
+</pre>
+<pre class='usercontroller'>
+     * @method newUserPass
+     * @param inifile
      * @param credentials
      * @param table
      * @param whereclause

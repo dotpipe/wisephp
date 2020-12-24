@@ -9,6 +9,12 @@ class NavigableSet extends SortedSet {
     public $navTemp;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'Container';
         $this->parentType = 'Set';
@@ -17,6 +23,13 @@ class NavigableSet extends SortedSet {
         $this->dat = array();
     }
 
+    /**
+     * @method destroy
+     * @param none
+     * @return void
+     * 
+     * destroy information
+     */
     public function destroy() {
         $this->dat = null;
     }

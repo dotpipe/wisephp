@@ -10,11 +10,18 @@ class api extends mMap
     public $apiMap;
     public $indent;
 
-    public function __construct()
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * setup indent and load rege mapper for API handling
+     * 
+     */
+    public function __construct(string $ind)
     {
         $this->apiMap = new Vector("Any");
         $this->regex_mapper = "/[nul\,]{4,5}|[\[\{]|[\]\}][\,]{0,1}|[\,0-9_]{1,}[,$]{0,1}|[\,]{0,1}[\"']{0,1}[!#@?\,\\/%A-z0-9\s\._:]+[\"']{0,1}[:\,$]{0,1}/";
-        $this->indent = "<img src=\".\\src\\icons\\code.gif\">";
+        $this->indent = $ind ? : "<img src=\".\\src\\icons\\code.gif\">";
     }
 
     /**

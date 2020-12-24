@@ -22,6 +22,13 @@ class Map extends Common
     public $parentType;
     public $strict;
 
+    /**
+     * @method __construct
+     * @param none
+     * @return void
+     * 
+     * common init
+     */
     public function __construct()
     {
         $this->rootType = 'Container';

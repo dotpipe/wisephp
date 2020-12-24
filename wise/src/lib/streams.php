@@ -27,6 +27,12 @@ class Streams extends Map {
     public $delim;
     public $dir;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->dat = [];
         $this->datCntr = 0;
@@ -221,7 +227,7 @@ class Streams extends Map {
      *
      *
      * Iterate to Previous Streams if $bool = 1;
-    // Setup $cntDecr (index) for Prev. Streams if $bool = 0;
+     * Setup $cntDecr (index) for Prev. Streams if $bool = 0;
      */
     public function prev(): bool {
         if ($this->datCntr > 0 && $this->datCntr < count($this->dat)) {

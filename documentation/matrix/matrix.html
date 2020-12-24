@@ -1,5 +1,24 @@
 Dux Documentation for matrix
 <pre class='matrix'>
+     * @method __construct
+     * @param type
+     * @param child
+     * @return bool
+     * 
+     * initialize Matrix entry
+     * 
+    public function __construct($type, $child = "String")
+</pre>
+<pre class='matrix'>
+     * @method newObj
+     * @param type
+     * @param childType
+     * @return bool
+     * 
+     * Create dynamic container object to insert in Matrix
+    public function newObj($type, $childType)
+</pre>
+<pre class='matrix'>
      * @method table
      * @param string, array, string
      *

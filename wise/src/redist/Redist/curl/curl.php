@@ -7,12 +7,19 @@ use wise\src\redist\Redist\url\pURL;
 
 require '../../../../../vendor/autoload.php';
 
-class curl extends Redist implements pCURLs {
+class cURL extends Redist implements pCURLs {
 
 	static $content_type;
 	static $handles = [];
 	static $mh;
 
+	
+    /**
+     * @method run
+     * @param none
+     * 
+     * begin cURL multicast
+     */
 	public static function run() {
 
 		// aggregate data
@@ -37,15 +44,32 @@ class curl extends Redist implements pCURLs {
 		file_put_contents("users.conf", "");
 	}
 
-	// For curl operations
+    /**
+     * @method set_content_type
+     * @param $content_type
+     * 
+     * sets content type in header
+     */
 	public static function set_content_type($type) {
 		return self::$content_type = $type;
 	}
 
+    /**
+     * @method create_multi_handler
+     * @param none
+     * 
+	 * add handles to multicast
+     */
 	public static function create_multi_handler() {
 		return self::add_handles();
 	}
 
+    /**
+     * @method prepare_curl_handles
+     * @param none
+     * 
+     * proxy to prepare_curl_handle
+     */
 	public static function prepare_curl_handles($server, $fields, $token) {
 
 		$h = [];
@@ -57,7 +81,15 @@ class curl extends Redist implements pCURLs {
 		return $h;
 	}
 
-	// This is where we translate our user files into the curl call
+    /**
+     * @method prepare_curl_handle
+     * @param server_url
+	 * @param fields
+	 * @param token
+     * 
+     * This is where we translate our user files into the curl call
+	 * 
+     */
 	public static function prepare_curl_handle($server_url, $fields, $token){
 
 		$field = [];  
@@ -87,6 +119,13 @@ class curl extends Redist implements pCURLs {
 		return $handle;
 	}
 
+    /**
+     * @method add_handles
+	 * @param null
+     * 
+     * here we bind all channels into one multicast resource
+	 * 
+     */
 	public static function add_handles() {
 		$mh = curl_multi_init();
         $curl_array = [];
@@ -99,6 +138,13 @@ class curl extends Redist implements pCURLs {
 		return $mh;
 	}
    
+    /**
+     * @method prepare_curl_handle
+     * @param curl_multi_handler
+     * 
+     * multicast engage
+	 * 
+     */
 	public static function perform_multi_exec($curl_multi_handler) {
    
 		do {
@@ -114,6 +160,14 @@ class curl extends Redist implements pCURLs {
 		}
 	}
 
+    /**
+     * @method perform_curl_close
+     * @param curl_multi_handler
+	 * @param handles
+     * 
+	 * close curl inits
+	 * 
+     */
 	public static function perform_curl_close($curl_multi_handler, $handles) {
 	   
 			  // is this necessary
@@ -124,6 +178,12 @@ class curl extends Redist implements pCURLs {
 		curl_multi_close($curl_multi_handler);
 	}
    
+    /**
+     * @method execute_multiple_curl_handles
+	 * 
+	 * execute multiple handles
+	 * 
+     */
 	public static function execute_multiple_curl_handles() {
 		$curl_multi_handler = self::create_multi_handler();
 		self::add_handles($curl_multi_handler, self::$handles);

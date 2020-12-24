@@ -5,7 +5,14 @@ require_once __DIR__ . '../../../../vendor/autoload.php';
 
 class newObject
 {
-    public function newObj($r, $e = "Any")
+    /**
+     * @method __construct
+     * @param none
+     * @return void
+     * 
+     * initialize a new dynamic object in code
+     */
+    public function __construct($r, $e = "Any")
     {
         switch ($r) {
             case 'Vector':
@@ -33,7 +40,7 @@ class newObject
             case 'CSS':
                 return new css();
             case 'API':
-                return new api();
+                return new api("");
             default:
                 return null;
         }

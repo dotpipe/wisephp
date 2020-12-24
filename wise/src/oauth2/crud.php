@@ -8,6 +8,11 @@ class CRUD
     public $ini;
     public $db; // handle for database
 
+    /**
+     * @method __construct
+     * @param config_filename
+     *     
+     */
     public function __construct(string $config = "/wise/config/config.json")
     {
         $this->ini = json_decode(\file_get_contents($config));

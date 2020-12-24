@@ -14,6 +14,12 @@ class Stack {
     public $ADDRS_STK_CNT;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct() {
         $this->rootType = 'DataLayer';
         $this->parentType = 'Thread';

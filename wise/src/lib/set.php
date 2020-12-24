@@ -10,6 +10,13 @@ class Set extends Common {
     public $setTemp;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * @return void
+     * 
+     * common init
+     */
     public function __construct() {
         $this->cache = array();
         $this->rootType = 'Container';
@@ -19,14 +26,19 @@ class Set extends Common {
         $this->dat = array();
     }
 
+    /**
+     * @method destroy
+     * @param none
+     * 
+     * destroy information
+     */
     public function destroy() {
         $this->dat = null;
     }
 
     /**
      * @method addAll
-     * @param string
-     *
+     * @param Set
      *
      * Merge sets
      */

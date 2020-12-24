@@ -8,6 +8,12 @@ class Dequeue extends Common
     public $dqueueTemp;
     public $parentType;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
     public function __construct()
     {
         $this->rootType = 'Container';

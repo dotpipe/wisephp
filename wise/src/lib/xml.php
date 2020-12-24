@@ -5,7 +5,14 @@ namespace wise\src\lib;
 require_once __DIR__ . '../../../../vendor/autoload.php';
 class XML extends Common
 {
-    // call with just the first parameter, the filename
+    
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * call with just the first parameter, the filename
+     *  
+     */
     public function newObj($r, $e = "Any")
     {
         switch ($r) {
@@ -34,13 +41,13 @@ class XML extends Common
             case 'CSS':
                 return new css();
             case 'API':
-                return new api();
+                return new api("");
             default:
                 return null;
         }
     }
 
-    /**    *
+    /**
      * @method xmlIn
      * @param string
      *
@@ -260,7 +267,7 @@ class XML extends Common
         }
     }
 
-    /**    *
+    /**
      * @method xmlOut
      * @param mixed, DOM, int, mixed
      *

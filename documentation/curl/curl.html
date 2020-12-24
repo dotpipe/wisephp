@@ -1,0 +1,71 @@
+Dux Documentation for curl
+<pre class='curl'>
+     * @method run
+     * @param none
+     * 
+     * begin cURL multicast
+	public static function run() {
+</pre>
+<pre class='curl'>
+     * @method set_content_type
+     * @param $content_type
+     * 
+     * sets content type in header
+	public static function set_content_type($type) {
+</pre>
+<pre class='curl'>
+     * @method create_multi_handler
+     * @param none
+     * 
+	 * add handles to multicast
+	public static function create_multi_handler() {
+</pre>
+<pre class='curl'>
+     * @method prepare_curl_handles
+     * @param none
+     * 
+     * proxy to prepare_curl_handle
+	public static function prepare_curl_handles($server, $fields, $token) {
+</pre>
+<pre class='curl'>
+     * @method prepare_curl_handle
+     * @param server_url
+	 * @param fields
+	 * @param token
+     * 
+     * This is where we translate our user files into the curl call
+	 * 
+	public static function prepare_curl_handle($server_url, $fields, $token){
+</pre>
+<pre class='curl'>
+     * @method add_handles
+	 * @param null
+     * 
+     * here we bind all channels into one multicast resource
+	 * 
+	public static function add_handles() {
+</pre>
+<pre class='curl'>
+     * @method prepare_curl_handle
+     * @param curl_multi_handler
+     * 
+     * multicast engage
+	 * 
+	public static function perform_multi_exec($curl_multi_handler) {
+</pre>
+<pre class='curl'>
+     * @method perform_curl_close
+     * @param curl_multi_handler
+	 * @param handles
+     * 
+	 * close curl inits
+	 * 
+	public static function perform_curl_close($curl_multi_handler, $handles) {
+</pre>
+<pre class='curl'>
+     * @method execute_multiple_curl_handles
+	 * 
+	 * execute multiple handles
+	 * 
+	public static function execute_multiple_curl_handles() {
+</pre>

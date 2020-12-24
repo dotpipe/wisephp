@@ -8,8 +8,14 @@ require '../../../../vendor/autoload.php';
 
 class search_methods extends Redist implements search_ab {
 
-	// look for an email address amongst the
-	// files that are in self::path_user
+    /**
+     * @method find_user_first
+	 * @param token
+     * 
+	 * look for first email address amongst the
+	 * files that are in self::path_user
+	 * 
+     */
 	public static function find_user_first($token) {
 		$search = [];
 		$search = parent::detail_scrape();
@@ -19,8 +25,14 @@ class search_methods extends Redist implements search_ab {
 		return false;
 	}
 
-	// look for an email address amongst the
-	// files that are in self::path_user
+    /**
+     * @method find_user_last
+	 * @param token
+     * 
+	 * look for last email address amongst the
+	 * files that are in self::path_user
+	 * 
+     */
 	public static function find_user_last($token) {
 		$search = [];
 		$search = parent::detail_scrape();
@@ -30,8 +42,14 @@ class search_methods extends Redist implements search_ab {
 		return false;
 	}
 
-	// look for an email address amongst the
-	// files that are in self::path_user
+	
+    /**
+     * @method find_user_range
+	 * @param token
+     * 
+	 * return users
+	 * 
+     */
 	public static function find_user_range($token) {
 		$search = [];
 		$search = parent::detail_scrape();
@@ -41,8 +59,13 @@ class search_methods extends Redist implements search_ab {
 		return false;
 	}
 
-	// look for an email address amongst the
-	// files that are in "users.conf"
+    /**
+     * @method find_user_queue
+	 * @param token
+     * 
+	 * look for an email address amongst files that are in "users.conf"
+	 * 
+     */
 	public static function find_user_queue($token) {
 		$search = [];
 		$y = sizeof(parent::$request);

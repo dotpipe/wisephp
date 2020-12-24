@@ -1,5 +1,32 @@
 Dux Documentation for redist
 <pre class='redist'>
+	 * @method instance
+	 * @param none
+	 * 
+	 * Run this to start the ball rolling
+	 * 
+    public static function instance() {
+</pre>
+<pre class='redist'>
+	 * @method parse_call
+	 * @param none
+	 * 
+	 * Create connection or disconnect
+	public static function parse_call() {
+</pre>
+<pre class='redist'>
+	 * @method detail_scrape
+	 * @param none
+	 * 
+	 * 
+	 * This scrapes for information from all users at once
+	 * If self::$percent_diff == 0.75 && a user is that close
+	 * to the user being scraped for, then that user will
+	 * be used, along any others that meet the description
+	 * compared to self::$percent_diff
+	public static function detail_scrape() {
+</pre>
+<pre class='redist'>
 *	To run the curl type;
 *
 *	$handler->files->update_queue();

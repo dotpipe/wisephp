@@ -167,9 +167,9 @@ class dux {
             $this->dux .= $a;
         }
         if ($docd != $total)
-            echo "\033[33mNot all functions in $class are documented ($docd/$total)\033[39m\n";
+            echo "\033[33mNot all methods in $class are documented ($docd/$total)\033[39m\n";
         else
-            echo "\033[32mFunctions in $class are documented ($docd/$total)\033[39m\n";
+            echo "\033[32mMethods in $class are documented ($docd/$total)\033[39m\n";
         $this->methods_docd += $docd;
         file_put_contents("documentation/$class/$class.html", $this->dux);
         $this->dux = "";

@@ -21,6 +21,12 @@ class mMap extends Map {
 	public $pm;
 	public $cnt;
 
+    /**
+     * @method __construct
+     * @param none
+     * 
+     * common init
+     */
 	public function __construct() {
 		$this->parentType = 'mMap';
 		$this->rootType = 'Container';
