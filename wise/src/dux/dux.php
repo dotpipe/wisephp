@@ -102,7 +102,13 @@ class dux {
                 $str = (fgets($guts));
                 $func = "func";
                 $func .= "tion";
-                if (!is_bool($str) && strpos($str," $func ") !== false)
+                if (!is_bool($str) && strpos($str,"protected $func ") !== false)
+                    $total++;
+                if (!is_bool($str) && strpos($str,"private $func ") !== false)
+                    $total++;
+                if (!is_bool($str) && strpos($str,"public $func ") !== false)
+                    $total++;
+                if (!is_bool($str) && strpos($str,"static $func ") !== false)
                     $total++;
             }
             if (is_bool($str)) {
