@@ -16,22 +16,42 @@ class file_class implements files {
 	static $content_type;
 	static $users;
 
+    /**
+     * @method user_log_dir
+     * @param none
+	 * 
+     * Default Directories and files for configuation in pUrl
+     */
 	public static function user_log_dir() {
-		// Default Directories and files for configuation in pUrl	//
-		return "user_logs/";			//
-	}
-		
-	public static function server_log_dir() {
-		// Default Directories and files for configuation in pUrl	//
-		return "server_logs/";			//
+		return "user_logs/";
 	}
 	
-	// duplicate of save_user_log
+    /**
+     * @method server_log_dir
+     * @param none
+	 * 
+     * Default Directories and files for configuation in pUrl
+     */	
+	public static function server_log_dir() {
+		return "server_logs/";
+	}
+	
+    /**
+     * @method update_user
+     * @param none
+	 * 
+	 * 
+     */
 	public static function update_user() {
 		self::save_user_log($_SERVER['REMOTE_ADDR']);
 	}
 
-	// duplicate of save_user_log
+    /**
+     * @method save_user_log
+     * @param none
+	 * 
+	 * 
+     */
 	public static function save_user_log() {
 		$hash = hash("sha256", utf8_encode($_SERVER['REMOTE_ADDR']));
 		$str_dir = self::user_log_dir();
@@ -46,18 +66,33 @@ class file_class implements files {
 		}
 	}
 
-	// For curl operations
+    /**
+     * @method set_content_type
+     * @param type
+	 * 
+     * For curl operations
+     */
 	public static function set_content_type($type) {
 		return self::$content_type = $type;
     }
     
-	//save $this
+    /**
+     * @method save_server_log
+     * @param filename
+	 * 
+     * Save $this
+     */
 	public function save_server_log($filename = "server.conf") {
 
 		file_put_contents(self::server_log_dir().$filename, json_encode($this));
 	}
-
-	// load everything
+	
+    /**
+     * @method get_server_log
+     * @param filename
+	 * 
+     * get previous $this object
+     */
 	public static function get_server_log($filename = "server.conf") {
 		$fp = "";
 		if (!file_exists(self::server_log_dir().$filename))
@@ -68,7 +103,13 @@ class file_class implements files {
 			self::$server->k = $v;
 	}
 
-	// load users in queue
+    /**
+     * @method get_server_log
+     * @param filename
+	 * 
+     * load users in queue
+	 * 
+     */
 	public static function get_user_queue($filename = "users.conf") {
 		$fp = "";
 		if (!file_exists($filename))
@@ -80,10 +121,17 @@ class file_class implements files {
 			self::$users = array_merge($users, (array)$files);
 	}
 
-	// you'll find that in this file, we look
-	// for SESSID a lot. It's called ['session']
-	// to our script. It should be sent with the
-	// incoming request.
+	
+    /**
+     * @method get_server_log
+     * @param filename
+	 * 
+     * you'll find that in this file, we look
+	 * for SESSID a lot. It's called ['session']
+	 * to our script. It should be sent with the
+	 * incoming request.
+	 * 
+     */
 	public static function get_user_log() {
 		$hash = hash("sha256", utf8_encode($_SERVER['REMOTE_ADDR']));
 		$dim = [];

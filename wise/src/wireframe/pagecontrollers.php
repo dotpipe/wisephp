@@ -10,7 +10,7 @@ class PageControllers
     public $mvc = array();
     public $md;
     public $sid = array();
-    /**    *
+    /**
      * @method __construct
      * @param string, string
      *
@@ -72,7 +72,7 @@ class PageControllers
         $this->mvc[$tok]->sid['view'] = new PageViews($tok, $_COOKIE['PHPSESSID']);
     }
 
-    /**    *
+    /**
      * @method addModelData
      * @param string, array
      *
@@ -83,7 +83,7 @@ class PageControllers
         return true;
     }
 
-    /**    *
+    /**
      * @method save
      * @param none
      *
@@ -97,7 +97,7 @@ class PageControllers
     }
     
     
-    /**    *
+    /**
      * @method paginateModels
      * @param string, string, int, int
      *
@@ -108,7 +108,7 @@ class PageControllers
         return $x;
     }
     
-    /**    *
+    /**
      * @method add_view
      * @param string
      *
@@ -134,7 +134,7 @@ class PageControllers
         return true;
     }
     
-    /**    *
+    /**
      * @method newView
      * @param string
      *
@@ -145,7 +145,7 @@ class PageControllers
         return true;
     }
     
-    /**    *
+    /**
      * @method loadJSON
      * @param none
      *
@@ -166,7 +166,7 @@ class PageControllers
         return $old;
     }
     
-    /**    *
+    /**
      * @method addPartial
      * @param string
      *
@@ -176,7 +176,7 @@ class PageControllers
         return $this->mvc[$this->token]['view']->addPartial($filename);
     }
     
-    /**    *
+    /**
      * @method addShared
      * @param string
      *

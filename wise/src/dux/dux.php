@@ -29,8 +29,10 @@ class dux {
                 continue;
             if (substr($dir,-4) == ".php" && !is_dir("$path/$dir"))
             {
-                if ($this->is_class("$path/$dir", $dir))
+                if ($this->is_class("$path/$dir", $dir)) {
                     $this->list_methods("$path/$dir", $dir);
+                    $this->classes_total++;
+                }
             }
             else if (strpos($dir,"vendor") == false && is_dir("$path/$dir"))
                 $this->start("$path/$dir");
@@ -59,8 +61,7 @@ class dux {
                 return false;
             }
             if (strpos($str,"class $name") !== false)
-            {  
-                $this->classes_total++;
+            {
                 fclose($guts);
                 return true;
             }
@@ -150,7 +151,7 @@ class dux {
         if (count($aray) <= 3)
         {
             $this->classes_undocd++;
-            echo "\033[31mError: $class is not documented ($this->classes_undocd)\033[39m\n";
+            echo "\033[31mError: $class is not documented ($this->classes_undocd) ($total)\033[39m\n";
             return;
         }
         $class = substr($class,0,-4);

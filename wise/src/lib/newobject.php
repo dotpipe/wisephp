@@ -12,7 +12,7 @@ class newObject
      * 
      * initialize a new dynamic object in code
      */
-    public function __construct($r, $e = "Any")
+    public function __construct(string $r, string $e = "Any")
     {
         switch ($r) {
             case 'Vector':
@@ -40,9 +40,22 @@ class newObject
             case 'CSS':
                 return new css();
             case 'API':
-                return new api("");
+                return new api($e);
             default:
                 return null;
         }
+    }
+
+    /**
+     * @method newObj
+     * @param type
+     * @param subtype
+     * 
+     * Create and return new container object
+     * 
+     */
+    public function newObj(string $t, string $e = "Any")
+    {
+        return new newObject($t, $e);
     }
 }

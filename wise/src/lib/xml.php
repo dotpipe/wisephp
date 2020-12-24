@@ -163,8 +163,7 @@ class XML extends Common
                 if ($type->nodeName == "ObjectType" && $type->nodeValue == 'mSet') {
                     $t = $type->nextSibling;
                     $mS = new mSet($t->nodeValue);
-                    $mnm = new newObject();
-                    $s = $mnm->newObj($t->nodeValue);
+                    $s = $this->newObj($t->nodeValue, "mSet");
                     $g = $t->parentNode;
                     $go = $g->childNodes;
                     foreach ($go as $svr) {
@@ -235,9 +234,7 @@ class XML extends Common
                                 $o = $st->childNodes;
                             } elseif ($st->nodeName == "Vector") {
                                 $varname = $st->nodeValue;
-                                
-                                $mmm = new newObject();
-                                $s = $mmm->newObj($varname);
+                                $s = $this->newObj($varname, "Vector");
                                 
                                 continue;
                             }

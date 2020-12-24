@@ -6,11 +6,30 @@ set_error_handler('PageErrors');
 require_once __DIR__ . '../../../../vendor/autoload.php';
 class PageErrors
 {
+    
+    /**
+     * @method missingFile
+     * @param filename
+     * 
+	 * echo error message
+	 * 
+     */
     public function missingFile($filename)
     {
         echo "<b>Page not found: $filename</b>";
     }
 
+    /**
+     * @method errorByCode
+     * @param error
+     * @param class
+     * @param function
+     * @param line
+     * @param file
+     * 
+	 * echo error message
+	 * 
+     */
     public function errorByCode(string $error, string $class, string $function, string $line, string $file)
     {
         $date = __DIR__ . "/../logs/error_logs/error_log_" . \DateTime::createFromFormat('U.u', microtime(TRUE))->format("Y_m_d");

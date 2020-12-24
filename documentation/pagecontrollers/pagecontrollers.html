@@ -1,0 +1,55 @@
+Dux Documentation for pagecontrollers
+<pre class='pagecontrollers'>
+     * @method __construct
+     * @param string, string
+     *
+    public function __construct(string $tok, string $view = 'index')
+</pre>
+<pre class='pagecontrollers'>
+     * @method addModelData
+     * @param string, array
+     *
+    public function addModelData(string $view_name, array $data): bool
+</pre>
+<pre class='pagecontrollers'>
+     * @method save
+     * @param none
+     *
+    public function save(): bool
+</pre>
+<pre class='pagecontrollers'>
+     * @method paginateModels
+     * @param string, string, int, int
+     *
+    public function paginateModels(string $view_name, string $filename, int $begin = 0, int $end = 0)
+</pre>
+<pre class='pagecontrollers'>
+     * @method add_view
+     * @param string
+     *
+    public function add_view(string $view_name): bool
+</pre>
+<pre class='pagecontrollers'>
+     * @method newView
+     * @param string
+     *
+    public function newView(string $view_name): bool
+</pre>
+<pre class='pagecontrollers'>
+     * @method loadJSON
+     * @param none
+     *
+    public function loadJSON()
+</pre>
+<pre class='pagecontrollers'>
+     * @method addPartial
+     * @param string
+     *
+    public function addPartial(string $filename)
+</pre>
+<pre class='pagecontrollers'>
+     * @method addShared
+     * @param string
+     *
+    public function addShared(string $filename)
+</pre>

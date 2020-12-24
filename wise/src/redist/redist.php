@@ -4,7 +4,7 @@ namespace wise\src\Redist\redist;
 
 use wise\src\redist\Redist\setup\pConfig;
 use wise\src\redist\Redist\search_methods;
-use wise\src\redist\Redist\files\filemngr;
+use wise\src\redist\Redist\files\file_class;
 use wise\src\redist\Redist\url\pURL;
 use wise\src\redist\Redist\curl\curl;
 require '../../../vendor/autoload.php';
@@ -28,7 +28,7 @@ class Redist {
     public static function instance() {
 		self::$setup = new pConfig();
 		self::$search = new search_methods();
-		self::$files = new filemngr();
+		self::$files = new file_class();
 		self::$url = new pURL();
 		self::$curl = new cURL();
 		self::$url->create();

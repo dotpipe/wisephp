@@ -13,12 +13,24 @@ class Container
     // in Containers (use_strict($bool))
     public $strict;
 
+    /**
+     * @method __construct
+     * 
+	 * common init
+	 * 
+     */
     public function __construct()
     {
         $this->strict = false;
     }
 
-    // Strict IndexException Error Calling
+    /**
+     * @method using_strict
+     * @param toggle
+     * 
+     * Strict IndexException Error Calling
+	 * 
+     */
     public function use_strict(bool $bool = false)
     {
         if ($bool != 0) {

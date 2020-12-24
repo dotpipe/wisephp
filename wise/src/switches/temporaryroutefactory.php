@@ -14,6 +14,13 @@ class TemporaryRouteFactory
 {
     public $router;
 
+    /**
+     * @method __construct
+     * @param uri
+     * @param route
+     * @param filename
+     * 
+     */
     function __construct(string $uri, string $route, string $filename)
     {
         $this->router = array("temporary" => 1, "uri" => $uri, "route" => $route, "type" => "TemporaryRouteFactory");

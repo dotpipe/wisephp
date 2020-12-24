@@ -43,7 +43,8 @@ class pConfig {
 
 	static $path_user;
 	static $path_server;
-	
+	static $hash;
+
     /**
      * @method __construct
      * 
@@ -52,16 +53,17 @@ class pConfig {
      */
 	function __construct() {
 	// Default Directories and files for configuation in pUrl	//
-		self::$path_user = "user_logs";			//
-		self::$path_server = "server_logs";			//
-		if (!is_dir(self::$path_user))				//
-			mkdir(self::$path_user);			//
-		if (!is_dir(self::$path_server))			//
-			mkdir(self::$path_server);			//
-		if (!file_exists(self::$path_server . "/spoof_list"))				//
-			touch(self::$path_server . "/spoof_list");				//
-		if (!file_exists(self::$path_server . "/users.conf"))				//
-			touch(self::$path_server . "/users.conf");				//
+		self::$path_user = "user_logs";
+		self::$path_server = "server_logs";
+		if (!is_dir(self::$path_user))
+			mkdir(self::$path_user);
+		if (!is_dir(self::$path_server))
+			mkdir(self::$path_server);
+		if (!file_exists(self::$path_server . "/spoof_list"))
+			touch(self::$path_server . "/spoof_list");
+		if (!file_exists(self::$path_server . "/users.conf"))
+			touch(self::$path_server . "/users.conf");
+		pConfig::$hash = hash("sha256", utf8_encode($_SERVER['REMOTE_ADDR']));
 	}
 
 }

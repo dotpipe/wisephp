@@ -12,6 +12,12 @@ require "../../../vendor/autoload.php";
 */
 class RouteFactory
 {
+    /**
+     * @method __construct
+     * @param filename
+     * @param objects
+     * 
+     */
     function __construct(string $filename, array $objects)
     {
         foreach ($objects as $obj) {

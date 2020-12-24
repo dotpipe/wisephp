@@ -1,0 +1,49 @@
+Dux Documentation for pagemodels
+<pre class='pagemodels'>
+         * @method __construct
+         * @param string, string
+         *
+        public function ___construct(string $token, string $view_name)
+</pre>
+<pre class='pagemodels'>
+         * @method addModelField
+         * @param string
+         *
+        public function addModelField(string $fieldname, string $regex = "/.*/", string $errmsg = "Please reenter data", string $lbl = null): bool
+</pre>
+<pre class='pagemodels'>
+         * @method editModelData
+         * @param string, array
+         *
+        public function editModelData(string $view_name, array $data): bool
+</pre>
+<pre class='pagemodels'>
+         * @method addModelData
+         * @param string, array
+         *
+        public function addModelData(string $view_name, array $data): bool
+</pre>
+<pre class='pagemodels'>
+         * @method paginateModels
+         * @param string, string, string, int, int
+         *
+        public function paginateModels(string $token, string $view_name, string $filename, int $begin = 0, int $end = 0)
+</pre>
+<pre class='pagemodels'>
+         * @method addModelValid
+         * @param string, string, string
+         *
+        public function addModelValid(string $property, string $regex = "/.*/", string $errmsg = "Please check your entry", string $lbl = null): bool
+</pre>
+<pre class='pagemodels'>
+         * @method errorReturn
+         * @param string, array &
+         *
+        public function errorReturn(string $key, array &$errormsgs = array()): bool
+</pre>
+<pre class='pagemodels'>
+         * @method checkValid
+         * @param array, array, array &
+         *
+        public function checkValid(array $valid, array $data, array &$wrong_ans = array()): bool
+</pre>

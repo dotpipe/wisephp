@@ -1,6 +1,72 @@
 Dux Documentation for pageviews
 <pre class='pageviews'>
-        * @method is_session_started
-        * @return bool
-        public function is_session_started(): bool
+     * @method __construct
+     * @param string, string
+     *
+    public function __construct(string $token, string $view_name)
+</pre>
+<pre class='pageviews'>
+     * @method addPartial
+     * @param string, string, string
+     *
+    public function addPartial(string $filename, string $view_name = "FALSE", string $res_dir = "FALSE"): bool
+</pre>
+<pre class='pageviews'>
+     * @method addShared
+     * @param string
+     *
+    public function addShared(string $filename): bool
+</pre>
+<pre class='pageviews'>
+     * @method save
+     * @param none
+     *
+    public function save(): bool
+</pre>
+<pre class='pageviews'>
+     * @method loadJSON
+     * @param none
+     *
+    public function loadThisJSON(): bool
+</pre>
+<pre class='pageviews'>
+     * @method writeIndex
+     * @param none
+     *
+    public function writeThisIndex():void
+</pre>
+<pre class='pageviews'>
+     * @method writeIndex
+     * @param none
+     *
+    public function writeIndex(): void
+</pre>
+<pre class='pageviews'>
+     * @method is_session_started
+     * @return bool
+    public function is_session_started(): bool
+</pre>
+<pre class='pageviews'>
+     * @method configJSON
+     * @param string
+     *
+    public function configPageWrite(string $view_name = "index"): bool
+</pre>
+<pre class='pageviews'>
+     * @method writePage
+     * @param string
+     *
+    public function writePage(string $view_name = "index"): bool
+</pre>
+<pre class='pageviews'>
+     * @method removeDependency
+     * @param string, string
+     *
+    public function removeDependency(string $folder, string $partial): bool
+</pre>
+<pre class='pageviews'>
+     * @method createAction
+     * @param string
+     *
+    public function createAction(string $action_name): bool
 </pre>

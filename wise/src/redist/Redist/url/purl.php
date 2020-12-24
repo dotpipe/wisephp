@@ -52,7 +52,7 @@ class pURL implements pUser {
      */
 	public static function create() {
 		
-		self::$files = new filemngr();
+		self::$files = new file_class();
 		self::$setup = new pConfig();
 		self::$hash = hash("sha256", $_SERVER['REMOTE_ADDR']);
 		if (file_exists(self::$files->user_log_dir().self::$hash)) {

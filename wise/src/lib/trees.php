@@ -21,7 +21,7 @@ class Trees extends Common {
         $this->tree = new Vector("Any");
         $this->regex_mapper = "/[\[\{]|[\]\}]|[\"'][^']+[\"'][\,$]{0}|[['\"<]{2}[^>]+[>\"']{2}[^<'\"]+[\"'<]{2}[^>\"']+[>'\"]{2}[\,$]{0,1}]+/";
         $this->indent = "<img src=\".\\src\\icons\\docs.gif\">";
-        $this->apiMap = new Map();
+        $this->apiMap = new Vector("Any");
     }
 
     /**
@@ -57,7 +57,7 @@ class Trees extends Common {
             }
             if (preg_match("/[\[\{]/", $temp)) {
                 $lvl++;
-                $this->apiMap->add("m $i", $temp);
+                $this->apiMap->push("m $i", $temp);
                 $output = $output . $temp . '<br>';
                 $output = $output . '<br>';
             }
@@ -70,12 +70,12 @@ class Trees extends Common {
                 }
                 else if (!preg_match("/[<>!#@?\\/%\-A-z\s_]+/", $tmp[$i])
                     && preg_match("/[0-9\.]+/", $tmp[$i], $tp))
-                    $this->apiMap->add($t[0],$tp[0]);
+                    $this->apiMap->push($t[0],$tp[0]);
                 else if (preg_match_all("/[nul\,]{4,5}/", $tmp[$i], $nul))
-                    $this->apiMap->add($t[0],$nul[0][0]);
+                    $this->apiMap->push($t[0],$nul[0][0]);
                 else {
                     preg_match("/[<>!#@?\,\\/%\-A-z0-9\s\._:]+/", $tmp[$i], $mp);
-                    $this->apiMap->add($t[0],$mp[0]);
+                    $this->apiMap->push($t[0],$mp[0]);
                 }
                 $output = $output . $temp;
                 if ($tmp[$i] != '[' && $tmp[$i] != '{')
@@ -84,11 +84,11 @@ class Trees extends Common {
             }
             else if (preg_match("/[\"'][<>!#@?\,\\/%\-A-z0-9\s\._:]+[\"'][\,$]{0,1}/", $temp)) {
                 preg_match("/[<>!#@?\,\\/%\-A-z0-9\s\._:]+/", $temp, $n);
-                $this->apiMap->add("m $i", $n[0]);
+                $this->apiMap->push("m $i", $n[0]);
                 $output = $output . $temp . '<br>';
             }
             else if (preg_match_all("/[\]\}][\,$]{0,1}/", $temp)) {
-                $this->apiMap->add("m $i", $temp);
+                $this->apiMap->push("m $i", $temp);
             }
         }
         return $output;
