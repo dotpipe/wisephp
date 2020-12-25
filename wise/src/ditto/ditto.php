@@ -68,7 +68,7 @@ function func_find(find)
     if (t == -1)
     {
         func_change(find[find.selectedIndex]);
-        //getLineNumber();
+        getLineNumber();
         return;
     }
     document.getElementById("code").setSelectionRange(
@@ -80,10 +80,16 @@ function func_find(find)
 }
 
 function getLineNumber() {
+    e = document.getElementById("functions");
+    f = document.getElementById("code");
+    let lcn = 'testCheckForFunction' + e.options[e.selectedIndex].value;
+    
+    console.log(lcn);
+    len = f.value.substr(0, f.value.search(lcn)).length;
 
-    lineNumber = document.getElementById("code").value.substr(0, document.getElementById("code").selectionStart).split("\n").length;
+    lineNumber = f.value.substr(0, len).split("\n").length;
 
-    document.getElementById("code").scroll(0,20*(lineNumber-1));      
+    f.scroll(0,20*(lineNumber-1));
 }
 
 
@@ -114,7 +120,7 @@ function func_change (t) {
         if (j == 1)
             h = h + x[i]; 
     }
-    document.getElementById("code").value = "\<\?php\n\nnamespace " + m.substr(0,m.lastIndexOf('\\')) + ";\n\nrequire_once '\\"+ m + ".php';\n\n" + f + "" + m.substr(m.lastIndexOf("\\")+1) + "Test extends " + m.substr(m.lastIndexOf("\\")+1) + " {\n\n" + "\tpublic function testCheckForFunction" + func + "() \n\t{\n\t\t\$obj = new " + m.substr(m.lastIndexOf("\\")+1) + "();\n\t\t\$testReturn = \$obj->" + func + "();\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
+    document.getElementById("code").value = "\<\?php\n\nnamespace " + m.substr(0,m.lastIndexOf('\\')) + ";\n\nrequire_once '\\"+ m + ".php';\n\n" + f + "" + m.substr(m.lastIndexOf("\\")+1) + "Test extends " + m.substr(m.lastIndexOf("\\")+1) + " {\n\n" + "\tpublic function testCheckForFunction" + func + "() \n\t{\n\t\t\$testReturn = \$this->" + func + "();\n\t}" + h.substr(1,h.length-6) + "\n}\n?>";
 }
 
 ['click', 'touch', 'tap'].forEach(function(e) {
@@ -189,7 +195,7 @@ function func_change (t) {
         if (document.getElementById("code").value == "undefined")
             document.getElementById("code").value = "";
     }, false);
-});
+}, { passive: !ns.includes("noPreventDefault") });
 var posS;
 var posE;
 textareaClicked = function(str1, str2) {

@@ -40,8 +40,8 @@ function io_cli($pluck): string
                 $args .= ', $' . $param->name;
             }
             $args = substr($args, 2, strlen($args));
-            $c .= "\tpublic function testCheckForFunction" . $key . "() \n\t{\n\t\t\$obj = new " . $out_class . "();";
-            $c .= "\n\t\t\$testReturn = \$obj->" . $key . "($args);\n\t}\n";// + substr($c,1,-6)"
+            $c .= "\tpublic function testCheckForFunction" . $key . "() \n\t{";
+            $c .= "\n\t\t\$testReturn = \$this->" . $key . "($args);\n\t}\n";// + substr($c,1,-6)"
         }
         $c .= "}\n?>";
     } catch (\Exception $e) {
