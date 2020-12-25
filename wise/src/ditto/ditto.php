@@ -195,7 +195,7 @@ function func_change (t) {
         if (document.getElementById("code").value == "undefined")
             document.getElementById("code").value = "";
     }, false);
-}, { passive: !ns.includes("noPreventDefault") });
+});
 var posS;
 var posE;
 textareaClicked = function(str1, str2) {
