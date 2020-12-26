@@ -261,9 +261,9 @@ function classToAJAX(elem) {
     elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
     elem_qstring = encodeURI(elem_qstring);
 
-    ["Lax","GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"]
+    ["Referrer-Policy","Strict","GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"]
     .forEach((e,f) => {
-        let header_array =["SameSite","method","mode","cache","credentials","content-type","redirect","referrer"] ;
+        let header_array =["strict-origin-when-cross-origin","SameSite","method","mode","cache","credentials","content-type","redirect","referrer"] ;
 
         opts.set(header_array[f], e);
         
@@ -287,7 +287,7 @@ function classToAJAX(elem) {
                     return;
                 return response.text().then(function(text) {
                     {
-                        let td = '<p> ' + text + '</p>';
+                        let td = '<p>' + text + '</p>';
                         document.getElementById(elem.getAttribute("insert").toString()).innerHTML = td;
                     }
                     return;
