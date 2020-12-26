@@ -1,4 +1,5 @@
-/**    Tags in script:
+/*
+    Tags in script:
         pipe        = name of id
         ajax        = calls and returns this file's ouput
         file-order  = ajax to these files, iterating [0,1,2,3]%array.length
@@ -18,7 +19,6 @@
 function display(elem)
 {
             // Toggle visibility of CSS display style of object
-    
     if (elem.hasOwnProperty("display"))
     {
         var rem = elem.getAttribute("display");
@@ -35,8 +35,6 @@ function display(elem)
 
 function remove(elem)
 {
-    if (!document.body.contains(elem))
-        return;
     // Remove Object
     if (elem.hasOwnProperty("remove"))
     {
@@ -52,17 +50,13 @@ function remove(elem)
 
 function goto(elem) {
 
-    elem = document.getElementById(elem.id);
-
-    if (!document.body.contains(elem))
-        return;
-    if (elem.hasOwnProperty("follow"))
-    {}
-    else if (elem.hasAttribute("ajax") || elem.hasOwnProperty("ajax") || elem.hasOwnProperty("insert"))
-    {
+    elem = document.getElementById(elem.id.toString());
+    if (elem.hasOwnProperty("insert"))
+    {return -1;}// && elem.getAttribute("redirect") == "follow"){}
+    if (elem.id.indexOf("carousel-table",0))
         return -1;
-    }
     
+    elem = document.getElementById(elem.id);
     //use 'data-pipe' as the classname to include its value
     // specify which pipe with pipe="target.id"
     var elem_values = document.getElementsByClassName("data-pipe");
@@ -71,9 +65,10 @@ function goto(elem) {
     // No 'pipe' means it is generic. This means it is open season for all with this class
     for (var i = 0; i < elem_values.length; i++) {
         //if this is designated as belonging to another pipe, it won't be passed in the url
-        if (elem_values[i] && elem_values[i].getAttribute("pipe") == elem.id)
-            elem_qstring = elem_qstring + "&" + elem_values[i].name + "=" + elem_values[i].value;
+        if (elem_values && !elem_values[i].hasOwnProperty("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
+            elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
         // Multi-select box
+        console.log(".");
         if (elem_values[i].hasOwnProperty("multiple")) {
             for (var o of elem_values.options) {
                 if (o.selected) {
@@ -82,43 +77,183 @@ function goto(elem) {
             }
         }
     }
-    console.log(elem.getAttribute("follow") + "?" + elem_qstring.substr(1,elem_qstring.length-1));
-    elem_qstring = elem.getAttribute("follow") + "?" + elem_qstring.substr(1,elem_qstring.length-1);
+
+    console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
+    elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
     window.location.href = elem_qstring;
 }
 
-['click', 'touch', 'tap', 'keypress'].forEach(function(e) {
+['click', 'touch', 'tap', 'key'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
 
+        if (ev.keyCode != 13 && ev.type == 'key')
+            return;
         const elem = ev.target;
+        console.log(ev);
         if (-1 == goto(elem))
-            AJAX(elem);
-        notify();
+            classToAJAX(elem);
     }, false);
     
-}); 
+});
 
-function AJAX(elem) {
-
+function makeCarousel (file)
+{
+    // give the current elem a chance to figure its link
+    var carousl = document.getElementById("carousel");
     
-    if (!document.body.contains(elem))
+    if (
+        carousl == undefined)
         return;
-    console.log(elem);
+    
+    var carousel = document.getElementById("carousel");
+
+    carousel.innerHTML = '<table style="width:500;height:150;background-color:black;color:white;" id="carousel-table" ajax="' + file + '"><tr></tr></table>';
+    return;
+}
+
+function carouselInsert() {
+
+    elem = document.getElementById("carousel-table");
+
     opts = new Map();
     f = 0;
 
     ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
-        let header_array = ["POST","no-cors","no-cache"," ",'{"Access-Control-Request-Method": "POST","Access-Control-Allow-Headers": "Content-Type, Authorization","Content-Type":"text/html"}', "manual", "client"];
+        let header_array = ["GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
 
         opts.set(e, header_array[f]);
         
     });
 
-    content_thru = '{"Access-Control-Request-Method": "POST","Access-Control-Allow-Headers": "Content-Type, Authorization","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax"),opts);
-    opts.set('body', JSON.stringify({"Content-Type":"text/html"}));
+    content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
+    var opts_req = new Request(elem.getAttribute("ajax").toString());
+    opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
+
+    fetch(opts_req, {
+        signal
+    });
+    
+    setTimeout(() => abort_ctrl.abort(), 10 * 1000);
+    const __grab = async (opts_req, opts) => {
+        return fetch(opts_req, opts)
+            .then(function(response) {
+                return response.text().then(function(text) {
+                    if (response.status == 404)
+                        return;
+                    var ee = elem.firstChild.firstChild;
+                    if (elem.firstChild.childElementCount == 2)
+                    {
+                        let td = document.createElement("td");
+                        td.innerHTML = '<p>' + text + '</p>';
+                        td.style.position = "relative";
+                        ee.appendChild(td);
+                    }
+                    else
+                    {
+                        let td = document.createElement("td");
+                        td.innerHTML = '<p>' + text + '</p>';
+                        td.style.position = "relative";
+                        ee.insertBefore(td,ee.lastChild);
+                    }
+                    return;
+                });
+            });
+    }
+    __grab(opts_req, opts);
+}
+
+function notify() {
+
+    elem = document.getElementsByTagName("blinkbox")[0];
+
+    opts = new Map();
+    f = 0;
+
+    ["method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
+        let header_array = ["POST","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
+
+        opts.set(e, header_array[f]);
+        
+    });
+
+    content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
+    var opts_req = new Request(elem.getAttribute("ajax"));
+    opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
+    const abort_ctrl = new AbortController();
+    const signal = abort_ctrl.signal;
+
+    fetch(opts_req, {
+        signal
+    });
+
+    target__ = "blinkbox";
+    
+    setTimeout(() => abort_ctrl.abort(), 10 * 1000);
+    const __grab = async (opts_req, opts) => {
+        return fetch(opts_req, opts)
+            .then(function(response) {
+                if (response.status == 404)
+                        return;
+                return response.text().then(function(text) {
+                    
+                        if (undefined == document.getElementsByTagName("blinkbox")[0]) {
+
+                            ppr = document.createElement("blinkbox");
+                            ppr.style.position = "absolute";
+                            ppr.style.backgroundColor = "navy";
+                            ppr.style.wordwrap = true;
+                            ppr.style.width = window.innerWidth / 4;
+                            ppr.style.zIndex = 3;
+                            p.innerText = text;
+                            p.style.position = "relative";
+                            ppr.setAttribute("notify-ms",3000);
+                            document.body.insertBefore(ppr,document.body.firstChild);
+                        }
+                        else {
+                            ppr = document.getElementsByTagName("blinkbox")[0];
+                        }
+                            let p = document.createElement("p");
+                            p.innerText = text;
+                            p.style.position = "relative";
+                            ppr.insertBefore(p,ppr.firstChild);
+                        var xy = parseInt(elem.getAttribute("notify-ms"));
+                        setTimeout(function(){
+                            ppr.removeChild(ppr.lastChild);
+                        }, xy);
+                    return;
+                });
+            });
+    }
+    __grab(opts_req, opts);
+}
+
+function classToAJAX(elem) {
+
+    
+    if (!elem)
+        return;
+
+    opts = new Map();
+    f = 0;
+
+    ["SameSite","method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
+        let header_array = ["Lax","GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
+
+        opts.set(e, header_array[f]);
+        
+    });
+
+    content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
+    var opts_req = new Request(elem.getAttribute("ajax").toString());
+    opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
+    const abort_ctrl = new AbortController();
+    const signal = abort_ctrl.signal;
+    
+    fetch(opts_req, {
+        signal
+    });
     
     setTimeout(() => abort_ctrl.abort(), 10 * 1000);
     const __grab =  (opts_req, opts) => {
@@ -129,7 +264,7 @@ function AJAX(elem) {
                 return response.text().then(function(text) {
                     {
                         let td = '<p>' + text + '</p>';
-                        document.getElementById(elem.getAttribute("insert")).innerHTML = td;
+                        document.getElementById(elem.getAttribute("insert").toString()).innerHTML = td;
                     }
                     return;
                 });
@@ -145,16 +280,16 @@ function rem(elem)
 
 function carouselScrollLeft(elem) {
 
-    elem.parentNode.scrollX -= 150;
+    elem.scrollX -= 150;
 
 }
 
 function carouselScrollRight(elem) {
 
-    elem.parentNode.scrollX += 150;
+    elem.scrollX += 150;
 
 }
 
 function carouselXPos(elem) {
-    return elem.parentNode.offsetLeft;
+    return elem.offsetLeft;
 }
