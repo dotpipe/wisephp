@@ -62,7 +62,7 @@ function goto(elem) {
     var elem_values = document.getElementsByClassName("data-pipe");
     var elem_qstring = "";
 
-    // No 'pipe' means it is generic. This means it is open season for all with this class
+    // No, 'pipe' means it is generic. This means it is open season for all with this class
     for (var i = 0; i < elem_values.length; i++) {
         //if this is designated as belonging to another pipe, it won't be passed in the url
         if (elem_values && !elem_values[i].hasOwnProperty("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
@@ -83,10 +83,10 @@ function goto(elem) {
     window.location.href = elem_qstring;
 }
 
-['click', 'touch', 'tap', 'key'].forEach(function(e) {
+['dblclick', 'touch', 'tap', 'keydown'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
 
-        if (ev.keyCode != 13 && ev.type == 'key')
+        if (ev.keyCode != 13)
             return;
         const elem = ev.target;
         console.log(ev);
@@ -101,8 +101,7 @@ function makeCarousel (file)
     // give the current elem a chance to figure its link
     var carousl = document.getElementById("carousel");
     
-    if (
-        carousl == undefined)
+    if (carousl == undefined)
         return;
     
     var carousel = document.getElementById("carousel");
@@ -238,15 +237,40 @@ function classToAJAX(elem) {
     opts = new Map();
     f = 0;
 
-    ["SameSite","method","mode","cache","credentials","content-type","redirect","referrer"].forEach((e,f) => {
-        let header_array = ["Lax","GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"];
+    let elem_qstring = "";
+    var elem_values = document.getElementsByClassName("data-pipe");
+    
+    // No, 'pipe' means it is generic. This means it is open season for all with this class
+    for (var i = 0; i < elem_values.length; i++) {
+        //if this is designated as belonging to another pipe, it won't be passed in the url
+        if (elem_values && !elem_values[i].hasOwnProperty("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
+            elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
+        // Multi-select box
+        console.log(".");
+        if (elem_values[i].hasOwnProperty("multiple")) {
+            for (var o of elem_values.options) {
+                if (o.selected) {
+                    elem_qstring = elem_qstring + "&" + elem_values[i].name + "=" + o.value;
+                }
+            }
+        }
+    }
 
-        opts.set(e, header_array[f]);
+    elem_qstring = elem_qstring + "&" + elem.name + "=" + elem.value;
+    console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
+    elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
+    elem_qstring = encodeURI(elem_qstring);
+
+    ["Lax","GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"]
+    .forEach((e,f) => {
+        let header_array =["SameSite","method","mode","cache","credentials","content-type","redirect","referrer"] ;
+
+        opts.set(header_array[f], e);
         
     });
 
     content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax").toString());
+    var opts_req = new Request(elem_qstring);
     opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
@@ -263,7 +287,7 @@ function classToAJAX(elem) {
                     return;
                 return response.text().then(function(text) {
                     {
-                        let td = '<p>' + text + '</p>';
+                        let td = '<p> ' + text + '</p>';
                         document.getElementById(elem.getAttribute("insert").toString()).innerHTML = td;
                     }
                     return;
