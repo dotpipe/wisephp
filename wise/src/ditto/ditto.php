@@ -249,8 +249,15 @@ textarea {
     width:75%;
     height:150;
     border-radius: 5px 5px 5px 5px;
-    line-height: 20px;
-}</style>
+    line-height: 1em;
+    background: url(http://i.imgur.com/2cOaJ.png);
+    background-attachment: local;
+    background-repeat: no-repeat;
+    padding-left: 35px;
+    padding-top: 10px;
+    border-color:lightsteelblue;
+}
+</style>
 
 </head>
 
