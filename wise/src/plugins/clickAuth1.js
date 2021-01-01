@@ -1,4 +1,4 @@
-var myNotification = new Notification("Facebook Verification", 
+var myNotification = new Notification("WisePHP Verification", 
 {
     dir: "ltr",
     body: "Please Verify Your attempt To Login!\nYour passcode is -------",
@@ -22,7 +22,7 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
   
-let querying = browser.tabs.query({url: "*://www.facebook.com/*"});
+let querying = browser.tabs.query({url: "*://www.wisephp.com/*"});
 querying.then(logTabs, onError);
 
 function notifyMe() {
@@ -42,7 +42,7 @@ function notifyMe() {
       Notification.requestPermission(function (permission) {
         // If the user accepts, let's create a notification
         if (permission === "granted") {
-          var notification = new Notification("Welcome to Facebook!");
+          var notification = new Notification("Welcome to WisePHP.com!");
         }
       });
     }
