@@ -67,7 +67,7 @@
       top: 119;
       height: 145;
       z-index: 2;
-      width:250;
+      width:500;
       opacity:0.35;
       padding: 10;
       background-color:antiquewhite;
@@ -84,7 +84,7 @@
     }
     #details {
       position: absolute;
-      left: 440;
+      left: 750;
       top: 105;
       height: 45;
       z-index: 2;
@@ -110,7 +110,9 @@
     }
     .gotoitem {
       position: sticky;
-      left: 380;
+      left: 100%;
+      right: 15;
+      text-justify: right;
       height: 30;
       z-index: 2;
       font-size:14;
@@ -129,7 +131,7 @@
 <img  onclick="widensearch(this)" onblur="shrinksearch(this)" id="sicon" src="sicon.jpg" />
 <input name="keywords" method="POST" onfocus="widensearch(this)" onblur="shrinksearch(this)" ajax="find.php" insert="searched" id="helper" type="text" placeholder="Type Anything!">
 <text id="Controlheader">Find Stores carrying deals on...</text>
-<pre id="searched"></pre>
+<pre id="searched" width="500"></pre>
 <pre id="details"></pre>
 
 <html>
