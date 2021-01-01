@@ -13,7 +13,7 @@ class CRUD
      * @param config_filename
      *     
      */
-    public function __construct(string $config = "/wise/config/config.json")
+    public function __construct(string $config = "../config/config.json")
     {
         $this->ini = json_decode(\file_get_contents($config));
         $dsn = "mysql:dbname=" . $this->ini->database . ";host=" . $this->ini->host;

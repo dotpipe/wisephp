@@ -83,15 +83,22 @@ function goto(elem) {
     window.location.href = elem_qstring;
 }
 
-['dblclick', 'touch', 'tap', 'keydown'].forEach(function(e) {
+['click', 'touch', 'tap', 'keydown'].forEach(function(e) {
     window.addEventListener(e, function(ev) {
-
-        if (ev.keyCode != 13)
+        const callbackFunc = val => {
+            if (-1 == goto(val))
+                classToAJAX(val);
+        }
+        if (ev.keyCode != undefined && ev.keyCode != 13)
             return;
+        handler(ev.target)
+        function handler(v) {
+            callbackFunc(v);
+        }
+        
         const elem = ev.target;
         console.log(ev);
-        if (-1 == goto(elem))
-            classToAJAX(elem);
+        
     }, false);
     
 });
@@ -217,8 +224,8 @@ function notify() {
                             p.innerText = text;
                             p.style.position = "relative";
                             ppr.insertBefore(p,ppr.firstChild);
-                        var xy = parseInt(elem.getAttribute("notify-ms"));
-                        setTimeout(function(){
+                            var xy = parseInt(elem.getAttribute("notify-ms"));
+                            setTimeout(function(){
                             ppr.removeChild(ppr.lastChild);
                         }, xy);
                     return;
@@ -246,7 +253,6 @@ function classToAJAX(elem) {
         if (elem_values && !elem_values[i].hasOwnProperty("pipe") || elem_values[i].getAttribute("pipe") == elem.id)
             elem_qstring = elem_qstring + elem_values[i].name + "=" + elem_values[i].value + "&";
         // Multi-select box
-        console.log(".");
         if (elem_values[i].hasOwnProperty("multiple")) {
             for (var o of elem_values.options) {
                 if (o.selected) {
@@ -255,8 +261,11 @@ function classToAJAX(elem) {
             }
         }
     }
-
-    elem_qstring = elem_qstring + "&" + elem.name + "=" + elem.value;
+    console.log(elem);
+    val = elem.value;
+    if (elem.hasAttribute("value"))
+        val = elem.getAttribute("value");
+    elem_qstring = elem_qstring + "&" + elem.getAttribute("name") + "=" + val;
     console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
     elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
     elem_qstring = encodeURI(elem_qstring);
