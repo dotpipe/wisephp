@@ -43,6 +43,7 @@ class pURL implements pUser {
 	static $req;
 	static $hash;
 	static $temp;
+	static $users_per_queue;
 
     /**
      * @method create
@@ -99,6 +100,19 @@ class pURL implements pUser {
 		self::$max_history = 10;
 		self::$timer = time();
 		self::$content_type = 'application/x-www-form-urlencoded';
+	}
+
+    /**
+     * @method change_user_queue_count
+	 * @param count
+     * 
+	 * change amount of users that can be in queue
+	 * during peak times. Otherwise it will cycle.
+	 * 
+     */
+	public static function change_user_queue_count($count) {
+		self::$users_per_queue = $count;
+		return;
 	}
 
     /**
@@ -297,6 +311,7 @@ class pURL implements pUser {
 		foreach (self::$users->cookie_sheet as $key => $val) {
 			$x = self::return_relatives($val);
 			if ($x > 50) {
+				self::$timer = microtime(true);
 				self::delay_connection();
 				return true;
 			}
@@ -437,7 +452,7 @@ class pURL implements pUser {
 	public static function delay_connection() {
 		
 		$x = [];
-		if (sizeof(self::$users) > 2000) {
+		if (sizeof(self::$users) > self::$users_per_queue) {
 			if (self::relative_count() > 50) {
 				self::$files->save_user_log($_SERVER['REMOTE_ADDR']);
 				array_unique(self::$users);
