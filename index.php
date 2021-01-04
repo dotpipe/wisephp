@@ -96,7 +96,7 @@ blinkbox {
 </style>
 <html>
 <head>
-<script src="./wise/src/routes/pipes.js"></script>
+<script src="./wise/src/switches/pipes.js"></script>
 <script src="./wise/src/plugins/carousel.js"></script>
 <script src="./wise/src/plugins/notified.js"></script>
 <script src="./wise/src/plugins/filler.js"></script>
@@ -213,7 +213,7 @@ $x = 0;
 
 \ob_flush();
 $t->buf = json_encode($m->dat);
-
+ 
 $t->buffSize = 0;
 $t->writeBuf();
 

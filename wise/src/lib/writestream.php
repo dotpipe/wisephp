@@ -29,7 +29,7 @@ class writeStream extends Streams {
      * 
      * common init
      */
-    public function addStrm(string $r): bool {
+    public function addStrm(string $r, bool $bool = false): bool {
         if (!\file_exists($this->dir . $r))
             return false;
         $ed = fopen($this->dir . $r, 'w');
