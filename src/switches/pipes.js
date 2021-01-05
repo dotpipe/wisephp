@@ -54,7 +54,7 @@ function goto(el) {
     
     if (!document.body.contains(el))
         return;
-    if (elem.getAttribute("redirect") == "direct")
+    if (elem.hasAttribute("redirect"))
     { window.location.replace = elem.getAttribute("ajax"); }
     else if (elem.hasAttribute("insert"))
     {return -1;}
