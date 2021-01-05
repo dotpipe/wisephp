@@ -6,3 +6,13 @@ composer.phar
 
 composer.lock
 /.vscode/
+article.php
+classlist.php
+composer.lock
+docs.php
+documentation.zip
+index.php
+phpunit
+start_dux.php
+wise.zip
+/images/

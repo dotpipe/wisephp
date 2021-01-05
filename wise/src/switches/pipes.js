@@ -48,15 +48,17 @@ function remove(elem)
     }
 }
 
-function goto(elem) {
+function goto(el) {
 
-    elem = document.getElementById(elem.id.toString());
+    elem = document.getElementById(el.id);
     
-    if (!document.body.contains(elem))
+    if (!document.body.contains(el))
         return;
-    if (elem.hasOwnProperty("insert"))
-    {return -1;}// && elem.getAttribute("redirect") == "follow"){}
-    if (elem.id.indexOf("carousel-table",0))
+    if (elem.hasAttribute("redirect"))
+    { window.location.replace = elem.getAttribute("ajax"); }
+    else if (elem.hasAttribute("insert"))
+    {return -1;}
+    else if (elem.id.indexOf("carousel-table",0))
         return -1;
     
     elem = document.getElementById(elem.id);
@@ -84,6 +86,7 @@ function goto(elem) {
     console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
     elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
     window.location.href = elem_qstring;
+    return -1;
 }
 
 ['click', 'touch', 'tap', 'keydown'].forEach(function(e) {
@@ -92,6 +95,22 @@ function goto(elem) {
 
         if (ev.type == "keydown" && ev.keyCode != 13)
             return;
+        
+        if (ev.target.classList == "download")
+        {
+            var text = ev.target.getAttribute("file");
+            var element = document.createElement('a');
+            var location = ev.target.getAttribute("directory");
+            element.setAttribute('href', location + encodeURIComponent(text));
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+            return;
+        }
         const elem = ev.target;
         console.log(ev);
         notify();
