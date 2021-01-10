@@ -12,25 +12,23 @@
     "minimum-stability": "stable",
     "autoload": {
         "classmap": [
-        "wise",
-        "wise/src",
-        "wise/src/errors",
-        "wise/src/lib",
-        "wise/src/chat",
-        "wise/src/dux",
-        "wise/src/router",
-        "wise/src/redist/Redist/setup",
-        "wise/src/redist/Redist/search",
-        "wise/src/redist/Redist/files",
-        "wise/src/redist/Redist/url",
-        "wise/src/switches",
-        "wise/src/oauth2",
-        "wise/src/pasm",
-        "wise/src/ditto",
-        "wise/src/chat",
-        "wise/src/wireframe",
-        "wise/src/plugins",
-        "wise/src/plugins/KeywordFactory"
+        "src",
+        "src/errors",
+        "src/lib",
+        "src/chat",
+        "src/dux",
+        "src/redist/Redist/setup",
+        "src/redist/Redist/search",
+        "src/redist/Redist/files",
+        "src/redist/Redist/url",
+        "src/switches",
+        "src/oauth2",
+        "src/pasm",
+        "src/ditto",
+        "src/chat",
+        "src/wireframe",
+        "src/plugins",
+        "src/plugins/KeywordFactory"
         ]
     }
 }
