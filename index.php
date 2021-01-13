@@ -1,11 +1,10 @@
-<?php //declare (strict_types = 1);
+<?php declare (strict_types = 1);
 
-namespace wise\src\lib;
+namespace wise\src       ;
 
 require "vendor/autoload.php";
 
 session_start();
-file_put_contents("example.txt",":):):):)");
 ?>
 <!doctype html>
 <html>
@@ -16,8 +15,8 @@ file_put_contents("example.txt",":):):):)");
     border-color: midnightblue;
     color:silver;
     margin:0px;
-    border-width: 2;
-    padding:5;
+    border-width: 2px;
+    padding:3px;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
     text-align:justify;
@@ -46,21 +45,21 @@ table {
     </div>
     <nav class="secondary_header" id="menu">
       <ul>
-        <li id="about" method="GET" ajax="article.php" insert="backoff">ABOUT</li>
-        <li id="docs" method="GET" ajax="docs.php" insert="backoff">DOCUMENTATION</li>
-		<li id="git" redirect ajax="https://www.github.com/wise-penny/wise">GIT</li>
+        <li id="about" data-method="GET" data-ajax="article.php" data-insert="backoff">ABOUT</li>
+        <li id="docs" data-method="GET" data-ajax="docs.php" data-insert="backoff">DOCUMENTATION</li>
+		    <li id="git" redirect data-ajax="https://www.github.com/wise-penny/wise">GIT</li>
         <li class="download" mime-type="application/zip" directory="./d/" file="wisephp.zip">DOWNLOAD</li>
-        <li id="issues" redirect ajax="https://github.com/wise-penny/Wise/issues">ISSUES</li>
-        <li id="social" redirect ajax="https://www.twitter.com/thexiv">TWITTER</li>
-      </ul>   
+        <li id="issues" redirect data-ajax="https://github.com/wise-penny/Wise/issues">ISSUES</li>
+        <li id="social" redirect data-ajax="https://www.twitter.com/thexiv">TWITTER</li>
+      </ul>
     </nav>
   </header>
   <section id="backoff">
     <article class="left_article">
       <h3>@WISEPHP</h3>
-      <p>Wise is an intriguing balance of motion and power. The more on its side in classes, the more involved one can create a web app. This is impeccable and with UX being so important, it's very much an issue that we all connect correctly between the UI and backend. The introduction here is to begin a new crush to your website's dynamic side. wise/src/switches/Pipes, which will be introduced on this site, is the biggest mover of AJAX information on this site, and in fact there is no other that can be so easily used and simple to configure. It's an already useable dynamic material. Change anything from anywhere without leaving the page. You're only calling a background page. How? Fetch API. Simple. Go ahead and check it out.<br>
+      <p>Wise is an intriguing balance of motion and power. The more on its side in classes, the more involved one can create a web app. This is impeccable and with UX being so important, it's very much an issue that we all connect correctly between the UI and backend. The introduction here is to begin a new crush to your website's dynamic side. wise/src/switches/Pipes, which will be introduced on this site, is the biggest mover of data-AJAX information on this site, and in fact there is no other that can be so easily used and simple to configure. It's an already useable dynamic material. Change anything from anywhere without leaving the page. You're only calling a background page. How? Fetch API. Simple. Go ahead and check it out.<br>
 	  <br>
-	  Anyone with experience in Javascript will adapt to it naturally. In fact, just look at the source of this page. It will be easier explained then. Using the <i>ajax</i> attribute that's been introduced will identify it as a link. You can use the <i>download</i> class to make a clickable file-download of any tagname. Make sure the <i>ajax</i> has an <i>id</i> attribute tho, or you're not working with it and it will fail. Using <i>redirect</i> as a attribute, with or without definition will cause the ajax to be followed to, rather than set into the page. You can set the background page output to anywhere in a page by matching the target <i>id</i> with the <i>insert</i> tag attribute. Define the <i>insert</i> tag attribute with the tag <i>id</i> of the target. It will fill the tag with the requested background fetch async call's output.</p>
+	  Anyone with experience in Javascript will adapt to it naturally. In fact, just look at the source of this page. It will be easier explained then. Using the <i>data-ajax</i> attribute that's been introduced will identify it as a link. You can use the <i>download</i> class to make a clickable file-download of any tagname. Make sure the <i>data-ajax</i> has an <i>id</i> attribute tho, or you're not working with it and it will fail. Using <i>redirect</i> as a attribute, with or without definition will cause the data-ajax to be followed to, rather than set into the page. You can set the background page output to anywhere in a page by matching the target <i>id</i> with the <i>data-insert</i> tag attribute. Define the <i>data-insert</i> tag attribute with the tag <i>id</i> of the target. It will fill the tag with the requested background fetch async call's output.</p>
     </article>
     
   </section>

@@ -1,18 +1,18 @@
 /*
     Tags in script:
         pipe        = name of id
-        ajax        = calls and returns this file's ouput
-        file-order  = ajax to these files, iterating [0,1,2,3]%array.length
-        index       = counter of which index to use with file-order to go with ajax
-        redirect    = "follow" to go where the ajax says
+        data-ajax        = calls and returns this file's ouput
+        file-order  = data-ajax to these files, iterating [0,1,2,3]%array.length
+        index       = counter of which index to use with file-order to go with data-ajax
+        redirect    = "follow" to go where the data-ajax says
         data-pipe   = name of class for multi-tag data (augment with pipe)
         multiple    = states that this object has two or more key/value pairs
         remove      = remove element in tag
         display     = toggle visible and invisible
-        replace     = insert ajax callback return in this id
-        insert      = same as replace
+        replace     = data-insert data-ajax callback return in this id
+        data-insert      = same as replace
         json        = returning a JSON
-        !!! ALL HEADERS FOR AJAX are available. They will use defaults to
+        !!! ALL HEADERS FOR data-AJAX are available. They will use defaults to
         !!! go on if there is no input to replace them.
 */
 
@@ -55,8 +55,8 @@ function goto(el) {
     if (!document.body.contains(el))
         return;
     if (elem.hasAttribute("redirect"))
-    { window.location.replace = elem.getAttribute("ajax"); }
-    else if (elem.hasAttribute("insert"))
+    { window.location.replace = elem.getAttribute("data-ajax"); }
+    else if (elem.hasAttribute("data-insert"))
     {return -1;}
     else if (elem.id.indexOf("carousel-table",0))
         return -1;
@@ -83,8 +83,8 @@ function goto(el) {
         }
     }
 
-    console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
-    elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
+    console.log(elem.getAttribute("data-ajax") + "?" + elem_qstring.substr(1));
+    elem_qstring = elem.getAttribute("data-ajax") + "?" + elem_qstring.substr(1);
     window.location.href = elem_qstring;
     return -1;
 }
@@ -109,13 +109,14 @@ function goto(el) {
             element.click();
 
             document.body.removeChild(element);
+
             return;
         }
         const elem = ev.target;
         console.log(ev);
         notify();
         if (-1 == goto(elem))
-            classToAJAX(elem);
+            classTodata-AJAX(elem);
     }, false);
     
 });
@@ -130,7 +131,7 @@ function makeCarousel (file)
     
     var carousel = document.getElementById("carousel");
 
-    carousel.innerHTML = '<table style="width:500;height:150;background-color:black;color:white;" id="carousel-table" ajax="' + file + '"><tr></tr></table>';
+    carousel.innerHTML = '<table style="width:500;height:150;background-color:black;color:white;" id="carousel-table" data-ajax="' + file + '"><tr></tr></table>';
     return;
 }
 
@@ -149,7 +150,7 @@ function carouselInsert() {
     });
 
     content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax").toString());
+    var opts_req = new Request(elem.getAttribute("data-ajax").toString());
     opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
@@ -178,7 +179,7 @@ function carouselInsert() {
                         let td = document.createElement("td");
                         td.innerHTML = '<p>' + text + '</p>';
                         td.style.position = "relative";
-                        ee.insertBefore(td,ee.lastChild);
+                        ee.data-insertBefore(td,ee.lastChild);
                     }
                     return;
                 });
@@ -204,7 +205,7 @@ function notify() {
     });
 
     content_thru = '{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}';
-    var opts_req = new Request(elem.getAttribute("ajax"));
+    var opts_req = new Request(elem.getAttribute("data-ajax"));
     opts.set('body', JSON.stringify({"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}));
     const abort_ctrl = new AbortController();
     const signal = abort_ctrl.signal;
@@ -234,7 +235,7 @@ function notify() {
                             p.innerText = text;
                             p.style.position = "relative";
                             ppr.setAttribute("notify-ms",3000);
-                            document.body.insertBefore(ppr,document.body.firstChild);
+                            document.body.data-insertBefore(ppr,document.body.firstChild);
                         }
                         else {
                             ppr = document.getElementsByTagName("blinkbox")[0];
@@ -242,7 +243,7 @@ function notify() {
                             let p = document.createElement("p");
                             p.innerText = text;
                             p.style.position = "relative";
-                            ppr.insertBefore(p,ppr.firstChild);
+                            ppr.data-insertBefore(p,ppr.firstChild);
                         var xy = parseInt(elem.getAttribute("notify-ms"));
                         setTimeout(function(){
                             ppr.removeChild(ppr.lastChild);
@@ -283,8 +284,8 @@ function classToAJAX(elem) {
     }
 
     elem_qstring = elem_qstring + "&" + elem.name + "=" + elem.value;
-    console.log(elem.getAttribute("ajax") + "?" + elem_qstring.substr(1));
-    elem_qstring = elem.getAttribute("ajax") + "?" + elem_qstring.substr(1);
+    console.log(elem.getAttribute("data-ajax") + "?" + elem_qstring.substr(1));
+    elem_qstring = elem.getAttribute("data-ajax") + "?" + elem_qstring.substr(1);
     elem_qstring = encodeURI(elem_qstring);
 
     ["Referrer-Policy","Strict","GET","no-cors","no-cache"," ",'{"Access-Control-Allow-Origin":"*","Content-Type":"text/html"}', "manual", "client"]
@@ -314,7 +315,7 @@ function classToAJAX(elem) {
                 return response.text().then(function(text) {
                     {
                         let td = '<p>' + text + '</p>';
-                        document.getElementById(elem.getAttribute("insert").toString()).innerHTML = td;
+                        document.getElementById(elem.getAttribute("data-insert").toString()).innerHTML = td;
                     }
                     return;
                 });
