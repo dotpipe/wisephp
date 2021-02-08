@@ -1,9 +1,5 @@
 <?php
-<<<<<<< Updated upstream:src/chat/chat.php
 namespace src\chat;
-=======
-namespace wise\src;
->>>>>>> Stashed changes:wise/src/chat/chat.php
 
 use src\oauth2\CRUD;
 
