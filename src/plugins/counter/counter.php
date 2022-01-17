@@ -2,7 +2,7 @@
 
 namespace src\lib;
 
-include("../../../../vendor/autoload.php");
+include("/../../../vendor/autoload.php");
 
 $cntMap = new Map();
 

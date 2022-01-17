@@ -3,7 +3,7 @@ namespace src\errors;
 
 set_error_handler('PageErrors');
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 class PageErrors
 {
     

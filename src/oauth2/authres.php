@@ -2,7 +2,7 @@
 
 namespace src\oauth2;
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 $PARAM = ($_SERVER['REQUEST_METHOD'] == "POST") ? $_POST : $_GET;
 
 

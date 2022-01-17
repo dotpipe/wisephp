@@ -2,9 +2,9 @@
 namespace src\lib;
 
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../vendor/autoload.php");
 
-class api extends mMap
+class API extends mMap
 {
     public $regex_mapper;
     public $apiMap;

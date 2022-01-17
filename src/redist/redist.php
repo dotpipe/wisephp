@@ -1,14 +1,9 @@
 <?php
 
-namespace src\Redist\redist;
+namespace src\redist\Redist;
 
-use src\redist\Redist\setup\pConfig;
-use src\redist\Redist\search_methods;
-use src\redist\Redist\files\file_class;
-use src\redist\Redist\url\pURL;
-use src\redist\Redist\curl\curl;
-require '../../../vendor/autoload.php';
-
+require_once __DIR__.'/../../../vendor/autoload.php';
+require_once __DIR__.'/Redist/search/search_methods.php';
 class Redist {
 
 	static $files;
@@ -26,11 +21,11 @@ class Redist {
 	 * 
 	 */
     public static function instance() {
-		self::$setup = new pConfig();
+		self::$setup = new setup\pConfig();
 		self::$search = new search_methods();
-		self::$files = new file_class();
-		self::$url = new pURL();
-		self::$curl = new cURL();
+		self::$files = new files\file_class();
+		self::$url = new url\pURL();
+		self::$curl = new curl\cURL();
 		self::$url->create();
 		self::parse_call();
     }

@@ -6,7 +6,7 @@ use src\switches\TemporaryRouteFactory;
 
 use src\switches\PermanentRouteFactory;
 
-require "../../../vendor/autoload.php";
+require __DIR__."/../../../vendor/autoload.php";
 
 /** *
  * @category Trafficking

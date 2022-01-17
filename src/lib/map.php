@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace src\lib;
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 
 class Map extends Common
 {
@@ -40,7 +40,6 @@ class Map extends Common
         $this->dat = array();
         $this->datCntr = 0;
     }
-
     /**
      * @method destroy
      * @param none
@@ -157,7 +156,7 @@ class Map extends Common
 
     /**
      * @method equals
-     * @param Map
+     * @param Map 
      *
      * compare maps
      */

@@ -2,7 +2,7 @@
 
 namespace src\oauth2;
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 
 class userController extends OAuth2Owner
 {

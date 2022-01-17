@@ -4,7 +4,7 @@ namespace src\oauth2;
 
 use src\pasm;
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 
 class UserClass extends CRUD {
 

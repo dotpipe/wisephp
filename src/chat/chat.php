@@ -3,7 +3,7 @@ namespace src\chat;
 
 use src\oauth2\CRUD;
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 
 class ChatBox
 {
@@ -16,7 +16,7 @@ class ChatBox
      * New object/Load INI file
      * 
      */
-    public function __construct(string $ini = "chat.ini")
+    public function __construct(string $ini = "/chat.ini")
     {
         $this->crud = new CRUD($ini);
     }

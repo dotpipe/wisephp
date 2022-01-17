@@ -2,7 +2,7 @@
 
 namespace src\switches;
 
-require "../../../vendor/autoload.php";
+require __DIR__."/../../../vendor/autoload.php";
 
 /** *
  * @category Route based on Temporary Status

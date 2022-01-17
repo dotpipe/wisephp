@@ -2,7 +2,7 @@
 
     use src\oauth2\CRUD;
 
-    include("../../../../vendor/autoload.php");
+    include("/../../../vendor/autoload.php");
 
     $crud = new CRUD("../../config/config.json");
 

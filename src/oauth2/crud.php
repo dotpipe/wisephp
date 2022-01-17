@@ -1,7 +1,7 @@
 <?php
 namespace src\oauth2;
 
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 
 class CRUD
 {
@@ -37,16 +37,14 @@ class CRUD
      */
     public function create(array $values, string $table)
     {
-        $db_msg = "INSERT INTO `$table` (";
-        //oreach ($values as $key => $val) {
+        $db_msg = "INSERT INTO $table (";
+
         foreach ($values as $k => $v) {
-            $db_msg .= $k . ",";
+            $db_msg .= $k . ","; 
         }
-        //}
 
-        $db_msg = substr($db_msg, 0, strlen($db_msg) - 1) . ") VALUES(";
+        $db_msg = substr($db_msg, 0, strlen($db_msg) - 1) . ") VALUES (";
 
-        //foreach ($values as $key => $val) {
         foreach ($values as $k => $v) {
             if (!is_string($v) && !\is_numeric($v)) {
                 $db_msg .= "NULL,";
@@ -56,7 +54,7 @@ class CRUD
                 $db_msg .= $v . ",";
             }
         }
-        //}
+
         $db_msg = substr($db_msg, 0, strlen($db_msg) - 1) . ")";
         $db_ = $this->db->prepare($db_msg);
         echo $db_msg;

@@ -1,7 +1,7 @@
 <?php declare (strict_types = 1);
 namespace src\lib;
 use src\lib\Map;
-require_once __DIR__ . '../../../../vendor/autoload.php';
+require_once(__DIR__."/../../../vendor/autoload.php");
 class Vector extends Common
 {
 
