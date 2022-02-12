@@ -23,7 +23,6 @@
         "src/redist/Redist/url",
         "src/switches",
         "src/oauth2",
-        "src/pasm",
         "src/ditto",
         "src/chat",
         "src/wireframe",
